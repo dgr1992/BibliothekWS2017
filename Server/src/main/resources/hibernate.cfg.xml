@@ -5,18 +5,14 @@
     <session-factory>
 
         <property name = "hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-
         <property name = "hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-
-        <!-- Assume test is the database name -->
+        <property name = "show_sql">true</property>
         <property name = "hibernate.connection.url">jdbc:mysql://10.0.51.95:3306/bibliothek</property>
-
         <property name = "hibernate.connection.username">dbUser</property>
-
         <property name = "hibernate.connection.password">team05</property>
 
-        <!-- List of XML mapping files
-        <mapping resource = "Employee.hbm.xml"/>-->
+        <mapping class="at.fhv.team05.domain.Category"/>
+        <mapping class="at.fhv.team05.domain.Book"/>
 
     </session-factory>
 </hibernate-configuration>
