@@ -6,7 +6,9 @@ import at.fhv.team05.presentation.navigation.NavigationView;
 import at.fhv.team05.presentation.search.SearchView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
