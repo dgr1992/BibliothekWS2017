@@ -2,6 +2,7 @@ package at.fhv.team05.presentation.mainView;
 
 import at.fhv.team05.presentation.navigation.LoginNavigationPresenter;
 import at.fhv.team05.presentation.navigation.LoginNavigationView;
+import at.fhv.team05.presentation.navigation.NavigationPresenter;
 import at.fhv.team05.presentation.navigation.NavigationView;
 import at.fhv.team05.presentation.search.SearchView;
 import javafx.fxml.FXML;
@@ -35,13 +36,17 @@ public class MainViewPresenter implements Initializable {
         contentContainer.getChildren().setAll(searchView.getView());
     }
 
-    protected void changeNavigationBarToLoggedIn(){
+    public void changeNavigationBarToLoggedIn(){
         NavigationView navigationView = new NavigationView();
         navigationBarContainer.getChildren().setAll(navigationView.getView());
+        NavigationPresenter presenter = (NavigationPresenter) navigationView.getPresenter();
+        presenter.setParent(this);
     }
 
-    protected void changeNavigationBarToLoggedOut() {
+    public void changeNavigationBarToLoggedOut() {
         LoginNavigationView navigationView = new LoginNavigationView();
         navigationBarContainer.getChildren().setAll(navigationView.getView());
+        LoginNavigationPresenter presenter = (LoginNavigationPresenter) navigationView.getPresenter();
+        presenter.setParent(this);
     }
 }

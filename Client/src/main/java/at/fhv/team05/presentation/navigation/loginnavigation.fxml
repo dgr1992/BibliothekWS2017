@@ -13,9 +13,9 @@
          <children>
             <VBox>
                <children>
-                  <ImageView fitHeight="134.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="250.0" fitWidth="287.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resource/books.png" />
+                        <Image url="@../resource/bookworm.jpg" />
                      </image>
                   </ImageView>
                   <JFXButton fx:id="btnLogin" onAction="#onLoginButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Login" />

@@ -1,5 +1,6 @@
 package at.fhv.team05.presentation.navigation;
 
+import at.fhv.team05.presentation.mainView.MainView;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
@@ -13,12 +14,9 @@ import java.util.ResourceBundle;
 /**
  * Created by Michelle on 29.10.2017.
  */
-public class NavigationPresenter extends MainViewPresenter {
+public class NavigationPresenter {
+    private MainViewPresenter parent;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
 
     @FXML
     void onLoadCustomerOverviewButtonPressed(ActionEvent event) {
@@ -37,8 +35,8 @@ public class NavigationPresenter extends MainViewPresenter {
 
     @FXML
     void onLogoutButtonPressed(ActionEvent event) {
-        changeNavigationBarToLoggedOut();
-        openSearchView();
+        parent.changeNavigationBarToLoggedOut();
+        parent.openSearchView();
     }
 
 
@@ -47,6 +45,10 @@ public class NavigationPresenter extends MainViewPresenter {
         alert.setHeaderText("Information");
         alert.setHeaderText("Not implemented yet!");
         alert.show();
+    }
+
+    public void setParent(MainViewPresenter mvp) {
+        parent = mvp;
     }
 
 
