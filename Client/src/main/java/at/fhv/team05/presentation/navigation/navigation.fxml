@@ -21,6 +21,7 @@
                   <JFXButton fx:id="btnLoadSearchView" onAction="#onLoadSearchViewButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Search" />
                   <JFXButton fx:id="btnLoadCustomerOverview" onAction="#onLoadCustomerOverviewButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Customer Overview" />
                   <JFXButton fx:id="btnLoadRentMediumView" onAction="#onLoadRentMediumViewButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Rent Medium" />
+                  <JFXButton onAction="#onLogoutButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Logout" />
                </children>
             </VBox>
          </children>

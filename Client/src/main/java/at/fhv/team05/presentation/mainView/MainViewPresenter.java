@@ -19,24 +19,29 @@ import java.util.ResourceBundle;
 public class MainViewPresenter implements Initializable {
 
     @FXML
-    private AnchorPane navigationBarContainer;
+    protected AnchorPane navigationBarContainer;
 
     @FXML
-    private AnchorPane contentContainer;
+    protected AnchorPane contentContainer;
 
 
     public void initialize(URL location, ResourceBundle resources) {
-
-        LoginNavigationView navigationView = new LoginNavigationView();
-        navigationBarContainer.getChildren().setAll(navigationView.getView());
+        changeNavigationBarToLoggedOut();
         openSearchView();
-
-
     }
 
     public void openSearchView(){
-
         SearchView searchView = new SearchView();
         contentContainer.getChildren().setAll(searchView.getView());
+    }
+
+    protected void changeNavigationBarToLoggedIn(){
+        NavigationView navigationView = new NavigationView();
+        navigationBarContainer.getChildren().setAll(navigationView.getView());
+    }
+
+    protected void changeNavigationBarToLoggedOut() {
+        LoginNavigationView navigationView = new LoginNavigationView();
+        navigationBarContainer.getChildren().setAll(navigationView.getView());
     }
 }

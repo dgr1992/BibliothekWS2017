@@ -4,6 +4,7 @@ import at.fhv.team05.presentation.mainView.MainView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sun.applet.Main;
 
 /**
  * Hello world!
