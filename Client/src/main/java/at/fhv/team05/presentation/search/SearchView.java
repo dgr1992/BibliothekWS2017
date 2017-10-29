@@ -1,4 +1,4 @@
-package at.fhv.team05.Presentation.Search;
+package at.fhv.team05.presentation.search;
 
 import com.airhacks.afterburner.views.FXMLView;
 
