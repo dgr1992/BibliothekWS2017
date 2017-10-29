@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="700.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.navigation.NavigationPresenter">
+<AnchorPane prefHeight="700.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.navigation.LoginNavigationPresenter">
    <children>
       <StackPane prefHeight="700.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -18,9 +18,7 @@
                         <Image url="@../resource/books.png" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="btnLoadSearchView" onAction="#onLoadSearchViewButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Search" />
-                  <JFXButton fx:id="btnLoadCustomerOverview" onAction="#onLoadCustomerOverviewButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Customer Overview" />
-                  <JFXButton fx:id="btnLoadRentMediumView" onAction="#onLoadRentMediumViewButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Rent Medium" />
+                  <JFXButton fx:id="btnLogin" onAction="#onLoginButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Login" />
                </children>
             </VBox>
          </children>
