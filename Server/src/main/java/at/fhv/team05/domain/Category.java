@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import at.fhv.team05.dtos.ICategory;
 import at.fhv.team05.persistence.DBFacade;
 
 /**
@@ -16,7 +17,7 @@ import at.fhv.team05.persistence.DBFacade;
  */
 @Entity
 @Table(name = "Category")
-public class Category {
+public class Category implements ICategory{
     @Id
     @GeneratedValue
     @Column(name = "id")
