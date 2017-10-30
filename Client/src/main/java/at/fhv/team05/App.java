@@ -14,7 +14,6 @@ public class App extends Application {
 
     {
         launch(args);
-        System.out.println("Hello World!");
     }
 
     @Override
