@@ -56,7 +56,7 @@ public class Book implements Serializable, IBook {
         _id = id;
     }
 
-    public String getTtile(){
+    public String getTitle(){
         return _title;
     }
 
