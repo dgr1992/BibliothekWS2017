@@ -74,12 +74,62 @@ public class SearchPresenter {
     private TableColumn<?, ?> tblColGenreDvd;
 
     @FXML
-    void onSearchBtnPressedBook(ActionEvent event) {
-
+    public void onSearchBtnPressedBook(ActionEvent event) {
+        if (getBookTitle() != null) {
+            System.out.println(getBookTitle());
+        }
+        if (getAuthor() != null) {
+            System.out.println(getAuthor());
+        }
+        if (getIsbn() != null) {
+            System.out.println(getIsbn());
+        }
+        if (getBookGenre() != null) {
+            System.out.println(getBookGenre());
+        }
     }
 
     @FXML
-    void onSearchBtnPressedDvd(ActionEvent event) {
+    public void onSearchBtnPressedDvd(ActionEvent event) {
+        if (getDvdTitle() != null) {
+            System.out.println(getDvdTitle());
+        }
+        if (getDirector() != null) {
+            System.out.println(getDirector());
+        }
+        if (getActor() != null) {
+            System.out.println(getActor());
+        }
+        if (getDvdGenre() != null) {
+            System.out.println(getDvdGenre());
+        }
+    }
 
+    private String getAuthor() {
+        return txtFiledAuthor.getText();
+    }
+
+    private String getBookTitle() {
+        return txtFiledTitleBook.getText();
+    }
+
+    private String getBookGenre() {
+        return txtFiledGenreBook.getText();
+    }
+    private String getIsbn() {
+        return txtFiledIsbn.getText();
+    }
+
+    private String getDvdTitle() {
+        return txtFieldTitleDvd.getText();
+    }
+    private String getDvdGenre() {
+        return txtFieldGenreDvd.getText();
+    }
+    private String getActor() {
+        return txtFieldActor.getText();
+    }
+    private String getDirector() {
+        return txtFieldDirector.getText();
     }
 }

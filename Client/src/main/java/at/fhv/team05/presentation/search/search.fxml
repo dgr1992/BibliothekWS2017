@@ -135,9 +135,9 @@
                                     <Button mnemonicParsing="false" onAction="#onSearchBtnPressedDvd" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                               </GridPane>
-                              <AnchorPane>
+                              <AnchorPane prefHeight="485.0" prefWidth="980.0">
                                  <children>
-                                    <TableView fx:id="tableViewDvdSearch" layoutY="1.0" prefHeight="399.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="tableViewDvdSearch" layoutY="1.0" prefHeight="399.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                        <columns>
                                           <TableColumn fx:id="tblColTitleDvd" prefWidth="222.0" text="Title" />
                                           <TableColumn fx:id="tblColDirector" prefWidth="146.0" text="Director" />
