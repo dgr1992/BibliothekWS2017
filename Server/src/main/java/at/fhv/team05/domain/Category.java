@@ -39,11 +39,11 @@ public class Category {
         _id = id;
     }
 
-    public String getCategoryIndey() {
+    public String getCategoryIndex() {
         return _categoryIndex;
     }
 
-    public void setCategoryIndey(String categoryIndey) {
+    public void setCategoryIndex(String categoryIndey) {
         _categoryIndex = categoryIndey;
     }
 
