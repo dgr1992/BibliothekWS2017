@@ -2,7 +2,6 @@ package at.fhv.team05.presentation.search;
 
 import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.rmiinterfaces.SearchForBook;
-import com.sun.jdi.connect.spi.TransportService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
