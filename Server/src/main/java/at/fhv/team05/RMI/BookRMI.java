@@ -1,4 +1,4 @@
-package at.fhv.team05.rmiLayer;
+package at.fhv.team05.RMI;
 
 import at.fhv.team05.domain.Book;
 import at.fhv.team05.dtos.IBook;
