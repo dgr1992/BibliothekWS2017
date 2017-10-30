@@ -62,7 +62,7 @@ public class SearchPresenter {
 
     @FXML
     public void onSearchBtnPressedBook(ActionEvent event) {
-        if (getBookTitle() != null) {
+        if (getBookTitle() != null ) {
             System.out.println(getBookTitle());
         }
         if (getAuthor() != null) {

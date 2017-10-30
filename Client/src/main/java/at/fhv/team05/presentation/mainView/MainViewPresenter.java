@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
 public class MainViewPresenter implements Initializable {
 
     @FXML
-    protected AnchorPane navigationBarContainer;
+    protected StackPane navigationBarContainer;
 
     @FXML
     protected AnchorPane contentContainer;
@@ -45,5 +46,9 @@ public class MainViewPresenter implements Initializable {
         navigationBarContainer.getChildren().setAll(navigationView.getView());
         LoginNavigationPresenter presenter = (LoginNavigationPresenter) navigationView.getPresenter();
         presenter.setParent(this);
+    }
+
+    public StackPane getNavigationBarContainer() {
+        return navigationBarContainer;
     }
 }

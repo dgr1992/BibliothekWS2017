@@ -18,7 +18,7 @@
                         <Image url="@../resource/books.png" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="btnLogin" onAction="#onLoginButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Login" />
+                  <JFXButton fx:id="btnLogin" onAction="#onLoginButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Login" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>
