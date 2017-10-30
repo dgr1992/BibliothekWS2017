@@ -6,5 +6,5 @@ import java.rmi.Remote;
 import java.util.LinkedList;
 
 public interface SearchForBook<T> extends Remote {
-    LinkedList<IBook> searchForBook(String title, String author, String ISBN, String Genre);
+    LinkedList<IBook> searchForBook(String title, String author, String ISBN);
 }
