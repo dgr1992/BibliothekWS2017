@@ -41,7 +41,6 @@ public class SearchController extends UnicastRemoteObject implements SearchForBo
 
         for (Book book : _bookSet) {
             if (book.getTitle().equalsIgnoreCase(title) || book.getAuthor().equalsIgnoreCase(author) || book.getIsbn().equalsIgnoreCase(ISBN)) {
-
                 _foundBooks.add((IBook) book);
             }
         }

@@ -8,7 +8,7 @@ import java.rmi.registry.LocateRegistry;
 /**
  * Hello world!
  */
-public class App {
+public class ServerRun {
 
     public static void main(String[] args) {
 
