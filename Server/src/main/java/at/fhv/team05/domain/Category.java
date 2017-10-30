@@ -5,6 +5,7 @@ import at.fhv.team05.dtos.ICategory;
 import at.fhv.team05.persistence.DBFacade;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "Category")
-public class Category implements ICategory {
+public class Category implements ICategory, Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Book")
-public class Book implements Serializable {
+public class Book implements IBook, Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -41,6 +41,7 @@ public class Book implements Serializable {
     public Book() {
     }
 
+    @Override
     public int getID() {
         return _id;
     }
@@ -49,6 +50,7 @@ public class Book implements Serializable {
         _id = id;
     }
 
+    @Override
     public String getTitle() {
         return _title;
     }
@@ -57,6 +59,7 @@ public class Book implements Serializable {
         _title = title;
     }
 
+    @Override
     public String getIsbn() {
         return _isbn;
     }
@@ -65,6 +68,7 @@ public class Book implements Serializable {
         _isbn = isbn;
     }
 
+    @Override
     public Date getReleaseDate() {
         return _releaseDate;
     }
@@ -73,6 +77,7 @@ public class Book implements Serializable {
         _releaseDate = releaseDate;
     }
 
+    @Override
     public Category getCategory() {
         return _category;
     }
@@ -81,6 +86,7 @@ public class Book implements Serializable {
         _category = category;
     }
 
+    @Override
     public String getPublisher() {
         return _publisher;
     }
@@ -89,6 +95,7 @@ public class Book implements Serializable {
         _publisher = publisher;
     }
 
+    @Override
     public String getAuthor() {
         return _author;
     }
