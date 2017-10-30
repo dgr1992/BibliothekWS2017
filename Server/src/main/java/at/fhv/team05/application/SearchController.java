@@ -1,7 +1,7 @@
 package at.fhv.team05.application;
 
-import at.fhv.team05.application.rmiinterfaces.SearchForBook;
 import at.fhv.team05.domain.Book;
+import at.fhv.team05.rmiinterfaces.SearchForBook;
 
 public class SearchController implements SearchForBook {
 
