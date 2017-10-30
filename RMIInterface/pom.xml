@@ -11,11 +11,11 @@
 
     <artifactId>RMIInterface</artifactId>
     <!--RMI Interface Dependency-->
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>BibliothekWS2017Server</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
+    <!--<dependencies>-->
+    <!--<dependency>-->
+    <!--<groupId>${project.groupId}</groupId>-->
+    <!--<artifactId>BibliothekWS2017Server</artifactId>-->
+    <!--<version>${project.version}</version>-->
+    <!--</dependency>-->
+    <!--</dependencies>-->
 </project>
