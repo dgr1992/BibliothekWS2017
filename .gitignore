@@ -25,3 +25,5 @@ hs_err_pid*
 /Server/BibliothekWS2017Server.iml
 /Client/target/
 /Server/target/
+
+*.iml
