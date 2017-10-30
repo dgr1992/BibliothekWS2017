@@ -158,8 +158,8 @@ public class SearchPresenter {
         tblColTitleBook.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<IBook, String>, ObservableValue<String>>() {
 
             public ObservableValue<String> call(TableColumn.CellDataFeatures<IBook, String> param) {
-                if (param.getValue().getTtile() != null) {
-                    return new SimpleStringProperty(param.getValue().getTtile());
+                if (param.getValue().getTitle() != null) {
+                    return new SimpleStringProperty(param.getValue().getTitle());
                 }
                 return new SimpleStringProperty("");
             }
