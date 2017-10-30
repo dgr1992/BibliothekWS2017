@@ -14,9 +14,6 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/**
- * Created by Michelle on 29.10.2017.
- */
 public class MainViewPresenter implements Initializable {
 
     @FXML

@@ -4,18 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-/**
- * Created by Flo on 29.10.17.
- */
 public class SearchPresenter {
-
-
-    @FXML
-    private TabPane tabPaneSearch;
-
-    @FXML
-    private Tab tabBook;
-
     @FXML
     private TextField txtFiledTitleBook;
 
@@ -43,8 +32,6 @@ public class SearchPresenter {
     @FXML
     private TableColumn<?, ?> tblColGenreBook;
 
-    @FXML
-    private Tab tabDvd;
 
     @FXML
     private TextField txtFieldTitleDvd;
@@ -132,4 +119,5 @@ public class SearchPresenter {
     private String getDirector() {
         return txtFieldDirector.getText();
     }
+
 }
