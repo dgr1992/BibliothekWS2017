@@ -1,24 +1,16 @@
 package at.fhv.team05.domain;
 
+import at.fhv.team05.dtos.IBook;
+import at.fhv.team05.persistence.DBFacade;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import at.fhv.team05.dtos.IBook;
-import at.fhv.team05.persistence.DBFacade;
-
 @Entity
 @Table(name = "Book")
-public class Book implements Serializable, IBook {
+public class Book implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -46,65 +38,66 @@ public class Book implements Serializable, IBook {
     @Column(name = "author")
     private String _author;
 
-    public Book(){}
+    public Book() {
+    }
 
-    public int getID(){
+    public int getID() {
         return _id;
     }
 
-    public void setID(int id){
+    public void setID(int id) {
         _id = id;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return _title;
     }
 
-    public void setTitle(String title){
+    public void setTitle(String title) {
         _title = title;
     }
 
-    public String getIsbn(){
+    public String getIsbn() {
         return _isbn;
     }
 
-    public void setIsbn(String isbn){
+    public void setIsbn(String isbn) {
         _isbn = isbn;
     }
 
-    public Date getReleaseDate(){
+    public Date getReleaseDate() {
         return _releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate){
+    public void setReleaseDate(Date releaseDate) {
         _releaseDate = releaseDate;
     }
 
-    public Category getCategory(){
+    public Category getCategory() {
         return _category;
     }
 
-    public void setCategory(Category category){
+    public void setCategory(Category category) {
         _category = category;
     }
 
-    public String getPublisher(){
+    public String getPublisher() {
         return _publisher;
     }
 
-    public void setPublisher(String publisher){
+    public void setPublisher(String publisher) {
         _publisher = publisher;
     }
 
-    public String getAuthor(){
+    public String getAuthor() {
         return _author;
     }
 
-    public void setAuthor(String author){
+    public void setAuthor(String author) {
         _author = author;
     }
 
-    public static void main( String[] args ){
+    public static void main(String[] args) {
         DBFacade dbFacade = DBFacade.getInstance();
 
         List<Book> books = dbFacade.getAllBooks();
@@ -114,7 +107,7 @@ public class Book implements Serializable, IBook {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Title: " + _title + ", ISBN: " + _isbn + ", ReleaseDate: " + _releaseDate + ", Category: " + _category.getCategoryName() + ", Publisher: " + _publisher + ", Author: " + _author;
     }
 }
