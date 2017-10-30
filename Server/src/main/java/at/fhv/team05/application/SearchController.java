@@ -6,8 +6,6 @@ import at.fhv.team05.rmiinterfaces.SearchForBook;
 import java.util.LinkedList;
 
 public class SearchController implements SearchForBook {
-
-
     private static SearchController instance;
 
     private SearchController() {
