@@ -20,5 +20,42 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.airhacks</groupId>
+      <artifactId>afterburner.fx</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jfxtras</groupId>
+      <artifactId>jfxtras-agenda</artifactId>
+      <version>8.0-r5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jfoenix</groupId>
+      <artifactId>jfoenix</artifactId>
+      <version>1.9.0</version>
+    </dependency>
   </dependencies>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.fxml</include>
+          <include>**/*.css</include>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.css</include>
+          <include>**/*.properties</include>
+          <include>**/*.png</include>
+
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>

@@ -6,6 +6,6 @@ import java.rmi.Remote;
 
 public interface SearchForBook extends Remote {
 
-    Book searchForBook();
+   Book searchForBook(String title, String author, String ISBN, String Genre);
 
 }
