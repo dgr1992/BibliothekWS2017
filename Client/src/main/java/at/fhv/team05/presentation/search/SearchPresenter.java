@@ -3,21 +3,21 @@ package at.fhv.team05.presentation.search;
 import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.rmiinterfaces.SearchForBook;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+
 
 public class SearchPresenter {
     @FXML
@@ -78,7 +78,7 @@ public class SearchPresenter {
 
     @FXML
     public void onSearchBtnPressedBook(ActionEvent event) {
-        List<IBook> books = null;
+        List<IBook> books = new LinkedList<>();
         try {
             SearchForBook searchForBook = (SearchForBook) Naming.lookup("rmi://10.0.51.95/SearchController");
             books = searchForBook.searchForBook(getBookTitle(), getAuthor(), getIsbn());
@@ -145,21 +145,16 @@ public class SearchPresenter {
     private void resultTable(List<IBook> bookList) {
 
         ObservableList<IBook> resultData = FXCollections.observableArrayList();
-        for (IBook b : bookList) {
-            resultData.add(b);
-        }
+        resultData.addAll(bookList);
         // tblColTitleBook.setCellValueFactory(new PropertyValueFactory<IBook,String>("title"));
         tblColAuthor.setCellValueFactory(new PropertyValueFactory<IBook, String>("author"));
         tblColIsbn.setCellValueFactory(new PropertyValueFactory<IBook, String>("isbn"));
 
-        tblColTitleBook.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<IBook, String>, ObservableValue<String>>() {
-
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<IBook, String> param) {
-                if (param.getValue().getTitle() != null) {
-                    return new SimpleStringProperty(param.getValue().getTitle());
-                }
-                return new SimpleStringProperty("");
+        tblColTitleBook.setCellValueFactory(param -> {
+            if (param.getValue().getTitle() != null) {
+                return new SimpleStringProperty(param.getValue().getTitle());
             }
+            return new SimpleStringProperty("");
         });
         tableViewBookSearch.setItems(resultData);
 
