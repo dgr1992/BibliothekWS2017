@@ -1,7 +1,9 @@
 package at.fhv.team05.application;
 
-import at.fhv.team05.domain.Book;
+import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.rmiinterfaces.SearchForBook;
+
+import java.util.LinkedList;
 
 public class SearchController implements SearchForBook {
 
@@ -18,9 +20,7 @@ public class SearchController implements SearchForBook {
         return instance;
     }
 
-    public Book searchForBook(String title, String author, String ISBN, String Genre) {
-
-        return null;
+    public LinkedList<IBook> searchForBook(String title, String author, String ISBN) {
+        return new LinkedList<IBook>();
     }
-
 }
