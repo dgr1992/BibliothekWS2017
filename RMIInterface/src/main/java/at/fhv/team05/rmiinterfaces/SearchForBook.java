@@ -1,8 +1,9 @@
 package at.fhv.team05.rmiinterfaces;
 
+import at.fhv.team05.dtos.IBook;
 
 import java.rmi.Remote;
 
 public interface SearchForBook<T> extends Remote {
-    T searchForBook(String title, String author, String ISBN, String Genre);
+    IBook searchForBook(String title, String author, String ISBN, String Genre);
 }

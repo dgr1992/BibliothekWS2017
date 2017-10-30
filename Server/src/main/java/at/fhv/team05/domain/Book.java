@@ -13,11 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.persistence.DBFacade;
 
 @Entity
 @Table(name = "Book")
-public class Book implements Serializable {
+public class Book implements Serializable, IBook {
     @Id
     @GeneratedValue
     @Column(name = "id")
