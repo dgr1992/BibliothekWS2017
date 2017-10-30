@@ -78,11 +78,9 @@ public class SearchPresenter {
 
     @FXML
     public void onSearchBtnPressedBook(ActionEvent event) {
-
-        SearchForBook searchForBook = null;
         List<IBook> books = null;
         try {
-            searchForBook = (SearchForBook) Naming.lookup("");
+            SearchForBook searchForBook = (SearchForBook) Naming.lookup("rmi://10.0.51.95/SearchController");
             books = searchForBook.searchForBook(getBookTitle(), getAuthor(), getIsbn());
         } catch (NotBoundException e) {
             e.printStackTrace();
