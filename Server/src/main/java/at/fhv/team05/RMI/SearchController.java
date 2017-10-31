@@ -4,6 +4,8 @@ import at.fhv.team05.domain.Book;
 import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.persistence.BookRepository;
 import at.fhv.team05.rmiinterfaces.SearchForBook;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -16,6 +18,9 @@ public class SearchController extends UnicastRemoteObject implements SearchForBo
     private LinkedList<IBook> _foundBooks;
 
     private static SearchController instance;
+
+    private static final Logger log = LogManager.getLogger(SearchController.class);
+
 
     public SearchController() throws RemoteException {
 
@@ -39,12 +44,16 @@ public class SearchController extends UnicastRemoteObject implements SearchForBo
 
         _foundBooks = new LinkedList<>();
 
-        for (Book book : _bookSet) {
-            if (book.getTitle().equalsIgnoreCase(title) || book.getAuthor().equalsIgnoreCase(author) || book.getIsbn().equalsIgnoreCase(ISBN)) {
-                _foundBooks.add((IBook) book);
-            }
-        }
+        try {
 
+            for (Book book : _bookSet) {
+                if (book.getTitle().equalsIgnoreCase(title) || book.getAuthor().equalsIgnoreCase(author) || book.getIsbn().equalsIgnoreCase(ISBN)) {
+                    _foundBooks.add((IBook) new BookRMI(book));
+                }
+            }
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+        }
         return _foundBooks;
     }
 }

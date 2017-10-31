@@ -60,7 +60,6 @@
                     <include>**/*.css</include>
                     <include>**/*.properties</include>
                     <include>**/*.png</include>
-
                 </includes>
             </resource>
         </resources>
