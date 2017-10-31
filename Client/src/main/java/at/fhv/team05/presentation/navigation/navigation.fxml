@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 
 <AnchorPane prefHeight="700.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.navigation.NavigationPresenter">
    <children>
@@ -17,11 +19,19 @@
                      <image>
                         <Image url="@/books.png" />
                      </image>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
                   </ImageView>
+                  <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                   <JFXButton fx:id="btnLoadSearchView" maxWidth="250.0" onAction="#onLoadSearchViewButtonPressed" prefHeight="45.0" text="Search" />
+                  <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                   <JFXButton fx:id="btnLoadCustomerOverview" onAction="#onLoadCustomerOverviewButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Customer Overview" />
+                  <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                   <JFXButton fx:id="btnLoadRentMediumView" onAction="#onLoadRentMediumViewButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Rent Medium" />
+                  <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                   <JFXButton onAction="#onLogoutButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Logout" />
+                  <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                </children>
             </VBox>
          </children>
