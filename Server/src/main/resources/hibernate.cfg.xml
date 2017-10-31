@@ -13,8 +13,6 @@
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="show_sql">true</property>
         <property name="hibernate.connection.url">jdbc:mysql://10.0.51.95:3306/bibliothek</property>
-        <property name="hibernate.connection.username">dbUser</property>
-        <property name="hibernate.connection.password">team05</property>
 
         <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider
         </property>
@@ -27,6 +25,16 @@
 
         <mapping class="at.fhv.team05.domain.Category"/>
         <mapping class="at.fhv.team05.domain.Book"/>
+        <mapping class="at.fhv.team05.domain.Address"/>
+        <mapping class="at.fhv.team05.domain.BankAccountInformation"/>
+        <mapping class="at.fhv.team05.domain.Copy"/>
+        <mapping class="at.fhv.team05.domain.Customer"/>
+        <mapping class="at.fhv.team05.domain.Dvd"/>
+        <mapping class="at.fhv.team05.domain.RemoteLibrary"/>
+        <mapping class="at.fhv.team05.domain.Rental"/>
+        <mapping class="at.fhv.team05.domain.Reservation"/>
+        <mapping class="at.fhv.team05.domain.UserAccount"/>
+        <mapping class="at.fhv.team05.domain.UserRole"/>
 
     </session-factory>
 </hibernate-configuration>
