@@ -144,23 +144,12 @@ public class SearchPresenter {
     }
 
     private void resultTable(List<IBook> bookList) {
-
+        
         ObservableList<IBook> resultData = FXCollections.observableArrayList();
         resultData.addAll(bookList);
-        // tblColTitleBook.setCellValueFactory(new PropertyValueFactory<IBook,String>("title"));
+        tblColTitleBook.setCellValueFactory(new PropertyValueFactory<IBook, String>("title"));
         tblColAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
         tblColIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-
-        tblColTitleBook.setCellValueFactory(param -> {
-            try {
-                if (param.getValue().getTitle() != null) {
-                    return new SimpleStringProperty(param.getValue().getTitle());
-                }
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-            return new SimpleStringProperty("");
-        });
         tableViewBookSearch.setItems(resultData);
 
 
