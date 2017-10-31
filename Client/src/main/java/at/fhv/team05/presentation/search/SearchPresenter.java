@@ -2,7 +2,6 @@ package at.fhv.team05.presentation.search;
 
 import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.rmiinterfaces.SearchForBook;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -90,7 +89,7 @@ public class SearchPresenter {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        resultTable(books);
+        resultTableBook(books);
 
 
     }
@@ -143,7 +142,7 @@ public class SearchPresenter {
         return txtFieldDirector.getText();
     }
 
-    private void resultTable(List<IBook> bookList) {
+    private void resultTableBook(List<IBook> bookList) {
         
         ObservableList<IBook> resultData = FXCollections.observableArrayList();
         resultData.addAll(bookList);
@@ -154,5 +153,6 @@ public class SearchPresenter {
 
 
     }
+    
 
 }
