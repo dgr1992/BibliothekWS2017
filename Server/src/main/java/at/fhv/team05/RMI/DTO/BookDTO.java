@@ -1,4 +1,4 @@
-package at.fhv.team05.RMI;
+package at.fhv.team05.RMI.DTO;
 
 import at.fhv.team05.domain.Book;
 import at.fhv.team05.dtos.IBook;
@@ -8,10 +8,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
 
-public class BookRMI extends UnicastRemoteObject implements IBook {
+public class BookDTO extends UnicastRemoteObject implements IBook {
     private Book _book;
 
-    public BookRMI(Book book) throws RemoteException {
+    public BookDTO(Book book) throws RemoteException {
         _book = book;
     }
 

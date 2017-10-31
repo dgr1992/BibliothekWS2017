@@ -1,6 +1,6 @@
 package at.fhv.team05;
 
-import at.fhv.team05.RMI.SearchController;
+import at.fhv.team05.RMI.BookController;
 
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
@@ -17,13 +17,13 @@ public class ServerRun {
 
             Registry reg = LocateRegistry.createRegistry(1099);
 
-            SearchController searchController = new SearchController();
+            BookController bookController = BookController.getInstance();
 
             //Bind this object instance to the name
-            Naming.bind("rmi://localhost/SearchController", searchController);
+            Naming.bind("rmi://localhost/BookController", bookController);
 
         } catch (Exception ex) {
-            System.out.println("SearchController error: " + ex.getMessage());
+            System.out.println("BookController error: " + ex.getMessage());
             ex.printStackTrace();
         }
 

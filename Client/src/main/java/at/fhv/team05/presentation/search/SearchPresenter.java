@@ -1,7 +1,7 @@
 package at.fhv.team05.presentation.search;
 
 import at.fhv.team05.dtos.IBook;
-import at.fhv.team05.rmiinterfaces.SearchForBook;
+import at.fhv.team05.rmiinterfaces.BookRMI;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -80,7 +80,7 @@ public class SearchPresenter {
     public void onSearchBtnPressedBook(ActionEvent event) {
         List<IBook> books = new LinkedList<>();
         try {
-            SearchForBook searchForBook = (SearchForBook) Naming.lookup("rmi://localhost/SearchController");
+            BookRMI searchForBook = (BookRMI) Naming.lookup("rmi://localhost/SearchController");
             books.addAll(searchForBook.searchForBook(getBookTitle(), getAuthor(), getIsbn()));
         } catch (NotBoundException e) {
             e.printStackTrace();
@@ -143,7 +143,7 @@ public class SearchPresenter {
     }
 
     private void resultTableBook(List<IBook> bookList) {
-        
+
         ObservableList<IBook> resultData = FXCollections.observableArrayList();
         resultData.addAll(bookList);
         tblColTitleBook.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -153,6 +153,6 @@ public class SearchPresenter {
 
 
     }
-    
+
 
 }
