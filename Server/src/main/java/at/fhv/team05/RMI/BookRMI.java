@@ -4,12 +4,11 @@ import at.fhv.team05.domain.Book;
 import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.dtos.ICategory;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
 
-public class BookRMI extends UnicastRemoteObject implements IBook, Serializable {
+public class BookRMI extends UnicastRemoteObject implements IBook {
     private Book _book;
 
     public BookRMI(Book book) throws RemoteException {

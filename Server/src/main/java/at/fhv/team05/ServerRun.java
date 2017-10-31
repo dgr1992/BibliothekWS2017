@@ -4,6 +4,7 @@ import at.fhv.team05.RMI.SearchController;
 
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 /**
  * Hello world!
@@ -14,7 +15,7 @@ public class ServerRun {
 
         try {
 
-            LocateRegistry.createRegistry(1099);
+            Registry reg = LocateRegistry.createRegistry(1099);
 
             SearchController searchController = new SearchController();
 

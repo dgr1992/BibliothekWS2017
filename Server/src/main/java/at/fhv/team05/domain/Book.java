@@ -4,13 +4,12 @@ import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.persistence.DBFacade;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "Book")
-public class Book implements IBook, Serializable {
+public class Book implements IBook {
     @Id
     @GeneratedValue
     @Column(name = "id")
