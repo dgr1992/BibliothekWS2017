@@ -1,11 +1,13 @@
 package at.fhv.team05.domain;
 
+import at.fhv.team05.dtos.IDvd;
+
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Table(name = "DVD")
-public class Dvd {
+public class Dvd implements IDvd {
     private int id;
     private String title;
     private String asin;
