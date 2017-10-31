@@ -6,7 +6,7 @@ import java.util.Date;
 
 public interface IBook extends Remote {
 
-    int getID() throws RemoteException;
+    int getId() throws RemoteException;
 
     String getTitle() throws RemoteException;
 

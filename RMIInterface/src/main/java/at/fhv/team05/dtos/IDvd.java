@@ -14,10 +14,10 @@ public interface IDvd extends Remote {
 
     Date getReleaseDate() throws RemoteException;
 
- //   ICategory getCategory() throws RemoteException;
+    ICategory getCategory() throws RemoteException;
 
     String getPublisher() throws RemoteException;
 
-   // String getDirector() throws RemoteException;
+    String getDirector() throws RemoteException;
 
 }

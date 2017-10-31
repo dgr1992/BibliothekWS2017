@@ -12,10 +12,12 @@ public class Dvd implements IDvd {
     private String title;
     private String asin;
     private Date releaseDate;
-    private int categoryId;
+    private Category category;
     private String publisher;
+    private String director;
 
     @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -55,14 +57,14 @@ public class Dvd implements IDvd {
         this.releaseDate = releaseDate;
     }
 
-    @Basic
-    @Column(name = "categoryId", nullable = false)
-    public int getCategoryId() {
-        return categoryId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoryId")
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Basic
@@ -74,6 +76,17 @@ public class Dvd implements IDvd {
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
+
+    @Basic
+    @Column(name = "director", nullable = false, length = 20)
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -89,7 +102,7 @@ public class Dvd implements IDvd {
         if (id != dvdEntity.id) {
             return false;
         }
-        if (categoryId != dvdEntity.categoryId) {
+        if (category.getId() != dvdEntity.category.getId()) {
             return false;
         }
         if (title != null ? !title.equals(dvdEntity.title) : dvdEntity.title != null) {
@@ -105,6 +118,10 @@ public class Dvd implements IDvd {
             return false;
         }
 
+        if(director != null ? !director.equals(dvdEntity.director) : dvdEntity.director != null) {
+            return false;
+        }
+
         return true;
     }
 
@@ -114,8 +131,9 @@ public class Dvd implements IDvd {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (asin != null ? asin.hashCode() : 0);
         result = 31 * result + (releaseDate != null ? releaseDate.hashCode() : 0);
-        result = 31 * result + categoryId;
+        result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (publisher != null ? publisher.hashCode() : 0);
+        result = 31 * result + (director != null ? director.hashCode() : 0);
         return result;
     }
 }
