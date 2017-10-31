@@ -3,10 +3,18 @@ package at.fhv.team05.presentation.navigation;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class NavigationPresenter {
+public class NavigationPresenter{
+
     private MainViewPresenter parent;
 
 
@@ -42,8 +50,5 @@ public class NavigationPresenter {
     public void setParent(MainViewPresenter mvp) {
         parent = mvp;
     }
-
-
-
 
 }

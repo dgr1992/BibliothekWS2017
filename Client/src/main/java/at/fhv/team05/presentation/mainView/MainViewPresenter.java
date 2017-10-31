@@ -7,9 +7,11 @@ import at.fhv.team05.presentation.navigation.NavigationView;
 import at.fhv.team05.presentation.search.SearchView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -25,6 +27,7 @@ public class MainViewPresenter implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
+        navigationBarContainer.setStyle("-fx-background-color: #d4daf6");
         changeNavigationBarToLoggedOut();
         openSearchView();
     }
@@ -46,9 +49,5 @@ public class MainViewPresenter implements Initializable {
         navigationBarContainer.getChildren().setAll(navigationView.getView());
         LoginNavigationPresenter presenter = (LoginNavigationPresenter) navigationView.getPresenter();
         presenter.setParent(this);
-    }
-
-    public StackPane getNavigationBarContainer() {
-        return navigationBarContainer;
     }
 }

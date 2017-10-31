@@ -11,14 +11,14 @@
    <children>
       <StackPane prefHeight="700.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox>
+            <VBox fx:id="vBox">
                <children>
                   <ImageView fitHeight="134.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/books.png" />
                      </image>
                   </ImageView>
-                  <JFXButton fx:id="btnLoadSearchView" onAction="#onLoadSearchViewButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Search" />
+                  <JFXButton fx:id="btnLoadSearchView" maxWidth="250.0" onAction="#onLoadSearchViewButtonPressed" prefHeight="45.0" text="Search" />
                   <JFXButton fx:id="btnLoadCustomerOverview" onAction="#onLoadCustomerOverviewButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Customer Overview" />
                   <JFXButton fx:id="btnLoadRentMediumView" onAction="#onLoadRentMediumViewButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Rent Medium" />
                   <JFXButton onAction="#onLogoutButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Logout" />
