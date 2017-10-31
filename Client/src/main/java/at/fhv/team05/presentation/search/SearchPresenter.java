@@ -147,7 +147,7 @@ public class SearchPresenter {
         
         ObservableList<IBook> resultData = FXCollections.observableArrayList();
         resultData.addAll(bookList);
-        tblColTitleBook.setCellValueFactory(new PropertyValueFactory<IBook, String>("title"));
+        tblColTitleBook.setCellValueFactory(new PropertyValueFactory<>("title"));
         tblColAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
         tblColIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         tableViewBookSearch.setItems(resultData);
