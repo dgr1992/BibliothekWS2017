@@ -12,20 +12,16 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-/**
- * Hello world!
- */
 public class ClientRun extends Application {
+    public static IRMIApplicationController controller;
+
     public static void main(String[] args) {
-
         try {
-
             IRMIFactory rmiControllerFactory = (IRMIFactory) Naming.lookup("rmi://localhost/IRMIFactory");
-
-        } catch (NotBoundException | MalformedURLException | RemoteException e) {
+            controller = rmiControllerFactory.createController();
+        } catch (RemoteException | NotBoundException | MalformedURLException e) {
             e.printStackTrace();
         }
-
         launch(args);
     }
 
