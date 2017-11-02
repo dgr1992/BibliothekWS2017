@@ -59,10 +59,10 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <TextField fx:id="txtFiledTitleBook" GridPane.columnIndex="1" />
-                                    <TextField fx:id="txtFiledAuthor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="txtFiledIsbn" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="txtFiledGenreBook" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="txtFiledTitleBook" GridPane.columnIndex="1" onAction="#onSearchBtnPressedBook"/>
+                                    <TextField fx:id="txtFiledAuthor" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#onSearchBtnPressedBook" />
+                                    <TextField fx:id="txtFiledIsbn" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#onSearchBtnPressedBook" />
+                                    <TextField fx:id="txtFiledGenreBook" GridPane.columnIndex="1" GridPane.rowIndex="3" onAction="#onSearchBtnPressedBook" />
                                     <Button fx:id="searchBtnBook" mnemonicParsing="false" onAction="#onSearchBtnPressedBook" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                               </GridPane>
@@ -128,10 +128,10 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <TextField fx:id="txtFieldTitleDvd" GridPane.columnIndex="1" />
-                                    <TextField fx:id="txtFieldDirector" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="txtFieldAsin" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="txtFieldGenreDvd" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="txtFieldTitleDvd" GridPane.columnIndex="1" onAction="#onSearchBtnPressedDvd"/>
+                                    <TextField fx:id="txtFieldDirector" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#onSearchBtnPressedDvd"/>
+                                    <TextField fx:id="txtFieldAsin" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#onSearchBtnPressedDvd"/>
+                                    <TextField fx:id="txtFieldGenreDvd" GridPane.columnIndex="1" GridPane.rowIndex="3" onAction="#onSearchBtnPressedDvd"/>
                                     <Button fx:id="searchBtnDvd" mnemonicParsing="false" onAction="#onSearchBtnPressedDvd" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                               </GridPane>
@@ -139,7 +139,7 @@
                                  <children>
                                     <TableView fx:id="tableViewDvdSearch" layoutY="1.0" prefHeight="399.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                        <columns>
-                                          <TableColumn fx:id="tblColTitleDvd" prefWidth="222.0" text="Title" />
+                                          <TableColumn fx:id="tblColTitleDvd" prefWidth="222.0" text="Title"  />
                                           <TableColumn fx:id="tblColDirector" prefWidth="146.0" text="Director" />
                                           <TableColumn fx:id="tblColAsin" prefWidth="137.0" text="ASIN" />
                                           <TableColumn fx:id="tblColGenreDvd" prefWidth="92.0" text="Genre" />

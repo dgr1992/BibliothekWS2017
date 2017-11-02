@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class SearchPresenter implements Initializable {
+public class SearchPresenter{
     @FXML
     private TextField txtFiledTitleBook;
 
@@ -172,11 +172,5 @@ public class SearchPresenter implements Initializable {
         tblColReleaseDate.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
 
         tableViewDvdSearch.setItems(resultData);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        searchBtnBook.setDefaultButton(true);
-        searchBtnDvd.setDefaultButton(true);
     }
 }
