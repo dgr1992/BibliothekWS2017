@@ -1,11 +1,6 @@
 package at.fhv.team05.dtos;
 
-import at.fhv.team05.dtos.ICategory;
-import at.fhv.team05.dtos.IDvd;
-
 import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
 
 public class DvdDTO implements Serializable{
@@ -14,7 +9,7 @@ public class DvdDTO implements Serializable{
     private String title;
     private String asin;
     private Date releaseDate;
-    private ICategory categoryId;
+    private CategoryDTO categoryId;
     private String publisher;
     private String director;
 
@@ -25,7 +20,7 @@ public class DvdDTO implements Serializable{
         title = dvd.getTitle();
         asin = dvd.getAsin();
         releaseDate = dvd.getReleaseDate();
-        categoryId = dvd.getCategory();
+        categoryId = new CategoryDTO(dvd.getCategory());
         publisher = dvd.getPublisher();
         director = dvd.getDirector();
 
