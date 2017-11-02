@@ -41,7 +41,7 @@ public class Book implements IBook {
     }
 
     @Override
-    public int getID() {
+    public int getId() {
         return _id;
     }
 

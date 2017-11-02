@@ -1,7 +1,8 @@
 package at.fhv.team05.presentation.search;
 
 import at.fhv.team05.dtos.IBook;
-import at.fhv.team05.rmiinterfaces.BookRMI;
+import at.fhv.team05.dtos.IDvd;
+import at.fhv.team05.rmiinterfaces.SearchForBook;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,32 +57,34 @@ public class SearchPresenter {
     private TextField txtFieldDirector;
 
     @FXML
-    private TextField txtFieldActor;
+    private TextField txtFieldAsin;
 
     @FXML
     private TextField txtFieldGenreDvd;
 
     @FXML
-    private TableView<?> tableViewDvdSearch;
+    private TableView<IDvd> tableViewDvdSearch;
 
     @FXML
-    private TableColumn<?, ?> tblColTitleDvd;
+    private TableColumn<IDvd, String> tblColTitleDvd;
 
     @FXML
-    private TableColumn<?, ?> tblColDirector;
+    private TableColumn<IDvd, String> tblColDirector;
 
     @FXML
-    private TableColumn<?, ?> tblColActor;
+    private TableColumn<IDvd, String> tblColAsin;
 
     @FXML
-    private TableColumn<?, ?> tblColGenreDvd;
+    private TableColumn<IDvd, String> tblColGenreDvd;
+    @FXML
+    private TableColumn<IDvd, Date> tblColReleaseDate;
 
 
     @FXML
     public void onSearchBtnPressedBook(ActionEvent event) {
         List<IBook> books = new LinkedList<>();
         try {
-            BookRMI searchForBook = (BookRMI) Naming.lookup("rmi://localhost/BookController");
+            SearchForBook searchForBook = (SearchForBook) Naming.lookup("rmi://localhost/SearchController");
             books.addAll(searchForBook.searchForBook(getBookTitle(), getAuthor(), getIsbn()));
         } catch (NotBoundException e) {
             e.printStackTrace();
@@ -102,14 +106,15 @@ public class SearchPresenter {
         if (getDirector() != null) {
             System.out.println(getDirector());
         }
-        if (getActor() != null) {
-            System.out.println(getActor());
+        if (getAsin() != null) {
+            System.out.println(getAsin());
         }
         if (getDvdGenre() != null) {
             System.out.println(getDvdGenre());
         }
     }
 
+    //Book
     private String getAuthor() {
         return txtFiledAuthor.getText();
     }
@@ -126,6 +131,8 @@ public class SearchPresenter {
         return txtFiledIsbn.getText();
     }
 
+
+    //DVD
     private String getDvdTitle() {
         return txtFieldTitleDvd.getText();
     }
@@ -134,8 +141,8 @@ public class SearchPresenter {
         return txtFieldGenreDvd.getText();
     }
 
-    private String getActor() {
-        return txtFieldActor.getText();
+    private String getAsin() {
+        return txtFieldAsin.getText();
     }
 
     private String getDirector() {
@@ -143,7 +150,7 @@ public class SearchPresenter {
     }
 
     private void resultTableBook(List<IBook> bookList) {
-
+        
         ObservableList<IBook> resultData = FXCollections.observableArrayList();
         resultData.addAll(bookList);
         tblColTitleBook.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -154,5 +161,15 @@ public class SearchPresenter {
 
     }
 
+    private void resultTableDvd(List<IDvd> dvdList) {
+        ObservableList<IDvd> resultData = FXCollections.observableArrayList();
+        resultData.addAll(dvdList);
+        tblColTitleDvd.setCellValueFactory(new PropertyValueFactory<>("title"));
+        tblColDirector.setCellValueFactory(new PropertyValueFactory<>("director"));
+        tblColAsin.setCellValueFactory(new PropertyValueFactory<>("asin"));
+        tblColReleaseDate.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
+
+        tableViewDvdSearch.setItems(resultData);
+    }
 
 }

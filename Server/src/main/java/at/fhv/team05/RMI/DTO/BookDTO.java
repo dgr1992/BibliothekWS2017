@@ -16,8 +16,8 @@ public class BookDTO extends UnicastRemoteObject implements IBook {
     }
 
     @Override
-    public int getID() {
-        return _book.getID();
+    public int getId() {
+        return _book.getId();
     }
 
     @Override

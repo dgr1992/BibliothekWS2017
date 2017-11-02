@@ -118,7 +118,7 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <Label text="Actor" GridPane.rowIndex="2">
+                                    <Label text="ASIN" GridPane.rowIndex="2">
                                        <GridPane.margin>
                                           <Insets left="10.0" />
                                        </GridPane.margin>
@@ -130,7 +130,7 @@
                                     </Label>
                                     <TextField fx:id="txtFieldTitleDvd" GridPane.columnIndex="1" />
                                     <TextField fx:id="txtFieldDirector" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="txtFieldActor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="txtFieldAsin" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="txtFieldGenreDvd" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Button mnemonicParsing="false" onAction="#onSearchBtnPressedDvd" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
@@ -141,8 +141,9 @@
                                        <columns>
                                           <TableColumn fx:id="tblColTitleDvd" prefWidth="222.0" text="Title" />
                                           <TableColumn fx:id="tblColDirector" prefWidth="146.0" text="Director" />
-                                          <TableColumn fx:id="tblColActor" prefWidth="137.0" text="Actors" />
+                                          <TableColumn fx:id="tblColAsin" prefWidth="137.0" text="ASIN" />
                                           <TableColumn fx:id="tblColGenreDvd" prefWidth="92.0" text="Genre" />
+                                          <TableColumn fx:id="tblColReleaseDate" prefWidth="75.0" text="Release Date" />
                                        </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
