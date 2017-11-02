@@ -1,8 +1,8 @@
 package at.fhv.team05.presentation.search;
 
+import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.DvdDTO;
-import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,10 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.LinkedList;
@@ -53,7 +50,6 @@ public class SearchPresenter{
     @FXML
     private TableColumn<BookDTO, String> tblColGenreBook;
 
-
     @FXML
     private TextField txtFieldTitleDvd;
 
@@ -85,17 +81,16 @@ public class SearchPresenter{
     @FXML
     private Button searchBtnBook;
     @FXML
-    private  Button searchBtnDvd;
+    private Button searchBtnDvd;
 
 
     @FXML
     public void onSearchBtnPressedBook(ActionEvent event) {
         List<BookDTO> books = new LinkedList<>();
         try {
-            IRMIApplicationController searchForBook = (IRMIApplicationController) Naming.lookup("rmi://localhost/ApplicationController");
             BookDTO book = new BookDTO(getBookTitle(), getAuthor(), getIsbn());
-            books.addAll(searchForBook.searchForBook(book));
-        } catch (NotBoundException | MalformedURLException | RemoteException e) {
+            books.addAll(ClientRun.controller.searchForBook(book));
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
         resultTableBook(books);
@@ -107,10 +102,9 @@ public class SearchPresenter{
     public void onSearchBtnPressedDvd(ActionEvent event) {
         List<DvdDTO> dvds = new LinkedList<>();
         try {
-            IRMIApplicationController searchForDvds = (IRMIApplicationController) Naming.lookup("rmi://localhost/ApplicationController");
             DvdDTO dvd = new DvdDTO(getDvdTitle(), getDirector(), getAsin());
-            dvds.addAll(searchForDvds.searchForDvd(dvd));
-        } catch (NotBoundException | MalformedURLException | RemoteException e) {
+            dvds.addAll(ClientRun.controller.searchForDvd(dvd));
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
         resultTableDvd(dvds);

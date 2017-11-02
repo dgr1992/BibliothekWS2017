@@ -1,10 +1,9 @@
 package at.fhv.team05;
 
-import at.fhv.team05.RMI.RMIApplicationController;
+import at.fhv.team05.RMI.RMIFactory;
 
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 
 /**
  * Hello world!
@@ -14,14 +13,14 @@ public class ServerRun {
     public static void main(String[] args) {
 
         try {
+            LocateRegistry.createRegistry(1099);
 
-            Registry reg = LocateRegistry.createRegistry(1099);
+            RMIFactory rmiFactory = new RMIFactory();
 
-            //Bind this object instance to the name
-            Naming.bind("rmi://localhost/ApplicationController", new RMIApplicationController());
+            Naming.bind("rmi://localhost/IRMIFactory", rmiFactory);
+
 
         } catch (Exception ex) {
-            System.out.println("BookController error: " + ex.getMessage());
             ex.printStackTrace();
         }
 
