@@ -1,8 +1,8 @@
 package at.fhv.team05.RMI;
 
 import at.fhv.team05.Application.ApplicationController;
-import at.fhv.team05.dtos.IBook;
-import at.fhv.team05.dtos.IDvd;
+import at.fhv.team05.dtos.BookDTO;
+import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
 import java.rmi.RemoteException;
@@ -17,12 +17,12 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public LinkedList<IBook> searchForBook(String title, String author, String ISBN) throws RemoteException {
+    public LinkedList<BookDTO> searchForBook(String title, String author, String ISBN) throws RemoteException {
         return _applicationController.searchForBook(title, author, ISBN);
     }
 
     @Override
-    public LinkedList<IDvd> searchForDvd(String title, String director, String asin) throws RemoteException {
+    public LinkedList<DvdDTO> searchForDvd(String title, String director, String asin) throws RemoteException {
         return _applicationController.searchForDvd(title, director, asin);
     }
 }

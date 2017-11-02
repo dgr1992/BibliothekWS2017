@@ -1,9 +1,8 @@
 package at.fhv.team05.presentation.search;
 
 import at.fhv.team05.dtos.BookDTO;
-import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.dtos.IDvd;
-import at.fhv.team05.rmiinterfaces.BookRMI;
+import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -85,7 +84,7 @@ public class SearchPresenter {
     public void onSearchBtnPressedBook(ActionEvent event) {
         List<BookDTO> books = new LinkedList<>();
         try {
-            BookRMI searchForBook = (BookRMI) Naming.lookup("rmi://localhost/ApplicationController");
+            IRMIApplicationController searchForBook = (IRMIApplicationController) Naming.lookup("rmi://localhost/ApplicationController");
             books.addAll(searchForBook.searchForBook(getBookTitle(), getAuthor(), getIsbn()));
         } catch (NotBoundException e) {
             e.printStackTrace();

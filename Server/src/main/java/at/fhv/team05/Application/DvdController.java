@@ -1,10 +1,10 @@
 package at.fhv.team05.Application;
 
 import at.fhv.team05.domain.Dvd;
+import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.IDvd;
 import at.fhv.team05.persistence.Repository;
 import at.fhv.team05.persistence.RepositoryFactory;
-import at.fhv.team05.rmiinterfaces.DvdRMI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-public class DvdController implements DvdRMI {
+public class DvdController {
     private Repository<Dvd> _dvdRepository = null;
     private HashSet<Dvd> _dvdSet;
     private LinkedList<IDvd> _result;
@@ -34,8 +34,7 @@ public class DvdController implements DvdRMI {
         return instance;
     }
 
-    @Override
-    public LinkedList<IDvd> searchForDvd(String title, String director, String asin) throws RemoteException {
+    public LinkedList<DvdDTO> searchForDvd(String title, String director, String asin) throws RemoteException {
         return null;
     }
 }

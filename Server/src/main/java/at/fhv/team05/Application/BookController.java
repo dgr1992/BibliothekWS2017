@@ -3,10 +3,8 @@ package at.fhv.team05.Application;
 import at.fhv.team05.Utility.StringUtilities;
 import at.fhv.team05.domain.Book;
 import at.fhv.team05.dtos.BookDTO;
-import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.persistence.Repository;
 import at.fhv.team05.persistence.RepositoryFactory;
-import at.fhv.team05.rmiinterfaces.BookRMI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +12,7 @@ import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-public class BookController implements BookRMI {
+public class BookController {
     private Repository<Book> _bookRepository = null;
     private HashSet<Book> _bookSet;
     private LinkedList<BookDTO> _foundBooks;
@@ -41,7 +39,6 @@ public class BookController implements BookRMI {
         return instance;
     }
 
-    @Override
     public LinkedList<BookDTO> searchForBook(String title, String author, String ISBN) throws RemoteException {
         _foundBooks = new LinkedList<>();
         try {
