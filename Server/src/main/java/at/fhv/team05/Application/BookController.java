@@ -1,4 +1,4 @@
-package at.fhv.team05.RMI;
+package at.fhv.team05.Application;
 
 import at.fhv.team05.RMI.DTO.BookDTO;
 import at.fhv.team05.Utility.StringUtilities;
@@ -11,11 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-public class BookController extends UnicastRemoteObject implements BookRMI {
+public class BookController implements BookRMI {
     private Repository<Book> _bookRepository = null;
     private HashSet<Book> _bookSet;
     private LinkedList<IBook> _foundBooks;
@@ -25,7 +24,7 @@ public class BookController extends UnicastRemoteObject implements BookRMI {
     private static final Logger log = LogManager.getLogger(BookController.class);
 
 
-    private BookController() throws RemoteException {
+    private BookController() {
 
         super();
 
@@ -35,7 +34,7 @@ public class BookController extends UnicastRemoteObject implements BookRMI {
         _bookSet.addAll(_bookRepository.list());
     }
 
-    public static BookController getInstance() throws RemoteException {
+    public static BookController getInstance() {
         if (instance == null) {
             instance = new BookController();
         }

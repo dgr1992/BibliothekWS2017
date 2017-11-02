@@ -84,7 +84,7 @@ public class SearchPresenter {
     public void onSearchBtnPressedBook(ActionEvent event) {
         List<IBook> books = new LinkedList<>();
         try {
-            BookRMI searchForBook = (BookRMI) Naming.lookup("rmi://localhost/BookController");
+            BookRMI searchForBook = (BookRMI) Naming.lookup("rmi://localhost/ApplicationController");
             books.addAll(searchForBook.searchForBook(getBookTitle(), getAuthor(), getIsbn()));
         } catch (NotBoundException e) {
             e.printStackTrace();
