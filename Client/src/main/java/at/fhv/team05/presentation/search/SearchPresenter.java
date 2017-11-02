@@ -82,7 +82,6 @@ public class SearchPresenter implements Initializable {
     @FXML
     private TableColumn<DvdDTO, String> tblColGenreDvd;
     @FXML
-    private TableColumn<DvdDTO, Date> tblColReleaseDate;
     private TableColumn<IDvd, Date> tblColReleaseDate;
     @FXML
     private Button searchBtnBook;
