@@ -1,6 +1,7 @@
 package at.fhv.team05.RMI.DTO;
 
 import at.fhv.team05.domain.Dvd;
+import at.fhv.team05.dtos.ICategory;
 import at.fhv.team05.dtos.IDvd;
 
 import java.rmi.RemoteException;
@@ -35,7 +36,17 @@ public class DvdDTO extends UnicastRemoteObject implements IDvd {
     }
 
     @Override
+    public ICategory getCategory() throws RemoteException {
+        return _dvd.getCategory();
+    }
+
+    @Override
     public String getPublisher() throws RemoteException {
         return _dvd.getPublisher();
+    }
+
+    @Override
+    public String getDirector() throws RemoteException {
+        return _dvd.getDirector();
     }
 }
