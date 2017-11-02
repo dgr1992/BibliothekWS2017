@@ -1,6 +1,7 @@
 package at.fhv.team05.presentation.search;
 
 import at.fhv.team05.dtos.BookDTO;
+import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.IDvd;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 import javafx.collections.FXCollections;
@@ -63,21 +64,21 @@ public class SearchPresenter {
     private TextField txtFieldGenreDvd;
 
     @FXML
-    private TableView<IDvd> tableViewDvdSearch;
+    private TableView<DvdDTO> tableViewDvdSearch;
 
     @FXML
-    private TableColumn<IDvd, String> tblColTitleDvd;
+    private TableColumn<DvdDTO, String> tblColTitleDvd;
 
     @FXML
-    private TableColumn<IDvd, String> tblColDirector;
+    private TableColumn<DvdDTO, String> tblColDirector;
 
     @FXML
-    private TableColumn<IDvd, String> tblColAsin;
+    private TableColumn<DvdDTO, String> tblColAsin;
 
     @FXML
-    private TableColumn<IDvd, String> tblColGenreDvd;
+    private TableColumn<DvdDTO, String> tblColGenreDvd;
     @FXML
-    private TableColumn<IDvd, Date> tblColReleaseDate;
+    private TableColumn<DvdDTO, Date> tblColReleaseDate;
 
 
     @FXML
@@ -86,11 +87,7 @@ public class SearchPresenter {
         try {
             IRMIApplicationController searchForBook = (IRMIApplicationController) Naming.lookup("rmi://localhost/ApplicationController");
             books.addAll(searchForBook.searchForBook(getBookTitle(), getAuthor(), getIsbn()));
-        } catch (NotBoundException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (RemoteException e) {
+        } catch (NotBoundException | MalformedURLException | RemoteException e) {
             e.printStackTrace();
         }
         resultTableBook(books);
@@ -100,18 +97,14 @@ public class SearchPresenter {
 
     @FXML
     public void onSearchBtnPressedDvd(ActionEvent event) {
-        if (getDvdTitle() != null) {
-            System.out.println(getDvdTitle());
+        List<DvdDTO> dvds = new LinkedList<>();
+        try {
+            IRMIApplicationController searchForDvds = (IRMIApplicationController) Naming.lookup("rmi://localhost/ApplicationController");
+            dvds.addAll(searchForDvds.searchForDvd(getDvdTitle(), getDirector(), getAsin()));
+        } catch (NotBoundException | MalformedURLException | RemoteException e) {
+            e.printStackTrace();
         }
-        if (getDirector() != null) {
-            System.out.println(getDirector());
-        }
-        if (getAsin() != null) {
-            System.out.println(getAsin());
-        }
-        if (getDvdGenre() != null) {
-            System.out.println(getDvdGenre());
-        }
+        resultTableDvd(dvds);
     }
 
     //Book
@@ -161,8 +154,8 @@ public class SearchPresenter {
 
     }
 
-    private void resultTableDvd(List<IDvd> dvdList) {
-        ObservableList<IDvd> resultData = FXCollections.observableArrayList();
+    private void resultTableDvd(List<DvdDTO> dvdList) {
+        ObservableList<DvdDTO> resultData = FXCollections.observableArrayList();
         resultData.addAll(dvdList);
         tblColTitleDvd.setCellValueFactory(new PropertyValueFactory<>("title"));
         tblColDirector.setCellValueFactory(new PropertyValueFactory<>("director"));
