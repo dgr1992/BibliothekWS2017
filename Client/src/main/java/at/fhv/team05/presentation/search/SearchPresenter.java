@@ -7,21 +7,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
-public class SearchPresenter {
+public class SearchPresenter implements Initializable {
     @FXML
     private TextField txtFiledTitleBook;
 
@@ -78,6 +82,10 @@ public class SearchPresenter {
     private TableColumn<IDvd, String> tblColGenreDvd;
     @FXML
     private TableColumn<IDvd, Date> tblColReleaseDate;
+    @FXML
+    private Button searchBtnBook;
+    @FXML
+    private  Button searchBtnDvd;
 
 
     @FXML
@@ -172,4 +180,9 @@ public class SearchPresenter {
         tableViewDvdSearch.setItems(resultData);
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        searchBtnBook.setDefaultButton(true);
+        searchBtnDvd.setDefaultButton(true);
+    }
 }

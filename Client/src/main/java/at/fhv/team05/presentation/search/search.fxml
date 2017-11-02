@@ -63,7 +63,7 @@
                                     <TextField fx:id="txtFiledAuthor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField fx:id="txtFiledIsbn" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="txtFiledGenreBook" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Button mnemonicParsing="false" onAction="#onSearchBtnPressedBook" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Button fx:id="searchBtnBook" mnemonicParsing="false" onAction="#onSearchBtnPressedBook" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                               </GridPane>
                               <AnchorPane prefHeight="485.0" prefWidth="980.0">
@@ -132,7 +132,7 @@
                                     <TextField fx:id="txtFieldDirector" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField fx:id="txtFieldAsin" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="txtFieldGenreDvd" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Button mnemonicParsing="false" onAction="#onSearchBtnPressedDvd" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Button fx:id="searchBtnDvd" mnemonicParsing="false" onAction="#onSearchBtnPressedDvd" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                               </GridPane>
                               <AnchorPane prefHeight="485.0" prefWidth="980.0">
