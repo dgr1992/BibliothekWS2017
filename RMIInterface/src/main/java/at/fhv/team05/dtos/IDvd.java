@@ -6,18 +6,18 @@ import java.util.Date;
 
 public interface IDvd extends Remote {
 
-    int getId() throws RemoteException;
+    int getId();
 
-    String getTitle() throws RemoteException;
+    String getTitle();
 
-    String getAsin() throws RemoteException;
+    String getAsin();
 
-    Date getReleaseDate() throws RemoteException;
+    Date getReleaseDate();
 
-    ICategory getCategory() throws RemoteException;
+    ICategory getCategory();
 
-    String getPublisher() throws RemoteException;
+    String getPublisher();
 
-    String getDirector() throws RemoteException;
+    String getDirector();
 
 }

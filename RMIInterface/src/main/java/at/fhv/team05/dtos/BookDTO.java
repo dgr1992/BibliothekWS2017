@@ -1,65 +1,54 @@
 package at.fhv.team05.dtos;
 
-import at.fhv.team05.dtos.IBook;
-import at.fhv.team05.dtos.ICategory;
-
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
+import java.io.Serializable;
 import java.util.Date;
 
-public class BookDTO extends UnicastRemoteObject implements IBook {
+public class BookDTO implements Serializable{
 
     private int id;
     private String title;
     private String isbn;
     private Date releaseDate;
-    private ICategory categoryId;
+    private CategoryDTO categoryDTO;
     private String publisher;
     private String author;
 
-    public BookDTO(IBook book) throws RemoteException {
+    public BookDTO(IBook book) {
 
         id = book.getId();
         title = book.getTitle();
         isbn = book.getIsbn();
         releaseDate = book.getReleaseDate();
-        categoryId = book.getCategory();
+        categoryDTO = new CategoryDTO(book.getCategory());
         publisher = book.getPublisher();
         author = book.getAuthor();
 
     }
 
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
     public String getIsbn() {
         return isbn;
     }
 
-    @Override
     public Date getReleaseDate() {
         return releaseDate;
     }
 
-    @Override
-    public ICategory getCategory() throws RemoteException {
-        return null;
+    public CategoryDTO getCategoryDTO() {
+        return categoryDTO;
     }
 
-    @Override
     public String getPublisher() {
         return publisher;
     }
 
-    @Override
     public String getAuthor() {
         return author;
     }

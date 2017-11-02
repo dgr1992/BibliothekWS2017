@@ -1,5 +1,6 @@
 package at.fhv.team05.presentation.search;
 
+import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.dtos.IDvd;
 import at.fhv.team05.rmiinterfaces.BookRMI;
@@ -35,19 +36,19 @@ public class SearchPresenter {
     private TextField txtFiledGenreBook;
 
     @FXML
-    private TableView<IBook> tableViewBookSearch;
+    private TableView<BookDTO> tableViewBookSearch;
 
     @FXML
-    private TableColumn<IBook, String> tblColTitleBook;
+    private TableColumn<BookDTO, String> tblColTitleBook;
 
     @FXML
-    private TableColumn<IBook, String> tblColAuthor;
+    private TableColumn<BookDTO, String> tblColAuthor;
 
     @FXML
-    private TableColumn<IBook, String> tblColIsbn;
+    private TableColumn<BookDTO, String> tblColIsbn;
 
     @FXML
-    private TableColumn<IBook, String> tblColGenreBook;
+    private TableColumn<BookDTO, String> tblColGenreBook;
 
 
     @FXML
@@ -82,7 +83,7 @@ public class SearchPresenter {
 
     @FXML
     public void onSearchBtnPressedBook(ActionEvent event) {
-        List<IBook> books = new LinkedList<>();
+        List<BookDTO> books = new LinkedList<>();
         try {
             BookRMI searchForBook = (BookRMI) Naming.lookup("rmi://localhost/BookController");
             books.addAll(searchForBook.searchForBook(getBookTitle(), getAuthor(), getIsbn()));
@@ -149,9 +150,9 @@ public class SearchPresenter {
         return txtFieldDirector.getText();
     }
 
-    private void resultTableBook(List<IBook> bookList) {
+    private void resultTableBook(List<BookDTO> bookList) {
 
-        ObservableList<IBook> resultData = FXCollections.observableArrayList();
+        ObservableList<BookDTO> resultData = FXCollections.observableArrayList();
         resultData.addAll(bookList);
         tblColTitleBook.setCellValueFactory(new PropertyValueFactory<>("title"));
         tblColAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));

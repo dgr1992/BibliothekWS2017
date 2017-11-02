@@ -1,8 +1,8 @@
 package at.fhv.team05.RMI;
 
-import at.fhv.team05.RMI.DTO.BookDTO;
 import at.fhv.team05.Utility.StringUtilities;
 import at.fhv.team05.domain.Book;
+import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.IBook;
 import at.fhv.team05.persistence.Repository;
 import at.fhv.team05.persistence.RepositoryFactory;
@@ -18,7 +18,7 @@ import java.util.LinkedList;
 public class BookController extends UnicastRemoteObject implements BookRMI {
     private Repository<Book> _bookRepository = null;
     private HashSet<Book> _bookSet;
-    private LinkedList<IBook> _foundBooks;
+    private LinkedList<BookDTO> _foundBooks;
 
     private static BookController instance;
 
@@ -43,7 +43,7 @@ public class BookController extends UnicastRemoteObject implements BookRMI {
     }
 
     @Override
-    public LinkedList<IBook> searchForBook(String title, String author, String ISBN) throws RemoteException {
+    public LinkedList<BookDTO> searchForBook(String title, String author, String ISBN) throws RemoteException {
         _foundBooks = new LinkedList<>();
         try {
             for (Book book : _bookSet) {
