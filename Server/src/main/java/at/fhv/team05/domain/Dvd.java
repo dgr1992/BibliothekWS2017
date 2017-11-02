@@ -1,6 +1,6 @@
 package at.fhv.team05.domain;
 
-import at.fhv.team05.dtos.IDvd;
+import at.fhv.team05.ObjectInterfaces.IDvd;
 
 import javax.persistence.*;
 import java.sql.Date;

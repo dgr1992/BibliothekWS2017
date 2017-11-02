@@ -1,4 +1,4 @@
-package at.fhv.team05.dtos;
+package at.fhv.team05.ObjectInterfaces;
 
 import java.sql.Date;
 

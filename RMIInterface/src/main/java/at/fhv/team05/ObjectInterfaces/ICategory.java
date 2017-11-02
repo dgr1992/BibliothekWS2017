@@ -1,4 +1,4 @@
-package at.fhv.team05.dtos;
+package at.fhv.team05.ObjectInterfaces;
 
 public interface ICategory {
     int getId();

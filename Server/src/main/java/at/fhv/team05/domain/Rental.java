@@ -1,6 +1,6 @@
 package at.fhv.team05.domain;
 
-import at.fhv.team05.dtos.IRental;
+import at.fhv.team05.ObjectInterfaces.IRental;
 
 import javax.persistence.*;
 import java.sql.Date;

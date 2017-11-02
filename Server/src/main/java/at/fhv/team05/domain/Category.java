@@ -1,7 +1,7 @@
 package at.fhv.team05.domain;
 
 
-import at.fhv.team05.dtos.ICategory;
+import at.fhv.team05.ObjectInterfaces.ICategory;
 import at.fhv.team05.persistence.DBFacade;
 
 import javax.persistence.*;

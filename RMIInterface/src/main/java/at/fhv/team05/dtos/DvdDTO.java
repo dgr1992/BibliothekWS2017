@@ -1,5 +1,8 @@
 package at.fhv.team05.dtos;
 
+import at.fhv.team05.ObjectInterfaces.ICategory;
+import at.fhv.team05.ObjectInterfaces.IDvd;
+
 import java.io.Serializable;
 import java.util.Date;
 

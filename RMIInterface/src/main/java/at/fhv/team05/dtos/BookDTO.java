@@ -1,5 +1,7 @@
 package at.fhv.team05.dtos;
 
+import at.fhv.team05.ObjectInterfaces.IBook;
+
 import java.io.Serializable;
 import java.util.Date;
 
