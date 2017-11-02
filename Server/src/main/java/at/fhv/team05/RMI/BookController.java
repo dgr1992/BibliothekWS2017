@@ -48,8 +48,8 @@ public class BookController extends UnicastRemoteObject implements BookRMI {
         try {
             for (Book book : _bookSet) {
                 if (StringUtilities.containsIgnoreCase(book.getTitle(), title)
-                        || StringUtilities.containsIgnoreCase(book.getAuthor(), author)
-                        || StringUtilities.containsIgnoreCase(book.getIsbn(), ISBN)) {
+                        && StringUtilities.containsIgnoreCase(book.getAuthor(), author)
+                        && StringUtilities.containsIgnoreCase(book.getIsbn(), ISBN)) {
                     _foundBooks.add(new BookDTO(book));
                 }
             }

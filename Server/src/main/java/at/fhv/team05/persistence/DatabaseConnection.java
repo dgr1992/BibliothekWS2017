@@ -46,6 +46,7 @@ public class DatabaseConnection {
     public static void init() {
         if (_databaseConnection == null) {
             _databaseConnection = new DatabaseConnection();
+            _databaseConnection._session = _databaseConnection._sessionFactory.openSession();
         }
     }
 }
