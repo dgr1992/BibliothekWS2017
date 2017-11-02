@@ -25,6 +25,11 @@ public class DvdDTO implements Serializable{
         director = dvd.getDirector();
 
     }
+    public DvdDTO(String title, String director, String asin) {
+        this.title = title;
+        this.director = director;
+        this.asin = asin;
+    }
 
     public int getId() {
         return id;

@@ -93,7 +93,8 @@ public class SearchPresenter implements Initializable {
         List<BookDTO> books = new LinkedList<>();
         try {
             IRMIApplicationController searchForBook = (IRMIApplicationController) Naming.lookup("rmi://localhost/ApplicationController");
-            books.addAll(searchForBook.searchForBook(getBookTitle(), getAuthor(), getIsbn()));
+            BookDTO book = new BookDTO(getBookTitle(), getAuthor(), getIsbn());
+            books.addAll(searchForBook.searchForBook(book));
         } catch (NotBoundException | MalformedURLException | RemoteException e) {
             e.printStackTrace();
         }
@@ -107,7 +108,8 @@ public class SearchPresenter implements Initializable {
         List<DvdDTO> dvds = new LinkedList<>();
         try {
             IRMIApplicationController searchForDvds = (IRMIApplicationController) Naming.lookup("rmi://localhost/ApplicationController");
-            dvds.addAll(searchForDvds.searchForDvd(getDvdTitle(), getDirector(), getAsin()));
+            DvdDTO dvd = new DvdDTO(getDvdTitle(), getDirector(), getAsin());
+            dvds.addAll(searchForDvds.searchForDvd(dvd));
         } catch (NotBoundException | MalformedURLException | RemoteException e) {
             e.printStackTrace();
         }

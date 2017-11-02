@@ -25,6 +25,12 @@ public class BookDTO implements Serializable{
 
     }
 
+    public BookDTO(String title, String author, String isbn) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+    }
+
     public int getId() {
         return id;
     }

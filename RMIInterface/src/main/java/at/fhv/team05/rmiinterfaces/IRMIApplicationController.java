@@ -9,9 +9,9 @@ import java.rmi.RemoteException;
 import java.util.LinkedList;
 
 public interface IRMIApplicationController extends Remote {
-    LinkedList<BookDTO> searchForBook(String title, String author, String ISBN) throws RemoteException;
+    LinkedList<BookDTO> searchForBook(BookDTO book) throws RemoteException;
 
-    LinkedList<DvdDTO> searchForDvd(String title, String director, String asin) throws RemoteException;
+    LinkedList<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException;
 
     void rentMedium(RentalDTO rental) throws RemoteException;
 }

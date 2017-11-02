@@ -28,13 +28,13 @@ public class ApplicationController implements IRMIApplicationController {
     }
 
     @Override
-    public LinkedList<BookDTO> searchForBook(String title, String author, String ISBN) throws RemoteException {
-        return _bookController.searchForBook(title, author, ISBN);
+    public LinkedList<BookDTO> searchForBook(BookDTO book) throws RemoteException {
+        return _bookController.searchForBook(book.getTitle(), book.getAuthor(), book.getIsbn());
     }
 
     @Override
-    public LinkedList<DvdDTO> searchForDvd(String title, String director, String asin) throws RemoteException {
-        return _dvdController.searchForDvd(title, director, asin);
+    public LinkedList<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException {
+        return _dvdController.searchForDvd(dvd.getTitle(), dvd.getDirector(), dvd.getAsin());
     }
 
     @Override
