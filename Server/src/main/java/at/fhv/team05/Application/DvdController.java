@@ -2,56 +2,33 @@ package at.fhv.team05.Application;
 
 import at.fhv.team05.Utility.StringUtilities;
 import at.fhv.team05.domain.Dvd;
-import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.DvdDTO;
-import at.fhv.team05.dtos.IDvd;
-import at.fhv.team05.persistence.Repository;
-import at.fhv.team05.persistence.RepositoryFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.rmi.RemoteException;
-import java.util.HashSet;
-import java.util.LinkedList;
+public class DvdController extends MediumController<Dvd, DvdDTO> {
 
-public class DvdController {
-    private Repository<Dvd> _dvdRepository = null;
-    private HashSet<Dvd> _dvdSet;
-    private LinkedList<DvdDTO> _result;
 
-    private static DvdController instance;
-    private static final Logger log = LogManager.getLogger(DvdController.class);
+    private static DvdController mInstance;
 
-    private DvdController() {
-        _dvdRepository = RepositoryFactory.getRepositoryInstance(Dvd.class);
-        _dvdSet = new HashSet<>();
-
-        _dvdSet.addAll(_dvdRepository.list());
+    private DvdController(Class<Dvd> medium) {
+        super(medium);
     }
 
     public static DvdController getInstance() {
-        if (instance == null) {
-            instance = new DvdController();
+        if (mInstance == null) {
+            mInstance = new DvdController(Dvd.class);
         }
-        return instance;
+        return mInstance;
     }
 
-    public LinkedList<DvdDTO> searchForDvd(String title, String director, String asin) throws RemoteException {
-        _result = new LinkedList<>();
+    @Override
+    protected boolean compareInput(Dvd dvd, DvdDTO dvdDTO) {
+        return StringUtilities.containsIgnoreCase(dvd.getTitle(), dvdDTO.getTitle())
+                && StringUtilities.containsIgnoreCase(dvd.getDirector(), dvdDTO.getDirector())
+                && StringUtilities.containsIgnoreCase(dvd.getAsin(), dvdDTO.getAsin());
+    }
 
-        try {
-
-            for (Dvd dvd : _dvdSet) {
-                if (StringUtilities.containsIgnoreCase(dvd.getTitle(), title)
-                        && StringUtilities.containsIgnoreCase(dvd.getDirector(), director)
-                        && StringUtilities.containsIgnoreCase(dvd.getAsin(), asin)) {
-                    _result.add(new DvdDTO(dvd));
-                }
-            }
-        } catch (Exception ex) {
-            log.error(ex.getMessage());
-        }
-
-        return _result;
+    @Override
+    protected DvdDTO createDTO(Dvd dvd) {
+        return new DvdDTO(dvd);
     }
 }
