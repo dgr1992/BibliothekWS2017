@@ -1,11 +1,13 @@
 package at.fhv.team05.domain;
 
+import at.fhv.team05.dtos.IRental;
+
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Table(name = "Rental")
-public class Rental {
+public class Rental implements IRental{
     private int id;
     private int copyId;
     private int customerId;

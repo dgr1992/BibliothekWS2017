@@ -2,7 +2,6 @@ package at.fhv.team05.presentation.search;
 
 import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.DvdDTO;
-import at.fhv.team05.dtos.IDvd;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,7 +81,7 @@ public class SearchPresenter implements Initializable {
     @FXML
     private TableColumn<DvdDTO, String> tblColGenreDvd;
     @FXML
-    private TableColumn<IDvd, Date> tblColReleaseDate;
+    private TableColumn<DvdDTO, Date> tblColReleaseDate;
     @FXML
     private Button searchBtnBook;
     @FXML

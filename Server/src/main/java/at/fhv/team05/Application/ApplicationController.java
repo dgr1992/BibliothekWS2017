@@ -3,6 +3,7 @@ package at.fhv.team05.Application;
 
 import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.DvdDTO;
+import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
 import java.rmi.RemoteException;
@@ -34,5 +35,10 @@ public class ApplicationController implements IRMIApplicationController {
     @Override
     public LinkedList<DvdDTO> searchForDvd(String title, String director, String asin) throws RemoteException {
         return _dvdController.searchForDvd(title, director, asin);
+    }
+
+    @Override
+    public void rentMedium(RentalDTO rental) {
+
     }
 }
