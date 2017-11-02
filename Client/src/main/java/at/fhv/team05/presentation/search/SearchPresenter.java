@@ -1,8 +1,9 @@
 package at.fhv.team05.presentation.search;
 
-import at.fhv.team05.dtos.IBook;
+import at.fhv.team05.dtos.BookDTO;
+import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.IDvd;
-import at.fhv.team05.rmiinterfaces.BookRMI;
+import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,19 +40,19 @@ public class SearchPresenter implements Initializable {
     private TextField txtFiledGenreBook;
 
     @FXML
-    private TableView<IBook> tableViewBookSearch;
+    private TableView<BookDTO> tableViewBookSearch;
 
     @FXML
-    private TableColumn<IBook, String> tblColTitleBook;
+    private TableColumn<BookDTO, String> tblColTitleBook;
 
     @FXML
-    private TableColumn<IBook, String> tblColAuthor;
+    private TableColumn<BookDTO, String> tblColAuthor;
 
     @FXML
-    private TableColumn<IBook, String> tblColIsbn;
+    private TableColumn<BookDTO, String> tblColIsbn;
 
     @FXML
-    private TableColumn<IBook, String> tblColGenreBook;
+    private TableColumn<BookDTO, String> tblColGenreBook;
 
 
     @FXML
@@ -67,20 +68,21 @@ public class SearchPresenter implements Initializable {
     private TextField txtFieldGenreDvd;
 
     @FXML
-    private TableView<IDvd> tableViewDvdSearch;
+    private TableView<DvdDTO> tableViewDvdSearch;
 
     @FXML
-    private TableColumn<IDvd, String> tblColTitleDvd;
+    private TableColumn<DvdDTO, String> tblColTitleDvd;
 
     @FXML
-    private TableColumn<IDvd, String> tblColDirector;
+    private TableColumn<DvdDTO, String> tblColDirector;
 
     @FXML
-    private TableColumn<IDvd, String> tblColAsin;
+    private TableColumn<DvdDTO, String> tblColAsin;
 
     @FXML
-    private TableColumn<IDvd, String> tblColGenreDvd;
+    private TableColumn<DvdDTO, String> tblColGenreDvd;
     @FXML
+    private TableColumn<DvdDTO, Date> tblColReleaseDate;
     private TableColumn<IDvd, Date> tblColReleaseDate;
     @FXML
     private Button searchBtnBook;
@@ -90,15 +92,11 @@ public class SearchPresenter implements Initializable {
 
     @FXML
     public void onSearchBtnPressedBook(ActionEvent event) {
-        List<IBook> books = new LinkedList<>();
+        List<BookDTO> books = new LinkedList<>();
         try {
-            BookRMI searchForBook = (BookRMI) Naming.lookup("rmi://localhost/BookController");
+            IRMIApplicationController searchForBook = (IRMIApplicationController) Naming.lookup("rmi://localhost/ApplicationController");
             books.addAll(searchForBook.searchForBook(getBookTitle(), getAuthor(), getIsbn()));
-        } catch (NotBoundException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (RemoteException e) {
+        } catch (NotBoundException | MalformedURLException | RemoteException e) {
             e.printStackTrace();
         }
         resultTableBook(books);
@@ -108,18 +106,14 @@ public class SearchPresenter implements Initializable {
 
     @FXML
     public void onSearchBtnPressedDvd(ActionEvent event) {
-        if (getDvdTitle() != null) {
-            System.out.println(getDvdTitle());
+        List<DvdDTO> dvds = new LinkedList<>();
+        try {
+            IRMIApplicationController searchForDvds = (IRMIApplicationController) Naming.lookup("rmi://localhost/ApplicationController");
+            dvds.addAll(searchForDvds.searchForDvd(getDvdTitle(), getDirector(), getAsin()));
+        } catch (NotBoundException | MalformedURLException | RemoteException e) {
+            e.printStackTrace();
         }
-        if (getDirector() != null) {
-            System.out.println(getDirector());
-        }
-        if (getAsin() != null) {
-            System.out.println(getAsin());
-        }
-        if (getDvdGenre() != null) {
-            System.out.println(getDvdGenre());
-        }
+        resultTableDvd(dvds);
     }
 
     //Book
@@ -157,9 +151,9 @@ public class SearchPresenter implements Initializable {
         return txtFieldDirector.getText();
     }
 
-    private void resultTableBook(List<IBook> bookList) {
+    private void resultTableBook(List<BookDTO> bookList) {
 
-        ObservableList<IBook> resultData = FXCollections.observableArrayList();
+        ObservableList<BookDTO> resultData = FXCollections.observableArrayList();
         resultData.addAll(bookList);
         tblColTitleBook.setCellValueFactory(new PropertyValueFactory<>("title"));
         tblColAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -169,8 +163,8 @@ public class SearchPresenter implements Initializable {
 
     }
 
-    private void resultTableDvd(List<IDvd> dvdList) {
-        ObservableList<IDvd> resultData = FXCollections.observableArrayList();
+    private void resultTableDvd(List<DvdDTO> dvdList) {
+        ObservableList<DvdDTO> resultData = FXCollections.observableArrayList();
         resultData.addAll(dvdList);
         tblColTitleDvd.setCellValueFactory(new PropertyValueFactory<>("title"));
         tblColDirector.setCellValueFactory(new PropertyValueFactory<>("director"));

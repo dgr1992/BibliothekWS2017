@@ -4,20 +4,20 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Date;
 
-public interface IBook extends Remote {
+public interface IBook {
 
-    int getId() throws RemoteException;
+    int getId();
 
-    String getTitle() throws RemoteException;
+    String getTitle();
 
-    String getIsbn() throws RemoteException;
+    String getIsbn();
 
-    Date getReleaseDate() throws RemoteException;
+    Date getReleaseDate();
 
-    ICategory getCategory() throws RemoteException;
+    ICategory getCategory();
 
-    String getPublisher() throws RemoteException;
+    String getPublisher();
 
-    String getAuthor() throws RemoteException;
+    String getAuthor();
 
 }
