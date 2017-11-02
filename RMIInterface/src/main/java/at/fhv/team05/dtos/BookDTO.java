@@ -3,7 +3,7 @@ package at.fhv.team05.dtos;
 import java.io.Serializable;
 import java.util.Date;
 
-public class BookDTO implements Serializable{
+public class BookDTO implements IMediumDTO, Serializable {
 
     private int id;
     private String title;

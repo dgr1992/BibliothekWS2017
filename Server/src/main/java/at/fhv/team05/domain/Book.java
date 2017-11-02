@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Book")
-public class Book implements IBook {
+public class Book implements IBook, IMedium {
     @Id
     @GeneratedValue
     @Column(name = "id")

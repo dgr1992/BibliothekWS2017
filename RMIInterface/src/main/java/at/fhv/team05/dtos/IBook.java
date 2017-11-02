@@ -2,7 +2,7 @@ package at.fhv.team05.dtos;
 
 import java.util.Date;
 
-public interface IBook {
+public interface IBook extends IMediumDTO {
 
     int getId();
 

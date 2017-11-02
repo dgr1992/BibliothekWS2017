@@ -7,7 +7,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "DVD")
-public class Dvd implements IDvd {
+public class Dvd implements IDvd, IMedium {
     private int id;
     private String title;
     private String asin;
@@ -16,6 +16,7 @@ public class Dvd implements IDvd {
     private String publisher;
     private String director;
 
+    @Override
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
@@ -27,6 +28,7 @@ public class Dvd implements IDvd {
         this.id = id;
     }
 
+    @Override
     @Basic
     @Column(name = "title", nullable = false, length = 50)
     public String getTitle() {
@@ -37,6 +39,7 @@ public class Dvd implements IDvd {
         this.title = title;
     }
 
+    @Override
     @Basic
     @Column(name = "asin", nullable = false, length = 20)
     public String getAsin() {
@@ -47,6 +50,7 @@ public class Dvd implements IDvd {
         this.asin = asin;
     }
 
+    @Override
     @Basic
     @Column(name = "releaseDate", nullable = false)
     public Date getReleaseDate() {
@@ -57,6 +61,7 @@ public class Dvd implements IDvd {
         this.releaseDate = releaseDate;
     }
 
+    @Override
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "categoryId")
     public Category getCategory() {
@@ -67,6 +72,7 @@ public class Dvd implements IDvd {
         this.category = category;
     }
 
+    @Override
     @Basic
     @Column(name = "publisher", nullable = false, length = 50)
     public String getPublisher() {
@@ -77,6 +83,7 @@ public class Dvd implements IDvd {
         this.publisher = publisher;
     }
 
+    @Override
     @Basic
     @Column(name = "director", nullable = false, length = 20)
     public String getDirector() {
@@ -118,7 +125,7 @@ public class Dvd implements IDvd {
             return false;
         }
 
-        if(director != null ? !director.equals(dvdEntity.director) : dvdEntity.director != null) {
+        if (director != null ? !director.equals(dvdEntity.director) : dvdEntity.director != null) {
             return false;
         }
 

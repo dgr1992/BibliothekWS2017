@@ -3,7 +3,7 @@ package at.fhv.team05.dtos;
 import java.io.Serializable;
 import java.util.Date;
 
-public class DvdDTO implements Serializable{
+public class DvdDTO implements IMediumDTO, Serializable {
 
     private int id;
     private String title;
@@ -25,6 +25,7 @@ public class DvdDTO implements Serializable{
         director = dvd.getDirector();
 
     }
+
     public DvdDTO(String title, String director, String asin) {
         this.title = title;
         this.director = director;
