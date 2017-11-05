@@ -6,9 +6,9 @@ public interface IRental {
 
     int getId();
 
-    int getCopyId();
+    ICopy getCopy();
 
-    int getCustomerId();
+    ICustomer getCustomer();
 
     Date getPickupDate();
 

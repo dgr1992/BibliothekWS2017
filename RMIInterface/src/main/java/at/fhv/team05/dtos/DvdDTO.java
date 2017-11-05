@@ -12,7 +12,7 @@ public class DvdDTO implements IMediumDTO, Serializable {
     private String title;
     private String asin;
     private Date releaseDate;
-    private CategoryDTO categoryId;
+    private CategoryDTO category;
     private String publisher;
     private String director;
 
@@ -23,7 +23,7 @@ public class DvdDTO implements IMediumDTO, Serializable {
         title = dvd.getTitle();
         asin = dvd.getAsin();
         releaseDate = dvd.getReleaseDate();
-        categoryId = new CategoryDTO(dvd.getCategory());
+        category = new CategoryDTO(dvd.getCategory());
         publisher = dvd.getPublisher();
         director = dvd.getDirector();
 
