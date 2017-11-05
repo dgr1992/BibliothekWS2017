@@ -36,7 +36,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="txtFieldCustomerNumber" GridPane.columnIndex="1" />
+                  <TextField fx:id="txtFieldCustomerNumber" GridPane.columnIndex="1" onAction="#onSearchButtonPressed" />
                   <Button mnemonicParsing="false" onAction="#onSearchButtonPressed" text="Search" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets />
@@ -47,13 +47,13 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="txtFieldFirstName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtFieldFirstName" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#onSearchButtonPressed" />
                   <Label text="Last Name" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="txtFieldLastName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtFieldLastName" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#onSearchButtonPressed" />
                </children>
                <VBox.margin>
                   <Insets top="20.0" />
