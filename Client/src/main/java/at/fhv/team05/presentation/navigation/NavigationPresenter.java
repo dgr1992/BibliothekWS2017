@@ -25,12 +25,12 @@ public class NavigationPresenter{
 
     @FXML
     void onLoadRentMediumViewButtonPressed(ActionEvent event) {
-        infoAlert();
+        parent.openRentalView();
     }
 
     @FXML
     void onLoadSearchViewButtonPressed(ActionEvent event) {
-
+        parent.openSearchView();
     }
 
     @FXML

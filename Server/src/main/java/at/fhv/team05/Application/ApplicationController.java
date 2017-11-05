@@ -2,12 +2,14 @@ package at.fhv.team05.Application;
 
 
 import at.fhv.team05.dtos.BookDTO;
+import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
 import java.rmi.RemoteException;
 import java.util.LinkedList;
+import java.util.List;
 
 public class ApplicationController implements IRMIApplicationController {
     private static ApplicationController mInstance;
@@ -40,5 +42,20 @@ public class ApplicationController implements IRMIApplicationController {
     @Override
     public void rentMedium(RentalDTO rental) {
 
+    }
+
+    @Override
+    public List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public BookDTO searchBookByMediumNumber(String mediumNumber) throws RemoteException {
+        return null;
+    }
+
+    @Override
+    public DvdDTO searchDvdByMediumNumber(String mediumNumber) throws RemoteException {
+        return null;
     }
 }

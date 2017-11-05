@@ -1,9 +1,14 @@
 package at.fhv.team05.presentation.mainView;
 
+import at.fhv.team05.presentation.customer.CustomerPresenter;
+import at.fhv.team05.presentation.customer.CustomerView;
 import at.fhv.team05.presentation.navigation.LoginNavigationPresenter;
 import at.fhv.team05.presentation.navigation.LoginNavigationView;
 import at.fhv.team05.presentation.navigation.NavigationPresenter;
 import at.fhv.team05.presentation.navigation.NavigationView;
+import at.fhv.team05.presentation.rental.RentalOverviewView;
+import at.fhv.team05.presentation.rental.RentalPresenter;
+import at.fhv.team05.presentation.rental.RentalView;
 import at.fhv.team05.presentation.search.SearchView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,6 +42,13 @@ public class MainViewPresenter implements Initializable {
         contentContainer.getChildren().setAll(searchView.getView());
     }
 
+    public void openRentalView() {
+        RentalView rentalView = new RentalView();
+        contentContainer.getChildren().setAll(rentalView.getView());
+        RentalPresenter presenter = (RentalPresenter) rentalView.getPresenter();
+        presenter.setParent(this);
+    }
+
     public void changeNavigationBarToLoggedIn(){
         NavigationView navigationView = new NavigationView();
         navigationBarContainer.getChildren().setAll(navigationView.getView());
@@ -50,4 +62,19 @@ public class MainViewPresenter implements Initializable {
         LoginNavigationPresenter presenter = (LoginNavigationPresenter) navigationView.getPresenter();
         presenter.setParent(this);
     }
+
+    public void openCustomerRentalView() {
+        CustomerView customerView = new CustomerView();
+        contentContainer.getChildren().setAll(customerView.getView());
+        CustomerPresenter presenter = (CustomerPresenter) customerView.getPresenter();
+        presenter.setParent(this);
+    }
+
+    public void openRentalOverview() {
+        RentalOverviewView rentalOverview = new RentalOverviewView();
+        contentContainer.getChildren().setAll(rentalOverview.getView());
+    }
+    
+
+
 }

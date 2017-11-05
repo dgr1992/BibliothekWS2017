@@ -68,7 +68,7 @@
                               </GridPane>
                               <AnchorPane prefHeight="485.0" prefWidth="980.0">
                                  <children>
-                                    <TableView fx:id="tableViewBookSearch" layoutY="1.0" prefHeight="399.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="tableViewBookSearch" layoutY="1.0" prefHeight="485.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columns>
                                         <TableColumn fx:id="tblColTitleBook" prefWidth="222.0" text="Title" />
                                         <TableColumn fx:id="tblColAuthor" prefWidth="146.0" text="Author" />
