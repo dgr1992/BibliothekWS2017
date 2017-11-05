@@ -1,9 +1,6 @@
 package at.fhv.team05.rmiinterfaces;
 
-import at.fhv.team05.dtos.BookDTO;
-import at.fhv.team05.dtos.CustomerDTO;
-import at.fhv.team05.dtos.DvdDTO;
-import at.fhv.team05.dtos.RentalDTO;
+import at.fhv.team05.dtos.*;
 import org.omg.CORBA.portable.RemarshalException;
 
 import java.rmi.Remote;
@@ -20,7 +17,6 @@ public interface IRMIApplicationController extends Remote {
 
     List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException;
 
-    BookDTO searchBookByMediumNumber(String mediumNumber) throws RemoteException;
+    IMediumDTO searchMediumByMediumNumber(String mediumNumber) throws RemoteException;
 
-    DvdDTO searchDvdByMediumNumber(String mediumNumber) throws RemoteException;
 }

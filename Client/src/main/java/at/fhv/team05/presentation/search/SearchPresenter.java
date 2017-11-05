@@ -76,12 +76,10 @@ public class SearchPresenter{
 
     @FXML
     private TableColumn<DvdDTO, String> tblColGenreDvd;
+
     @FXML
     private TableColumn<DvdDTO, Date> tblColReleaseDate;
-    @FXML
-    private Button searchBtnBook;
-    @FXML
-    private Button searchBtnDvd;
+
 
 
     @FXML

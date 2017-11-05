@@ -36,19 +36,6 @@ public class MainViewPresenter implements Initializable {
         changeNavigationBarToLoggedOut();
         openSearchView();
     }
-
-    public void openSearchView(){
-        SearchView searchView = new SearchView();
-        contentContainer.getChildren().setAll(searchView.getView());
-    }
-
-    public void openRentalView() {
-        RentalView rentalView = new RentalView();
-        contentContainer.getChildren().setAll(rentalView.getView());
-        RentalPresenter presenter = (RentalPresenter) rentalView.getPresenter();
-        presenter.setParent(this);
-    }
-
     public void changeNavigationBarToLoggedIn(){
         NavigationView navigationView = new NavigationView();
         navigationBarContainer.getChildren().setAll(navigationView.getView());
@@ -62,6 +49,19 @@ public class MainViewPresenter implements Initializable {
         LoginNavigationPresenter presenter = (LoginNavigationPresenter) navigationView.getPresenter();
         presenter.setParent(this);
     }
+
+    public void openSearchView(){
+        SearchView searchView = new SearchView();
+        contentContainer.getChildren().setAll(searchView.getView());
+    }
+
+    public void openRentalView() {
+        RentalView rentalView = new RentalView();
+        contentContainer.getChildren().setAll(rentalView.getView());
+        RentalPresenter presenter = (RentalPresenter) rentalView.getPresenter();
+        presenter.setParent(this);
+    }
+
 
     public void openCustomerRentalView() {
         CustomerView customerView = new CustomerView();

@@ -1,10 +1,7 @@
 package at.fhv.team05.RMI;
 
 import at.fhv.team05.Application.ApplicationController;
-import at.fhv.team05.dtos.BookDTO;
-import at.fhv.team05.dtos.CustomerDTO;
-import at.fhv.team05.dtos.DvdDTO;
-import at.fhv.team05.dtos.RentalDTO;
+import at.fhv.team05.dtos.*;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
 import java.rmi.RemoteException;
@@ -40,12 +37,8 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public BookDTO searchBookByMediumNumber(String mediumNumber) throws RemoteException {
+    public IMediumDTO searchMediumByMediumNumber(String mediumNumber) throws RemoteException {
         return null;
     }
 
-    @Override
-    public DvdDTO searchDvdByMediumNumber(String mediumNumber) throws RemoteException {
-        return null;
-    }
 }

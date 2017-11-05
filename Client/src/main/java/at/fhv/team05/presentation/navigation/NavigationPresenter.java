@@ -42,7 +42,6 @@ public class NavigationPresenter{
 
     private void infoAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText("Information");
         alert.setHeaderText("Not implemented yet!");
         alert.show();
     }

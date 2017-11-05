@@ -30,7 +30,7 @@ public class ClientRun extends Application {
         MainView appView = new MainView();
 
         Scene scene = new Scene(appView.getView());
-        stage.setTitle("Bibliothek");
+        stage.setTitle("Library");
         stage.setScene(scene);
         stage.show();
     }

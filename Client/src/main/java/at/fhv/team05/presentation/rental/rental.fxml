@@ -32,6 +32,11 @@
                      </GridPane.margin>
                   </Label>
                   <TextField fx:id="txtFieldMediumNumber" GridPane.columnIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#onSearchButtonPressed" text="Search" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Button>
                </children>
                <VBox.margin>
                   <Insets top="20.0" />
