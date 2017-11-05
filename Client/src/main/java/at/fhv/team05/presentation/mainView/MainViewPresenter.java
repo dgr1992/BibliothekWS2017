@@ -32,7 +32,7 @@ public class MainViewPresenter implements Initializable {
     protected StackPane navigationBarContainer;
 
     @FXML
-    protected AnchorPane contentContainer;
+    protected StackPane contentContainer;
 
 
     public void initialize(URL location, ResourceBundle resources) {
