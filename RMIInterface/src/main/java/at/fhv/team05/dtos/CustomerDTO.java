@@ -28,6 +28,13 @@ public class CustomerDTO implements Serializable {
         paymentDate = customer.getPaymentDate();
     }
 
+    public CustomerDTO(int customerId, String firstName, String lastName) {
+        this.customerId = customerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+    }
+
     public int getId() {
         return id;
     }
