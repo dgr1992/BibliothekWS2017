@@ -14,17 +14,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import jfxtras.scene.layout.GridPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.search.SearchPresenter">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.search.SearchPresenter">
    <children>
-      <TabPane fx:id="tabPaneSearch" cache="true" stylesheets="@tabPane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <TabPane fx:id="tabPaneSearch" cache="true" stylesheets="@tabPane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab fx:id="tabBook" text="Books">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0">
+              <AnchorPane>
                      <children>
                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <GridPane prefHeight="167.0" prefWidth="600.0">
+                              <GridPane>
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="NEVER" maxWidth="198.0" minWidth="10.0" prefWidth="85.0" />
                                   <ColumnConstraints hgrow="NEVER" maxWidth="330.0" minWidth="10.0" prefWidth="329.0" />
@@ -59,16 +59,16 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <TextField fx:id="txtFiledTitleBook" GridPane.columnIndex="1" onAction="#onSearchBtnPressedBook"/>
-                                    <TextField fx:id="txtFiledAuthor" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#onSearchBtnPressedBook" />
-                                    <TextField fx:id="txtFiledIsbn" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#onSearchBtnPressedBook" />
-                                    <TextField fx:id="txtFiledGenreBook" GridPane.columnIndex="1" GridPane.rowIndex="3" onAction="#onSearchBtnPressedBook" />
+                                    <TextField fx:id="txtFiledTitleBook" onAction="#onSearchBtnPressedBook" GridPane.columnIndex="1" />
+                                    <TextField fx:id="txtFiledAuthor" onAction="#onSearchBtnPressedBook" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtFiledIsbn" onAction="#onSearchBtnPressedBook" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="txtFiledGenreBook" onAction="#onSearchBtnPressedBook" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Button fx:id="searchBtnBook" mnemonicParsing="false" onAction="#onSearchBtnPressedBook" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                               </GridPane>
-                              <AnchorPane prefHeight="485.0" prefWidth="980.0">
+                              <AnchorPane>
                                  <children>
-                                    <TableView fx:id="tableViewBookSearch" layoutY="1.0" prefHeight="485.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="tableViewBookSearch" layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                       <columns>
                                         <TableColumn fx:id="tblColTitleBook" prefWidth="222.0" text="Title" />
                                         <TableColumn fx:id="tblColAuthor" prefWidth="146.0" text="Author" />
@@ -89,11 +89,11 @@
           </Tab>
             <Tab fx:id="tabDvd" text="DVD">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0">
+                  <AnchorPane>
                      <children>
                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <GridPane prefHeight="167.0" prefWidth="600.0">
+                              <GridPane>
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="NEVER" maxWidth="198.0" minWidth="10.0" prefWidth="85.0" />
                                     <ColumnConstraints hgrow="NEVER" maxWidth="330.0" minWidth="10.0" prefWidth="329.0" />
@@ -128,18 +128,18 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <TextField fx:id="txtFieldTitleDvd" GridPane.columnIndex="1" onAction="#onSearchBtnPressedDvd"/>
-                                    <TextField fx:id="txtFieldDirector" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#onSearchBtnPressedDvd"/>
-                                    <TextField fx:id="txtFieldAsin" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#onSearchBtnPressedDvd"/>
-                                    <TextField fx:id="txtFieldGenreDvd" GridPane.columnIndex="1" GridPane.rowIndex="3" onAction="#onSearchBtnPressedDvd"/>
+                                    <TextField fx:id="txtFieldTitleDvd" onAction="#onSearchBtnPressedDvd" GridPane.columnIndex="1" />
+                                    <TextField fx:id="txtFieldDirector" onAction="#onSearchBtnPressedDvd" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtFieldAsin" onAction="#onSearchBtnPressedDvd" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="txtFieldGenreDvd" onAction="#onSearchBtnPressedDvd" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Button fx:id="searchBtnDvd" mnemonicParsing="false" onAction="#onSearchBtnPressedDvd" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                               </GridPane>
-                              <AnchorPane prefHeight="485.0" prefWidth="980.0">
+                              <AnchorPane>
                                  <children>
-                                    <TableView fx:id="tableViewDvdSearch" layoutY="1.0" prefHeight="399.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="tableViewDvdSearch" layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                        <columns>
-                                          <TableColumn fx:id="tblColTitleDvd" prefWidth="222.0" text="Title"  />
+                                          <TableColumn fx:id="tblColTitleDvd" prefWidth="222.0" text="Title" />
                                           <TableColumn fx:id="tblColDirector" prefWidth="146.0" text="Director" />
                                           <TableColumn fx:id="tblColAsin" prefWidth="137.0" text="ASIN" />
                                           <TableColumn fx:id="tblColGenreDvd" prefWidth="92.0" text="Genre" />
