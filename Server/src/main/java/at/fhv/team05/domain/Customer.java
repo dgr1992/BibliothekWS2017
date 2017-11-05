@@ -3,9 +3,11 @@ package at.fhv.team05.domain;
 import javax.persistence.*;
 import java.sql.Date;
 
+import at.fhv.team05.ObjectInterfaces.ICustomer;
+
 @Entity
 @Table(name = "Customer")
-public class Customer {
+public class Customer implements ICustomer {
     private int id;
     private String firstName;
     private String lastName;

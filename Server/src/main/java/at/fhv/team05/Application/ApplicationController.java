@@ -12,11 +12,14 @@ public class ApplicationController implements IRMIApplicationController {
     private static ApplicationController mInstance;
     private BookController _bookController;
     private DvdController _dvdController;
-
+    private CustomerController _customerController;
+    private CopyController _copyController;
 
     private ApplicationController() {
         _bookController = BookController.getInstance();
         _dvdController = DvdController.getInstance();
+        _customerController = CustomerController.getInstance();
+        _copyController = CopyController.getInstance();
     }
 
     public static ApplicationController getInstance() {
@@ -43,12 +46,12 @@ public class ApplicationController implements IRMIApplicationController {
 
     @Override
     public List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException {
-        return null;
+        return _customerController.searchForCustomer(customer);
     }
 
     @Override
     public IMediumDTO searchMediumByMediumNumber(String mediumNumber) throws RemoteException {
         return null;
     }
-
 }
+ 
