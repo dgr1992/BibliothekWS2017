@@ -17,7 +17,7 @@ public class Rental implements IRental{
     @Basic
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "copyId")
-    private int _copyId;
+    private Copy _copy;
 
     @Basic
     @OneToOne(cascade = CascadeType.ALL)
@@ -46,12 +46,12 @@ public class Rental implements IRental{
 
     @Override
     public ICopy getCopy() {
-        return null;
+        return _copy;
     }
 
     @Override
     public ICustomer getCustomer() {
-        return null;
+        return _customer;
     }
 
     public void setId(int id) {
@@ -107,10 +107,10 @@ public class Rental implements IRental{
         if (_id != that._id) {
             return false;
         }
-        if (_copyId != that._copyId) {
+        if (_copy != null ? !_copy.equals(that._copy) : that._copy != null) {
             return false;
         }
-        if (_customer != that._customer) {
+        if (_customer != null ? !_customer.equals(that._customer) : that._customer != null) {
             return false;
         }
         if (_extendCounter != that._extendCounter) {
@@ -132,7 +132,7 @@ public class Rental implements IRental{
     @Override
     public int hashCode() {
         int result = _id;
-        result = 31 * result + _copyId;
+        result = 31 * result + (_copy != null ? _copy.hashCode() : 0);;
         result = 31 * result + (_customer != null ? _customer.hashCode() : 0);
         result = 31 * result + (_pickupDate != null ? _pickupDate.hashCode() : 0);
         result = 31 * result + (_returnDate != null ? _returnDate.hashCode() : 0);
