@@ -60,7 +60,7 @@
                               <Label fx:id="lblCustomerNumber" text="Customer Number" GridPane.rowIndex="6" />
                               <Label fx:id="lblCustomerName" text="Name" GridPane.rowIndex="7" />
                               <Label fx:id="lblZipCity" text="ZIP City" GridPane.rowIndex="9" />
-                              <Label text="Abo valid until" GridPane.rowIndex="11">
+                              <Label text="Subscription valid until" GridPane.rowIndex="11">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -71,9 +71,9 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblAboValidUntil" text="Abo Valid Until" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                              <Label fx:id="lblAboValidUntil" text="Subscription Valid Until" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                               <Label fx:id="lblRentedUntil" text="Rented until" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                              <Button mnemonicParsing="false" onAction="#onExtendAboButtonPressed" text="Extend Abo" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                              <Button fx:id="btnExtendSub" mnemonicParsing="false" onAction="#onExtendAboButtonPressed" text="Extend Subscription" GridPane.columnIndex="2" GridPane.rowIndex="11" />
                            </children>
                         </GridPane>
                      </content>

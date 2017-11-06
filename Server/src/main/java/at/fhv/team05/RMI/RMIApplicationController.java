@@ -41,4 +41,9 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
         return null;
     }
 
+    @Override
+    public void extendAbo(CustomerDTO customer) throws RemoteException {
+
+    }
+
 }

@@ -7,7 +7,7 @@ public interface ICustomer {
     int getId();
     String getFirstName();
     String getLastName();
-    int getCustomerID();
+    int getCustomerId();
     int getAddressId();
     Date getDateOfBirth();
     String getEmail();

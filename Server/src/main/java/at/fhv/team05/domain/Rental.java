@@ -1,5 +1,7 @@
 package at.fhv.team05.domain;
 
+import at.fhv.team05.ObjectInterfaces.ICopy;
+import at.fhv.team05.ObjectInterfaces.ICustomer;
 import at.fhv.team05.ObjectInterfaces.IRental;
 
 import javax.persistence.*;
@@ -42,26 +44,18 @@ public class Rental implements IRental{
         return _id;
     }
 
+    @Override
+    public ICopy getCopy() {
+        return null;
+    }
+
+    @Override
+    public ICustomer getCustomer() {
+        return null;
+    }
+
     public void setId(int id) {
         _id = id;
-    }
-
-
-    public int getCopyId() {
-        return _copyId;
-    }
-
-    public void setCopyId(int copyId) {
-        _copyId = copyId;
-    }
-
-
-    public int getCustomerId() {
-        return _customer.getId();
-    }
-
-    public void setCustomer(Customer customer) {
-        _customer = customer;
     }
 
 

@@ -5,6 +5,7 @@ import org.omg.CORBA.portable.RemarshalException;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,5 +19,7 @@ public interface IRMIApplicationController extends Remote {
     List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException;
 
     IMediumDTO searchMediumByMediumNumber(String mediumNumber) throws RemoteException;
+
+    void extendAbo(CustomerDTO customer) throws RemoteException;
 
 }

@@ -53,5 +53,9 @@ public class ApplicationController implements IRMIApplicationController {
     public IMediumDTO searchMediumByMediumNumber(String mediumNumber) throws RemoteException {
         return null;
     }
+
+    @Override
+    public void extendAbo(CustomerDTO customer) throws RemoteException {
+
+    }
 }
- 

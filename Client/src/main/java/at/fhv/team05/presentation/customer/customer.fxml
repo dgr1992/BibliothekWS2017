@@ -36,7 +36,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="txtFieldCustomerNumber" GridPane.columnIndex="1" onAction="#onSearchButtonPressed" />
+                  <TextField fx:id="txtFieldCustomerNumber" onAction="#onSearchButtonPressed" GridPane.columnIndex="1" />
                   <Button mnemonicParsing="false" onAction="#onSearchButtonPressed" text="Search" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets />
@@ -47,13 +47,13 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="txtFieldFirstName" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#onSearchButtonPressed" />
+                  <TextField fx:id="txtFieldFirstName" onAction="#onSearchButtonPressed" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Last Name" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="txtFieldLastName" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#onSearchButtonPressed" />
+                  <TextField fx:id="txtFieldLastName" onAction="#onSearchButtonPressed" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
                <VBox.margin>
                   <Insets top="20.0" />
@@ -67,8 +67,8 @@
                   <TableView fx:id="tblViewCustomer" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="tblColCustomerNumber" prefWidth="129.0" text="Customer Number" />
-                      <TableColumn fx:id="tblColName" prefWidth="100.0" text="Name" />
-                        <TableColumn fx:id="tblColAddress" prefWidth="109.0" text="Address" />
+                      <TableColumn fx:id="tblColFirstName" prefWidth="100.0" text="First Name" />
+                        <TableColumn fx:id="tblColLastName" prefWidth="109.0" text="Last Name" />
                         <TableColumn fx:id="tblColEmail" prefWidth="111.0" text="Email" />
                         <TableColumn fx:id="tblColPhoneNumber" prefWidth="167.0" text="Phone Number" />
                         <TableColumn fx:id="tblColDateOfBirth" prefWidth="183.0" text="Date Of Birth" />

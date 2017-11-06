@@ -1,19 +1,26 @@
 package at.fhv.team05.presentation.customer;
 
+import at.fhv.team05.ClientRun;
 import at.fhv.team05.ObjectInterfaces.ICustomer;
+import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -32,37 +39,66 @@ public class CustomerPresenter {
     private TextField txtFieldLastName;
 
     @FXML
-    private TableView<?> tblViewCustomer;
+    private TableView<CustomerDTO> tblViewCustomer;
 
     @FXML
-    private TableColumn<?, ?> tblColCustomerNumber;
+    private TableColumn<CustomerDTO, String> tblColCustomerNumber;
 
     @FXML
-    private TableColumn<?, ?> tblColName;
+    private TableColumn<CustomerDTO, String> tblColFirstName;
 
     @FXML
-    private TableColumn<?, ?> tblColAddress;
+    private TableColumn<CustomerDTO, String> tblColLastName;
 
     @FXML
-    private TableColumn<?, ?> tblColEmail;
+    private TableColumn<CustomerDTO, String> tblColEmail;
 
     @FXML
-    private TableColumn<?, ?> tblColPhoneNumber;
+    private TableColumn<CustomerDTO, String> tblColPhoneNumber;
 
     @FXML
-    private TableColumn<?, ?> tblColDateOfBirth;
+    private TableColumn<CustomerDTO, String> tblColDateOfBirth;
 
     @FXML
-    void onNextButtonPressed(ActionEvent event) {
-        //TODO check if any customer is selected
-        CustomerDTO customer = new CustomerDTO(12, "Max", "Mustermann");
-        parent.openRentalOverview(customer, medium);
+    public void onNextButtonPressed(ActionEvent event) {
+        CustomerDTO customer = tblViewCustomer.getSelectionModel().getSelectedItem();
+        if (customer != null) {
+            parent.openRentalOverview(customer, medium);
+        } else {
+            infoAlert("Please select a customer.");
+        }
+    }
+
+    private void infoAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(message);
+        alert.show();
     }
 
 
     @FXML
-    void onSearchButtonPressed(ActionEvent event) {
+    public void onSearchButtonPressed(ActionEvent event) {
         List<CustomerDTO> customers = new LinkedList<>();
+        CustomerDTO customer = new CustomerDTO(getCustomerNumber(), getFirstName(), getLastName());
+        try {
+            customers.addAll(ClientRun.controller.searchForCustomer(customer));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        initResultTableCustomer(customers);
+    }
+
+    private void initResultTableCustomer(List<CustomerDTO> customers) {
+        ObservableList<CustomerDTO> resultData = FXCollections.observableArrayList();
+        resultData.addAll(customers);
+        tblColCustomerNumber.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        tblColFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        tblColLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        tblColEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        tblColPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        tblColDateOfBirth.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        tblViewCustomer.setItems(resultData);
+
     }
 
     public void setParent(MainViewPresenter parent) {
@@ -72,5 +108,15 @@ public class CustomerPresenter {
 
     public void setMedium(IMediumDTO medium) {
         this.medium = medium;
+    }
+
+    public int getCustomerNumber() {
+        return Integer.valueOf(txtFieldCustomerNumber.getText());
+    }
+    public String getFirstName() {
+        return txtFieldFirstName.getText();
+    }
+    public String getLastName(){
+        return txtFieldLastName.getText();
     }
 }

@@ -1,14 +1,26 @@
 package at.fhv.team05.presentation.rental;
 
 import at.fhv.team05.dtos.BookDTO;
+import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.IMediumDTO;
+import at.fhv.team05.dtos.RentalDTO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import sun.util.resources.cldr.aa.CalendarData_aa_ER;
+
+import javax.security.auth.callback.Callback;
+import java.net.URL;
+import java.rmi.RemoteException;
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.ResourceBundle;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class RentalOverviewPresenter {
     private IMediumDTO medium;
@@ -39,13 +51,31 @@ public class RentalOverviewPresenter {
     private Label lblRentedUntil;
 
     @FXML
-    void onConfirmButtonPressed(ActionEvent event) {
+    private Button btnExtendSub;
 
+    @FXML
+    void onConfirmButtonPressed(ActionEvent event) {
+        try {
+            Date today = new Date(Calendar.getInstance().getTime().getTime());
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MONTH,1);
+            Date deadline = new Date(calendar.getTime().getTime());
+            RentalDTO rental = new RentalDTO(12, customer.getId(), today, deadline);
+            ClientRun.controller.rentMedium(rental);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void onExtendAboButtonPressed(ActionEvent event) {
-
+        try {
+            ClientRun.controller.extendAbo(customer);
+            infoAlert("Subscription successfully extended!");
+            btnExtendSub.setDisable(true);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initialize() {
@@ -74,5 +104,12 @@ public class RentalOverviewPresenter {
 
     public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
+    }
+
+
+    private void infoAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(message);
+        alert.show();
     }
 }

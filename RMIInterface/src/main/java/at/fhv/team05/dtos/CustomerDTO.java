@@ -20,7 +20,7 @@ public class CustomerDTO implements Serializable {
         id = customer.getId();
         firstName = customer.getFirstName();
         lastName = customer.getLastName();
-        customerId = customer.getCustomerID();
+        customerId = customer.getCustomerId();
         addressId = customer.getAddressId();
         dateOfBirth = customer.getDateOfBirth();
         email = customer.getEmail();
