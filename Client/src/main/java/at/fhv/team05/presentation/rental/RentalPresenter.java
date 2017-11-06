@@ -2,9 +2,9 @@ package at.fhv.team05.presentation.rental;
 
 import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.BookDTO;
+import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.IMediumDTO;
-import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import at.fhv.team05.presentation.rental.mediumViews.BookPresenter;
 import at.fhv.team05.presentation.rental.mediumViews.BookView;
@@ -20,7 +20,7 @@ import java.rmi.RemoteException;
 
 public class RentalPresenter {
     MainViewPresenter parent;
-    IMediumDTO medium;
+    CopyDTO medium;
 
     @FXML
     private TextField txtFieldMediumNumber;
@@ -30,7 +30,8 @@ public class RentalPresenter {
 
     @FXML
     void onNextButtonPressed(ActionEvent event) {
-        parent.openCustomerRentalView(medium);
+
+        //parent.openCustomerRentalView(medium);
     }
 
 
@@ -38,19 +39,19 @@ public class RentalPresenter {
     void onSearchButtonPressed(ActionEvent event) {
         String mediumNumber = txtFieldMediumNumber.getText();
         try {
-            medium = ClientRun.controller.searchMediumByMediumNumber(mediumNumber);
+            medium = ClientRun.controller.searchCopyByCopyNumber(mediumNumber);
             if (medium != null) {
-                if (medium instanceof BookDTO) {
-                    BookView book = new BookView();
-                    mediumContainer.getChildren().setAll(book.getView());
-                    BookPresenter presenter = (BookPresenter) book.getPresenter();
-                    presenter.setBookDto(medium);
-                } else if (medium instanceof DvdDTO) {
-                    DvdView dvd = new DvdView();
-                    mediumContainer.getChildren().setAll(dvd.getView());
-                    DvdPresenter presenter = (DvdPresenter) dvd.getPresenter();
-                    presenter.setDvdDto(medium);
-                }
+//                if (medium instanceof BookDTO) {
+//                    BookView book = new BookView();
+//                    mediumContainer.getChildren().setAll(book.getView());
+//                    BookPresenter presenter = (BookPresenter) book.getPresenter();
+//                    presenter.setBookDto(medium);
+//                } else if (medium instanceof DvdDTO) {
+//                    DvdView dvd = new DvdView();
+//                    mediumContainer.getChildren().setAll(dvd.getView());
+//                    DvdPresenter presenter = (DvdPresenter) dvd.getPresenter();
+//                    presenter.setDvdDto(medium);
+//                }
             } else {
                 infoAlert("Could not find specified medium.");
             }

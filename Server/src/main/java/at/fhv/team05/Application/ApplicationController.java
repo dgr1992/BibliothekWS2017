@@ -50,7 +50,7 @@ public class ApplicationController implements IRMIApplicationController {
     }
 
     @Override
-    public IMediumDTO searchMediumByMediumNumber(String mediumNumber) throws RemoteException {
+    public CopyDTO searchCopyByCopyNumber(String mediumNumber) throws RemoteException {
         return null;
     }
 
