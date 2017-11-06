@@ -14,12 +14,10 @@ public class Rental implements IRental{
     @Column(name = "id", nullable = false)
     private int _id;
 
-    @Basic
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "copyId")
     private Copy _copy;
 
-    @Basic
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerId")
     private Customer _customer;
@@ -49,9 +47,17 @@ public class Rental implements IRental{
         return _copy;
     }
 
+    public void setCopy(Copy copy) {
+        _copy = copy;
+    }
+
     @Override
     public ICustomer getCustomer() {
         return _customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        _customer = customer;
     }
 
     public void setId(int id) {
