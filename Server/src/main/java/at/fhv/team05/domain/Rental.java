@@ -3,14 +3,17 @@ package at.fhv.team05.domain;
 import at.fhv.team05.ObjectInterfaces.ICopy;
 import at.fhv.team05.ObjectInterfaces.ICustomer;
 import at.fhv.team05.ObjectInterfaces.IRental;
+import at.fhv.team05.persistence.DBFacade;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Rental")
 public class Rental implements IRental{
     @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     private int _id;
 
@@ -22,19 +25,18 @@ public class Rental implements IRental{
     @JoinColumn(name = "customerId")
     private Customer _customer;
 
-    @Basic
     @Column(name = "pickupDate", nullable = false)
     private Date _pickupDate;
 
-    @Basic
+
     @Column(name = "returnDate", nullable = true)
     private Date _returnDate;
 
-    @Basic
+
     @Column(name = "deadline", nullable = false)
     private Date _deadline;
 
-    @Basic
+
     @Column(name = "extendCounter", nullable = false)
     private int _extendCounter;
 
@@ -113,12 +115,14 @@ public class Rental implements IRental{
         if (_id != that._id) {
             return false;
         }
+
         if (_copy != null ? !_copy.equals(that._copy) : that._copy != null) {
             return false;
         }
         if (_customer != null ? !_customer.equals(that._customer) : that._customer != null) {
             return false;
         }
+
         if (_extendCounter != that._extendCounter) {
             return false;
         }
@@ -145,5 +149,13 @@ public class Rental implements IRental{
         result = 31 * result + (_deadline != null ? _deadline.hashCode() : 0);
         result = 31 * result + _extendCounter;
         return result;
+    }
+
+    public static void main(String[] args) {
+        DBFacade dbFacade = DBFacade.getInstance();
+
+        List<Rental> rentals = dbFacade.getAllRental();
+
+        System.out.println(rentals);
     }
 }

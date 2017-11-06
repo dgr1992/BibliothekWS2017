@@ -1,30 +1,31 @@
 package at.fhv.team05.domain;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import at.fhv.team05.ObjectInterfaces.ICopy;
+import at.fhv.team05.persistence.DBFacade;
 
 @Entity
 @Table(name = "Copy")
 public class Copy implements ICopy{
     @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     private int _id;
 
-    @Basic
     @Column(name = "mediumId", nullable = false)
     private int _mediumId;
 
-    @Basic
     @Column(name = "copyNumber", nullable = false)
     private int _copyNumber;
 
-    @Basic
     @Column(name = "mediaType", nullable = false, length = 50)
     private String _mediaType;
 
-    @Basic
-    @Column(name = "rentalId", nullable = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rentalId", nullable = true)
     private Rental _rental;
 
 
@@ -92,7 +93,7 @@ public class Copy implements ICopy{
         if (_copyNumber != that._copyNumber) {
             return false;
         }
-        if (_rental != that._rental) {
+        if (_rental != null ? !_rental.equals(that._rental) : that._rental != null) {
             return false;
         }
         if (_mediaType != null ? !_mediaType.equals(that._mediaType) : that._mediaType != null) {
@@ -110,5 +111,13 @@ public class Copy implements ICopy{
         result = 31 * result + (_mediaType != null ? _mediaType.hashCode() : 0);
         result = 31 * result + (_rental != null ? _rental.hashCode() : 0);
         return result;
+    }
+
+    public static void main(String[] args) {
+        DBFacade dbFacade = DBFacade.getInstance();
+
+        List<Copy> copies = dbFacade.getAllCopies();
+
+        System.out.println(copies);
     }
 }

@@ -9,6 +9,8 @@ import java.util.List;
 
 import at.fhv.team05.domain.Book;
 import at.fhv.team05.domain.Category;
+import at.fhv.team05.domain.Copy;
+import at.fhv.team05.domain.Rental;
 
 public class DBFacade {
     private static DBFacade _instance;
@@ -64,6 +66,36 @@ public class DBFacade {
 
         try {
             books = (List<Category>)session.createQuery("FROM Category ")
+                    .list();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return books;
+    }
+
+    public List<Copy> getAllCopies(){
+        Session session = _sessionfactory.openSession();
+        List<Copy> books= null;
+
+        try {
+            books = (List<Copy>)session.createQuery("FROM Copy")
+                    .list();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return books;
+    }
+
+    public List<Rental> getAllRental(){
+        Session session = _sessionfactory.openSession();
+        List<Rental> books= null;
+
+        try {
+            books = (List<Rental>)session.createQuery("FROM Rental")
                     .list();
         } catch (HibernateException e) {
             e.printStackTrace();
