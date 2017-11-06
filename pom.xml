@@ -30,12 +30,12 @@
                         </goals>
                         <phase>validate</phase>
                         <configuration>
-                            <file>${java.home}/lib/jfxrt.jar</file>
+                            <file>${java.home}/lib/ext/jfxrt.jar</file>
                             <groupId>javafx</groupId>
                             <artifactId>javafx</artifactId>
                             <version>1.8</version>
                             <packaging>jar</packaging>
-                            <javadoc>${java.home}/../docs/api.zip</javadoc>
+                            <!--<javadoc>${java.home}/../docs/api.zip</javadoc>-->
                             <!--<sources>no source available</sources>-->
                         </configuration>
                     </execution>
