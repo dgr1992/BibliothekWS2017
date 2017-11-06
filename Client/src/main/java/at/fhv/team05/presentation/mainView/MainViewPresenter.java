@@ -1,8 +1,7 @@
 package at.fhv.team05.presentation.mainView;
 
+import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
-import at.fhv.team05.dtos.IMediumDTO;
-import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.presentation.customer.CustomerPresenter;
 import at.fhv.team05.presentation.customer.CustomerView;
 import at.fhv.team05.presentation.navigation.LoginNavigationPresenter;
@@ -16,12 +15,7 @@ import at.fhv.team05.presentation.rental.RentalView;
 import at.fhv.team05.presentation.search.SearchView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -67,20 +61,20 @@ public class MainViewPresenter implements Initializable {
     }
 
 
-    public void openCustomerRentalView(IMediumDTO medium) {
+    public void openCustomerRentalView(CopyDTO copy) {
         CustomerView customerView = new CustomerView();
         contentContainer.getChildren().setAll(customerView.getView());
         CustomerPresenter presenter = (CustomerPresenter) customerView.getPresenter();
         presenter.setParent(this);
-        presenter.setMedium(medium);
+        presenter.setCopy(copy);
     }
 
-    public void openRentalOverview(CustomerDTO customer, IMediumDTO medium) {
+    public void openRentalOverview(CustomerDTO customer, CopyDTO copy) {
         RentalOverviewView rentalOverview = new RentalOverviewView();
         contentContainer.getChildren().setAll(rentalOverview.getView());
         RentalOverviewPresenter presenter = (RentalOverviewPresenter) rentalOverview.getPresenter();
         presenter.setCustomer(customer);
-        presenter.setMedium(medium);
+        presenter.setCopy(copy);
     }
     
 

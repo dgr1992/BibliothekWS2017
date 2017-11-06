@@ -10,7 +10,6 @@
     <artifactId>BibliothekWS2017Client</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-
     <name>BibliothekWS2017Client</name>
     <url>http://maven.apache.org</url>
     <dependencies>

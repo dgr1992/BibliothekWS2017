@@ -1,5 +1,6 @@
 package at.fhv.team05.presentation.rental.mediumViews;
 
+import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.IMediumDTO;
 import javafx.fxml.FXML;
@@ -10,7 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DvdPresenter implements Initializable{
-    private DvdDTO dvdDto;
+    private CopyDTO copy;
     @FXML
     private Label lblTitle;
 
@@ -26,16 +27,17 @@ public class DvdPresenter implements Initializable{
     @FXML
     private Label lblAsin;
 
-    public void setDvdDto(IMediumDTO dvdDto) {
-        this.dvdDto = (DvdDTO) dvdDto;
+    public void setCopy(CopyDTO copy) {
+        this.copy = copy;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        lblTitle.setText(dvdDto.getTitle());
-        lblDirector.setText(dvdDto.getDirector());
-        lblPublisher.setText(dvdDto.getPublisher());
-        lblReleaseDate.setText(dvdDto.getReleaseDate().toString());
-        lblAsin.setText(dvdDto.getAsin());
+        //TODO get Medium object
+//        lblTitle.setText(dvdDto.getTitle());
+//        lblDirector.setText(dvdDto.getDirector());
+//        lblPublisher.setText(dvdDto.getPublisher());
+//        lblReleaseDate.setText(dvdDto.getReleaseDate().toString());
+//        lblAsin.setText(dvdDto.getAsin());
     }
 }

@@ -2,10 +2,7 @@ package at.fhv.team05.presentation.customer;
 
 import at.fhv.team05.ClientRun;
 import at.fhv.team05.ObjectInterfaces.ICustomer;
-import at.fhv.team05.dtos.BookDTO;
-import at.fhv.team05.dtos.CustomerDTO;
-import at.fhv.team05.dtos.IMediumDTO;
-import at.fhv.team05.dtos.RentalDTO;
+import at.fhv.team05.dtos.*;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class CustomerPresenter {
     private MainViewPresenter parent;
-    private IMediumDTO medium;
+    private CopyDTO copy;
 
     @FXML
     private TextField txtFieldCustomerNumber;
@@ -63,7 +60,7 @@ public class CustomerPresenter {
     public void onNextButtonPressed(ActionEvent event) {
         CustomerDTO customer = tblViewCustomer.getSelectionModel().getSelectedItem();
         if (customer != null) {
-            parent.openRentalOverview(customer, medium);
+            parent.openRentalOverview(customer, copy);
         } else {
             infoAlert("Please select a customer.");
         }
@@ -104,11 +101,7 @@ public class CustomerPresenter {
     public void setParent(MainViewPresenter parent) {
         this.parent = parent;
     }
-
-
-    public void setMedium(IMediumDTO medium) {
-        this.medium = medium;
-    }
+    
 
     public int getCustomerNumber() {
         return Integer.valueOf(txtFieldCustomerNumber.getText());
@@ -118,5 +111,9 @@ public class CustomerPresenter {
     }
     public String getLastName(){
         return txtFieldLastName.getText();
+    }
+
+    public void setCopy(CopyDTO copy) {
+        this.copy = copy;
     }
 }
