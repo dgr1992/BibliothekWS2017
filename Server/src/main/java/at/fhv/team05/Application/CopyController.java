@@ -49,6 +49,20 @@ public class CopyController {
     }
 
     /**
+     * Gets the domain object that the CopyDTO represents
+     * @param copyDTO
+     * @return
+     */
+    public Copy getCopyFor(CopyDTO copyDTO){
+        for (Copy copy : _allCopies) {
+            if (copy.getId() == copyDTO.getId()) {
+                return copy;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Compares the copies by their copy number
      * @param copy
      * @param copyDTO

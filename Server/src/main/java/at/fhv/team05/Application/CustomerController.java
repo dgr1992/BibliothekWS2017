@@ -78,4 +78,18 @@ public class CustomerController{
         _repositoryCustomer.save(customer);
 
     }
+
+    /**
+     * Gets the domain object that the CustomerDTO represents
+     * @param customerDTO
+     * @return
+     */
+    public Customer getCustomerFor(CustomerDTO customerDTO) {
+        for (Customer customer : _allCustomers) {
+            if (customer.getId() == customerDTO.getId()) {
+                return customer;
+            }
+        }
+        return null;
+    }
 }
