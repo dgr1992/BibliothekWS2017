@@ -4,13 +4,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "RemoteLibrary")
-public class RemoteLibrary {
+public class RemoteLibrary implements IDomainObject {
     private int id;
     private String libraryName;
     private String contactPerson;
     private int bankaccountId;
     private int addressId;
 
+    @Override
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {

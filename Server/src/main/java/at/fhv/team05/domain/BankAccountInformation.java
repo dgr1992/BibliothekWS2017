@@ -4,12 +4,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "BankAccountInformation")
-public class BankAccountInformation {
+public class BankAccountInformation implements IDomainObject {
     private int id;
     private String iban;
     private String bic;
     private String accountHolder;
 
+    @Override
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {

@@ -1,15 +1,14 @@
 package at.fhv.team05.domain;
 
-import java.util.List;
-
-import javax.persistence.*;
-
 import at.fhv.team05.ObjectInterfaces.ICopy;
 import at.fhv.team05.persistence.DBFacade;
 
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Table(name = "Copy")
-public class Copy implements ICopy{
+public class Copy implements ICopy, IDomainObject {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
@@ -29,6 +28,7 @@ public class Copy implements ICopy{
     private Rental _rental;
 
 
+    @Override
     public int getId() {
         return _id;
     }
@@ -38,6 +38,7 @@ public class Copy implements ICopy{
     }
 
 
+    @Override
     public int getMediumId() {
         return _mediumId;
     }
@@ -47,6 +48,7 @@ public class Copy implements ICopy{
     }
 
 
+    @Override
     public int getCopyNumber() {
         return _copyNumber;
     }
@@ -56,6 +58,7 @@ public class Copy implements ICopy{
     }
 
 
+    @Override
     public String getMediaType() {
         return _mediaType;
     }
@@ -65,6 +68,7 @@ public class Copy implements ICopy{
     }
 
 
+    @Override
     public Rental getRental() {
         return _rental;
     }

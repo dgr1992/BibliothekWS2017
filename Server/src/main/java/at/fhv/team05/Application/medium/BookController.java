@@ -1,4 +1,4 @@
-package at.fhv.team05.Application;
+package at.fhv.team05.Application.medium;
 
 import at.fhv.team05.Utility.StringUtilities;
 import at.fhv.team05.domain.Book;

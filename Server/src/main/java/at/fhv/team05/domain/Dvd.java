@@ -7,7 +7,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "DVD")
-public class Dvd implements IDvd, IMedium {
+public class Dvd implements IDvd, IDomainObject {
     private int id;
     private String title;
     private String asin;

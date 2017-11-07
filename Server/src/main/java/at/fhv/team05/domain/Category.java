@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "Category")
-public class Category implements ICategory, Serializable {
+public class Category implements IDomainObject, ICategory, Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")

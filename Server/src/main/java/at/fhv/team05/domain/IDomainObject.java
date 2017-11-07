@@ -1,6 +1,6 @@
 package at.fhv.team05.domain;
 
-public interface IMedium {
+public interface IDomainObject {
     int getId();
 
 }

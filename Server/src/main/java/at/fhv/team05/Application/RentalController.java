@@ -9,16 +9,20 @@ import at.fhv.team05.domain.Customer;
 import at.fhv.team05.domain.Rental;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
+import at.fhv.team05.domain.Rental;
 import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.persistence.RepositoryFactory;
 
-/**
- * Created by Michelle on 02.11.2017.
- */
-public class RentalController {
+import java.util.LinkedList;
+
+public class RentalController extends BaseController<Rental, RentalDTO> {
+
+    public RentalController(Class<Rental> rentalClass) {
+        super(rentalClass);
+    }
 
     /**
-     * 
+     *
      * @param copiesToRent
      * @return
      */
@@ -48,6 +52,7 @@ public class RentalController {
 
             }
         }
+    public boolean rentCopies(LinkedList<RentalDTO> copiesToRent) {
         return false;
     }
 
@@ -75,5 +80,15 @@ public class RentalController {
         rentalDTOs.add(rentalDTO);
 
         rentCopies(rentalDTOs);
+    }
+
+    @Override
+    protected RentalDTO createDTO(Rental object) {
+        return new RentalDTO(object);
+    }
+
+    @Override
+    protected boolean compareInput(Rental object, RentalDTO rentalDTO) {
+        return false;
     }
 }

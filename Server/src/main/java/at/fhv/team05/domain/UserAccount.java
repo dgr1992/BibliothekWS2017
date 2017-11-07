@@ -4,11 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "UserAccount")
-public class UserAccount {
+public class UserAccount implements IDomainObject {
     private int id;
     private String username;
     private String email;
 
+    @Override
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {

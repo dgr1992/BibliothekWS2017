@@ -4,13 +4,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Address")
-public class Address {
+public class Address implements IDomainObject {
     private int id;
     private String street;
     private String streetNumber;
     private String zip;
     private String city;
 
+    @Override
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {
