@@ -2,6 +2,7 @@ package at.fhv.team05.Application;
 
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.dtos.CopyDTO;
+import at.fhv.team05.persistence.RepositoryFactory;
 
 public class CopyController extends BaseController<Copy, CopyDTO> {
     private static CopyController _theInstance;
@@ -23,7 +24,7 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
      * @return
      */
     public Copy getCopyFor(CopyDTO copyDTO){
-        for (Copy copy : _allCopies) {
+        for (Copy copy : RepositoryFactory.getRepositoryInstance(Copy.class).list()) {
             if (copy.getId() == copyDTO.getId()) {
                 return copy;
             }

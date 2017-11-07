@@ -4,6 +4,7 @@ package at.fhv.team05.Application;
 import at.fhv.team05.Utility.StringUtilities;
 import at.fhv.team05.domain.Customer;
 import at.fhv.team05.dtos.CustomerDTO;
+import at.fhv.team05.persistence.RepositoryFactory;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -57,7 +58,7 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
      * @return
      */
     public Customer getCustomerFor(CustomerDTO customerDTO) {
-        for (Customer customer : _allCustomers) {
+        for (Customer customer : RepositoryFactory.getRepositoryInstance(Customer.class).list()) {
             if (customer.getId() == customerDTO.getId()) {
                 return customer;
             }
