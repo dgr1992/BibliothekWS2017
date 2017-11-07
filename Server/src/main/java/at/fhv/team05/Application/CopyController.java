@@ -48,4 +48,13 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
     protected CopyDTO createDTO(Copy copy) {
         return new CopyDTO(copy);
     }
+
+    public CopyDTO searchCopyByCopyNumber(int copyNumber) {
+        for (Copy copy : _map.keySet()) {
+            if (copy.getCopyNumber() == copyNumber) {
+                return _map.get(copy);
+            }
+        }
+        return null;
+    }
 }

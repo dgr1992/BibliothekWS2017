@@ -4,11 +4,12 @@ import at.fhv.team05.ObjectInterfaces.ICopy;
 import at.fhv.team05.persistence.DBFacade;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "Copy")
-public class Copy implements ICopy, IDomainObject {
+public class Copy implements ICopy, IDomainObject, Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
