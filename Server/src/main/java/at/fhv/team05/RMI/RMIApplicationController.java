@@ -34,7 +34,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
 
     @Override
     public List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException {
-        return null;
+        return _applicationController.searchForCustomer(customer);
     }
 
     @Override
@@ -45,6 +45,16 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     @Override
     public void extendAbo(CustomerDTO customer) throws RemoteException {
 
+    }
+
+    @Override
+    public BookDTO searchBookById(int mediumId) throws RemoteException {
+        return _applicationController.searchBookById(mediumId);
+    }
+
+    @Override
+    public DvdDTO searchDvdById(int mediumId) throws RemoteException {
+        return _applicationController.searchDvdById(mediumId);
     }
 
 }

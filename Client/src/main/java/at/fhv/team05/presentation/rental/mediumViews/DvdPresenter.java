@@ -1,5 +1,6 @@
 package at.fhv.team05.presentation.rental.mediumViews;
 
+import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.IMediumDTO;
@@ -8,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 public class DvdPresenter implements Initializable{
@@ -33,11 +35,15 @@ public class DvdPresenter implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO get Medium object
-//        lblTitle.setText(dvdDto.getTitle());
-//        lblDirector.setText(dvdDto.getDirector());
-//        lblPublisher.setText(dvdDto.getPublisher());
-//        lblReleaseDate.setText(dvdDto.getReleaseDate().toString());
-//        lblAsin.setText(dvdDto.getAsin());
+        try {
+            DvdDTO dvd = ClientRun.controller.searchDvdById(copy.getMediumId());
+            lblTitle.setText(dvd.getTitle());
+            lblDirector.setText(dvd.getDirector());
+            lblPublisher.setText(dvd.getPublisher());
+            lblReleaseDate.setText(dvd.getReleaseDate().toString());
+            lblAsin.setText(dvd.getAsin());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -42,6 +42,15 @@ public abstract class MediumController<Medium extends IMedium, MediumDTO extends
         return result;
     }
 
+    public MediumDTO searchMediumById(int mediumId) {
+        for (Medium medium : _allMediums) {
+            if (medium.getId() == mediumId) {
+                return createDTO(medium);
+            }
+        }
+        return null;
+    }
+
     public void reserveMedium(List<MediumDTO> mediumDTOList, CustomerDTO customerDTO) {
         LinkedList<MediumDTO> reserveList = new LinkedList<>();
         reserveList.addAll(mediumDTOList);

@@ -26,12 +26,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Medium Number">
+                  <Label text="Copy Number">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="txtFieldMediumNumber" GridPane.columnIndex="1" onAction="#onSearchButtonPressed"/>
+                  <TextField fx:id="txtFieldCopyNumber" onAction="#onSearchButtonPressed" GridPane.columnIndex="1" />
                   <Button mnemonicParsing="false" onAction="#onSearchButtonPressed" text="Search" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />

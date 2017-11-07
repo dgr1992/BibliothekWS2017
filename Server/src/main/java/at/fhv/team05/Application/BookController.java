@@ -30,5 +30,6 @@ public class BookController extends MediumController<Book, BookDTO> {
     protected BookDTO createDTO(Book book) {
         return new BookDTO(book);
     }
+
 }
 

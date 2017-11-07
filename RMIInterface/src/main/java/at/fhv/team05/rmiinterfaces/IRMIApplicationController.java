@@ -22,4 +22,8 @@ public interface IRMIApplicationController extends Remote {
 
     void extendAbo(CustomerDTO customer) throws RemoteException;
 
+    BookDTO searchBookById(int mediumId) throws RemoteException;
+
+    DvdDTO searchDvdById(int mediumId) throws RemoteException;
+
 }

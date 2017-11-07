@@ -1,11 +1,14 @@
 package at.fhv.team05.presentation.rental.mediumViews;
 
+import at.fhv.team05.ClientRun;
+import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.CopyDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 /**
@@ -35,11 +38,16 @@ public class BookPresenter implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //TODO get medium
-//        lblTitle.setText(bookDto.getTitle());
-//        lblAuthor.setText(bookDto.getAuthor());
-//        lblPublisher.setText(bookDto.getPublisher());
-//        lblReleaseDate.setText(bookDto.getReleaseDate().toString());
-//        lblIsbn.setText(bookDto.getIsbn());
+        try {
+            BookDTO book = ClientRun.controller.searchBookById(copy.getMediumId());
+            lblTitle.setText(book.getTitle());
+            lblAuthor.setText(book.getAuthor());
+            lblPublisher.setText(book.getPublisher());
+            lblReleaseDate.setText(book.getReleaseDate().toString());
+            lblIsbn.setText(book.getIsbn());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
     }
 }

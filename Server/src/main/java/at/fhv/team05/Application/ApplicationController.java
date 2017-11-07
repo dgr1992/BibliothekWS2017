@@ -58,4 +58,14 @@ public class ApplicationController implements IRMIApplicationController {
     public void extendAbo(CustomerDTO customer) throws RemoteException {
 
     }
+
+    @Override
+    public BookDTO searchBookById(int mediumId) throws RemoteException {
+        return _bookController.searchMediumById(mediumId);
+    }
+
+    @Override
+    public DvdDTO searchDvdById(int mediumId) throws RemoteException {
+        return _dvdController.searchMediumById(mediumId);
+    }
 }

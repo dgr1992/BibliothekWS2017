@@ -1,22 +1,18 @@
 package at.fhv.team05.presentation.rental;
 
-import at.fhv.team05.dtos.*;
 import at.fhv.team05.ClientRun;
+import at.fhv.team05.dtos.CopyDTO;
+import at.fhv.team05.dtos.CustomerDTO;
+import at.fhv.team05.dtos.IMediumDTO;
+import at.fhv.team05.dtos.RentalDTO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import sun.util.resources.cldr.aa.CalendarData_aa_ER;
 
-import javax.security.auth.callback.Callback;
-import java.net.URL;
 import java.rmi.RemoteException;
 import java.sql.Date;
-import java.util.Calendar;
-import java.util.ResourceBundle;
-
 import java.util.Calendar;
 
 public class RentalOverviewPresenter {
@@ -55,7 +51,7 @@ public class RentalOverviewPresenter {
         try {
             Date today = new Date(Calendar.getInstance().getTime().getTime());
             Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.MONTH,1);
+            calendar.add(Calendar.MONTH, 1);
             Date deadline = new Date(calendar.getTime().getTime());
             RentalDTO rental = new RentalDTO(12, customer.getId(), today, deadline);
             ClientRun.controller.rentMedium(rental);
@@ -76,24 +72,37 @@ public class RentalOverviewPresenter {
     }
 
     public void initialize() {
-        //TODO get medium
-//        if(medium!=null) {
-//            lblMediumNumber.setText(Integer.toString(medium.getId()));
-//            lblTitle.setText(medium.getTitle());
-//            lblCustomerName.setText(customer.getFirstName() + customer.getLastName());
-//            //lblZipCity.setText(customer.getAddressId());
-//            lblCustomerNumber.setText(Integer.toString(customer.getCustomerId()));
-//            Calendar c = Calendar.getInstance();
-//            c.setTime(customer.getPaymentDate());
-//            c.add(Calendar.YEAR, 1);
-//            lblAboValidUntil.setText(c.getTime().toString());
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.add(Calendar.MONTH,1);
-//            lblRentedUntil.setText(calendar.getTime().toString());
-//        }
+        IMediumDTO medium = null;
+        if ("book".equalsIgnoreCase(copy.getMediaType())) {
+            try {
+                medium = ClientRun.controller.searchBookById(copy.getMediumId());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        } else if ("dvd".equalsIgnoreCase(copy.getMediaType())) {
+            try {
+                medium = ClientRun.controller.searchDvdById(copy.getMediumId());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        if (medium != null) {
+            lblMediumNumber.setText(Integer.toString(copy.getCopyNumber()));
+            lblTitle.setText(medium.getTitle());
+            lblCustomerName.setText(customer.getFirstName() + " " + customer.getLastName());
+            //lblZipCity.setText();
+            lblCustomerNumber.setText(Integer.toString(customer.getCustomerId()));
+            Calendar c = Calendar.getInstance();
+            c.setTime(customer.getPaymentDate());
+            c.add(Calendar.YEAR, 1);
+            lblAboValidUntil.setText(c.getTime().toString());
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MONTH, 1);
+            lblRentedUntil.setText(calendar.getTime().toString());
+        }
 
     }
-    
+
     public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
     }

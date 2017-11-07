@@ -20,7 +20,7 @@ public class RentalPresenter {
     CopyDTO copy;
 
     @FXML
-    private TextField txtFieldMediumNumber;
+    private TextField txtFieldCopyNumber;
 
     @FXML
     private StackPane mediumContainer;
@@ -34,9 +34,9 @@ public class RentalPresenter {
 
     @FXML
     void onSearchButtonPressed(ActionEvent event) {
-        String mediumNumber = txtFieldMediumNumber.getText();
+        String copyNumber = txtFieldCopyNumber.getText();
         try {
-            copy = ClientRun.controller.searchCopyByCopyNumber(mediumNumber);
+            copy = ClientRun.controller.searchCopyByCopyNumber(copyNumber);
             if (copy != null) {
                 if ("book".equalsIgnoreCase(copy.getMediaType())) {
                     BookView book = new BookView();
