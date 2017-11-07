@@ -1,6 +1,6 @@
 package at.fhv.team05.ObjectInterfaces;
 
-import java.util.Date;
+import java.sql.Date;
 
 public interface ICustomer {
 

@@ -1,6 +1,8 @@
 package at.fhv.team05.Application;
 
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -60,4 +62,20 @@ public class CustomerController{
         return new CustomerDTO(customer);
     }
 
+    public void extendSubscription(CustomerDTO customerDTO) {
+        Customer customer = new Customer();
+
+        customer.setId(customerDTO.getId());
+        customer.setFirstName(customerDTO.getFirstName());
+        customer.setLastName(customerDTO.getLastName());
+        customer.setCustomerId(customerDTO.getCustomerId());
+        customer.setAddressId(customerDTO.getAddressId());
+        customer.setDateOfBirth(customerDTO.getDateOfBirth());
+        customer.setEmail(customerDTO.getEmail());
+        customer.setPhoneNumber(customerDTO.getPhoneNumber());
+        customer.setPaymentDate(new Date(Calendar.getInstance().getTimeInMillis()));
+
+        _repositoryCustomer.save(customer);
+
+    }
 }

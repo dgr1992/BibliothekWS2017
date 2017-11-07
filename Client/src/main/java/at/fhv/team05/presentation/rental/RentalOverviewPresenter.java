@@ -63,7 +63,7 @@ public class RentalOverviewPresenter {
     @FXML
     void onExtendAboButtonPressed(ActionEvent event) {
         try {
-            ClientRun.controller.extendAbo(customer);
+            ClientRun.controller.extendSubscription(customer);
             infoAlert("Subscription successfully extended!");
             btnExtendSub.setDisable(true);
         } catch (RemoteException e) {

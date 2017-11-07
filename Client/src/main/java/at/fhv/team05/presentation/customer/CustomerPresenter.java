@@ -104,6 +104,9 @@ public class CustomerPresenter {
     
 
     public int getCustomerNumber() {
+        if (txtFieldCustomerNumber.getText() == null || txtFieldCustomerNumber.getText().isEmpty()) {
+            return -1;
+        }
         return Integer.valueOf(txtFieldCustomerNumber.getText());
     }
     public String getFirstName() {

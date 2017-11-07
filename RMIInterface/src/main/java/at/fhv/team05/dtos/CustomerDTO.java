@@ -3,7 +3,7 @@ package at.fhv.team05.dtos;
 import at.fhv.team05.ObjectInterfaces.ICustomer;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 public class CustomerDTO implements Serializable {
     private int id;

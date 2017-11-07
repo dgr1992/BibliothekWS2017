@@ -55,8 +55,8 @@ public class ApplicationController implements IRMIApplicationController {
     }
 
     @Override
-    public void extendAbo(CustomerDTO customer) throws RemoteException {
-
+    public void extendSubscription(CustomerDTO customer) throws RemoteException {
+        _customerController.extendSubscription(customer);
     }
 
     @Override

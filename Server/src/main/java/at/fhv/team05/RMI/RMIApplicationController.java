@@ -1,7 +1,6 @@
 package at.fhv.team05.RMI;
 
 import at.fhv.team05.Application.ApplicationController;
-import at.fhv.team05.domain.Copy;
 import at.fhv.team05.dtos.*;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
@@ -43,8 +42,8 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public void extendAbo(CustomerDTO customer) throws RemoteException {
-
+    public void extendSubscription(CustomerDTO customer) throws RemoteException {
+        _applicationController.extendSubscription(customer);
     }
 
     @Override

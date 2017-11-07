@@ -20,7 +20,7 @@ public interface IRMIApplicationController extends Remote {
 
     CopyDTO searchCopyByCopyNumber(String mediumNumber) throws RemoteException;
 
-    void extendAbo(CustomerDTO customer) throws RemoteException;
+    void extendSubscription(CustomerDTO customer) throws RemoteException;
 
     BookDTO searchBookById(int mediumId) throws RemoteException;
 
