@@ -37,7 +37,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public CopyDTO searchCopyByCopyNumber(String mediumNumber) throws RemoteException {
+    public CopyDTO searchCopyByCopyNumber(int copyNumber) throws RemoteException {
         return null;
     }
 

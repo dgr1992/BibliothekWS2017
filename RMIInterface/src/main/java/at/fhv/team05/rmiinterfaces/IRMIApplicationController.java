@@ -18,7 +18,7 @@ public interface IRMIApplicationController extends Remote {
 
     List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException;
 
-    CopyDTO searchCopyByCopyNumber(String mediumNumber) throws RemoteException;
+    CopyDTO searchCopyByCopyNumber(int copyNumber) throws RemoteException;
 
     void extendSubscription(CustomerDTO customer) throws RemoteException;
 

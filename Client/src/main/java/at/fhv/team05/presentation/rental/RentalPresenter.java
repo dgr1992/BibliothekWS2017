@@ -34,7 +34,7 @@ public class RentalPresenter {
 
     @FXML
     void onSearchButtonPressed(ActionEvent event) {
-        String copyNumber = txtFieldCopyNumber.getText();
+        int copyNumber = Integer.valueOf(txtFieldCopyNumber.getText());
         try {
             copy = ClientRun.controller.searchCopyByCopyNumber(copyNumber);
             if (copy != null) {
