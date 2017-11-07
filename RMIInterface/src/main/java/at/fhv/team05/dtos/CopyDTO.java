@@ -13,12 +13,13 @@ public class CopyDTO {
     private int _mediumId;
     private RentalDTO _rental;
 
-    public CopyDTO(ICopy copy){
+    public CopyDTO(ICopy copy) {
         _copyNumber = copy.getCopyNumber();
         _id = copy.getId();
         _mediaType = copy.getMediaType();
         _mediumId = copy.getMediumId();
-        _rental= new RentalDTO(copy.getRental());
+        //TODO copy.getRental gibt null
+//        _rental= new RentalDTO(copy.getRental());
     }
 
     public int getCopyNumber() {

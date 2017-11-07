@@ -5,13 +5,14 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "Reservation")
-public class Reservation {
+public class Reservation implements IDomainObject {
     private int id;
     private int mediumId;
     private int customerId;
     private String mediaType;
     private Date reservationDate;
 
+    @Override
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {

@@ -1,6 +1,8 @@
 package at.fhv.team05.Application;
 
 
+import at.fhv.team05.Application.medium.BookController;
+import at.fhv.team05.Application.medium.DvdController;
 import at.fhv.team05.dtos.*;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
@@ -8,35 +10,35 @@ import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ApplicationController implements IRMIApplicationController {
-    private static ApplicationController mInstance;
+public class ControllerFacade implements IRMIApplicationController {
+    private static ControllerFacade mInstance;
     private BookController _bookController;
     private DvdController _dvdController;
     private CustomerController _customerController;
     private CopyController _copyController;
 
-    private ApplicationController() {
+    private ControllerFacade() {
         _bookController = BookController.getInstance();
         _dvdController = DvdController.getInstance();
         _customerController = CustomerController.getInstance();
         _copyController = CopyController.getInstance();
     }
 
-    public static ApplicationController getInstance() {
+    public static ControllerFacade getInstance() {
         if (mInstance == null) {
-            mInstance = new ApplicationController();
+            mInstance = new ControllerFacade();
         }
         return mInstance;
     }
 
     @Override
     public LinkedList<BookDTO> searchForBook(BookDTO book) throws RemoteException {
-        return _bookController.searchForMedium(book);
+        return _bookController.searchFor(book);
     }
 
     @Override
     public LinkedList<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException {
-        return _dvdController.searchForMedium(dvd);
+        return _dvdController.searchFor(dvd);
     }
 
     @Override
@@ -46,7 +48,7 @@ public class ApplicationController implements IRMIApplicationController {
 
     @Override
     public List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException {
-        return _customerController.searchForCustomer(customer);
+        return _customerController.searchFor(customer);
     }
 
     @Override
@@ -61,11 +63,11 @@ public class ApplicationController implements IRMIApplicationController {
 
     @Override
     public BookDTO searchBookById(int mediumId) throws RemoteException {
-        return _bookController.searchMediumById(mediumId);
+        return _bookController.searchById(mediumId);
     }
 
     @Override
     public DvdDTO searchDvdById(int mediumId) throws RemoteException {
-        return _dvdController.searchMediumById(mediumId);
+        return _dvdController.searchById(mediumId);
     }
 }

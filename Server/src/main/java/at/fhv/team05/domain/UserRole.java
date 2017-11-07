@@ -4,10 +4,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "UserRole")
-public class UserRole {
+public class UserRole implements IDomainObject {
     private int id;
     private String role;
 
+    @Override
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {

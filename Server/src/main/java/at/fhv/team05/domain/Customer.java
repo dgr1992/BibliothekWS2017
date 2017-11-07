@@ -1,13 +1,13 @@
 package at.fhv.team05.domain;
 
+import at.fhv.team05.ObjectInterfaces.ICustomer;
+
 import javax.persistence.*;
 import java.sql.Date;
 
-import at.fhv.team05.ObjectInterfaces.ICustomer;
-
 @Entity
 @Table(name = "Customer")
-public class Customer implements ICustomer {
+public class Customer implements ICustomer, IDomainObject {
     private int id;
     private String firstName;
     private String lastName;
@@ -18,6 +18,7 @@ public class Customer implements ICustomer {
     private String phoneNumber;
     private Date paymentDate;
 
+    @Override
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {
@@ -28,6 +29,7 @@ public class Customer implements ICustomer {
         this.id = id;
     }
 
+    @Override
     @Basic
     @Column(name = "firstName", nullable = false, length = 50)
     public String getFirstName() {
@@ -38,6 +40,7 @@ public class Customer implements ICustomer {
         this.firstName = firstName;
     }
 
+    @Override
     @Basic
     @Column(name = "lastName", nullable = false, length = 50)
     public String getLastName() {
@@ -48,6 +51,7 @@ public class Customer implements ICustomer {
         this.lastName = lastName;
     }
 
+    @Override
     @Basic
     @Column(name = "customerId", nullable = false)
     public int getCustomerId() {
@@ -58,6 +62,7 @@ public class Customer implements ICustomer {
         this.customerId = customerId;
     }
 
+    @Override
     @Basic
     @Column(name = "addressId", nullable = false)
     public int getAddressId() {
@@ -68,6 +73,7 @@ public class Customer implements ICustomer {
         this.addressId = addressId;
     }
 
+    @Override
     @Basic
     @Column(name = "dateOfBirth", nullable = false)
     public Date getDateOfBirth() {
@@ -78,6 +84,7 @@ public class Customer implements ICustomer {
         this.dateOfBirth = dateOfBirth;
     }
 
+    @Override
     @Basic
     @Column(name = "email", nullable = true, length = 50)
     public String getEmail() {
@@ -88,6 +95,7 @@ public class Customer implements ICustomer {
         this.email = email;
     }
 
+    @Override
     @Basic
     @Column(name = "phoneNumber", nullable = true, length = 30)
     public String getPhoneNumber() {
@@ -98,6 +106,7 @@ public class Customer implements ICustomer {
         this.phoneNumber = phoneNumber;
     }
 
+    @Override
     @Basic
     @Column(name = "paymentDate", nullable = true)
     public Date getPaymentDate() {

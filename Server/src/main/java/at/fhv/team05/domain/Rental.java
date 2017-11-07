@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Rental")
-public class Rental implements IRental{
+public class Rental implements IRental, IDomainObject {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
@@ -40,6 +40,7 @@ public class Rental implements IRental{
     @Column(name = "extendCounter", nullable = false)
     private int _extendCounter;
 
+    @Override
     public int getId() {
         return _id;
     }
@@ -67,6 +68,7 @@ public class Rental implements IRental{
     }
 
 
+    @Override
     public Date getPickupDate() {
         return _pickupDate;
     }
@@ -76,6 +78,7 @@ public class Rental implements IRental{
     }
 
 
+    @Override
     public Date getReturnDate() {
         return _returnDate;
     }
@@ -85,6 +88,7 @@ public class Rental implements IRental{
     }
 
 
+    @Override
     public Date getDeadline() {
         return _deadline;
     }
@@ -93,6 +97,7 @@ public class Rental implements IRental{
         _deadline = deadline;
     }
 
+    @Override
     public int getExtendCounter() {
         return _extendCounter;
     }
@@ -142,7 +147,7 @@ public class Rental implements IRental{
     @Override
     public int hashCode() {
         int result = _id;
-        result = 31 * result + (_copy != null ? _copy.hashCode() : 0);;
+        result = 31 * result + (_copy != null ? _copy.hashCode() : 0);
         result = 31 * result + (_customer != null ? _customer.hashCode() : 0);
         result = 31 * result + (_pickupDate != null ? _pickupDate.hashCode() : 0);
         result = 31 * result + (_returnDate != null ? _returnDate.hashCode() : 0);
