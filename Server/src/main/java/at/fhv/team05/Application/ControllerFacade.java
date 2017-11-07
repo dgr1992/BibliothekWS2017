@@ -53,7 +53,7 @@ public class ControllerFacade implements IRMIApplicationController {
 
     @Override
     public CopyDTO searchCopyByCopyNumber(int copyNumber) throws RemoteException {
-        return null;
+        return _copyController.searchCopyByCopyNumber(copyNumber);
     }
 
     @Override
