@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "Rental")
 public class Rental implements IRental, IDomainObject {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int _id;
 
