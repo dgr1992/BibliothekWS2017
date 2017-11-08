@@ -23,7 +23,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-public class RentalPresenter implements Initializable{
+public class RentalPresenter implements Initializable {
     MainViewPresenter parent;
     CopyDTO copy;
 
@@ -43,6 +43,9 @@ public class RentalPresenter implements Initializable{
     private Label labelD;
 
     @FXML
+    private Label labelE;
+
+    @FXML
     private Label label1;
 
     @FXML
@@ -55,6 +58,9 @@ public class RentalPresenter implements Initializable{
     private Label label4;
 
     @FXML
+    private Label label5;
+
+    @FXML
     private TextField txtFieldCopyNumber;
 
     @FXML
@@ -62,12 +68,15 @@ public class RentalPresenter implements Initializable{
 
     @FXML
     void onNextButtonPressed(ActionEvent event) {
-        if (copy != null)
-            parent.openCustomerRentalView(copy);
-        else
+        if (copy != null) {
+            if (copy.getRental() == null) {
+                parent.openCustomerRentalView(copy);
+            }else {
+                infoAlert("This Medium is already rented");
+            }
+        } else
             infoAlert("Please enter a Medium");
     }
-
 
     @FXML
     void onSearchButtonPressed(ActionEvent event) {
@@ -86,17 +95,23 @@ public class RentalPresenter implements Initializable{
                     label3.setText(book.getReleaseDate().toString());
                     labelD.setText("ISBN: ");
                     label4.setText(book.getIsbn());
+                    labelE.setText("Copy Number: ");
+                    label5.setText(String.valueOf(copy.getCopyNumber()));
+
                 } else if ("dvd".equalsIgnoreCase(copy.getMediaType())) {
-                    DvdDTO book = ClientRun.controller.searchDvdById(copy.getMediumId());
-                    lblTitle.setText(book.getTitle());
+                    DvdDTO dvd = ClientRun.controller.searchDvdById(copy.getMediumId());
+                    lblTitle.setText(dvd.getTitle());
                     labelA.setText("Director: ");
-                    label1.setText(book.getDirector());
+                    label1.setText(dvd.getDirector());
                     labelB.setText("Publisher: ");
-                    label2.setText(book.getPublisher());
+                    label2.setText(dvd.getPublisher());
                     labelC.setText("Release Date: ");
-                    label3.setText(book.getReleaseDate().toString());
+                    label3.setText(dvd.getReleaseDate().toString());
                     labelD.setText("ASIN: ");
-                    label4.setText(book.getAsin());
+                    label4.setText(dvd.getAsin());
+                    labelE.setText("Copy Number: ");
+                    label5.setText(String.valueOf(copy.getCopyNumber()));
+
                 }
             } else {
                 infoAlert("Could not find specified copy.");

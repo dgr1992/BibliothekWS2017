@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.rental.RentalPresenter">
+<AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.rental.RentalPresenter">
    <children>
       <VBox prefHeight="700.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -93,10 +93,12 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
+                              <Label fx:id="labelE" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
                               <Label fx:id="label1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label fx:id="label2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label fx:id="label3" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <Label fx:id="label4" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label fx:id="label5" prefHeight="17.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                            </children>
                         </GridPane>
                      </children></StackPane>
