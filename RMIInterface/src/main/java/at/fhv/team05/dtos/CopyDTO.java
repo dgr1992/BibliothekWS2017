@@ -58,4 +58,31 @@ public class CopyDTO implements Serializable {
     public void setRental(RentalDTO _rental) {
         this._rental = _rental;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CopyDTO copyDTO = (CopyDTO) o;
+
+        if (_copyNumber != copyDTO._copyNumber) return false;
+        if (_id != copyDTO._id) return false;
+        if (_mediumId != copyDTO._mediumId) return false;
+        if (_mediaType != null ? !_mediaType.equals(copyDTO._mediaType)
+                : copyDTO._mediaType != null) {
+            return false;
+        }
+        return _rental != null ? _rental.equals(copyDTO._rental) : copyDTO._rental == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = _copyNumber;
+        result = 31 * result + _id;
+        result = 31 * result + (_mediaType != null ? _mediaType.hashCode() : 0);
+        result = 31 * result + _mediumId;
+        result = 31 * result + (_rental != null ? _rental.hashCode() : 0);
+        return result;
+    }
 }
