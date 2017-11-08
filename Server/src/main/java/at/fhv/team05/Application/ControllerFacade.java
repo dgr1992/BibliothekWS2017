@@ -64,8 +64,8 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public void extendSubscription(CustomerDTO customer) throws RemoteException {
-        _customerController.extendSubscription(customer);
+    public CustomerDTO extendSubscription(CustomerDTO customer) throws RemoteException {
+        return _customerController.extendSubscription(customer);
     }
 
     @Override

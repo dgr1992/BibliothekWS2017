@@ -59,7 +59,12 @@ public class RentalOverviewPresenter {
             }
             Date deadline = new Date(calendar.getTimeInMillis());
             RentalDTO rental = new RentalDTO(copy, customer, today, deadline);
-            ClientRun.controller.rentMedium(rental);
+            boolean rentalSuccessful = ClientRun.controller.rentMedium(rental);
+            if (rentalSuccessful) {
+                infoAlert("Medium successfully rented!");
+            } else {
+                errorAlert("ERROR! Medium cannot be rented.");
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -68,9 +73,12 @@ public class RentalOverviewPresenter {
     @FXML
     void onExtendAboButtonPressed(ActionEvent event) {
         try {
-            ClientRun.controller.extendSubscription(customer);
+            CustomerDTO customerDTO = ClientRun.controller.extendSubscription(customer);
+            Calendar c = Calendar.getInstance();
+            c.setTime(customerDTO.getPaymentDate());
+            c.add(Calendar.YEAR, 1);
+            lblAboValidUntil.setText(new Date(c.getTimeInMillis()).toString());
             infoAlert("Subscription successfully extended!");
-            btnExtendSub.setDisable(true);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -98,14 +106,24 @@ public class RentalOverviewPresenter {
             lblStreet.setText(customer.getAddress().getStreet()+ " " + customer.getAddress().getStreetNumber());
             lblZipCity.setText(customer.getAddress().getZip()+ " / " +customer.getAddress().getCity());
             lblCustomerNumber.setText(Integer.toString(customer.getCustomerId()));
+            Date today = new Date(Calendar.getInstance().getTimeInMillis());
+            Date paymentDate = customer.getPaymentDate();
+
             Calendar c = Calendar.getInstance();
-            if (customer.getPaymentDate() == null) {
-                lblAboValidUntil.setText("has not payed yet.");
-            } else {
+            if (paymentDate != null) {
                 c.setTime(customer.getPaymentDate());
                 c.add(Calendar.YEAR, 1);
-                lblAboValidUntil.setText(c.getTime().toString());
             }
+            Date subValidUntil = new Date(c.getTimeInMillis());
+
+            if (paymentDate == null) {
+                lblAboValidUntil.setText("Customer has not payed yet.");
+            } else if ((subValidUntil.before(today) || subValidUntil.equals(today))) {
+                lblAboValidUntil.setText("Subscription expired.");
+            } else {
+                lblAboValidUntil.setText(subValidUntil.toString());
+            }
+
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.MONTH, 1);
             lblRentedUntil.setText(calendar.getTime().toString());
@@ -120,6 +138,12 @@ public class RentalOverviewPresenter {
 
     private void infoAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(message);
+        alert.show();
+    }
+
+    private void errorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(message);
         alert.show();
     }

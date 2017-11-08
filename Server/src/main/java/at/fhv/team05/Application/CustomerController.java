@@ -6,6 +6,8 @@ import at.fhv.team05.domain.Customer;
 import at.fhv.team05.dtos.CustomerDTO;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 
 public class CustomerController extends BaseController<Customer, CustomerDTO> {
@@ -36,10 +38,36 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
         return new CustomerDTO(customer);
     }
 
-    public void extendSubscription(CustomerDTO customerDTO) {
-        Customer customer = getDomain(customerDTO);
-        customer.setPaymentDate(new Date(Calendar.getInstance().getTimeInMillis()));
+    public CustomerDTO extendSubscription(CustomerDTO customerDTO) {
 
+        Date paymentDate = customerDTO.getPaymentDate();
+        Date today = new Date(Calendar.getInstance().getTimeInMillis());
+        Customer customer = getDomain(customerDTO);
+        Date validUntil = null;
+
+        if (paymentDate != null) {
+            Calendar c = Calendar.getInstance();
+            c.setTime(paymentDate);
+            c.add(Calendar.YEAR, 1);
+            validUntil = new Date(c.getTimeInMillis());
+        }
+
+        if (paymentDate == null) {
+            customer.setPaymentDate(today);
+        } else if (validUntil != null && validUntil.before(today)) {
+            customer.setPaymentDate(today);
+        } else {
+            long daysToAdd = ChronoUnit.DAYS.between(LocalDate.parse(today.toString()), LocalDate.parse(validUntil.toString()));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(paymentDate);
+            calendar.add(Calendar.DATE, Math.toIntExact(daysToAdd));
+
+            Date newPaymentDate = new Date(calendar.getTimeInMillis());
+            customer.setPaymentDate(newPaymentDate);
+        }
+        CustomerDTO newCustomer = new CustomerDTO(customer);
         _repository.save(customer);
+
+        return newCustomer;
     }
 }

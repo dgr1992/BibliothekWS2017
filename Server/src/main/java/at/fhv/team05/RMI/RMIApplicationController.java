@@ -42,8 +42,8 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public void extendSubscription(CustomerDTO customer) throws RemoteException {
-        _controllerFacade.extendSubscription(customer);
+    public CustomerDTO extendSubscription(CustomerDTO customer) throws RemoteException {
+        return  _controllerFacade.extendSubscription(customer);
     }
 
     @Override
