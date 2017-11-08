@@ -49,8 +49,8 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public void rentMedium(RentalDTO rental) {
-        _rentalController.rentCopy(rental);
+    public boolean rentMedium(RentalDTO rental) {
+        return _rentalController.rentCopy(rental);
     }
 
     @Override

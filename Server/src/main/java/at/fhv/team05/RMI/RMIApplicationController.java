@@ -27,8 +27,8 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public void rentMedium(RentalDTO rental) {
-
+    public boolean rentMedium(RentalDTO rental) {
+        return _controllerFacade.rentMedium(rental);
     }
 
     @Override
