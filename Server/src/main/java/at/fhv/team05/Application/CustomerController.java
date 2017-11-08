@@ -25,9 +25,10 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
 
     @Override
     protected boolean compareInput(Customer customer, CustomerDTO customerDTO) {
-        return (StringUtilities.containsIgnoreCase(customer.getFirstName(), customerDTO.getFirstName())
-                && StringUtilities.containsIgnoreCase(customer.getLastName(), customerDTO.getLastName()))
-                || (customer.getCustomerId() == customerDTO.getCustomerId());
+        return  StringUtilities.containsIgnoreCase (Integer.toString(customer.getCustomerId()),Integer.toString(customerDTO.getCustomerId()))
+                && StringUtilities.containsIgnoreCase(customer.getFirstName(), customerDTO.getFirstName())
+                && StringUtilities.containsIgnoreCase(customer.getLastName(), customerDTO.getLastName());
+
     }
 
     @Override
