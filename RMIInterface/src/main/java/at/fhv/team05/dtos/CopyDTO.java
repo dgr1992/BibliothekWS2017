@@ -20,7 +20,7 @@ public class CopyDTO implements Serializable {
         _id = copy.getId();
         _mediaType = copy.getMediaType();
         _mediumId = copy.getMediumId();
-       // _rental = (copy.getRental() != null ? new RentalDTO(copy.getRental()) : null);
+        _rental = (copy.getRental() != null ? new RentalDTO(copy.getRental()) : null);
     }
 
     public int getCopyNumber() {
@@ -61,14 +61,24 @@ public class CopyDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         CopyDTO copyDTO = (CopyDTO) o;
 
-        if (_copyNumber != copyDTO._copyNumber) return false;
-        if (_id != copyDTO._id) return false;
-        if (_mediumId != copyDTO._mediumId) return false;
+        if (_copyNumber != copyDTO._copyNumber) {
+            return false;
+        }
+        if (_id != copyDTO._id) {
+            return false;
+        }
+        if (_mediumId != copyDTO._mediumId) {
+            return false;
+        }
         if (_mediaType != null ? !_mediaType.equals(copyDTO._mediaType)
                 : copyDTO._mediaType != null) {
             return false;
