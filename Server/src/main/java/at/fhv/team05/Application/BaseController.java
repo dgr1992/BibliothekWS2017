@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public abstract class BaseController<DomainObject extends IDomainObject, DomainDTO> {
+    protected static ControllerFacade _controllerFacade = ControllerFacade.getInstance();
     protected Repository<DomainObject> _repository;
     protected HashMap<DomainObject, DomainDTO> _mapDomainToDto;
     protected HashMap<DomainDTO, DomainObject> _mapDtoToDomain;
@@ -29,7 +30,7 @@ public abstract class BaseController<DomainObject extends IDomainObject, DomainD
         for (DomainObject obj : _repository.list()) {
             DomainDTO dto = createDTO(obj);
             _mapDomainToDto.put(obj, dto);
-            _mapDtoToDomain.put(dto,obj);
+            _mapDtoToDomain.put(dto, obj);
         }
     }
 
@@ -56,7 +57,7 @@ public abstract class BaseController<DomainObject extends IDomainObject, DomainD
         return _mapDomainToDto.get(obj);
     }
 
-    public DomainObject getDomain(DomainDTO dto){
+    public DomainObject getDomain(DomainDTO dto) {
         return _mapDtoToDomain.get(dto);
     }
 

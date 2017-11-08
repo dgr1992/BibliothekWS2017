@@ -3,6 +3,7 @@ package at.fhv.team05.Application;
 
 import at.fhv.team05.Application.medium.BookController;
 import at.fhv.team05.Application.medium.DvdController;
+import at.fhv.team05.domain.Address;
 import at.fhv.team05.dtos.*;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
@@ -16,12 +17,14 @@ public class ControllerFacade implements IRMIApplicationController {
     private DvdController _dvdController;
     private CustomerController _customerController;
     private CopyController _copyController;
+    private AddressController _addressController;
 
     private ControllerFacade() {
         _bookController = BookController.getInstance();
         _dvdController = DvdController.getInstance();
         _customerController = CustomerController.getInstance();
         _copyController = CopyController.getInstance();
+        _addressController = AddressController.getInstance();
     }
 
     public static ControllerFacade getInstance() {
@@ -69,5 +72,9 @@ public class ControllerFacade implements IRMIApplicationController {
     @Override
     public DvdDTO searchDvdById(int mediumId) throws RemoteException {
         return _dvdController.searchById(mediumId);
+    }
+
+    public Address getDomainAddress(AddressDTO address) {
+        return _addressController.getDomain(address);
     }
 }
