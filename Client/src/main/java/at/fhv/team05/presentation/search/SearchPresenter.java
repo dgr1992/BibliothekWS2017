@@ -36,9 +36,6 @@ public class SearchPresenter implements Initializable{
     private TextField txtFiledIsbn;
 
     @FXML
-    private TextField txtFiledGenreBook;
-
-    @FXML
     private TableView<BookDTO> tableViewBookSearch;
 
     @FXML
@@ -51,7 +48,8 @@ public class SearchPresenter implements Initializable{
     private TableColumn<BookDTO, String> tblColIsbn;
 
     @FXML
-    private TableColumn<BookDTO, String> tblColGenreBook;
+    private TableColumn<BookDTO, Date> tblColReleaseDateBook;
+
 
     @FXML
     private TextField txtFieldTitleDvd;
@@ -62,8 +60,6 @@ public class SearchPresenter implements Initializable{
     @FXML
     private TextField txtFieldAsin;
 
-    @FXML
-    private TextField txtFieldGenreDvd;
 
     @FXML
     private TableView<DvdDTO> tableViewDvdSearch;
@@ -76,9 +72,6 @@ public class SearchPresenter implements Initializable{
 
     @FXML
     private TableColumn<DvdDTO, String> tblColAsin;
-
-    @FXML
-    private TableColumn<DvdDTO, String> tblColGenreDvd;
 
     @FXML
     private TableColumn<DvdDTO, Date> tblColReleaseDate;
@@ -120,10 +113,6 @@ public class SearchPresenter implements Initializable{
         return txtFiledTitleBook.getText();
     }
 
-    private String getBookGenre() {
-        return txtFiledGenreBook.getText();
-    }
-
     private String getIsbn() {
         return txtFiledIsbn.getText();
     }
@@ -134,10 +123,6 @@ public class SearchPresenter implements Initializable{
         return txtFieldTitleDvd.getText();
     }
 
-    private String getDvdGenre() {
-        return txtFieldGenreDvd.getText();
-    }
-
     private String getAsin() {
         return txtFieldAsin.getText();
     }
@@ -146,16 +131,16 @@ public class SearchPresenter implements Initializable{
         return txtFieldDirector.getText();
     }
 
-    private void resultTableBook(List<BookDTO> bookList) {
 
+
+    private void resultTableBook(List<BookDTO> bookList) {
         ObservableList<BookDTO> resultData = FXCollections.observableArrayList();
         resultData.addAll(bookList);
         tblColTitleBook.setCellValueFactory(new PropertyValueFactory<>("title"));
         tblColAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
         tblColIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+        tblColReleaseDateBook.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
         tableViewBookSearch.setItems(resultData);
-
-
     }
 
     private void resultTableDvd(List<DvdDTO> dvdList) {
@@ -165,7 +150,6 @@ public class SearchPresenter implements Initializable{
         tblColDirector.setCellValueFactory(new PropertyValueFactory<>("director"));
         tblColAsin.setCellValueFactory(new PropertyValueFactory<>("asin"));
         tblColReleaseDate.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
-
         tableViewDvdSearch.setItems(resultData);
     }
 
