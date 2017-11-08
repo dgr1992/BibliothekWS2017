@@ -42,7 +42,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             rental.setDeadline(copieToRent.getDeadline());
             rental.setExtendCounter(copieToRent.getExtendCounter());
             rental.setPickupDate(copieToRent.getPickupDate());
-            rental.setReturnDate(copieToRent.getPickupDate());
+            rental.setReturnDate(copieToRent.getReturnDate());
             rental.setCopy(copy);
 
             //Add the rental to the copy
