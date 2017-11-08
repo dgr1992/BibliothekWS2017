@@ -9,16 +9,21 @@ import at.fhv.team05.presentation.mediumViews.BookPresenter;
 import at.fhv.team05.presentation.mediumViews.BookView;
 import at.fhv.team05.presentation.mediumViews.DvdPresenter;
 import at.fhv.team05.presentation.mediumViews.DvdView;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
+import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ResourceBundle;
 
-public class RentalPresenter {
+public class RentalPresenter implements Initializable{
     MainViewPresenter parent;
     CopyDTO copy;
 
@@ -110,5 +115,19 @@ public class RentalPresenter {
 
     public void setParent(MainViewPresenter parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        txtFieldCopyNumber.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    txtFieldCopyNumber.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
     }
 }
