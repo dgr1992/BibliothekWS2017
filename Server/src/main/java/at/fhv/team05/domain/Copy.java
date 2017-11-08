@@ -98,9 +98,6 @@ public class Copy implements ICopy, IDomainObject, Serializable {
         if (_copyNumber != that._copyNumber) {
             return false;
         }
-        if (_rental != null ? !_rental.equals(that._rental) : that._rental != null) {
-            return false;
-        }
         if (_mediaType != null ? !_mediaType.equals(that._mediaType) : that._mediaType != null) {
             return false;
         }
@@ -114,7 +111,6 @@ public class Copy implements ICopy, IDomainObject, Serializable {
         result = 31 * result + _mediumId;
         result = 31 * result + _copyNumber;
         result = 31 * result + (_mediaType != null ? _mediaType.hashCode() : 0);
-        result = 31 * result + (_rental != null ? _rental.hashCode() : 0);
         return result;
     }
 

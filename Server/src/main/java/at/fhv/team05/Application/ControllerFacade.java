@@ -4,6 +4,8 @@ package at.fhv.team05.Application;
 import at.fhv.team05.Application.medium.BookController;
 import at.fhv.team05.Application.medium.DvdController;
 import at.fhv.team05.domain.Address;
+import at.fhv.team05.domain.Copy;
+import at.fhv.team05.domain.Customer;
 import at.fhv.team05.dtos.*;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
@@ -76,7 +78,15 @@ public class ControllerFacade implements IRMIApplicationController {
         return _dvdController.searchById(mediumId);
     }
 
-    public Address getDomainAddress(AddressDTO address) {
-        return _addressController.getDomain(address);
+    public Address getDomainAddress(AddressDTO adressDTO) {
+        return _addressController.getDomain(adressDTO);
+    }
+
+    public Copy getDomainCopy(CopyDTO copyDTO) {
+        return _copyController.getDomain(copyDTO);
+    }
+
+    public Customer getDomainCustomer(CustomerDTO customerDTO) {
+        return _customerController.getDomain(customerDTO);
     }
 }

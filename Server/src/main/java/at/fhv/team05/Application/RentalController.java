@@ -1,9 +1,5 @@
 package at.fhv.team05.Application;
 
-import java.sql.Date;
-import java.util.Calendar;
-import java.util.LinkedList;
-
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.domain.Customer;
 import at.fhv.team05.domain.Rental;
@@ -12,6 +8,8 @@ import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.persistence.RepositoryFactory;
 
+import java.util.LinkedList;
+
 public class RentalController extends BaseController<Rental, RentalDTO> {
     private static RentalController _instance;
 
@@ -19,22 +17,22 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         super(Rental.class);
     }
 
-    public static RentalController getInstance(){
-        if(_instance == null){
+    public static RentalController getInstance() {
+        if (_instance == null) {
             _instance = new RentalController();
         }
         return _instance;
     }
 
-    public boolean rentCopy(RentalDTO copieToRent){
+    public boolean rentCopy(RentalDTO copieToRent) {
         try {
             //Get the original copy object
             CopyDTO copyDTO = copieToRent.getCopy();
-            Copy copy = CopyController.getInstance().getDomain(copyDTO);
+            Copy copy = _controllerFacade.getDomainCopy(copyDTO);
 
             //Get the original customer object
             CustomerDTO customerDTO = copieToRent.getCustomer();
-            Customer customer = CustomerController.getInstance().getDomain(customerDTO);
+            Customer customer = _controllerFacade.getDomainCustomer(customerDTO);
 
             //Create the domain rental object and fill it with the data from the DTO
             Rental rental = new Rental();
@@ -51,7 +49,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             //Save copy --> rental will be saved automatically
             RepositoryFactory.getRepositoryInstance(Copy.class).save(copy);
             return true;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
@@ -60,6 +58,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
      * From the rentalDTO the original copy and customer object will be obtained.
      * A new rental object will be created from the data of the DTO and added to the copy object.
      * Copy will be set to rent to the specified customer.
+     *
      * @param copiesToRent
      * @return
      */
