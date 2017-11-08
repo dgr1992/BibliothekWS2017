@@ -52,8 +52,12 @@ public class RentalOverviewPresenter {
         try {
             Date today = new Date(Calendar.getInstance().getTime().getTime());
             Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.MONTH, 1);
-            Date deadline = new Date(calendar.getTime().getTime());
+            if ("book".equalsIgnoreCase(copy.getMediaType())) {
+                calendar.add(Calendar.MONTH, 1);
+            } else {
+                calendar.add(Calendar.DATE, 14);
+            }
+            Date deadline = new Date(calendar.getTimeInMillis());
             RentalDTO rental = new RentalDTO(copy, customer, today, deadline);
             ClientRun.controller.rentMedium(rental);
         } catch (RemoteException e) {
