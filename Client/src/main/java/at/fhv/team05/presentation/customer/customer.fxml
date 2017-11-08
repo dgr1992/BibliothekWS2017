@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.customer.CustomerPresenter">
@@ -76,7 +75,6 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <StackPane fx:id="nextPane" prefHeight="78.0" prefWidth="800.0" />
             <GridPane prefHeight="50.0" prefWidth="800.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="120.0" />

@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import javax.annotation.PostConstruct;
 import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.Calendar;
@@ -71,37 +72,38 @@ public class RentalOverviewPresenter {
         }
     }
 
-    public void initialize() {
+    public void initView() {
         IMediumDTO medium = null;
-        if(copy !=null) {
-            if ("book".equalsIgnoreCase(copy.getMediaType())) {
-                try {
-                    medium = ClientRun.controller.searchBookById(copy.getMediumId());
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            } else if ("dvd".equalsIgnoreCase(copy.getMediaType())) {
-                try {
-                    medium = ClientRun.controller.searchDvdById(copy.getMediumId());
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+        if ("book".equalsIgnoreCase(copy.getMediaType())) {
+            try {
+                medium = ClientRun.controller.searchBookById(copy.getMediumId());
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
-            if (medium != null) {
-                lblMediumNumber.setText(Integer.toString(copy.getCopyNumber()));
-                lblTitle.setText(medium.getTitle());
-                lblCustomerName.setText(customer.getFirstName() + " " + customer.getLastName());
-                lblStreet.setText(customer.getAddress().getStreet() + " " + customer.getAddress().getStreetNumber());
-                lblZipCity.setText(customer.getAddress().getZip() + " / " + customer.getAddress().getCity());
-                lblCustomerNumber.setText(Integer.toString(customer.getCustomerId()));
-                Calendar c = Calendar.getInstance();
+        } else if ("dvd".equalsIgnoreCase(copy.getMediaType())) {
+            try {
+                medium = ClientRun.controller.searchDvdById(copy.getMediumId());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        if (medium != null) {
+            lblMediumNumber.setText(Integer.toString(copy.getCopyNumber()));
+            lblTitle.setText(medium.getTitle());
+            lblCustomerName.setText(customer.getFirstName() + " " + customer.getLastName());
+            //lblZipCity.setText();
+            lblCustomerNumber.setText(Integer.toString(customer.getCustomerId()));
+            Calendar c = Calendar.getInstance();
+            if (customer.getPaymentDate() == null) {
+                lblAboValidUntil.setText("has not payed yet.");
+            } else {
                 c.setTime(customer.getPaymentDate());
                 c.add(Calendar.YEAR, 1);
                 lblAboValidUntil.setText(c.getTime().toString());
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.MONTH, 1);
-                lblRentedUntil.setText(calendar.getTime().toString());
             }
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MONTH, 1);
+            lblRentedUntil.setText(calendar.getTime().toString());
         }
 
     }

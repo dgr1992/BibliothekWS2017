@@ -3,16 +3,20 @@ package at.fhv.team05.presentation.search;
 import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.DvdDTO;
+import at.fhv.team05.dtos.IMediumDTO;
+import at.fhv.team05.presentation.detailView.DetailView;
+import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -22,7 +26,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class SearchPresenter{
+public class SearchPresenter implements Initializable{
+    private MainViewPresenter parent;
+
     @FXML
     private TextField txtFiledTitleBook;
 
@@ -79,6 +85,8 @@ public class SearchPresenter{
 
     @FXML
     private TableColumn<DvdDTO, Date> tblColReleaseDate;
+
+
 
     @FXML
     public void onSearchBtnPressedBook(ActionEvent event) {
@@ -164,6 +172,22 @@ public class SearchPresenter{
         tableViewDvdSearch.setItems(resultData);
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setDoubleClick(tableViewDvdSearch);
+        setDoubleClick(tableViewBookSearch);
 
+    }
 
+    private void setDoubleClick(TableView table) {
+        table.setOnMousePressed(event -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                parent.openDetailView((IMediumDTO) table.getSelectionModel().getSelectedItem());
+            }
+        });
+    }
+
+    public void setParent(MainViewPresenter parent) {
+        this.parent = parent;
+    }
 }

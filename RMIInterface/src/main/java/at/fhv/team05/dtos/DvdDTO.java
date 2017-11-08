@@ -5,6 +5,8 @@ import at.fhv.team05.ObjectInterfaces.IDvd;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DvdDTO implements IMediumDTO, Serializable {
 
@@ -15,6 +17,7 @@ public class DvdDTO implements IMediumDTO, Serializable {
     private CategoryDTO category;
     private String publisher;
     private String director;
+    private Map<String, Object> attributeMap;
 
 
     public DvdDTO(IDvd dvd) {
@@ -26,6 +29,17 @@ public class DvdDTO implements IMediumDTO, Serializable {
         category = new CategoryDTO(dvd.getCategory());
         publisher = dvd.getPublisher();
         director = dvd.getDirector();
+
+        attributeMap = new HashMap<>();
+        attributeMap.put("id", id);
+        attributeMap.put("title", title);
+        attributeMap.put("articleId", asin);
+        attributeMap.put("releaseDate", releaseDate);
+        attributeMap.put("category", category);
+        attributeMap.put("publisher", publisher);
+        attributeMap.put("prod", director);
+
+
 
     }
 
@@ -41,6 +55,10 @@ public class DvdDTO implements IMediumDTO, Serializable {
 
     public String getTitle() {
         return title;
+    }
+
+    public Map<String, Object> getAttributeMap() {
+        return attributeMap;
     }
 
     public String getAsin() {
