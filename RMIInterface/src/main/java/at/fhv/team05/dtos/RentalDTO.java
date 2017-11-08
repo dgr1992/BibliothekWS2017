@@ -23,7 +23,11 @@ public class RentalDTO implements Serializable {
         _deadline = rental.getDeadline();
         _extendCounter = rental.getExtendCounter();
     }
-    public RentalDTO(int copyId, int customerId, Date pickupDate, Date deadline) {
+    public RentalDTO(CopyDTO copy, CustomerDTO customer, Date pickupDate, Date deadline) {
+        _copy = copy;
+        _customer = customer;
+        _pickupDate = pickupDate;
+        _deadline = deadline;
         _extendCounter = 0;
     }
 
