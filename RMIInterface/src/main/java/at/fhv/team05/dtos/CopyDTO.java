@@ -20,7 +20,7 @@ public class CopyDTO implements Serializable {
         _id = copy.getId();
         _mediaType = copy.getMediaType();
         _mediumId = copy.getMediumId();
-        _rental = (copy.getRental() != null ? new RentalDTO(copy.getRental()) : null);
+        _rental = (copy.getRental() != null ? new RentalDTO(copy.getRental(), this) : null);
     }
 
     public int getCopyNumber() {

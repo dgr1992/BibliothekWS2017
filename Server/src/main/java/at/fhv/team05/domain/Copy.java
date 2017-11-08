@@ -25,7 +25,6 @@ public class Copy implements ICopy, IDomainObject, Serializable {
     private String _mediaType;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @Transient
     @JoinColumn(name = "rentalId", nullable = true)
     private Rental _rental;
 

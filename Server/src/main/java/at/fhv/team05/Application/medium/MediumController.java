@@ -22,22 +22,7 @@ public abstract class MediumController<Medium extends IDomainObject, MediumDTO e
         _repositoryReservation = RepositoryFactory.getRepositoryInstance(Reservation.class);
     }
 
-    //TODO evtl in eigenen controller?
-    public void reserveMedium(List<MediumDTO> mediumDTOList, CustomerDTO customerDTO) {
-        LinkedList<MediumDTO> reserveList = new LinkedList<>();
-        reserveList.addAll(mediumDTOList);
 
-        for (MediumDTO medium : reserveList) {
-
-            Reservation reservedObject = new Reservation();
-
-            reservedObject.setMediumId(medium.getId());
-            reservedObject.setCustomerId(customerDTO.getCustomerId());
-            reservedObject.setMediaType(medium.getClass().toString());
-            reservedObject.setReservationDate(new Date(Calendar.getInstance().getTimeInMillis()));
-
-            _repositoryReservation.save(reservedObject);
-        }
-
-    }
 }
+
+
