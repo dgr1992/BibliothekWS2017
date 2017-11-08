@@ -4,6 +4,8 @@ import at.fhv.team05.ObjectInterfaces.IBook;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BookDTO implements IMediumDTO, Serializable {
 
@@ -14,6 +16,7 @@ public class BookDTO implements IMediumDTO, Serializable {
     private CategoryDTO categoryDTO;
     private String publisher;
     private String author;
+    private Map<String, Object> attributeMap;
 
     public BookDTO(IBook book) {
 
@@ -24,6 +27,16 @@ public class BookDTO implements IMediumDTO, Serializable {
         categoryDTO = new CategoryDTO(book.getCategory());
         publisher = book.getPublisher();
         author = book.getAuthor();
+
+
+        attributeMap = new HashMap<>();
+        attributeMap.put("id", id);
+        attributeMap.put("title", title);
+        attributeMap.put("articleId", isbn);
+        attributeMap.put("releaseDate", releaseDate);
+        attributeMap.put("category", categoryDTO);
+        attributeMap.put("publisher", publisher);
+        attributeMap.put("prod", author);
 
     }
 
@@ -39,6 +52,10 @@ public class BookDTO implements IMediumDTO, Serializable {
 
     public String getTitle() {
         return title;
+    }
+
+    public Map<String, Object> getAttributeMap() {
+        return attributeMap;
     }
 
     public String getIsbn() {

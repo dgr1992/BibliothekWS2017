@@ -1,15 +1,18 @@
 package at.fhv.team05.presentation.rental;
 
 import at.fhv.team05.ClientRun;
+import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.CopyDTO;
+import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
-import at.fhv.team05.presentation.rental.mediumViews.BookPresenter;
-import at.fhv.team05.presentation.rental.mediumViews.BookView;
-import at.fhv.team05.presentation.rental.mediumViews.DvdPresenter;
-import at.fhv.team05.presentation.rental.mediumViews.DvdView;
+import at.fhv.team05.presentation.mediumViews.BookPresenter;
+import at.fhv.team05.presentation.mediumViews.BookView;
+import at.fhv.team05.presentation.mediumViews.DvdPresenter;
+import at.fhv.team05.presentation.mediumViews.DvdView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
@@ -20,6 +23,33 @@ public class RentalPresenter {
     CopyDTO copy;
 
     @FXML
+    private Label lblTitle;
+
+    @FXML
+    private Label labelA;
+
+    @FXML
+    private Label labelB;
+
+    @FXML
+    private Label labelC;
+
+    @FXML
+    private Label labelD;
+
+    @FXML
+    private Label label1;
+
+    @FXML
+    private Label label2;
+
+    @FXML
+    private Label label3;
+
+    @FXML
+    private Label label4;
+
+    @FXML
     private TextField txtFieldCopyNumber;
 
     @FXML
@@ -27,7 +57,6 @@ public class RentalPresenter {
 
     @FXML
     void onNextButtonPressed(ActionEvent event) {
-
         parent.openCustomerRentalView(copy);
     }
 
@@ -39,15 +68,27 @@ public class RentalPresenter {
             copy = ClientRun.controller.searchCopyByCopyNumber(copyNumber);
             if (copy != null) {
                 if ("book".equalsIgnoreCase(copy.getMediaType())) {
-                    BookView book = new BookView();
-                    mediumContainer.getChildren().setAll(book.getView());
-                    BookPresenter presenter = (BookPresenter) book.getPresenter();
-                    presenter.setCopy(copy);
+                    BookDTO book = ClientRun.controller.searchBookById(copy.getMediumId());
+                    lblTitle.setText(book.getTitle());
+                    labelA.setText("Author: ");
+                    label1.setText(book.getAuthor());
+                    labelB.setText("Publisher: ");
+                    label2.setText(book.getPublisher());
+                    labelC.setText("Release Date: ");
+                    label3.setText(book.getReleaseDate().toString());
+                    labelD.setText("ISBN: ");
+                    label4.setText(book.getIsbn());
                 } else if ("dvd".equalsIgnoreCase(copy.getMediaType())) {
-                    DvdView dvd = new DvdView();
-                    mediumContainer.getChildren().setAll(dvd.getView());
-                    DvdPresenter presenter = (DvdPresenter) dvd.getPresenter();
-                    presenter.setCopy(copy);
+                    DvdDTO book = ClientRun.controller.searchDvdById(copy.getMediumId());
+                    lblTitle.setText(book.getTitle());
+                    labelA.setText("Director: ");
+                    label1.setText(book.getDirector());
+                    labelB.setText("Publisher: ");
+                    label2.setText(book.getPublisher());
+                    labelC.setText("Release Date: ");
+                    label3.setText(book.getReleaseDate().toString());
+                    labelD.setText("ASIN: ");
+                    label4.setText(book.getAsin());
                 }
             } else {
                 infoAlert("Could not find specified copy.");

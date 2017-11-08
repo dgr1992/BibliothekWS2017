@@ -30,6 +30,8 @@
                   <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                   <JFXButton fx:id="btnLoadRentMediumView" onAction="#onLoadRentMediumViewButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Rent Medium" />
                   <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
+                  <JFXButton onAction="#onReserveMediumButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Reserve Medium" />
+                  <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                   <JFXButton onAction="#onLogoutButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Logout" />
                   <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                </children>

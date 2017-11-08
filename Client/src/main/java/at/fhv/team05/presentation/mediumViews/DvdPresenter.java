@@ -1,9 +1,8 @@
-package at.fhv.team05.presentation.rental.mediumViews;
+package at.fhv.team05.presentation.mediumViews;
 
 import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.DvdDTO;
-import at.fhv.team05.dtos.IMediumDTO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

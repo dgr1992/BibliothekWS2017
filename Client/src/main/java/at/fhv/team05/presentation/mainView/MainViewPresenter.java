@@ -1,9 +1,10 @@
 package at.fhv.team05.presentation.mainView;
 
-import at.fhv.team05.dtos.CopyDTO;
-import at.fhv.team05.dtos.CustomerDTO;
+import at.fhv.team05.dtos.*;
 import at.fhv.team05.presentation.customer.CustomerPresenter;
 import at.fhv.team05.presentation.customer.CustomerView;
+import at.fhv.team05.presentation.detailView.DetailPresenter;
+import at.fhv.team05.presentation.detailView.DetailView;
 import at.fhv.team05.presentation.navigation.LoginNavigationPresenter;
 import at.fhv.team05.presentation.navigation.LoginNavigationView;
 import at.fhv.team05.presentation.navigation.NavigationPresenter;
@@ -12,6 +13,7 @@ import at.fhv.team05.presentation.rental.RentalOverviewPresenter;
 import at.fhv.team05.presentation.rental.RentalOverviewView;
 import at.fhv.team05.presentation.rental.RentalPresenter;
 import at.fhv.team05.presentation.rental.RentalView;
+import at.fhv.team05.presentation.search.SearchPresenter;
 import at.fhv.team05.presentation.search.SearchView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,45 +38,55 @@ public class MainViewPresenter implements Initializable {
     }
     public void changeNavigationBarToLoggedIn(){
         NavigationView navigationView = new NavigationView();
-        navigationBarContainer.getChildren().setAll(navigationView.getView());
         NavigationPresenter presenter = (NavigationPresenter) navigationView.getPresenter();
         presenter.setParent(this);
+        navigationBarContainer.getChildren().setAll(navigationView.getView());
     }
 
     public void changeNavigationBarToLoggedOut() {
         LoginNavigationView navigationView = new LoginNavigationView();
-        navigationBarContainer.getChildren().setAll(navigationView.getView());
         LoginNavigationPresenter presenter = (LoginNavigationPresenter) navigationView.getPresenter();
         presenter.setParent(this);
+        navigationBarContainer.getChildren().setAll(navigationView.getView());
     }
 
     public void openSearchView(){
         SearchView searchView = new SearchView();
+        SearchPresenter presenter = (SearchPresenter) searchView.getPresenter();
+        presenter.setParent(this);
         contentContainer.getChildren().setAll(searchView.getView());
     }
 
     public void openRentalView() {
         RentalView rentalView = new RentalView();
-        contentContainer.getChildren().setAll(rentalView.getView());
         RentalPresenter presenter = (RentalPresenter) rentalView.getPresenter();
         presenter.setParent(this);
+        contentContainer.getChildren().setAll(rentalView.getView());
     }
 
 
     public void openCustomerRentalView(CopyDTO copy) {
         CustomerView customerView = new CustomerView();
-        contentContainer.getChildren().setAll(customerView.getView());
         CustomerPresenter presenter = (CustomerPresenter) customerView.getPresenter();
         presenter.setParent(this);
         presenter.setCopy(copy);
+        contentContainer.getChildren().setAll(customerView.getView());
     }
 
     public void openRentalOverview(CustomerDTO customer, CopyDTO copy) {
         RentalOverviewView rentalOverview = new RentalOverviewView();
-        contentContainer.getChildren().setAll(rentalOverview.getView());
         RentalOverviewPresenter presenter = (RentalOverviewPresenter) rentalOverview.getPresenter();
         presenter.setCustomer(customer);
         presenter.setCopy(copy);
+        presenter.initView();
+        contentContainer.getChildren().setAll(rentalOverview.getView());
+    }
+
+    public void openDetailView(IMediumDTO medium) {
+        DetailView detailView = new DetailView();
+        DetailPresenter presenter = (DetailPresenter) detailView.getPresenter();
+        presenter.setMedium(medium);
+        contentContainer.getChildren().setAll(detailView.getView());
     }
     
 

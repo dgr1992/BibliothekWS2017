@@ -34,6 +34,11 @@ public class NavigationPresenter{
     }
 
     @FXML
+    void onReserveMediumButtonPressed(ActionEvent event) {
+        parent.openSearchView();
+    }
+
+    @FXML
     void onLogoutButtonPressed(ActionEvent event) {
         parent.changeNavigationBarToLoggedOut();
         parent.openSearchView();

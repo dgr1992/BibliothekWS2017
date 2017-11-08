@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import javax.annotation.PostConstruct;
 import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.Calendar;
@@ -71,7 +72,7 @@ public class RentalOverviewPresenter {
         }
     }
 
-    public void initialize() {
+    public void initView() {
         IMediumDTO medium = null;
         if ("book".equalsIgnoreCase(copy.getMediaType())) {
             try {
@@ -93,9 +94,13 @@ public class RentalOverviewPresenter {
             //lblZipCity.setText();
             lblCustomerNumber.setText(Integer.toString(customer.getCustomerId()));
             Calendar c = Calendar.getInstance();
-            c.setTime(customer.getPaymentDate());
-            c.add(Calendar.YEAR, 1);
-            lblAboValidUntil.setText(c.getTime().toString());
+            if (customer.getPaymentDate() == null) {
+                lblAboValidUntil.setText("has not payed yet.");
+            } else {
+                c.setTime(customer.getPaymentDate());
+                c.add(Calendar.YEAR, 1);
+                lblAboValidUntil.setText(c.getTime().toString());
+            }
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.MONTH, 1);
             lblRentedUntil.setText(calendar.getTime().toString());

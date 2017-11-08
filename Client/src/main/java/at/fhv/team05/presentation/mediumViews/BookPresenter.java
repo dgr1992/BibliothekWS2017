@@ -1,4 +1,4 @@
-package at.fhv.team05.presentation.rental.mediumViews;
+package at.fhv.team05.presentation.mediumViews;
 
 import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.BookDTO;
@@ -11,9 +11,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-/**
- * Created by Michelle on 05.11.2017.
- */
 public class BookPresenter implements Initializable {
     private CopyDTO copy;
 
