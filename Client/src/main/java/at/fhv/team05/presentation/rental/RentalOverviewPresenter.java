@@ -126,7 +126,7 @@ public class RentalOverviewPresenter {
 
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.MONTH, 1);
-            lblRentedUntil.setText(calendar.getTime().toString());
+            lblRentedUntil.setText(new Date(calendar.getTimeInMillis()).toString());
         }
 
     }
