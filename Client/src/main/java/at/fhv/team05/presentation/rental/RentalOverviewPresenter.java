@@ -54,7 +54,7 @@ public class RentalOverviewPresenter {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.MONTH, 1);
             Date deadline = new Date(calendar.getTime().getTime());
-            RentalDTO rental = new RentalDTO(12, customer.getId(), today, deadline);
+            RentalDTO rental = new RentalDTO(copy, customer, today, deadline);
             ClientRun.controller.rentMedium(rental);
         } catch (RemoteException e) {
             e.printStackTrace();

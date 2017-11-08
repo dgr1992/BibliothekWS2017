@@ -36,16 +36,7 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
     }
 
     public void extendSubscription(CustomerDTO customerDTO) {
-        Customer customer = new Customer();
-
-        customer.setId(customerDTO.getId());
-        customer.setFirstName(customerDTO.getFirstName());
-        customer.setLastName(customerDTO.getLastName());
-        customer.setCustomerId(customerDTO.getCustomerId());
-        customer.setAddress(_controllerFacade.getDomainAddress(customerDTO.getAddress()));
-        customer.setDateOfBirth(customerDTO.getDateOfBirth());
-        customer.setEmail(customerDTO.getEmail());
-        customer.setPhoneNumber(customerDTO.getPhoneNumber());
+        Customer customer = getDomain(customerDTO);
         customer.setPaymentDate(new Date(Calendar.getInstance().getTimeInMillis()));
 
         _repository.save(customer);
