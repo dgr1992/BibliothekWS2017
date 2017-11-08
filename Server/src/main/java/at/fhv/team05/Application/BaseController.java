@@ -11,7 +11,8 @@ import java.util.LinkedList;
 
 public abstract class BaseController<DomainObject extends IDomainObject, DomainDTO> {
     protected Repository<DomainObject> _repository;
-    protected HashMap<DomainObject, DomainDTO> _map;
+    protected HashMap<DomainObject, DomainDTO> _mapDomainToDto;
+    protected HashMap<DomainDTO, DomainObject> _mapDtoToDomain;
     protected static Class currentClass = new Object() {
     }.getClass().getEnclosingClass();
     protected static final Logger log = LogManager.getLogger(currentClass);
@@ -19,20 +20,23 @@ public abstract class BaseController<DomainObject extends IDomainObject, DomainD
     public BaseController(Class<DomainObject> domainObjectClass) {
         _repository = RepositoryFactory.getRepositoryInstance(domainObjectClass);
 
-        _map = new HashMap<>();
+        _mapDomainToDto = new HashMap<>();
+        _mapDtoToDomain = new HashMap<>();
         fillMap();
     }
 
     private void fillMap() {
         for (DomainObject obj : _repository.list()) {
-            _map.put(obj, createDTO(obj));
+            DomainDTO dto = createDTO(obj);
+            _mapDomainToDto.put(obj, dto);
+            _mapDtoToDomain.put(dto,obj);
         }
     }
 
     public DomainDTO searchById(int id) {
-        for (DomainObject obj : _map.keySet()) {
+        for (DomainObject obj : _mapDomainToDto.keySet()) {
             if (obj.getId() == id) {
-                return _map.get(obj);
+                return _mapDomainToDto.get(obj);
             }
         }
         return null;
@@ -40,16 +44,20 @@ public abstract class BaseController<DomainObject extends IDomainObject, DomainD
 
     public LinkedList<DomainDTO> searchFor(DomainDTO dto) {
         LinkedList<DomainDTO> result = new LinkedList<>();
-        for (DomainObject obj : _map.keySet()) {
+        for (DomainObject obj : _mapDomainToDto.keySet()) {
             if (compareInput(obj, dto)) {
-                result.add(_map.get(obj));
+                result.add(_mapDomainToDto.get(obj));
             }
         }
         return result;
     }
 
     public DomainDTO getDTO(DomainObject obj) {
-        return _map.get(obj);
+        return _mapDomainToDto.get(obj);
+    }
+
+    public DomainObject getDomain(DomainDTO dto){
+        return _mapDtoToDomain.get(dto);
     }
 
     protected abstract DomainDTO createDTO(DomainObject object);

@@ -19,20 +19,6 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
     }
 
     /**
-     * Gets the domain object that the CopyDTO represents
-     * @param copyDTO
-     * @return
-     */
-    public Copy getCopyFor(CopyDTO copyDTO){
-        for (Copy copy : RepositoryFactory.getRepositoryInstance(Copy.class).list()) {
-            if (copy.getId() == copyDTO.getId()) {
-                return copy;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Compares the copies by their copy number
      *
      * @param copy
@@ -50,9 +36,10 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
     }
 
     public CopyDTO searchCopyByCopyNumber(int copyNumber) {
-        for (Copy copy : _map.keySet()) {
+
+        for (Copy copy : _mapDomainToDto.keySet()) {
             if (copy.getCopyNumber() == copyNumber) {
-                return _map.get(copy);
+                return _mapDomainToDto.get(copy);
             }
         }
         return null;

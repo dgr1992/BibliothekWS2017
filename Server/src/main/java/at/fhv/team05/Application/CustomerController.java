@@ -51,18 +51,4 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
 
         _repository.save(customer);
     }
-
-    /**
-     * Gets the domain object that the CustomerDTO represents
-     * @param customerDTO
-     * @return
-     */
-    public Customer getCustomerFor(CustomerDTO customerDTO) {
-        for (Customer customer : RepositoryFactory.getRepositoryInstance(Customer.class).list()) {
-            if (customer.getId() == customerDTO.getId()) {
-                return customer;
-            }
-        }
-        return null;
-    }
 }
