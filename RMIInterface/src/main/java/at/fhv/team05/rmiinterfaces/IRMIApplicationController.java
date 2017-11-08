@@ -14,7 +14,7 @@ public interface IRMIApplicationController extends Remote {
 
     LinkedList<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException;
 
-    void rentMedium(RentalDTO rental) throws RemoteException;
+    boolean rentMedium(RentalDTO rental) throws RemoteException;
 
     List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException;
 
