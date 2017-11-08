@@ -8,6 +8,7 @@ import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.persistence.RepositoryFactory;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 
 public class RentalController extends BaseController<Rental, RentalDTO> {
@@ -33,6 +34,21 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             //Get the original customer object
             CustomerDTO customerDTO = copieToRent.getCustomer();
             Customer customer = _controllerFacade.getDomainCustomer(customerDTO);
+
+            //Check if customer has paid
+            if(customer.getPaymentDate() == null){
+                //Customer needs to pay
+                return false;
+            }
+            Calendar currenttime = Calendar.getInstance();
+            Calendar expireDate = Calendar.getInstance();
+            expireDate.setTime(customer.getPaymentDate());
+            expireDate.add(Calendar.YEAR, 1);
+            //Check if the customer needs to extend
+            if(expireDate.before(currenttime)){
+                //Customer needs to extend
+                return false;
+            }
 
             //Create the domain rental object and fill it with the data from the DTO
             Rental rental = new Rental();
