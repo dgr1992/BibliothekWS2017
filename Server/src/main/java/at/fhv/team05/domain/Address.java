@@ -1,10 +1,12 @@
 package at.fhv.team05.domain;
 
+import at.fhv.team05.ObjectInterfaces.IAddress;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Address")
-public class Address implements IDomainObject {
+public class Address implements IDomainObject, IAddress {
     private int id;
     private String street;
     private String streetNumber;

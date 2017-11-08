@@ -8,7 +8,7 @@ public interface ICustomer {
     String getFirstName();
     String getLastName();
     int getCustomerId();
-    int getAddressId();
+    IAddress getAddress();
     Date getDateOfBirth();
     String getEmail();
     String getPhoneNumber();

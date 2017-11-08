@@ -12,7 +12,7 @@ public class Customer implements ICustomer, IDomainObject {
     private String firstName;
     private String lastName;
     private int customerId;
-    private int addressId;
+    private Address address;
     private Date dateOfBirth;
     private String email;
     private String phoneNumber;
@@ -62,15 +62,14 @@ public class Customer implements ICustomer, IDomainObject {
         this.customerId = customerId;
     }
 
-    @Override
-    @Basic
-    @Column(name = "addressId", nullable = false)
-    public int getAddressId() {
-        return addressId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "addressId")
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
@@ -134,7 +133,7 @@ public class Customer implements ICustomer, IDomainObject {
         if (customerId != that.customerId) {
             return false;
         }
-        if (addressId != that.addressId) {
+        if (address.getId() != that.address.getId()) {
             return false;
         }
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) {
@@ -165,7 +164,7 @@ public class Customer implements ICustomer, IDomainObject {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + customerId;
-        result = 31 * result + addressId;
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (dateOfBirth != null ? dateOfBirth.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);

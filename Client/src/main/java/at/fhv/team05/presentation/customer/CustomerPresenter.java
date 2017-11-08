@@ -79,6 +79,7 @@ public class CustomerPresenter {
         CustomerDTO customer = new CustomerDTO(getCustomerNumber(), getFirstName(), getLastName());
         try {
             customers.addAll(ClientRun.controller.searchForCustomer(customer));
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }

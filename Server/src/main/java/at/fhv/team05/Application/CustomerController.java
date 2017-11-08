@@ -2,6 +2,8 @@ package at.fhv.team05.Application;
 
 
 import at.fhv.team05.Utility.StringUtilities;
+
+import at.fhv.team05.domain.Address;
 import at.fhv.team05.domain.Customer;
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.persistence.RepositoryFactory;
@@ -38,12 +40,13 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
 
     public void extendSubscription(CustomerDTO customerDTO) {
         Customer customer = new Customer();
+        AddressController addressController= new AddressController(Address.class);
 
         customer.setId(customerDTO.getId());
         customer.setFirstName(customerDTO.getFirstName());
         customer.setLastName(customerDTO.getLastName());
         customer.setCustomerId(customerDTO.getCustomerId());
-        customer.setAddressId(customerDTO.getAddressId());
+        customer.setAddress(addressController.getDomain(customerDTO.getAddress()));
         customer.setDateOfBirth(customerDTO.getDateOfBirth());
         customer.setEmail(customerDTO.getEmail());
         customer.setPhoneNumber(customerDTO.getPhoneNumber());

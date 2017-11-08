@@ -10,7 +10,7 @@ public class CustomerDTO implements Serializable {
     private String firstName;
     private String lastName;
     private int customerId;
-    private int addressId;
+    private AddressDTO address;
     private Date dateOfBirth;
     private String email;
     private String phoneNumber;
@@ -21,7 +21,7 @@ public class CustomerDTO implements Serializable {
         firstName = customer.getFirstName();
         lastName = customer.getLastName();
         customerId = customer.getCustomerId();
-        addressId = customer.getAddressId();
+        address = new AddressDTO(customer.getAddress());
         dateOfBirth = customer.getDateOfBirth();
         email = customer.getEmail();
         phoneNumber = customer.getPhoneNumber();
@@ -51,8 +51,8 @@ public class CustomerDTO implements Serializable {
         return customerId;
     }
 
-    public int getAddressId() {
-        return addressId;
+    public AddressDTO getAddress() {
+        return address;
     }
 
     public Date getDateOfBirth() {
@@ -80,7 +80,7 @@ public class CustomerDTO implements Serializable {
 
         if (id != that.id) return false;
         if (customerId != that.customerId) return false;
-        if (addressId != that.addressId) return false;
+        if (address.getId() != that.address.getId()) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) {
             return false;
         }
@@ -105,7 +105,7 @@ public class CustomerDTO implements Serializable {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + customerId;
-        result = 31 * result + addressId;
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (dateOfBirth != null ? dateOfBirth.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
