@@ -30,11 +30,11 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             try {
                 //Get the original copy object
                 CopyDTO copyDTO = rentalDTO.getCopy();
-                Copy copy = CopyController.getInstance().getCopyFor(copyDTO);
+                Copy copy = CopyController.getInstance().getDomain(copyDTO);
 
                 //Get the original customer object
                 CustomerDTO customerDTO = rentalDTO.getCustomer();
-                Customer customer = CustomerController.getInstance().getCustomerFor(customerDTO);
+                Customer customer = CustomerController.getInstance().getDomain(customerDTO);
 
                 //Create the domain rental object and fill it with the data from the DTO
                 Rental rental = new Rental();
