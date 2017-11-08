@@ -18,6 +18,7 @@ public class ControllerFacade implements IRMIApplicationController {
     private CustomerController _customerController;
     private CopyController _copyController;
     private AddressController _addressController;
+    private RentalController _rentalController;
 
     private ControllerFacade() {
         _bookController = BookController.getInstance();
@@ -25,6 +26,7 @@ public class ControllerFacade implements IRMIApplicationController {
         _customerController = CustomerController.getInstance();
         _copyController = CopyController.getInstance();
         _addressController = AddressController.getInstance();
+        _rentalController = RentalController.getInstance();
     }
 
     public static ControllerFacade getInstance() {
@@ -46,7 +48,7 @@ public class ControllerFacade implements IRMIApplicationController {
 
     @Override
     public void rentMedium(RentalDTO rental) {
-
+        _rentalController.rentCopy(rental);
     }
 
     @Override

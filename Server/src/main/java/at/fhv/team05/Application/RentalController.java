@@ -13,9 +13,47 @@ import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.persistence.RepositoryFactory;
 
 public class RentalController extends BaseController<Rental, RentalDTO> {
+    private static RentalController _instance;
 
-    public RentalController(Class<Rental> rentalClass) {
-        super(rentalClass);
+    private RentalController() {
+        super(Rental.class);
+    }
+
+    public static RentalController getInstance(){
+        if(_instance == null){
+            _instance = new RentalController();
+        }
+        return _instance;
+    }
+
+    public boolean rentCopy(RentalDTO copieToRent){
+        try {
+            //Get the original copy object
+            CopyDTO copyDTO = copieToRent.getCopy();
+            Copy copy = CopyController.getInstance().getDomain(copyDTO);
+
+            //Get the original customer object
+            CustomerDTO customerDTO = copieToRent.getCustomer();
+            Customer customer = CustomerController.getInstance().getDomain(customerDTO);
+
+            //Create the domain rental object and fill it with the data from the DTO
+            Rental rental = new Rental();
+            rental.setCustomer(customer);
+            rental.setDeadline(copieToRent.getDeadline());
+            rental.setExtendCounter(copieToRent.getExtendCounter());
+            rental.setPickupDate(copieToRent.getPickupDate());
+            rental.setReturnDate(copieToRent.getPickupDate());
+            rental.setCopy(copy);
+
+            //Add the rental to the copy
+            copy.setRentalId(rental);
+
+            //Save copy --> rental will be saved automatically
+            RepositoryFactory.getRepositoryInstance(Copy.class).save(copy);
+            return true;
+        } catch (Exception ex){
+            return false;
+        }
     }
 
     /**
@@ -25,36 +63,10 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
      * @param copiesToRent
      * @return
      */
-    public static boolean rentCopies(LinkedList<RentalDTO> copiesToRent) {
+    public void rentCopies(LinkedList<RentalDTO> copiesToRent) {
         for (RentalDTO rentalDTO : copiesToRent) {
-            try {
-                //Get the original copy object
-                CopyDTO copyDTO = rentalDTO.getCopy();
-                Copy copy = CopyController.getInstance().getDomain(copyDTO);
-
-                //Get the original customer object
-                CustomerDTO customerDTO = rentalDTO.getCustomer();
-                Customer customer = CustomerController.getInstance().getDomain(customerDTO);
-
-                //Create the domain rental object and fill it with the data from the DTO
-                Rental rental = new Rental();
-                rental.setCustomer(customer);
-                rental.setDeadline(rentalDTO.getDeadline());
-                rental.setExtendCounter(rentalDTO.getExtendCounter());
-                rental.setPickupDate(rentalDTO.getPickupDate());
-                rental.setReturnDate(rentalDTO.getPickupDate());
-                rental.setCopy(copy);
-
-                //Add the rental to the copy
-                copy.setRentalId(rental);
-
-                //Save copy --> rental will be saved automatically
-                RepositoryFactory.getRepositoryInstance(Copy.class).save(copy);
-            } catch (Exception ex) {
-                return false;
-            }
+            rentCopy(rentalDTO);
         }
-        return true;
     }
 
     @Override
@@ -67,6 +79,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         return false;
     }
 
+    /*
     public static void main(String[] args){
         Customer customer = RepositoryFactory.getRepositoryInstance(Customer.class).getById(1);
         Copy copy = RepositoryFactory.getRepositoryInstance(Copy.class).getById(12);
@@ -92,4 +105,5 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
 
         rentCopies(rentalDTOs);
     }
+    */
 }
