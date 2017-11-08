@@ -91,7 +91,8 @@ public class RentalOverviewPresenter {
             lblMediumNumber.setText(Integer.toString(copy.getCopyNumber()));
             lblTitle.setText(medium.getTitle());
             lblCustomerName.setText(customer.getFirstName() + " " + customer.getLastName());
-            //lblZipCity.setText();
+            lblStreet.setText(customer.getAddress().getStreet()+ " " + customer.getAddress().getStreetNumber());
+            lblZipCity.setText(customer.getAddress().getZip()+ " / " +customer.getAddress().getCity());
             lblCustomerNumber.setText(Integer.toString(customer.getCustomerId()));
             Calendar c = Calendar.getInstance();
             if (customer.getPaymentDate() == null) {

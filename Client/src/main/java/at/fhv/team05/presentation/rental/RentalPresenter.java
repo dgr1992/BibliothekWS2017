@@ -57,7 +57,10 @@ public class RentalPresenter {
 
     @FXML
     void onNextButtonPressed(ActionEvent event) {
-        parent.openCustomerRentalView(copy);
+        if (copy != null)
+            parent.openCustomerRentalView(copy);
+        else
+            infoAlert("Please enter a Medium");
     }
 
 
