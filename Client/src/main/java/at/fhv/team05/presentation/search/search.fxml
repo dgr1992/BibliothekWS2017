@@ -35,8 +35,6 @@
                                   <RowConstraints minHeight="10.0" prefHeight="41.75" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="10.0" prefHeight="41.75" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="10.0" prefHeight="41.75" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="41.75" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="41.75" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
                                     <Label text="Title">
@@ -54,26 +52,23 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <Label text="Genre" GridPane.rowIndex="3">
-                                       <GridPane.margin>
-                                          <Insets left="10.0" />
-                                       </GridPane.margin>
-                                    </Label>
                                     <TextField fx:id="txtFiledTitleBook" onAction="#onSearchBtnPressedBook" GridPane.columnIndex="1" />
                                     <TextField fx:id="txtFiledAuthor" onAction="#onSearchBtnPressedBook" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField fx:id="txtFiledIsbn" onAction="#onSearchBtnPressedBook" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="txtFiledGenreBook" onAction="#onSearchBtnPressedBook" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Button fx:id="searchBtnBook" mnemonicParsing="false" onAction="#onSearchBtnPressedBook" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
                               </GridPane>
                               <AnchorPane>
                                  <children>
                                     <TableView fx:id="tableViewBookSearch" layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                       <columns>
                                         <TableColumn fx:id="tblColTitleBook" prefWidth="222.0" text="Title" />
-                                        <TableColumn fx:id="tblColAuthor" prefWidth="146.0" text="Author" />
-                                          <TableColumn fx:id="tblColIsbn" prefWidth="137.0" text="ISBN" />
-                                          <TableColumn fx:id="tblColGenreBook" prefWidth="92.0" text="Genre" />
+                                        <TableColumn fx:id="tblColAuthor" prefWidth="178.0" text="Author" />
+                                          <TableColumn fx:id="tblColIsbn" prefWidth="197.0" text="ISBN" />
+                                          <TableColumn fx:id="tblColReleaseDateBook" prefWidth="148.0" text="Release Date" />
                                       </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -104,8 +99,6 @@
                                     <RowConstraints minHeight="10.0" prefHeight="41.75" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="41.75" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="41.75" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="41.75" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="41.75" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
                                     <Label text="Title">
@@ -123,17 +116,14 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <Label text="Genre" GridPane.rowIndex="3">
-                                       <GridPane.margin>
-                                          <Insets left="10.0" />
-                                       </GridPane.margin>
-                                    </Label>
                                     <TextField fx:id="txtFieldTitleDvd" onAction="#onSearchBtnPressedDvd" GridPane.columnIndex="1" />
                                     <TextField fx:id="txtFieldDirector" onAction="#onSearchBtnPressedDvd" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField fx:id="txtFieldAsin" onAction="#onSearchBtnPressedDvd" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="txtFieldGenreDvd" onAction="#onSearchBtnPressedDvd" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Button fx:id="searchBtnDvd" mnemonicParsing="false" onAction="#onSearchBtnPressedDvd" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
                               </GridPane>
                               <AnchorPane>
                                  <children>
@@ -142,7 +132,6 @@
                                           <TableColumn fx:id="tblColTitleDvd" prefWidth="222.0" text="Title" />
                                           <TableColumn fx:id="tblColDirector" prefWidth="146.0" text="Director" />
                                           <TableColumn fx:id="tblColAsin" prefWidth="137.0" text="ASIN" />
-                                          <TableColumn fx:id="tblColGenreDvd" prefWidth="92.0" text="Genre" />
                                           <TableColumn fx:id="tblColReleaseDate" prefWidth="75.0" text="Release Date" />
                                        </columns>
                                        <columnResizePolicy>
