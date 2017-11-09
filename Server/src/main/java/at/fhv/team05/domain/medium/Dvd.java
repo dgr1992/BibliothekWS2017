@@ -6,6 +6,7 @@ import at.fhv.team05.domain.IDomainObject;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Map;
 
 @Entity
 @Table(name = "DVD")
@@ -35,6 +36,12 @@ public class Dvd extends Medium implements IDvd, IDomainObject {
     @Column(name = "title", nullable = false, length = 50)
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    @Transient
+    public Map<String, Object> getAttributeMap() {
+        return null;
     }
 
     public void setTitle(String title) {
