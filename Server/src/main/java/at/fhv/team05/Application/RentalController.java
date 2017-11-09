@@ -31,6 +31,10 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             CopyDTO copyDTO = copieToRent.getCopy();
             Copy copy = _controllerFacade.getDomainCopy(copyDTO);
 
+            if(copy.getRental() != null){
+                return false;
+            }
+
             //Get the original customer object
             CustomerDTO customerDTO = copieToRent.getCustomer();
             Customer customer = _controllerFacade.getDomainCustomer(customerDTO);
