@@ -8,7 +8,7 @@ import java.sql.Date;
 public class Reservation implements IDomainObject {
     private int id;
     private int mediumId;
-    private int customerId;
+    private Customer customer;
     private String mediaType;
     private Date reservationDate;
 
@@ -33,14 +33,14 @@ public class Reservation implements IDomainObject {
         this.mediumId = mediumId;
     }
 
-    @Basic
-    @Column(name = "customerId", nullable = false)
-    public int getCustomerId() {
-        return customerId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customerId", nullable = false)
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Basic
@@ -80,24 +80,20 @@ public class Reservation implements IDomainObject {
         if (mediumId != that.mediumId) {
             return false;
         }
-        if (customerId != that.customerId) {
+        if (customer != null ? !customer.equals(that.customer) : that.customer != null) {
             return false;
         }
         if (mediaType != null ? !mediaType.equals(that.mediaType) : that.mediaType != null) {
             return false;
         }
-        if (reservationDate != null ? !reservationDate.equals(that.reservationDate) : that.reservationDate != null) {
-            return false;
-        }
-
-        return true;
+        return reservationDate != null ? reservationDate.equals(that.reservationDate) : that.reservationDate == null;
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + mediumId;
-        result = 31 * result + customerId;
+        result = 31 * result + (customer != null ? customer.hashCode() : 0);
         result = 31 * result + (mediaType != null ? mediaType.hashCode() : 0);
         result = 31 * result + (reservationDate != null ? reservationDate.hashCode() : 0);
         return result;

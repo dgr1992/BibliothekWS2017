@@ -28,7 +28,7 @@ public class ReservationController extends BaseController<Reservation, Reservati
         Reservation reservedObject = new Reservation();
 
         reservedObject.setMediumId(copyDTO.getId());
-        reservedObject.setCustomerId(customerDTO.getCustomerId());
+        reservedObject.setCustomer(_controllerFacade.getDomainCustomer(customerDTO));
         reservedObject.setMediaType(copyDTO.getClass().toString());
         reservedObject.setReservationDate(new Date(Calendar.getInstance().getTimeInMillis()));
 
