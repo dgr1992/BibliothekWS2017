@@ -51,7 +51,7 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
     protected List<CopyDTO> getCopiesByMediumID(IMediumDTO mediumDTO) {
         List<CopyDTO> list = new LinkedList<>();
         _mapDomainToDto.keySet().stream().
-                filter(i -> i.getId() == mediumDTO.getId() && i.getMediaType().equalsIgnoreCase(mediumDTO.getType())).
+                filter(i -> i.getMediumId() == mediumDTO.getId() && i.getMediaType().equalsIgnoreCase(mediumDTO.getType())).
                 forEach(i -> list.add(_mapDomainToDto.get(i)));
         return list;
     }
