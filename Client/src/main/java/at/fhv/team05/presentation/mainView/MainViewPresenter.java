@@ -1,6 +1,7 @@
 package at.fhv.team05.presentation.mainView;
 
 import at.fhv.team05.dtos.*;
+import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.customer.CustomerPresenter;
 import at.fhv.team05.presentation.customer.CustomerView;
 import at.fhv.team05.presentation.detailView.DetailPresenter;
@@ -22,7 +23,7 @@ import javafx.scene.layout.StackPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainViewPresenter implements Initializable {
+public class MainViewPresenter extends Presenter implements Initializable {
 
     @FXML
     protected StackPane navigationBarContainer;
@@ -67,11 +68,14 @@ public class MainViewPresenter implements Initializable {
     }
 
 
-    public void openCustomerRentalView(CopyDTO copy) {
+    public void openCustomerView(CopyDTO copy, boolean okButtonEnabled) {
         CustomerView customerView = new CustomerView();
         CustomerPresenter presenter = (CustomerPresenter) customerView.getPresenter();
         presenter.setParent(this);
         presenter.setCopy(copy);
+        if (okButtonEnabled) {
+            presenter.initOkButton(copy);
+        }
         contentContainer.getChildren().setAll(customerView.getView());
     }
 
@@ -100,6 +104,7 @@ public class MainViewPresenter implements Initializable {
         if (reserveButtonEnabled) {
             presenter.initReserveButton();
         }
+        presenter.initView();
         contentContainer.getChildren().setAll(detailView.getView());
     }
     

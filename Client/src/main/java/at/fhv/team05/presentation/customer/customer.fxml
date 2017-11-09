@@ -75,20 +75,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <GridPane prefHeight="50.0" prefWidth="800.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="120.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="10.0" prefWidth="329.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Button mnemonicParsing="false" onAction="#onNextButtonPressed" text="Next" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
-               </children>
-            </GridPane>
+            <AnchorPane fx:id="buttonContainer" prefHeight="84.0" prefWidth="780.0" />
          </children>
       </VBox>
    </children>

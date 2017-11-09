@@ -4,6 +4,7 @@ import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.IMediumDTO;
+import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class SearchPresenter {
+public class SearchPresenter extends Presenter{
     private MainViewPresenter parent;
 
     @FXML

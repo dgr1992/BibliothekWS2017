@@ -1,10 +1,11 @@
 package at.fhv.team05.presentation.navigation;
 
+import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class LoginNavigationPresenter {
+public class LoginNavigationPresenter extends Presenter{
     MainViewPresenter parent;
 
 

@@ -3,6 +3,7 @@ package at.fhv.team05.presentation.customer;
 import at.fhv.team05.ClientRun;
 import at.fhv.team05.ObjectInterfaces.ICustomer;
 import at.fhv.team05.dtos.*;
+import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
@@ -22,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CustomerPresenter {
+public class CustomerPresenter extends Presenter{
     private MainViewPresenter parent;
     private CopyDTO copy;
 
@@ -57,19 +59,16 @@ public class CustomerPresenter {
     private TableColumn<CustomerDTO, String> tblColDateOfBirth;
 
     @FXML
-    public void onNextButtonPressed(ActionEvent event) {
-        CustomerDTO customer = tblViewCustomer.getSelectionModel().getSelectedItem();
-        if (customer != null) {
-            parent.openRentalOverview(customer, copy);
-        } else {
-            infoAlert("Please select a customer.");
-        }
-    }
+    private AnchorPane buttonContainer;
 
-    private void infoAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(message);
-        alert.show();
+
+    public void initOkButton(CopyDTO copy) {
+        OkButtonView okButtonView = new OkButtonView();
+        OkButtonPresenter presenter = (OkButtonPresenter) okButtonView.getPresenter();
+        presenter.setCustomerTable(tblViewCustomer);
+        presenter.setCopy(copy);
+        presenter.setParent(parent);
+        buttonContainer.getChildren().setAll(okButtonView.getView());
     }
 
 
