@@ -43,7 +43,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
 
     @Override
     public CustomerDTO extendSubscription(CustomerDTO customer) throws RemoteException {
-        return  _controllerFacade.extendSubscription(customer);
+        return _controllerFacade.extendSubscription(customer);
     }
 
     @Override
@@ -54,6 +54,11 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     @Override
     public DvdDTO searchDvdById(int mediumId) throws RemoteException {
         return _controllerFacade.searchDvdById(mediumId);
+    }
+
+    @Override
+    public List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
+        return _controllerFacade.getCopiesByMedium(mediumDTO);
     }
 
 }
