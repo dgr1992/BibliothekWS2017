@@ -89,4 +89,9 @@ public class ControllerFacade implements IRMIApplicationController {
     public Customer getDomainCustomer(CustomerDTO customerDTO) {
         return _customerController.getDomain(customerDTO);
     }
+
+    @Override
+    public List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
+        return _copyController.getCopiesByMediumID(mediumDTO);
+    }
 }
