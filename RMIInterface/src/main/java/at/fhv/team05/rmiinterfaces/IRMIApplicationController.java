@@ -24,7 +24,7 @@ public interface IRMIApplicationController extends Remote {
 
     DvdDTO searchDvdById(int mediumId) throws RemoteException;
 
-    List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO);
+    List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) throws RemoteException;
 
 //    List<CopyDTO> searchBookCopies(int id);
 //
