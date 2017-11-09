@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import jfxtras.scene.layout.GridPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.search.SearchPresenter">
+<AnchorPane prefHeight="600.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.search.SearchPresenter">
    <children>
       <TabPane fx:id="tabPaneSearch" cache="true" stylesheets="@tabPane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -24,7 +24,7 @@
                      <children>
                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <GridPane>
+                              <GridPane prefHeight="201.0" prefWidth="1500.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="NEVER" maxWidth="198.0" minWidth="10.0" prefWidth="85.0" />
                                   <ColumnConstraints hgrow="NEVER" maxWidth="330.0" minWidth="10.0" prefWidth="329.0" />
@@ -61,9 +61,9 @@
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </GridPane>
-                              <AnchorPane>
+                              <AnchorPane prefWidth="1515.0">
                                  <children>
-                                    <TableView fx:id="tableViewBookSearch" layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="tableViewBookSearch" layoutX="-4.0" layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                                       <columns>
                                         <TableColumn fx:id="tblColTitleBook" prefWidth="222.0" text="Title" />
                                         <TableColumn fx:id="tblColAuthor" prefWidth="178.0" text="Author" />
