@@ -11,6 +11,7 @@ public class BookDTO implements IMediumDTO, Serializable {
 
     private int id;
     private String title;
+    private String type;
     private String isbn;
     private Date releaseDate;
     private CategoryDTO categoryDTO;
@@ -22,6 +23,7 @@ public class BookDTO implements IMediumDTO, Serializable {
 
         id = book.getId();
         title = book.getTitle();
+        type = book.getType();
         isbn = book.getIsbn();
         releaseDate = book.getReleaseDate();
         categoryDTO = new CategoryDTO(book.getCategory());
@@ -40,18 +42,26 @@ public class BookDTO implements IMediumDTO, Serializable {
 
     }
 
-    public BookDTO(String title, String author, String isbn) {
+    public BookDTO(String title, String author, String isbn, String type) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
+        this.type = type;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public String getType() {
+        return type;
     }
 
     public Map<String, Object> getAttributeMap() {

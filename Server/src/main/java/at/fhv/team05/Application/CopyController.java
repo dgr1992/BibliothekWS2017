@@ -2,7 +2,10 @@ package at.fhv.team05.Application;
 
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.dtos.CopyDTO;
-import at.fhv.team05.persistence.RepositoryFactory;
+import at.fhv.team05.dtos.IMediumDTO;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class CopyController extends BaseController<Copy, CopyDTO> {
     private static CopyController _theInstance;
@@ -43,5 +46,13 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
             }
         }
         return null;
+    }
+
+    protected List<CopyDTO> getCopiesByMediumID(IMediumDTO mediumDTO) {
+        List<CopyDTO> list = new LinkedList<>();
+        _mapDomainToDto.keySet().stream().
+                filter(i -> i.getId() == mediumDTO.getId() && i.getMediaType().equalsIgnoreCase(mediumDTO.getType())).
+                forEach(i -> list.add(_mapDomainToDto.get(i)));
+        return list;
     }
 }

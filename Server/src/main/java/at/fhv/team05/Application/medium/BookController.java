@@ -1,7 +1,7 @@
 package at.fhv.team05.Application.medium;
 
 import at.fhv.team05.Utility.StringUtilities;
-import at.fhv.team05.domain.Book;
+import at.fhv.team05.domain.medium.Book;
 import at.fhv.team05.dtos.BookDTO;
 
 public class BookController extends MediumController<Book, BookDTO> {
