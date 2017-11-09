@@ -4,6 +4,7 @@ import at.fhv.team05.ObjectInterfaces.IDvd;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Map;
 
 @Entity
 @Table(name = "DVD")
@@ -33,6 +34,12 @@ public class Dvd implements IDvd, IDomainObject {
     @Column(name = "title", nullable = false, length = 50)
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    @Transient
+    public Map<String, Object> getAttributeMap() {
+        return null;
     }
 
     public void setTitle(String title) {
@@ -143,4 +150,5 @@ public class Dvd implements IDvd, IDomainObject {
         result = 31 * result + (director != null ? director.hashCode() : 0);
         return result;
     }
+
 }

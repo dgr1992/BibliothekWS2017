@@ -53,7 +53,9 @@ public class MainViewPresenter implements Initializable {
     public void openSearchView(){
         SearchView searchView = new SearchView();
         SearchPresenter presenter = (SearchPresenter) searchView.getPresenter();
+        presenter.setLblViewTitle("Search Medium");
         presenter.setParent(this);
+        presenter.doubleClickDefault();
         contentContainer.getChildren().setAll(searchView.getView());
     }
 
@@ -82,10 +84,22 @@ public class MainViewPresenter implements Initializable {
         contentContainer.getChildren().setAll(rentalOverview.getView());
     }
 
-    public void openDetailView(IMediumDTO medium) {
+    public void openReservationView() {
+        SearchView searchView = new SearchView();
+        SearchPresenter presenter = (SearchPresenter) searchView.getPresenter();
+        presenter.setLblViewTitle("Reserve Medium");
+        presenter.setParent(this);
+        presenter.doubleClickReservation();
+        contentContainer.getChildren().setAll(searchView.getView());
+    }
+
+    public void openDetailView(IMediumDTO medium, boolean reserveButtonEnabled) {
         DetailView detailView = new DetailView();
         DetailPresenter presenter = (DetailPresenter) detailView.getPresenter();
         presenter.setMedium(medium);
+        if (reserveButtonEnabled) {
+            presenter.initReserveButton();
+        }
         contentContainer.getChildren().setAll(detailView.getView());
     }
     

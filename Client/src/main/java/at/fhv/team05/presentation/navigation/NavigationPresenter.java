@@ -35,7 +35,7 @@ public class NavigationPresenter{
 
     @FXML
     void onReserveMediumButtonPressed(ActionEvent event) {
-        parent.openSearchView();
+        parent.openReservationView();
     }
 
     @FXML

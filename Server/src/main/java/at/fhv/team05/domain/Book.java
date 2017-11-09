@@ -6,6 +6,7 @@ import at.fhv.team05.persistence.DBFacade;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "Book")
@@ -52,6 +53,12 @@ public class Book implements IBook, IDomainObject {
     @Override
     public String getTitle() {
         return _title;
+    }
+
+    @Override
+    @Transient
+    public Map<String, Object> getAttributeMap() {
+        return null;
     }
 
     public void setTitle(String title) {

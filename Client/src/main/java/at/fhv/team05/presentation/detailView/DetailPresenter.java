@@ -60,19 +60,21 @@ public class DetailPresenter implements Initializable{
     @FXML
     private AnchorPane buttonContainer;
 
-    @FXML
-    void onReserveMediumButtonPressed(ActionEvent event) {
-
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        Map<String, Object> attributeMap = medium.getAttributeMap();
 //        lblTitle.setText((String) attributeMap.get("title"));
 
-
-
     }
+
+    public void initReserveButton() {
+      ReserveButtonView reserveButtonView = new ReserveButtonView();
+      buttonContainer.getChildren().setAll(reserveButtonView.getView());
+      ReserveButtonPresenter presenter = (ReserveButtonPresenter) reserveButtonView.getPresenter();
+      presenter.setMedium(medium);
+    }
+
 
     public void setMedium(IMediumDTO medium) {
         this.medium = medium;

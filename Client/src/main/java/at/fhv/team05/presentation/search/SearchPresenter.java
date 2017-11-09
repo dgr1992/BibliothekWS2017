@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -23,8 +24,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class SearchPresenter implements Initializable{
+public class SearchPresenter {
     private MainViewPresenter parent;
+
+    @FXML
+    private Label lblViewTitle;
 
     @FXML
     private TextField txtFiledTitleBook;
@@ -153,22 +157,37 @@ public class SearchPresenter implements Initializable{
         tableViewDvdSearch.setItems(resultData);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        setDoubleClick(tableViewDvdSearch);
-        setDoubleClick(tableViewBookSearch);
 
+    public void doubleClickReservation() {
+        setDoubleClickReservation(tableViewBookSearch);
+        setDoubleClickReservation(tableViewDvdSearch);
+    }
+    public void doubleClickDefault() {
+        setDoubleClickDefault(tableViewBookSearch);
+        setDoubleClickDefault(tableViewDvdSearch);
     }
 
-    private void setDoubleClick(TableView table) {
+    private void setDoubleClickReservation(TableView table) {
         table.setOnMousePressed(event -> {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                parent.openDetailView((IMediumDTO) table.getSelectionModel().getSelectedItem());
+                parent.openDetailView((IMediumDTO) table.getSelectionModel().getSelectedItem(), true);
+            }
+        });
+    }
+
+    private void setDoubleClickDefault(TableView table) {
+        table.setOnMousePressed(event -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                parent.openDetailView((IMediumDTO) table.getSelectionModel().getSelectedItem(), false);
             }
         });
     }
 
     public void setParent(MainViewPresenter parent) {
         this.parent = parent;
+    }
+
+    public void setLblViewTitle(String viewTitle) {
+        lblViewTitle.setText(viewTitle);
     }
 }
