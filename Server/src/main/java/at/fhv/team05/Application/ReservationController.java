@@ -37,7 +37,7 @@ public class ReservationController extends BaseController<Reservation, Reservati
 
     @Override
     protected ReservationDTO createDTO(Reservation object) {
-        return null;
+        return new ReservationDTO(object);
     }
 
     @Override

@@ -26,7 +26,6 @@ public class BookDTO implements IMediumDTO, Serializable {
         type = book.getType();
         isbn = book.getIsbn();
         releaseDate = book.getReleaseDate();
-        categoryDTO = new CategoryDTO(book.getCategory());
         publisher = book.getPublisher();
         author = book.getAuthor();
 
@@ -64,6 +63,7 @@ public class BookDTO implements IMediumDTO, Serializable {
         return type;
     }
 
+    @Override
     public Map<String, Object> getAttributeMap() {
         return attributeMap;
     }

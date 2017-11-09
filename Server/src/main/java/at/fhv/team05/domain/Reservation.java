@@ -1,11 +1,16 @@
 package at.fhv.team05.domain;
 
+import at.fhv.team05.ObjectInterfaces.IReservation;
+import at.fhv.team05.persistence.DatabaseConnection;
+import at.fhv.team05.persistence.Repository;
+import at.fhv.team05.persistence.RepositoryFactory;
+
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Table(name = "Reservation")
-public class Reservation implements IDomainObject {
+public class Reservation implements IDomainObject, IReservation {
     private int id;
     private int mediumId;
     private Customer customer;
@@ -23,6 +28,7 @@ public class Reservation implements IDomainObject {
         this.id = id;
     }
 
+    @Override
     @Basic
     @Column(name = "mediumId", nullable = false)
     public int getMediumId() {
@@ -33,6 +39,7 @@ public class Reservation implements IDomainObject {
         this.mediumId = mediumId;
     }
 
+    @Override
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerId", nullable = false)
     public Customer getCustomer() {
@@ -43,6 +50,7 @@ public class Reservation implements IDomainObject {
         this.customer = customer;
     }
 
+    @Override
     @Basic
     @Column(name = "mediaType", nullable = false, length = 50)
     public String getMediaType() {
@@ -53,6 +61,7 @@ public class Reservation implements IDomainObject {
         this.mediaType = mediaType;
     }
 
+    @Override
     @Basic
     @Column(name = "reservationDate", nullable = false)
     public Date getReservationDate() {
@@ -97,5 +106,17 @@ public class Reservation implements IDomainObject {
         result = 31 * result + (mediaType != null ? mediaType.hashCode() : 0);
         result = 31 * result + (reservationDate != null ? reservationDate.hashCode() : 0);
         return result;
+    }
+
+    public static void main(String[] args) {
+        DatabaseConnection.init();
+
+        Repository<Reservation> rep = RepositoryFactory.getRepositoryInstance(Reservation.class);
+
+        Reservation res = rep.list().get(0);
+
+        System.out.println("ID: " + res.getId());
+        System.out.println("Customer: " + res.getCustomer().getFirstName() + " " + res.getCustomer().getLastName());
+        System.out.println("Medium: " + res.getMediumId() + " " + res.getMediaType());
     }
 }
