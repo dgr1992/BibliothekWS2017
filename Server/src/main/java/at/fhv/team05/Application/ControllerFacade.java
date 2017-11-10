@@ -99,6 +99,16 @@ public class ControllerFacade implements IRMIApplicationController {
         return _copyController.getCopiesByMediumID(mediumDTO);
     }
 
+    @Override
+    public boolean checkAvailabilityOfMedium(IMediumDTO mediumDTO) throws RemoteException {
+        return _reservationController.checkAvailability(mediumDTO);
+    }
+
+    @Override
+    public boolean reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
+        return false;
+    }
+
     public boolean existsReservationForMedium(int mediumID, String mediumTyp){
         return _reservationController.existsReservationForMedium(mediumID,mediumTyp);
     }

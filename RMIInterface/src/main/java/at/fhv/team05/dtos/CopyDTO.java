@@ -14,12 +14,16 @@ public class CopyDTO implements Serializable {
     private String _mediaType;
     private int _mediumId;
     private RentalDTO _rental;
+    private CategoryDTO _category;
+    private String _copyStatus;
 
     public CopyDTO(ICopy copy) {
         _copyNumber = copy.getCopyNumber();
         _id = copy.getId();
         _mediaType = copy.getMediaType();
         _mediumId = copy.getMediumId();
+        _category = new CategoryDTO(copy.getCategory());
+        _copyStatus = copy.getCopyStatus();
         _rental = (copy.getRental() != null ? new RentalDTO(copy.getRental(), this) : null);
     }
 
@@ -50,6 +54,7 @@ public class CopyDTO implements Serializable {
     public void setMediumId(int _mediumId) {
         this._mediumId = _mediumId;
     }
+
 
     public RentalDTO getRental() {
         return _rental;
@@ -94,5 +99,21 @@ public class CopyDTO implements Serializable {
         result = 31 * result + _mediumId;
         result = 31 * result + (_rental != null ? _rental.hashCode() : 0);
         return result;
+    }
+
+    public CategoryDTO getCategory() {
+        return _category;
+    }
+
+    public void setCategory(CategoryDTO category) {
+        _category = category;
+    }
+
+    public String getCopyStatus() {
+        return _copyStatus;
+    }
+
+    public void setCopyStatus(String copyStatus) {
+        _copyStatus = copyStatus;
     }
 }

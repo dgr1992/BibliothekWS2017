@@ -1,9 +1,12 @@
 package at.fhv.team05.presentation.detailView;
+
 import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.CategoryDTO;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.presentation.Presenter;
+import at.fhv.team05.presentation.detailView.buttons.ReserveButtonPresenter;
+import at.fhv.team05.presentation.detailView.buttons.ReserveButtonView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,7 +21,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
-public class DetailPresenter extends Presenter{
+public class DetailPresenter extends Presenter {
     private IMediumDTO medium;
 
     @FXML
@@ -49,16 +52,13 @@ public class DetailPresenter extends Presenter{
     private Label label4;
 
     @FXML
-    private AnchorPane mediumContainer;
-
-    @FXML
     private TableView<CopyDTO> tblViewCopies;
 
     @FXML
     private TableColumn<CopyDTO, Integer> tblColCopyNumber;
 
     @FXML
-    private TableColumn<?, ?> tblColAvailability;
+    private TableColumn<CopyDTO, String> tblColAvailability;
 
     @FXML
     private TableColumn<CategoryDTO, String> tblColLocation;
@@ -94,16 +94,18 @@ public class DetailPresenter extends Presenter{
     }
 
     public void initReserveButton() {
-      ReserveButtonView reserveButtonView = new ReserveButtonView();
-      buttonContainer.getChildren().setAll(reserveButtonView.getView());
-      ReserveButtonPresenter presenter = (ReserveButtonPresenter) reserveButtonView.getPresenter();
-      presenter.setMedium(medium);
+        ReserveButtonView reserveButtonView = new ReserveButtonView();
+        ReserveButtonPresenter presenter = (ReserveButtonPresenter) reserveButtonView.getPresenter();
+        presenter.setMedium(medium);
+        presenter.setParent(parent);
+        buttonContainer.getChildren().setAll(reserveButtonView.getView());
     }
 
     private void initTable(List<CopyDTO> mediums) {
         ObservableList<CopyDTO> resultData = FXCollections.observableArrayList();
         resultData.addAll(mediums);
         tblColCopyNumber.setCellValueFactory(new PropertyValueFactory<>("copyNumber"));
+        tblColAvailability.setCellValueFactory(new PropertyValueFactory<>("copyStatus"));
         tblViewCopies.setItems(resultData);
     }
 

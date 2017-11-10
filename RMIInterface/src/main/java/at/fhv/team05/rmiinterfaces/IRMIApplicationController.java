@@ -27,10 +27,11 @@ public interface IRMIApplicationController extends Remote {
 
     ReturnCopyResult returnCopy(CopyDTO copyDTO) throws RemoteException;
 
-//    List<CopyDTO> searchBookCopies(int id);
-//
-//    List<CopyDTO> searchDvdCopies(int id);
     List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) throws RemoteException;
+
+    boolean checkAvailabilityOfMedium(IMediumDTO mediumDTO) throws RemoteException;
+
+    boolean reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException;
 
 
 }

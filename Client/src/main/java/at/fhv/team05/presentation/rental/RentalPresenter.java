@@ -5,6 +5,7 @@ import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.presentation.Presenter;
+import at.fhv.team05.presentation.customer.CustomerViewButton;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -63,7 +64,7 @@ public class RentalPresenter extends Presenter implements Initializable {
     void onNextButtonPressed(ActionEvent event) {
         if (copy != null) {
             if (copy.getRental() == null) {
-                parent.openCustomerView(copy, true);
+                parent.openCustomerView(copy, null, CustomerViewButton.OK);
             }else {
                 infoAlert("This Medium is already rented");
             }

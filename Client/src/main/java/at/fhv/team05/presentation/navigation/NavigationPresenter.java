@@ -1,6 +1,7 @@
 package at.fhv.team05.presentation.navigation;
 
 import at.fhv.team05.presentation.Presenter;
+import at.fhv.team05.presentation.customer.CustomerViewButton;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,12 +17,10 @@ import java.util.ResourceBundle;
 
 public class NavigationPresenter extends Presenter{
 
-    private MainViewPresenter parent;
-
 
     @FXML
     void onLoadCustomerOverviewButtonPressed(ActionEvent event) {
-        parent.openCustomerView(null, false);
+        parent.openCustomerView(null, null, CustomerViewButton.NONE);
     }
 
     @FXML
@@ -45,9 +44,5 @@ public class NavigationPresenter extends Presenter{
         parent.openSearchView();
     }
 
-
-    public void setParent(MainViewPresenter mvp) {
-        parent = mvp;
-    }
 
 }

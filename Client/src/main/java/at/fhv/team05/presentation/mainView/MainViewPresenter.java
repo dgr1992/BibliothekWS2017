@@ -4,6 +4,7 @@ import at.fhv.team05.dtos.*;
 import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.customer.CustomerPresenter;
 import at.fhv.team05.presentation.customer.CustomerView;
+import at.fhv.team05.presentation.customer.CustomerViewButton;
 import at.fhv.team05.presentation.detailView.DetailPresenter;
 import at.fhv.team05.presentation.detailView.DetailView;
 import at.fhv.team05.presentation.navigation.LoginNavigationPresenter;
@@ -37,7 +38,8 @@ public class MainViewPresenter extends Presenter implements Initializable {
         changeNavigationBarToLoggedOut();
         openSearchView();
     }
-    public void changeNavigationBarToLoggedIn(){
+
+    public void changeNavigationBarToLoggedIn() {
         NavigationView navigationView = new NavigationView();
         NavigationPresenter presenter = (NavigationPresenter) navigationView.getPresenter();
         presenter.setParent(this);
@@ -51,7 +53,7 @@ public class MainViewPresenter extends Presenter implements Initializable {
         navigationBarContainer.getChildren().setAll(navigationView.getView());
     }
 
-    public void openSearchView(){
+    public void openSearchView() {
         SearchView searchView = new SearchView();
         SearchPresenter presenter = (SearchPresenter) searchView.getPresenter();
         presenter.setLblViewTitle("Search Medium");
@@ -68,13 +70,22 @@ public class MainViewPresenter extends Presenter implements Initializable {
     }
 
 
-    public void openCustomerView(CopyDTO copy, boolean okButtonEnabled) {
+    public void openCustomerView(CopyDTO copy, IMediumDTO medium, CustomerViewButton buttonType) {
         CustomerView customerView = new CustomerView();
         CustomerPresenter presenter = (CustomerPresenter) customerView.getPresenter();
         presenter.setParent(this);
-        presenter.setCopy(copy);
-        if (okButtonEnabled) {
-            presenter.initOkButton(copy);
+        switch (buttonType) {
+            case OK:
+                presenter.initOkButton(copy);
+                break;
+            case RESERVATION:
+                presenter.initReservationButton(medium);
+                break;
+            case NONE:
+                //do nothing
+                break;
+            default:
+                // do nothing
         }
         contentContainer.getChildren().setAll(customerView.getView());
     }
@@ -101,13 +112,13 @@ public class MainViewPresenter extends Presenter implements Initializable {
         DetailView detailView = new DetailView();
         DetailPresenter presenter = (DetailPresenter) detailView.getPresenter();
         presenter.setMedium(medium);
+        presenter.setParent(this);
         if (reserveButtonEnabled) {
             presenter.initReserveButton();
         }
         presenter.initView();
         contentContainer.getChildren().setAll(detailView.getView());
     }
-    
 
 
 }
