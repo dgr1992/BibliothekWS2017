@@ -1,5 +1,6 @@
 package at.fhv.team05.rmiinterfaces;
 
+import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.dtos.*;
 
 import java.rmi.Remote;
@@ -23,6 +24,8 @@ public interface IRMIApplicationController extends Remote {
     BookDTO searchBookById(int mediumId) throws RemoteException;
 
     DvdDTO searchDvdById(int mediumId) throws RemoteException;
+
+    ReturnCopyResult returnCopy(CopyDTO copyDTO);
 
 //    List<CopyDTO> searchBookCopies(int id);
 //
