@@ -58,12 +58,12 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public ReturnCopyResult returnCopy(CopyDTO copyDTO) {
+    public ReturnCopyResult returnCopy(CopyDTO copyDTO) throws RemoteException {
         return _controllerFacade.returnCopy(copyDTO);
     }
 
     @Override
-    public List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
+    public List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO)  {
         return _controllerFacade.getCopiesByMedium(mediumDTO);
     }
 
