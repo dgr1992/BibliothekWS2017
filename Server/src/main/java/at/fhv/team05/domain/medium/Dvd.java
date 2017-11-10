@@ -1,18 +1,19 @@
-package at.fhv.team05.domain;
+package at.fhv.team05.domain.medium;
 
 import at.fhv.team05.ObjectInterfaces.IDvd;
+import at.fhv.team05.domain.IDomainObject;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Map;
 
 @Entity
 @Table(name = "DVD")
-public class Dvd implements IDvd, IDomainObject {
+public class Dvd extends Medium implements IDvd, IDomainObject {
     private int id;
     private String title;
     private String asin;
     private Date releaseDate;
-    private Category category;
     private String publisher;
     private String director;
 
@@ -35,13 +36,19 @@ public class Dvd implements IDvd, IDomainObject {
         return title;
     }
 
+    @Override
+    @Transient
+    public Map<String, Object> getAttributeMap() {
+        return null;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
     @Override
     @Basic
-    @Column(name = "asin", nullable = false, length = 20)
+    @Column(name = "mediaAsin", nullable = false, length = 20)
     public String getAsin() {
         return asin;
     }
@@ -59,17 +66,6 @@ public class Dvd implements IDvd, IDomainObject {
 
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
-    }
-
-    @Override
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "categoryId")
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     @Override
@@ -109,9 +105,6 @@ public class Dvd implements IDvd, IDomainObject {
         if (id != dvdEntity.id) {
             return false;
         }
-        if (category.getId() != dvdEntity.category.getId()) {
-            return false;
-        }
         if (title != null ? !title.equals(dvdEntity.title) : dvdEntity.title != null) {
             return false;
         }
@@ -138,7 +131,6 @@ public class Dvd implements IDvd, IDomainObject {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (asin != null ? asin.hashCode() : 0);
         result = 31 * result + (releaseDate != null ? releaseDate.hashCode() : 0);
-        result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (publisher != null ? publisher.hashCode() : 0);
         result = 31 * result + (director != null ? director.hashCode() : 0);
         return result;

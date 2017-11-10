@@ -93,6 +93,12 @@ public class ControllerFacade implements IRMIApplicationController {
         return _customerController.getDomain(customerDTO);
     }
 
+
+    @Override
+    public List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
+        return _copyController.getCopiesByMediumID(mediumDTO);
+    }
+
     public boolean existsReservationForMedium(int mediumID, String mediumTyp){
         return _reservationController.existsReservationForMedium(mediumID,mediumTyp);
     }

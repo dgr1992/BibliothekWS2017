@@ -1,15 +1,18 @@
-package at.fhv.team05.domain;
+package at.fhv.team05.domain.medium;
 
 import at.fhv.team05.ObjectInterfaces.IBook;
-import at.fhv.team05.persistence.DBFacade;
+import at.fhv.team05.domain.IDomainObject;
+import at.fhv.team05.persistence.Repository;
+import at.fhv.team05.persistence.RepositoryFactory;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "Book")
-public class Book implements IBook, IDomainObject {
+public class Book extends Medium implements IBook, IDomainObject {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -23,13 +26,6 @@ public class Book implements IBook, IDomainObject {
 
     @Column(name = "releaseDate")
     private Date _releaseDate;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "categoryId")
-    private Category _category;
-/*
-    @Column(name = "categoryId")
-    private int _category;*/
 
     @Column(name = "publisher")
     private String _publisher;
@@ -52,6 +48,12 @@ public class Book implements IBook, IDomainObject {
     @Override
     public String getTitle() {
         return _title;
+    }
+
+    @Override
+    @Transient
+    public Map<String, Object> getAttributeMap() {
+        return null;
     }
 
     public void setTitle(String title) {
@@ -77,15 +79,6 @@ public class Book implements IBook, IDomainObject {
     }
 
     @Override
-    public Category getCategory() {
-        return _category;
-    }
-
-    public void setCategory(Category category) {
-        _category = category;
-    }
-
-    @Override
     public String getPublisher() {
         return _publisher;
     }
@@ -104,16 +97,17 @@ public class Book implements IBook, IDomainObject {
     }
 
     public static void main(String[] args) {
-        DBFacade dbFacade = DBFacade.getInstance();
+        Repository<Book> rep = RepositoryFactory.getRepositoryInstance(Book.class);
 
-        List<Book> books = dbFacade.getAllBooks();
 
-        Book book = dbFacade.getBook("Der kleine Hobbit");
+        List<Book> books = rep.list();
+
+        Book book = rep.list().get(0);
         System.out.println(book);
     }
 
     @Override
     public String toString() {
-        return "Title: " + _title + ", ISBN: " + _isbn + ", ReleaseDate: " + _releaseDate + ", Category: " + _category.getCategoryName() + ", Publisher: " + _publisher + ", Author: " + _author;
+        return "Title: " + _title + ", ISBN: " + _isbn + ", ReleaseDate: " + _releaseDate + ", Publisher: " + _publisher + ", Author: " + _author;
     }
 }

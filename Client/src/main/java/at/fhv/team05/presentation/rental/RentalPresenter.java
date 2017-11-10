@@ -4,17 +4,13 @@ import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.DvdDTO;
+import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
-import at.fhv.team05.presentation.mediumViews.BookPresenter;
-import at.fhv.team05.presentation.mediumViews.BookView;
-import at.fhv.team05.presentation.mediumViews.DvdPresenter;
-import at.fhv.team05.presentation.mediumViews.DvdView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
@@ -23,7 +19,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-public class RentalPresenter implements Initializable {
+public class RentalPresenter extends Presenter implements Initializable {
     MainViewPresenter parent;
     CopyDTO copy;
 
@@ -64,13 +60,10 @@ public class RentalPresenter implements Initializable {
     private TextField txtFieldCopyNumber;
 
     @FXML
-    private StackPane mediumContainer;
-
-    @FXML
     void onNextButtonPressed(ActionEvent event) {
         if (copy != null) {
             if (copy.getRental() == null) {
-                parent.openCustomerRentalView(copy);
+                parent.openCustomerView(copy, true);
             }else {
                 infoAlert("This Medium is already rented");
             }
@@ -122,11 +115,6 @@ public class RentalPresenter implements Initializable {
 
     }
 
-    private void infoAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(message);
-        alert.show();
-    }
 
     public void setParent(MainViewPresenter parent) {
         this.parent = parent;
@@ -135,12 +123,9 @@ public class RentalPresenter implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        txtFieldCopyNumber.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    txtFieldCopyNumber.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        txtFieldCopyNumber.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtFieldCopyNumber.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 

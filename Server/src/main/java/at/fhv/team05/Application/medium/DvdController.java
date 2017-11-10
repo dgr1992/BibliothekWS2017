@@ -1,7 +1,7 @@
 package at.fhv.team05.Application.medium;
 
 import at.fhv.team05.Utility.StringUtilities;
-import at.fhv.team05.domain.Dvd;
+import at.fhv.team05.domain.medium.Dvd;
 import at.fhv.team05.dtos.DvdDTO;
 
 public class DvdController extends MediumController<Dvd, DvdDTO> {

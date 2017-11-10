@@ -62,4 +62,9 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
         return _controllerFacade.returnCopy(copyDTO);
     }
 
+    @Override
+    public List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
+        return _controllerFacade.getCopiesByMedium(mediumDTO);
+    }
+
 }

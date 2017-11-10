@@ -8,14 +8,14 @@ import java.util.Date;
 public class ReservationDTO implements Serializable {
     private int id;
     private int mediumId;
-    private int customerId;
+    private CustomerDTO customer;
     private String mediaType;
     private Date reservationDate;
 
     public ReservationDTO(IReservation reservation) {
         id = reservation.getId();
         mediumId = reservation.getMediumId();
-        customerId = reservation.getCustomerId();
+        customer = new CustomerDTO(reservation.getCustomer());
         mediaType = reservation.getMediaType();
         reservationDate = reservation.getReservationDate();
     }
@@ -28,8 +28,8 @@ public class ReservationDTO implements Serializable {
         return mediumId;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public CustomerDTO getCustomer() {
+        return customer;
     }
 
     public String getMediaType() {

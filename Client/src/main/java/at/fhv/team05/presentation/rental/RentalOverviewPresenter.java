@@ -5,6 +5,7 @@ import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.dtos.RentalDTO;
+import at.fhv.team05.presentation.Presenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,7 +17,7 @@ import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.Calendar;
 
-public class RentalOverviewPresenter {
+public class RentalOverviewPresenter extends Presenter{
     private CopyDTO copy;
     private CustomerDTO customer;
 
@@ -136,17 +137,7 @@ public class RentalOverviewPresenter {
     }
 
 
-    private void infoAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(message);
-        alert.show();
-    }
 
-    private void errorAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText(message);
-        alert.show();
-    }
 
     public void setCopy(CopyDTO copy) {
         this.copy = copy;

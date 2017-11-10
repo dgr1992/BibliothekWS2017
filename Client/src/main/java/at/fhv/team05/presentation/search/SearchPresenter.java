@@ -4,27 +4,29 @@ import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.IMediumDTO;
+import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 
-public class SearchPresenter implements Initializable{
+public class SearchPresenter extends Presenter{
     private MainViewPresenter parent;
+
+    @FXML
+    private Label lblViewTitle;
 
     @FXML
     private TextField txtFiledTitleBook;
@@ -77,12 +79,11 @@ public class SearchPresenter implements Initializable{
     private TableColumn<DvdDTO, Date> tblColReleaseDate;
 
 
-
     @FXML
     public void onSearchBtnPressedBook(ActionEvent event) {
         List<BookDTO> books = new LinkedList<>();
         try {
-            BookDTO book = new BookDTO(getBookTitle(), getAuthor(), getIsbn());
+            BookDTO book = new BookDTO(getBookTitle(), getAuthor(), getIsbn(), "Book");
             books.addAll(ClientRun.controller.searchForBook(book));
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -96,7 +97,7 @@ public class SearchPresenter implements Initializable{
     public void onSearchBtnPressedDvd(ActionEvent event) {
         List<DvdDTO> dvds = new LinkedList<>();
         try {
-            DvdDTO dvd = new DvdDTO(getDvdTitle(), getDirector(), getAsin());
+            DvdDTO dvd = new DvdDTO(getDvdTitle(), getDirector(), getAsin(), "Dvd");
             dvds.addAll(ClientRun.controller.searchForDvd(dvd));
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -132,7 +133,6 @@ public class SearchPresenter implements Initializable{
     }
 
 
-
     private void resultTableBook(List<BookDTO> bookList) {
         ObservableList<BookDTO> resultData = FXCollections.observableArrayList();
         resultData.addAll(bookList);
@@ -153,22 +153,38 @@ public class SearchPresenter implements Initializable{
         tableViewDvdSearch.setItems(resultData);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        setDoubleClick(tableViewDvdSearch);
-        setDoubleClick(tableViewBookSearch);
 
+    public void doubleClickReservation() {
+        setDoubleClickReservation(tableViewBookSearch);
+        setDoubleClickReservation(tableViewDvdSearch);
     }
 
-    private void setDoubleClick(TableView table) {
+    public void doubleClickDefault() {
+        setDoubleClickDefault(tableViewBookSearch);
+        setDoubleClickDefault(tableViewDvdSearch);
+    }
+
+    private void setDoubleClickReservation(TableView table) {
         table.setOnMousePressed(event -> {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                parent.openDetailView((IMediumDTO) table.getSelectionModel().getSelectedItem());
+                parent.openDetailView((IMediumDTO) table.getSelectionModel().getSelectedItem(), true);
+            }
+        });
+    }
+
+    private void setDoubleClickDefault(TableView table) {
+        table.setOnMousePressed(event -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                parent.openDetailView((IMediumDTO) table.getSelectionModel().getSelectedItem(), false);
             }
         });
     }
 
     public void setParent(MainViewPresenter parent) {
         this.parent = parent;
+    }
+
+    public void setLblViewTitle(String viewTitle) {
+        lblViewTitle.setText(viewTitle);
     }
 }
