@@ -28,6 +28,13 @@ public class Copy implements ICopy, IDomainObject, Serializable {
     @JoinColumn(name = "rentalId", nullable = true)
     private Rental _rental;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoryId", nullable = false)
+    private Category _category;
+
+    @Column(name = "copyStatus", nullable = false)
+    private String _copyStatus;
+
 
     @Override
     public int getId() {
@@ -66,6 +73,23 @@ public class Copy implements ICopy, IDomainObject, Serializable {
 
     public void setMediaType(String mediaType) {
         _mediaType = mediaType;
+    }
+
+
+    public Category getCategory() {
+        return _category;
+    }
+
+    public void setCategory(Category category) {
+        _category = category;
+    }
+
+    public String getCopyStatus() {
+        return _copyStatus;
+    }
+
+    public void setCopyStatus(String copyStatus) {
+        _copyStatus = copyStatus;
     }
 
 

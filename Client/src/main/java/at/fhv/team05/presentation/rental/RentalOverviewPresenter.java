@@ -136,9 +136,6 @@ public class RentalOverviewPresenter extends Presenter{
         this.customer = customer;
     }
 
-
-
-
     public void setCopy(CopyDTO copy) {
         this.copy = copy;
     }

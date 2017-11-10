@@ -8,5 +8,7 @@ public interface ICopy {
     int getMediumId();
     int getCopyNumber();
     String getMediaType();
+    ICategory getCategory();
+    String getCopyStatus();
     IRental getRental();
 }

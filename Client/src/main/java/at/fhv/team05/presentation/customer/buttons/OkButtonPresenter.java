@@ -1,4 +1,4 @@
-package at.fhv.team05.presentation.customer;
+package at.fhv.team05.presentation.customer.buttons;
 
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
@@ -11,7 +11,6 @@ import javafx.scene.control.TableView;
 public class OkButtonPresenter extends Presenter{
     TableView customerTable;
     CopyDTO copy;
-    MainViewPresenter parent;
 
     @FXML
     void onOkButtonPressed(ActionEvent event) {
@@ -29,9 +28,5 @@ public class OkButtonPresenter extends Presenter{
 
     public void setCopy(CopyDTO copy) {
         this.copy = copy;
-    }
-
-    public void setParent(MainViewPresenter parent) {
-        this.parent = parent;
     }
 }

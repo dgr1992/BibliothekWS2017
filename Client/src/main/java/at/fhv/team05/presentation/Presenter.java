@@ -1,11 +1,9 @@
 package at.fhv.team05.presentation;
-
+import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.scene.control.Alert;
 
-/**
- * Created by Michelle on 09.11.2017.
- */
 public abstract class Presenter {
+    protected MainViewPresenter parent;
 
     protected void infoAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -17,5 +15,9 @@ public abstract class Presenter {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(message);
         alert.show();
+    }
+
+    public void setParent(MainViewPresenter parent) {
+        this.parent = parent;
     }
 }
