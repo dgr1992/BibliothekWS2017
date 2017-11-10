@@ -1,4 +1,4 @@
-package at.fhv.team05.presentation.customer;
+package at.fhv.team05.presentation.customer.buttons;
 
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.presentation.Presenter;
