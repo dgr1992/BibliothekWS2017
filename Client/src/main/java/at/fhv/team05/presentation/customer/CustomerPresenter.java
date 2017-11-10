@@ -71,6 +71,10 @@ public class CustomerPresenter extends Presenter{
         buttonContainer.getChildren().setAll(okButtonView.getView());
     }
 
+    public void initButtonCustomerCopies(){
+        ButtonCustomerCopiesView buttonCustomerCopiesView = new ButtonCustomerCopiesView();
+        buttonContainer.getChildren().setAll(buttonCustomerCopiesView.getView());
+    }
 
     @FXML
     public void onSearchButtonPressed(ActionEvent event) {

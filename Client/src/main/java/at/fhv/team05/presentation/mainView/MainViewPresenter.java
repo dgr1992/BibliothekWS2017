@@ -67,6 +67,13 @@ public class MainViewPresenter extends Presenter implements Initializable {
         contentContainer.getChildren().setAll(rentalView.getView());
     }
 
+    public void openReturnView() {
+        CustomerView customerView = new CustomerView();
+        CustomerPresenter presenter = (CustomerPresenter)customerView.getPresenter();
+        presenter.setParent(this);
+        presenter.initButtonCustomerCopies();
+        contentContainer.getChildren().setAll(customerView.getView());
+    }
 
     public void openCustomerView(CopyDTO copy, boolean okButtonEnabled) {
         CustomerView customerView = new CustomerView();

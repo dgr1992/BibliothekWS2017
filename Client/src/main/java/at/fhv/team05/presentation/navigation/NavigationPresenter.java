@@ -45,6 +45,8 @@ public class NavigationPresenter extends Presenter{
         parent.openSearchView();
     }
 
+    @FXML
+    void onLoadReturnMediumViewButtonPressed(ActionEvent event){parent.openReturnView();}
 
     public void setParent(MainViewPresenter mvp) {
         parent = mvp;
