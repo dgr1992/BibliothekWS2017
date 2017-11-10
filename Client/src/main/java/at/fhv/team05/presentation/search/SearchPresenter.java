@@ -23,8 +23,6 @@ import java.util.List;
 
 
 public class SearchPresenter extends Presenter{
-    private MainViewPresenter parent;
-
     @FXML
     private Label lblViewTitle;
 
@@ -178,10 +176,6 @@ public class SearchPresenter extends Presenter{
                 parent.openDetailView((IMediumDTO) table.getSelectionModel().getSelectedItem(), false);
             }
         });
-    }
-
-    public void setParent(MainViewPresenter parent) {
-        this.parent = parent;
     }
 
     public void setLblViewTitle(String viewTitle) {

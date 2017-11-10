@@ -1,18 +1,9 @@
 package at.fhv.team05.presentation.navigation;
 
 import at.fhv.team05.presentation.Presenter;
-import at.fhv.team05.presentation.customer.CustomerViewButton;
-import at.fhv.team05.presentation.mainView.MainViewPresenter;
+import at.fhv.team05.presentation.customer.buttons.CustomerButtonType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
 public class NavigationPresenter extends Presenter{
@@ -20,7 +11,7 @@ public class NavigationPresenter extends Presenter{
 
     @FXML
     void onLoadCustomerOverviewButtonPressed(ActionEvent event) {
-        parent.openCustomerView(null, null, CustomerViewButton.NONE);
+        parent.openCustomerView(null, null, CustomerButtonType.NONE);
     }
 
     @FXML

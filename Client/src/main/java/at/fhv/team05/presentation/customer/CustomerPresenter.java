@@ -23,8 +23,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CustomerPresenter extends Presenter{
-    private MainViewPresenter parent;
-
     @FXML
     private TextField txtFieldCustomerNumber;
 
@@ -94,11 +92,6 @@ public class CustomerPresenter extends Presenter{
         tblViewCustomer.setItems(resultData);
 
     }
-
-    public void setParent(MainViewPresenter parent) {
-        this.parent = parent;
-    }
-    
 
     public int getCustomerNumber() {
         if (txtFieldCustomerNumber.getText() == null || txtFieldCustomerNumber.getText().isEmpty()) {

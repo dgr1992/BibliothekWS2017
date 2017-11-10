@@ -17,7 +17,13 @@ public class ReserveButtonPresenter extends Presenter{
     public void onReserveButtonPressed() {
         CustomerDTO customer = (CustomerDTO) customerTable.getSelectionModel().getSelectedItem();
         try {
-            boolean reservationSuccessful = ClientRun.controller.reserveMedium(medium, customer);
+            boolean reservationSuccessful;
+            if (customer != null) {
+                reservationSuccessful = ClientRun.controller.reserveMedium(medium, customer);
+            } else {
+                infoAlert("Please select a customer.");
+                return;
+            }
             if (reservationSuccessful) {
                 infoAlert("Medium successfully reserved!");
             } else {

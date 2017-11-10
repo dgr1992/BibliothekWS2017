@@ -5,23 +5,19 @@ import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.presentation.Presenter;
-import at.fhv.team05.presentation.customer.CustomerViewButton;
+import at.fhv.team05.presentation.customer.buttons.CustomerButtonType;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 public class RentalPresenter extends Presenter implements Initializable {
-    MainViewPresenter parent;
     CopyDTO copy;
 
     @FXML
@@ -64,7 +60,7 @@ public class RentalPresenter extends Presenter implements Initializable {
     void onNextButtonPressed(ActionEvent event) {
         if (copy != null) {
             if (copy.getRental() == null) {
-                parent.openCustomerView(copy, null, CustomerViewButton.OK);
+                parent.openCustomerView(copy, null, CustomerButtonType.OK);
             }else {
                 infoAlert("This Medium is already rented");
             }
@@ -114,11 +110,6 @@ public class RentalPresenter extends Presenter implements Initializable {
             e.printStackTrace();
         }
 
-    }
-
-
-    public void setParent(MainViewPresenter parent) {
-        this.parent = parent;
     }
 
     @Override

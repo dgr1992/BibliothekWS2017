@@ -4,7 +4,7 @@ import at.fhv.team05.dtos.*;
 import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.customer.CustomerPresenter;
 import at.fhv.team05.presentation.customer.CustomerView;
-import at.fhv.team05.presentation.customer.CustomerViewButton;
+import at.fhv.team05.presentation.customer.buttons.CustomerButtonType;
 import at.fhv.team05.presentation.detailView.DetailPresenter;
 import at.fhv.team05.presentation.detailView.DetailView;
 import at.fhv.team05.presentation.navigation.LoginNavigationPresenter;
@@ -70,7 +70,7 @@ public class MainViewPresenter extends Presenter implements Initializable {
     }
 
 
-    public void openCustomerView(CopyDTO copy, IMediumDTO medium, CustomerViewButton buttonType) {
+    public void openCustomerView(CopyDTO copy, IMediumDTO medium, CustomerButtonType buttonType) {
         CustomerView customerView = new CustomerView();
         CustomerPresenter presenter = (CustomerPresenter) customerView.getPresenter();
         presenter.setParent(this);
