@@ -88,13 +88,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         }
     }
 
-    public void returnCopy(CopyDTO copyDTO){
-        Copy copy = _controllerFacade.getDomainCopy(copyDTO);
-        copy.setRentalId(null);
-        RepositoryFactory.getRepositoryInstance(Copy.class).save(copy);
 
-        
-    }
 
     public LinkedList<CopyDTO> copiesRentedBy(CustomerDTO customerDTO){
 

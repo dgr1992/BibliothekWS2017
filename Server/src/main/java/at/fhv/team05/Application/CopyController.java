@@ -1,5 +1,6 @@
 package at.fhv.team05.Application;
 
+import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.persistence.RepositoryFactory;
@@ -43,5 +44,22 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
             }
         }
         return null;
+    }
+
+    public ReturnCopyResult returnCopy(CopyDTO copyDTO){
+        Copy copy = _controllerFacade.getDomainCopy(copyDTO);
+        if(copy.getRental() == null){
+            return ReturnCopyResult.NotLent;
+        }
+        copy.setRentalId(null);
+        _repository.save(copy);
+
+        //Check if a reservation exists
+        boolean reservationExists = _controllerFacade.existsReservationForMedium(copy.getMediumId(), copy.getMediaType());
+        if(reservationExists){
+            return ReturnCopyResult.ReservationExists;
+        } else {
+            return ReturnCopyResult.Successful;
+        }
     }
 }

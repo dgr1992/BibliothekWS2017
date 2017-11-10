@@ -1,6 +1,7 @@
 package at.fhv.team05.RMI;
 
 import at.fhv.team05.Application.ControllerFacade;
+import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.dtos.*;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
@@ -54,6 +55,11 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     @Override
     public DvdDTO searchDvdById(int mediumId) throws RemoteException {
         return _controllerFacade.searchDvdById(mediumId);
+    }
+
+    @Override
+    public ReturnCopyResult returnCopy(CopyDTO copyDTO) {
+        return _controllerFacade.returnCopy(copyDTO);
     }
 
 }

@@ -1,15 +1,26 @@
 package at.fhv.team05.Application;
 
+import com.mchange.v2.collection.MapEntry;
+
+import org.apache.logging.log4j.core.util.KeyValuePair;
+
 import at.fhv.team05.domain.Reservation;
 import at.fhv.team05.dtos.ReservationDTO;
 
 import java.util.LinkedList;
 
 public class ReservationController extends BaseController<Reservation, ReservationDTO> {
+    private static ReservationController _instance;
 
-
-    public ReservationController(Class<Reservation> reservationClass) {
+    private ReservationController(Class<Reservation> reservationClass) {
         super(reservationClass);
+    }
+
+    public static ReservationController getInstance(){
+        if(_instance == null){
+            _instance = new ReservationController(Reservation.class);
+        }
+        return _instance;
     }
 
     public boolean checkAvailability() {
@@ -46,6 +57,14 @@ public class ReservationController extends BaseController<Reservation, Reservati
 
     }*/
 
+    public boolean existsReservationForMedium(int mediumID, String mediumTyp){
+        for (Reservation reservation : _mapDomainToDto.keySet()) {
+            if(reservation.getMediumId() == mediumID && reservation.getMediaType().contentEquals(mediumTyp)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     protected ReservationDTO createDTO(Reservation object) {

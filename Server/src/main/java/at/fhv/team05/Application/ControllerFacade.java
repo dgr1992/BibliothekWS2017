@@ -3,6 +3,7 @@ package at.fhv.team05.Application;
 
 import at.fhv.team05.Application.medium.BookController;
 import at.fhv.team05.Application.medium.DvdController;
+import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.domain.Address;
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.domain.Customer;
@@ -21,6 +22,7 @@ public class ControllerFacade implements IRMIApplicationController {
     private CopyController _copyController;
     private AddressController _addressController;
     private RentalController _rentalController;
+    private ReservationController _reservationController;
 
     private ControllerFacade() {
         _bookController = BookController.getInstance();
@@ -29,6 +31,7 @@ public class ControllerFacade implements IRMIApplicationController {
         _copyController = CopyController.getInstance();
         _addressController = AddressController.getInstance();
         _rentalController = RentalController.getInstance();
+        _reservationController = ReservationController.getInstance();
     }
 
     public static ControllerFacade getInstance() {
@@ -88,5 +91,13 @@ public class ControllerFacade implements IRMIApplicationController {
 
     public Customer getDomainCustomer(CustomerDTO customerDTO) {
         return _customerController.getDomain(customerDTO);
+    }
+
+    public boolean existsReservationForMedium(int mediumID, String mediumTyp){
+        return _reservationController.existsReservationForMedium(mediumID,mediumTyp);
+    }
+
+    public ReturnCopyResult returnCopy(CopyDTO copyDTO){
+        return _copyController.returnCopy(copyDTO);
     }
 }
