@@ -26,7 +26,7 @@ pipeline {
     }
     post {
         always {
-            archive 'Server/target/*.jar'
+            archive 'Server/target/*.jar, Server/target/*.xml, Server/target/*.properties'
             archive 'Client/target/*.jar'
         }
     }
