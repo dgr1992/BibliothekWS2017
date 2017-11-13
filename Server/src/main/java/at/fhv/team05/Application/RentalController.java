@@ -5,6 +5,7 @@ import at.fhv.team05.domain.Customer;
 import at.fhv.team05.domain.Rental;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
+import at.fhv.team05.dtos.CustomerRentalDTO;
 import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.persistence.RepositoryFactory;
 
@@ -104,6 +105,26 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
     protected boolean compareInput(Rental object, RentalDTO rentalDTO) {
         return false;
     }
+
+    public CustomerRentalDTO getRentalsFor(CustomerDTO customerDTO){
+        CustomerRentalDTO customersRentals = new CustomerRentalDTO();
+
+        for (RentalDTO rental : _mapDomainToDto.values()) {
+            //If the copy was rent by the customer check if it is currently rented or a old rental
+            if(rental.getCustomer().equals(customerDTO)){
+                if(rental.getCopy().getRental().equals(rental)){
+                    //If it is the same the copy is currently rented
+                    customersRentals.addToCurrent(rental);
+                } else{
+                    //Was rented in the past
+                    customersRentals.addToHistory(rental);
+                }
+            }
+        }
+
+        return customersRentals;
+    }
+
 
     /*
     public static void main(String[] args){

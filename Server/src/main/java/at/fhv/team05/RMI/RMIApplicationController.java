@@ -77,4 +77,9 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
         _controllerFacade.reserveMedium(mediumDTO, customerDTO);
     }
 
+    @Override
+    public CustomerRentalDTO getRentalsFor(CustomerDTO customerDTO) throws RemoteException {
+        return _controllerFacade.getRentalsFor(customerDTO);
+    }
+
 }
