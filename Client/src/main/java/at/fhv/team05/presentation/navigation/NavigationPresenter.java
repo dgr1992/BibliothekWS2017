@@ -34,8 +34,4 @@ public class NavigationPresenter extends Presenter{
         parent.changeNavigationBarToLoggedOut();
         parent.openSearchView();
     }
-
-    @FXML
-    void onLoadReturnMediumViewButtonPressed(ActionEvent event){parent.openReturnView();}
-
 }
