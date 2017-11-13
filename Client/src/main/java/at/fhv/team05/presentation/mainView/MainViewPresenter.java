@@ -119,5 +119,11 @@ public class MainViewPresenter extends Presenter implements Initializable {
         contentContainer.getChildren().setAll(detailView.getView());
     }
 
+    public void openLoginView() {
+        LoginView loginView = new LoginView();
+        LoginPresenter presenter = (LoginPresenter) loginView.getPresenter();
+        contentContainer.getChildren().setAll(loginView.getView());
+    }
+
 
 }

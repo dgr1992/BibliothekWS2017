@@ -23,6 +23,7 @@ public class ControllerFacade implements IRMIApplicationController {
     private AddressController _addressController;
     private RentalController _rentalController;
     private ReservationController _reservationController;
+    private LdapController _ldapController;
 
     private ControllerFacade() {
         _bookController = BookController.getInstance();
@@ -32,6 +33,7 @@ public class ControllerFacade implements IRMIApplicationController {
         _addressController = AddressController.getInstance();
         _rentalController = RentalController.getInstance();
         _reservationController = ReservationController.getInstance();
+        _ldapController = LdapController.getInstance();
     }
 
     public static ControllerFacade getInstance() {
@@ -107,6 +109,11 @@ public class ControllerFacade implements IRMIApplicationController {
     @Override
     public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
         _reservationController.reserveMedium(mediumDTO, customerDTO);
+    }
+
+    @Override
+    public void authenticateUser(String uname, String pw) throws RemoteException {
+        _ldapController.authenticateUser(uname, pw);
     }
 
     @Override

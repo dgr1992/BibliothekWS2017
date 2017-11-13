@@ -33,5 +33,7 @@ public interface IRMIApplicationController extends Remote {
 
     void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException;
 
+    void authenticateUser(String uname, String pw) throws RemoteException;
+
     CustomerRentalDTO getRentalsFor(CustomerDTO customerDTO) throws  RemoteException;
 }

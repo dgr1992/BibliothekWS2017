@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 public class LoginNavigationPresenter extends Presenter{
     @FXML
     void onLoginButtonPressed(ActionEvent event) {
-        parent.changeNavigationBarToLoggedIn();
+        parent.openLoginView();
     }
 
 }

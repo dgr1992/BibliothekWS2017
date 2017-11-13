@@ -82,4 +82,9 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
         return _controllerFacade.getRentalsFor(customerDTO);
     }
 
+    @Override
+    public void authenticateUser(String uname, String pw) throws RemoteException {
+        _controllerFacade.authenticateUser(uname, pw);
+    }
+
 }
