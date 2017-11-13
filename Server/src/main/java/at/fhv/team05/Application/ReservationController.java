@@ -35,12 +35,12 @@ public class ReservationController extends BaseController<Reservation, Reservati
         return list.isEmpty();
     }
 
-    public void reserveMedium(CopyDTO copyDTO, CustomerDTO customerDTO) {
+    public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) {
         Reservation reservedObject = new Reservation();
 
-        reservedObject.setMediumId(copyDTO.getId());
+        reservedObject.setMediumId(mediumDTO.getId());
         reservedObject.setCustomer(_controllerFacade.getDomainCustomer(customerDTO));
-        reservedObject.setMediaType(copyDTO.getClass().toString());
+        reservedObject.setMediaType(mediumDTO.getType());
         reservedObject.setReservationDate(new Date(Calendar.getInstance().getTimeInMillis()));
 
         _repository.save(reservedObject);
