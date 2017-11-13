@@ -3,7 +3,6 @@ package at.fhv.team05.presentation.customer;
 import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.*;
 import at.fhv.team05.presentation.Presenter;
-import at.fhv.team05.presentation.customer.buttons.ButtonCustomerCopiesView;
 import at.fhv.team05.presentation.customer.buttons.OkButtonPresenter;
 import at.fhv.team05.presentation.customer.buttons.OkButtonView;
 import at.fhv.team05.presentation.customer.buttons.ReserveButtonPresenter;
@@ -64,11 +63,6 @@ public class CustomerPresenter extends Presenter{
         presenter.setCopy(copy);
         presenter.setParent(parent);
         buttonContainer.getChildren().setAll(okButtonView.getView());
-    }
-
-    public void initButtonCustomerCopies(){
-        ButtonCustomerCopiesView buttonCustomerCopiesView = new ButtonCustomerCopiesView();
-        buttonContainer.getChildren().setAll(buttonCustomerCopiesView.getView());
     }
 
     @FXML
