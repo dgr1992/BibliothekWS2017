@@ -9,26 +9,27 @@ import javafx.scene.control.TableView;
 
 import java.rmi.RemoteException;
 
-public class ReserveButtonPresenter extends Presenter{
-    TableView customerTable;
-    IMediumDTO medium;
+public class ReserveButtonPresenter extends Presenter {
+    private TableView customerTable;
+    private IMediumDTO medium;
 
     @FXML
     public void onReserveButtonPressed() {
         CustomerDTO customer = (CustomerDTO) customerTable.getSelectionModel().getSelectedItem();
         try {
-            boolean reservationSuccessful;
+            boolean available = ClientRun.controller.checkAvailabilityOfMedium(medium);
+            if (available) {
+                infoAlert("Medium is available in library.");
+                return;
+            }
             if (customer != null) {
-                reservationSuccessful = ClientRun.controller.reserveMedium(medium, customer);
+                ClientRun.controller.reserveMedium(medium, customer);
             } else {
                 infoAlert("Please select a customer.");
                 return;
             }
-            if (reservationSuccessful) {
-                infoAlert("Medium successfully reserved!");
-            } else {
-                errorAlert("Medium could not be reserved.");
-            }
+            infoAlert("Medium successfully reserved!");
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }
