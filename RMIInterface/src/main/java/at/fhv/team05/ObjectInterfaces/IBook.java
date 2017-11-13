@@ -6,15 +6,15 @@ import java.util.Date;
 
 public interface IBook extends IMediumDTO {
 
+    @Override
     int getId();
 
+    @Override
     String getTitle();
 
     String getIsbn();
 
     Date getReleaseDate();
-
-    ICategory getCategory();
 
     String getPublisher();
 

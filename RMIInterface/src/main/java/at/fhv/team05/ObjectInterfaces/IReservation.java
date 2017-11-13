@@ -5,9 +5,12 @@ import java.util.Date;
 public interface IReservation {
 
     int getId();
+
     int getMediumId();
-    int getCustomerId();
+
     String getMediaType();
+
     Date getReservationDate();
 
+    ICustomer getCustomer();
 }

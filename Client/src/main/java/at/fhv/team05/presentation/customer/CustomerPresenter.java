@@ -1,31 +1,27 @@
 package at.fhv.team05.presentation.customer;
 
 import at.fhv.team05.ClientRun;
-import at.fhv.team05.ObjectInterfaces.ICustomer;
 import at.fhv.team05.dtos.*;
-import at.fhv.team05.presentation.mainView.MainViewPresenter;
+import at.fhv.team05.presentation.Presenter;
+import at.fhv.team05.presentation.customer.buttons.OkButtonPresenter;
+import at.fhv.team05.presentation.customer.buttons.OkButtonView;
+import at.fhv.team05.presentation.customer.buttons.ReserveButtonPresenter;
+import at.fhv.team05.presentation.customer.buttons.ReserveButtonView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 
-import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class CustomerPresenter {
-    private MainViewPresenter parent;
-    private CopyDTO copy;
-
+public class CustomerPresenter extends Presenter{
     @FXML
     private TextField txtFieldCustomerNumber;
 
@@ -57,21 +53,17 @@ public class CustomerPresenter {
     private TableColumn<CustomerDTO, String> tblColDateOfBirth;
 
     @FXML
-    public void onNextButtonPressed(ActionEvent event) {
-        CustomerDTO customer = tblViewCustomer.getSelectionModel().getSelectedItem();
-        if (customer != null) {
-            parent.openRentalOverview(customer, copy);
-        } else {
-            infoAlert("Please select a customer.");
-        }
-    }
+    private AnchorPane buttonContainer;
 
-    private void infoAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(message);
-        alert.show();
-    }
 
+    public void initOkButton(CopyDTO copy) {
+        OkButtonView okButtonView = new OkButtonView();
+        OkButtonPresenter presenter = (OkButtonPresenter) okButtonView.getPresenter();
+        presenter.setCustomerTable(tblViewCustomer);
+        presenter.setCopy(copy);
+        presenter.setParent(parent);
+        buttonContainer.getChildren().setAll(okButtonView.getView());
+    }
 
     @FXML
     public void onSearchButtonPressed(ActionEvent event) {
@@ -99,11 +91,6 @@ public class CustomerPresenter {
 
     }
 
-    public void setParent(MainViewPresenter parent) {
-        this.parent = parent;
-    }
-    
-
     public int getCustomerNumber() {
         if (txtFieldCustomerNumber.getText() == null || txtFieldCustomerNumber.getText().isEmpty()) {
             return -1;
@@ -117,7 +104,12 @@ public class CustomerPresenter {
         return txtFieldLastName.getText();
     }
 
-    public void setCopy(CopyDTO copy) {
-        this.copy = copy;
+
+    public void initReservationButton(IMediumDTO medium) {
+        ReserveButtonView reserveButtonView = new ReserveButtonView();
+        ReserveButtonPresenter presenter = (ReserveButtonPresenter)  reserveButtonView.getPresenter();
+        presenter.setCustomerTable(tblViewCustomer);
+        presenter.setMedium(medium);
+        buttonContainer.getChildren().setAll(reserveButtonView.getView());
     }
 }

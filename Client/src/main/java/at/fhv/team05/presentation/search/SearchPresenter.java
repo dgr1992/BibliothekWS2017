@@ -4,6 +4,7 @@ import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.IMediumDTO;
+import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,9 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class SearchPresenter {
-    private MainViewPresenter parent;
-
+public class SearchPresenter extends Presenter{
     @FXML
     private Label lblViewTitle;
 
@@ -177,10 +176,6 @@ public class SearchPresenter {
                 parent.openDetailView((IMediumDTO) table.getSelectionModel().getSelectedItem(), false);
             }
         });
-    }
-
-    public void setParent(MainViewPresenter parent) {
-        this.parent = parent;
     }
 
     public void setLblViewTitle(String viewTitle) {

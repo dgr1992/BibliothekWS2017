@@ -1,6 +1,7 @@
 package at.fhv.team05.RMI;
 
 import at.fhv.team05.Application.ControllerFacade;
+import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.dtos.*;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
@@ -57,8 +58,23 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
+    public ReturnCopyResult returnCopy(CopyDTO copyDTO) throws RemoteException {
+        return _controllerFacade.returnCopy(copyDTO);
+    }
+
+    @Override
     public List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
         return _controllerFacade.getCopiesByMedium(mediumDTO);
+    }
+
+    @Override
+    public boolean checkAvailabilityOfMedium(IMediumDTO mediumDTO) throws RemoteException {
+        return _controllerFacade.checkAvailabilityOfMedium(mediumDTO);
+    }
+
+    @Override
+    public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
+        _controllerFacade.reserveMedium(mediumDTO, customerDTO);
     }
 
 }

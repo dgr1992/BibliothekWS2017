@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.detailView.DetailPresenter">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.detailView.DetailPresenter">
    <children>
       <StackPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
@@ -74,7 +74,7 @@
                     <columns>
                       <TableColumn fx:id="tblColCopyNumber" prefWidth="153.0" text="Copy Number" />
                       <TableColumn fx:id="tblColAvailability" prefWidth="294.0" text="Availability" />
-                        <TableColumn fx:id="tblColLocation" prefWidth="352.0" text="Location" />
+                        <TableColumn fx:id="tblColLocation" prefWidth="331.0" text="Location" />
                     </columns>
                   </TableView>
                   <AnchorPane fx:id="buttonContainer" prefHeight="65.0" prefWidth="780.0" />

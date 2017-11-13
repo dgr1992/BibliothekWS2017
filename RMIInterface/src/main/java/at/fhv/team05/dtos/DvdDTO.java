@@ -15,7 +15,6 @@ public class DvdDTO implements IMediumDTO, Serializable {
     private String type;
     private String asin;
     private Date releaseDate;
-    private CategoryDTO category;
     private String publisher;
     private String director;
     private Map<String, Object> attributeMap;
@@ -28,7 +27,6 @@ public class DvdDTO implements IMediumDTO, Serializable {
         type = dvd.getType();
         asin = dvd.getAsin();
         releaseDate = dvd.getReleaseDate();
-        category = new CategoryDTO(dvd.getCategory());
         publisher = dvd.getPublisher();
         director = dvd.getDirector();
 
@@ -37,7 +35,6 @@ public class DvdDTO implements IMediumDTO, Serializable {
         attributeMap.put("title", title);
         attributeMap.put("articleId", asin);
         attributeMap.put("releaseDate", releaseDate);
-        attributeMap.put("category", category);
         attributeMap.put("publisher", publisher);
         attributeMap.put("prod", director);
 
@@ -66,6 +63,7 @@ public class DvdDTO implements IMediumDTO, Serializable {
         return type;
     }
 
+    @Override
     public Map<String, Object> getAttributeMap() {
         return attributeMap;
     }
@@ -76,10 +74,6 @@ public class DvdDTO implements IMediumDTO, Serializable {
 
     public Date getReleaseDate() {
         return releaseDate;
-    }
-
-    public ICategory getCategory() {
-        return null;
     }
 
     public String getPublisher() {

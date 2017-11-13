@@ -6,15 +6,15 @@ import java.util.Date;
 
 public interface IDvd extends IMediumDTO {
 
+    @Override
     int getId();
 
+    @Override
     String getTitle();
 
     String getAsin();
 
     Date getReleaseDate();
-
-    ICategory getCategory();
 
     String getPublisher();
 
