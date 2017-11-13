@@ -10,7 +10,7 @@ public class LoginNavigationPresenter {
 
     @FXML
     void onLoginButtonPressed(ActionEvent event) {
-        parent.changeNavigationBarToLoggedIn();
+        parent.openLoginView();
     }
 
     public void setParent(MainViewPresenter mvp) {
