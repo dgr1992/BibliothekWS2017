@@ -73,8 +73,8 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public boolean reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
-        return false;
+    public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
+        _controllerFacade.reserveMedium(mediumDTO, customerDTO);
     }
 
 }

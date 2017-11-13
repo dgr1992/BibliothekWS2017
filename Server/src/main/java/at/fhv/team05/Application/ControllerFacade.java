@@ -105,8 +105,8 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public boolean reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
-        return false;
+    public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
+        _reservationController.reserveMedium(mediumDTO, customerDTO);
     }
 
     public boolean existsReservationForMedium(int mediumID, String mediumTyp){
