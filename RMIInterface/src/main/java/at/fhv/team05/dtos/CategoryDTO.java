@@ -35,4 +35,9 @@ public class CategoryDTO implements Serializable{
     public String getRoom() {
         return room;
     }
+
+    @Override
+    public String toString() {
+        return categoryIndex + " " + room;
+    }
 }

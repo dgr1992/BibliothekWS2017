@@ -1,9 +1,5 @@
 package at.fhv.team05.Application;
 
-import com.mchange.v2.collection.MapEntry;
-
-import org.apache.logging.log4j.core.util.KeyValuePair;
-
 import at.fhv.team05.domain.Reservation;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
@@ -22,8 +18,8 @@ public class ReservationController extends BaseController<Reservation, Reservati
         super(reservationClass);
     }
 
-    public static ReservationController getInstance(){
-        if(_instance == null){
+    public static ReservationController getInstance() {
+        if (_instance == null) {
             _instance = new ReservationController(Reservation.class);
         }
         return _instance;
@@ -32,7 +28,7 @@ public class ReservationController extends BaseController<Reservation, Reservati
     public boolean checkAvailability(IMediumDTO mediumDTO) {
         List<CopyDTO> list = new LinkedList<>();
         _controllerFacade.getCopiesByMedium(mediumDTO).stream().filter(item -> item.getRental() == null).forEach(list::add);
-        return list.isEmpty();
+        return !list.isEmpty();
     }
 
     public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) {
@@ -46,9 +42,9 @@ public class ReservationController extends BaseController<Reservation, Reservati
         _repository.save(reservedObject);
     }
 
-    public boolean existsReservationForMedium(int mediumID, String mediumTyp){
+    public boolean existsReservationForMedium(int mediumID, String mediumTyp) {
         for (Reservation reservation : _mapDomainToDto.keySet()) {
-            if(reservation.getMediumId() == mediumID && reservation.getMediaType().contentEquals(mediumTyp)){
+            if (reservation.getMediumId() == mediumID && reservation.getMediaType().contentEquals(mediumTyp)) {
                 return true;
             }
         }

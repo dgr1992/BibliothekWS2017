@@ -7,14 +7,18 @@ import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.detailView.buttons.ReserveButtonPresenter;
 import at.fhv.team05.presentation.detailView.buttons.ReserveButtonView;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.SimpleStyleableObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
@@ -61,7 +65,7 @@ public class DetailPresenter extends Presenter {
     private TableColumn<CopyDTO, String> tblColAvailability;
 
     @FXML
-    private TableColumn<CategoryDTO, String> tblColLocation;
+    private TableColumn<CopyDTO, String> tblColLocation;
 
     @FXML
     private AnchorPane buttonContainer;
@@ -106,6 +110,7 @@ public class DetailPresenter extends Presenter {
         resultData.addAll(mediums);
         tblColCopyNumber.setCellValueFactory(new PropertyValueFactory<>("copyNumber"));
         tblColAvailability.setCellValueFactory(new PropertyValueFactory<>("copyStatus"));
+        tblColLocation.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getCategory().toString()));
         tblViewCopies.setItems(resultData);
     }
 

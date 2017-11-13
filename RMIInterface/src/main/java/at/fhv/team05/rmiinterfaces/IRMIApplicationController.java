@@ -31,7 +31,7 @@ public interface IRMIApplicationController extends Remote {
 
     boolean checkAvailabilityOfMedium(IMediumDTO mediumDTO) throws RemoteException;
 
-    boolean reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException;
+    void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException;
 
 
 }
