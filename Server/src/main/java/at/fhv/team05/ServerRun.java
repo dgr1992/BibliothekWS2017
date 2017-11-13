@@ -11,9 +11,9 @@ public class ServerRun {
     public static void main(String[] args) {
         try {
             LocateRegistry.createRegistry(1099);
-            DatabaseConnection.init();
             RMIFactory rmiFactory = new RMIFactory();
             Naming.bind("rmi://localhost/IRMIFactory", rmiFactory);
+            DatabaseConnection.init();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

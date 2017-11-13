@@ -83,8 +83,8 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public void authenticateUser(String uname, String pw) throws RemoteException {
-        _controllerFacade.authenticateUser(uname, pw);
+    public boolean authenticateUser(String uname, String pw) throws RemoteException {
+        return _controllerFacade.authenticateUser(uname, pw);
     }
 
 }

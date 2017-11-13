@@ -112,8 +112,8 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public void authenticateUser(String uname, String pw) throws RemoteException {
-        _ldapController.authenticateUser(uname, pw);
+    public boolean authenticateUser(String uname, String pw) throws RemoteException {
+        return _ldapController.authenticateUser(uname, pw);
     }
 
     @Override
@@ -121,11 +121,12 @@ public class ControllerFacade implements IRMIApplicationController {
         return _rentalController.getRentalsFor(customerDTO);
     }
 
-    public boolean existsReservationForMedium(int mediumID, String mediumTyp){
-        return _reservationController.existsReservationForMedium(mediumID,mediumTyp);
+    public boolean existsReservationForMedium(int mediumID, String mediumTyp) {
+        return _reservationController.existsReservationForMedium(mediumID, mediumTyp);
     }
 
-    public ReturnCopyResult returnCopy(CopyDTO copyDTO){
+    @Override
+    public ReturnCopyResult returnCopy(CopyDTO copyDTO) {
         return _copyController.returnCopy(copyDTO);
     }
 }
