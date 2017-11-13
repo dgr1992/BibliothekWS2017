@@ -17,11 +17,6 @@ public class ReserveButtonPresenter extends Presenter {
     public void onReserveButtonPressed() {
         CustomerDTO customer = (CustomerDTO) customerTable.getSelectionModel().getSelectedItem();
         try {
-            boolean available = ClientRun.controller.checkAvailabilityOfMedium(medium);
-            if (available) {
-                infoAlert("Medium is available in library.");
-                return;
-            }
             if (customer != null) {
                 ClientRun.controller.reserveMedium(medium, customer);
             } else {
