@@ -7,11 +7,9 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
-public class LdapController extends BaseController<UserAccount, UserAccountDTO>{
+public class LdapController extends BaseController<UserAccount, UserAccountDTO> {
     private static LdapController mInstance;
 
 
@@ -19,7 +17,9 @@ public class LdapController extends BaseController<UserAccount, UserAccountDTO>{
         super(userAccountClass);
     }
 
-    private LdapController() {super(UserAccount.class);}
+    private LdapController() {
+        super(UserAccount.class);
+    }
 
     public static LdapController getInstance() {
         if (mInstance == null) {
@@ -51,16 +51,14 @@ public class LdapController extends BaseController<UserAccount, UserAccountDTO>{
                 return false;
             }
 
-        }else
-        return false;
+        } else {
+            return false;
+        }
 
     }
 
     public boolean mailAuthentication(String mname) {
-        List<UserAccount> userList;
-        userList = _repository.list();
-
-        for (UserAccount acc : userList) {
+        for (UserAccount acc : _mapDomainToDto.keySet()) {
             if (acc.getEmail().equalsIgnoreCase(mname)) {
                 return true;
             }

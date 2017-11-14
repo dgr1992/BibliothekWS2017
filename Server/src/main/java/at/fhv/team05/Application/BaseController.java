@@ -26,7 +26,9 @@ public abstract class BaseController<DomainObject extends IDomainObject, DomainD
         fillMap();
     }
 
-    private void fillMap() {
+    public void fillMap() {
+        _mapDomainToDto = new HashMap<>();
+        _mapDtoToDomain = new HashMap<>();
         for (DomainObject obj : _repository.list()) {
             DomainDTO dto = createDTO(obj);
             _mapDomainToDto.put(obj, dto);

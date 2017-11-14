@@ -1,6 +1,7 @@
 package at.fhv.team05.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "UserAccount")
@@ -8,6 +9,7 @@ public class UserAccount implements IDomainObject {
     private int id;
     private String username;
     private String email;
+    private Set<UserRole> roles;
 
     @Override
     @Id
@@ -38,6 +40,16 @@ public class UserAccount implements IDomainObject {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "UserToRole", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 
     @Override
