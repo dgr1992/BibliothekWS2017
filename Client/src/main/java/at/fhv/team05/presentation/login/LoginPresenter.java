@@ -26,7 +26,7 @@ public class LoginPresenter extends Presenter implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loginAnchorPane.setOnKeyPressed(event -> {
-            if (event.isControlDown() && event.getCode() == KeyCode.Q) {
+            if (event.isControlDown() && event.getCode() == KeyCode.S) {
                 parent.changeNavigationBarToLoggedIn();
                 parent.openSearchView();
             }
