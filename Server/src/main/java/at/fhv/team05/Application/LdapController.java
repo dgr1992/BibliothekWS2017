@@ -1,16 +1,25 @@
 package at.fhv.team05.Application;
 
+import at.fhv.team05.domain.UserAccount;
+import at.fhv.team05.dtos.UserAccountDTO;
+
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
-public class LdapController {
+public class LdapController extends BaseController<UserAccount, UserAccountDTO>{
     private static LdapController mInstance;
 
-    private LdapController() {
+
+    private LdapController(Class<UserAccount> userAccountClass) {
+        super(userAccountClass);
     }
+
+    private LdapController() {super(UserAccount.class);}
 
     public static LdapController getInstance() {
         if (mInstance == null) {
@@ -21,23 +30,51 @@ public class LdapController {
 
     public boolean authenticateUser(String uname, String pw) {
 
+        if (mailAuthentication(uname)) {
 
-        Hashtable<String, String> env = new Hashtable<>();
+            String[] splitUserName = uname.split("@");
+            String userName = splitUserName[0];
 
-        env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, "ldaps://openldap.fhv.at:636/o=fhv.at");
-        env.put(Context.SECURITY_AUTHENTICATION, "simple");
-        env.put(Context.SECURITY_PRINCIPAL, "uid=" + (uname.equals("") ? " " : uname) + ",ou=people,o=fhv.at");
-        env.put(Context.SECURITY_CREDENTIALS, (pw.equals("") ? " " : pw));
+            Hashtable<String, String> env = new Hashtable<>();
 
-        try {
-            DirContext ctx = new InitialDirContext(env);
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
+            env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+            env.put(Context.PROVIDER_URL, "ldaps://openldap.fhv.at:636/o=fhv.at");
+            env.put(Context.SECURITY_AUTHENTICATION, "simple");
+            env.put(Context.SECURITY_PRINCIPAL, "uid=" + (uname.equals("") ? " " : userName) + ",ou=people,o=fhv.at");
+            env.put(Context.SECURITY_CREDENTIALS, (pw.equals("") ? " " : pw));
 
-        return true;
+            try {
+                DirContext ctx = new InitialDirContext(env);
+                return true;
+            } catch (NamingException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+        }else
+        return false;
 
     }
 
+    public boolean mailAuthentication(String mname) {
+        List<UserAccount> userList;
+        userList = _repository.list();
+
+        for (UserAccount acc : userList) {
+            if (acc.getEmail().equalsIgnoreCase(mname)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    protected UserAccountDTO createDTO(UserAccount object) {
+        return null;
+    }
+
+    @Override
+    protected boolean compareInput(UserAccount object, UserAccountDTO userAccountDTO) {
+        return false;
+    }
 }
