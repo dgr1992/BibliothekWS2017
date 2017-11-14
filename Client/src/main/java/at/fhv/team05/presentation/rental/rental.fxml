@@ -51,7 +51,7 @@
             </GridPane>
             <AnchorPane prefHeight="250.0" prefWidth="200.0">
                <children>
-                  <TitledPane text="Medium Information" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TitledPane fx:id="titledPaneMediumInfo" text="Medium Information" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <content>
                         <StackPane fx:id="mediumContainer" prefHeight="0.0" prefWidth="780.0">
                            <children>

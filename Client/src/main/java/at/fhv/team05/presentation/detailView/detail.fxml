@@ -27,7 +27,7 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TitledPane prefHeight="200.0" text="Medium">
+                  <TitledPane fx:id="titledPaneMedium" prefHeight="200.0" text="Medium">
                      <content>
                         <GridPane prefHeight="250.0" prefWidth="800.0">
                            <columnConstraints>

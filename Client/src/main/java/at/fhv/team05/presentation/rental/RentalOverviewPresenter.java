@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 
 import javax.annotation.PostConstruct;
 import java.rmi.RemoteException;
@@ -20,6 +21,9 @@ import java.util.Calendar;
 public class RentalOverviewPresenter extends Presenter{
     private CopyDTO copy;
     private CustomerDTO customer;
+
+    @FXML
+    private TitledPane titledPaneOverview;
 
     @FXML
     private Label lblTitle;
@@ -86,6 +90,7 @@ public class RentalOverviewPresenter extends Presenter{
     }
 
     public void initView() {
+        titledPaneOverview.setCollapsible(false);
         IMediumDTO medium = null;
         if ("book".equalsIgnoreCase(copy.getMediaType())) {
             try {

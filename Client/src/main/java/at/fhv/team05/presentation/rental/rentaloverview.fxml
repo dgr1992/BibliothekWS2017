@@ -18,7 +18,7 @@
          <children>
             <VBox>
                <children>
-                  <TitledPane text="Rental Overview">
+                  <TitledPane fx:id="titledPaneOverview" text="Rental Overview">
                      <content>
                         <GridPane>
                           <columnConstraints>
@@ -35,45 +35,43 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Medium:" GridPane.rowIndex="1">
+                              <Label text="Medium:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblTitle" prefHeight="17.0" prefWidth="258.0" text="Title" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-                              <Label fx:id="lblMediumNumber" text="Medium Number" GridPane.rowIndex="3" />
-                              <Label text="Customer:" GridPane.rowIndex="5">
+                              <Label fx:id="lblTitle" prefHeight="17.0" prefWidth="258.0" text="Title" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                              <Label fx:id="lblMediumNumber" text="Medium Number" GridPane.rowIndex="2" />
+                              <Label text="Customer:" GridPane.rowIndex="4">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblCustomerNumber" text="Customer Number" GridPane.rowIndex="6" />
-                              <Label fx:id="lblCustomerName" text="Name" GridPane.rowIndex="7" />
-                              <Label fx:id="lblZipCity" text="ZIP City" GridPane.rowIndex="9" />
-                              <Label text="Subscription valid until" GridPane.rowIndex="11">
+                              <Label fx:id="lblCustomerNumber" text="Customer Number" GridPane.rowIndex="5" />
+                              <Label fx:id="lblCustomerName" text="Name" GridPane.rowIndex="6" />
+                              <Label fx:id="lblZipCity" text="ZIP City" GridPane.rowIndex="8" />
+                              <Label text="Subscription valid until" GridPane.rowIndex="10">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblStreet" text="Street" GridPane.rowIndex="8" />
-                              <Label text="Rented until" GridPane.rowIndex="13">
+                              <Label fx:id="lblStreet" text="Street" GridPane.rowIndex="7" />
+                              <Label text="Rented until" GridPane.rowIndex="12">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblAboValidUntil" text="Subscription Valid Until" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                              <Label fx:id="lblRentedUntil" text="Rented until" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                              <Button fx:id="btnExtendSub" mnemonicParsing="false" onAction="#onExtendAboButtonPressed" text="Extend Subscription" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                              <Label fx:id="lblAboValidUntil" text="Subscription Valid Until" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                              <Label fx:id="lblRentedUntil" text="Rented until" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                              <Button fx:id="btnExtendSub" mnemonicParsing="false" onAction="#onExtendAboButtonPressed" text="Extend Subscription" GridPane.columnIndex="2" GridPane.rowIndex="10" />
                            </children>
                         </GridPane>
                      </content>

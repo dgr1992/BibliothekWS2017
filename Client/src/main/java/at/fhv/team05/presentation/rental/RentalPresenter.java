@@ -12,13 +12,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 public class RentalPresenter extends Presenter {
-    CopyDTO copy;
+    private CopyDTO copy;
+
+    @FXML
+    private TitledPane titledPaneMediumInfo;
 
     @FXML
     private Label lblTitle;
@@ -112,6 +116,7 @@ public class RentalPresenter extends Presenter {
 
     }
     public void initialize() {
+        titledPaneMediumInfo.setCollapsible(false);
         txtFieldCopyNumber.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 txtFieldCopyNumber.setText(newValue.replaceAll("[^\\d]", ""));

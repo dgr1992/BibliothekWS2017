@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
@@ -22,6 +23,10 @@ import java.util.List;
 import java.util.Map;
 
 public class DetailPresenter extends Presenter {
+
+    @FXML
+    private TitledPane titledPaneMedium;
+
     private IMediumDTO medium;
 
     @FXML
@@ -68,6 +73,7 @@ public class DetailPresenter extends Presenter {
 
 
     public void initView() {
+        titledPaneMedium.setCollapsible(false);
         Map<String, Object> attributeMap = medium.getAttributeMap();
         lblTitle.setText((String) attributeMap.get("title"));
         labelB.setText("Publisher: ");
