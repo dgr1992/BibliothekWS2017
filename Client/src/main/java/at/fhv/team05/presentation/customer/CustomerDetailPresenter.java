@@ -121,7 +121,11 @@ public class CustomerDetailPresenter extends Presenter {
             extendRental.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    infoAlert("test");
+                    try {
+                        ClientRun.controller.extendRentedMedium(tableView.getSelectionModel().getSelectedItem());
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
             contextMenu.getItems().add(extendRental);
