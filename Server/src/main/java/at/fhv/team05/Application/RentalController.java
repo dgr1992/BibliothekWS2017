@@ -1,5 +1,6 @@
 package at.fhv.team05.Application;
 
+import at.fhv.team05.ResultDTO;
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.domain.Customer;
 import at.fhv.team05.domain.Rental;
@@ -26,14 +27,18 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         return _instance;
     }
 
-    public boolean rentCopy(RentalDTO copieToRent) {
+    public ResultDTO<Boolean> rentCopy(RentalDTO copieToRent) {
         try {
+            //the ResultDTO
+            ResultDTO<Boolean> result = new ResultDTO<>(true, null);
             //Get the original copy object
             CopyDTO copyDTO = copieToRent.getCopy();
             Copy copy = _controllerFacade.getDomainCopy(copyDTO);
 
-            if(copy.getRental() != null){
-                return false;
+            if (copy.getRental() != null) {
+                result.setDto(false);
+                result.setException(new Exception("Copy is rented."));
+                return result;
             }
 
             //Get the original customer object
@@ -41,18 +46,22 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             Customer customer = _controllerFacade.getDomainCustomer(customerDTO);
 
             //Check if customer has paid
-            if(customer.getPaymentDate() == null){
+            if (customer.getPaymentDate() == null) {
                 //Customer needs to pay
-                return false;
+                result.setDto(false);
+                result.setException(new Exception("Customer needs to pay"));
+                return result;
             }
             Calendar currenttime = Calendar.getInstance();
             Calendar expireDate = Calendar.getInstance();
             expireDate.setTime(customer.getPaymentDate());
             expireDate.add(Calendar.YEAR, 1);
             //Check if the customer needs to extend
-            if(expireDate.before(currenttime)){
+            if (expireDate.before(currenttime)) {
                 //Customer needs to extend
-                return false;
+                result.setDto(false);
+                result.setException(new Exception("Customer needs to extend his subscription."));
+                return result;
             }
 
             //Create the domain rental object and fill it with the data from the DTO
@@ -72,9 +81,9 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
 
             //Save copy --> rental will be saved automatically
             RepositoryFactory.getRepositoryInstance(Copy.class).save(copy);
-            return true;
+            return result;
         } catch (Exception ex) {
-            return false;
+            return new ResultDTO<>(false, ex);
         }
     }
 
@@ -93,8 +102,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
     }
 
 
-
-    public LinkedList<CopyDTO> copiesRentedBy(CustomerDTO customerDTO){
+    public LinkedList<CopyDTO> copiesRentedBy(CustomerDTO customerDTO) {
 
         return null;
     }
@@ -109,17 +117,17 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         return false;
     }
 
-    public CustomerRentalDTO getRentalsFor(CustomerDTO customerDTO){
+    public CustomerRentalDTO getRentalsFor(CustomerDTO customerDTO) {
         CustomerRentalDTO customersRentals = new CustomerRentalDTO();
 
         for (RentalDTO rental : _mapDomainToDto.values()) {
             //If the copy was rent by the customer check if it is currently rented or a old rental
             //TODO rental.getCopy.getRental must be fixed
-            if(rental.getCustomer().equals(customerDTO)){
-                if(rental.getCopy().getCopyStatus().equals("rented")){
+            if (rental.getCustomer().equals(customerDTO)) {
+                if (rental.getCopy().getCopyStatus().equals("rented")) {
                     //If it is the same the copy is currently rented
                     customersRentals.addToCurrent(rental);
-                } else{
+                } else {
                     //Was rented in the past
                     customersRentals.addToHistory(rental);
                 }

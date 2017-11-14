@@ -2,6 +2,7 @@ package at.fhv.team05.RMI;
 
 import at.fhv.team05.Application.ControllerFacade;
 import at.fhv.team05.Enum.ReturnCopyResult;
+import at.fhv.team05.ResultDTO;
 import at.fhv.team05.dtos.*;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
@@ -28,7 +29,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public boolean rentMedium(RentalDTO rental) {
+    public ResultDTO<Boolean> rentMedium(RentalDTO rental) {
         return _controllerFacade.rentMedium(rental);
     }
 

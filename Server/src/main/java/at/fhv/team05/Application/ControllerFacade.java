@@ -4,6 +4,7 @@ package at.fhv.team05.Application;
 import at.fhv.team05.Application.medium.BookController;
 import at.fhv.team05.Application.medium.DvdController;
 import at.fhv.team05.Enum.ReturnCopyResult;
+import at.fhv.team05.ResultDTO;
 import at.fhv.team05.domain.Address;
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.domain.Customer;
@@ -79,12 +80,12 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public boolean rentMedium(RentalDTO rental) {
-        boolean bool = _rentalController.rentCopy(rental);
-        if (bool) {
+    public ResultDTO<Boolean> rentMedium(RentalDTO rental) {
+        ResultDTO<Boolean> tmpDTO = _rentalController.rentCopy(rental);
+        if (tmpDTO.getDto()) {
             _rentalController.fillMap();
         }
-        return bool;
+        return tmpDTO;
     }
 
     @Override
