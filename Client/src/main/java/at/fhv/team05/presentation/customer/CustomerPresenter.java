@@ -139,4 +139,12 @@ public class CustomerPresenter extends Presenter{
     public void setViewTitle(String title) {
         lblViewTitle.setText(title);
     }
+
+    public void initialize() {
+        txtFieldCustomerNumber.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtFieldCustomerNumber.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+    }
 }

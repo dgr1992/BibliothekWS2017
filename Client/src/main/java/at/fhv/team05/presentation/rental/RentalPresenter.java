@@ -122,7 +122,5 @@ public class RentalPresenter extends Presenter {
                 txtFieldCopyNumber.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-
-
     }
 }
