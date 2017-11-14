@@ -4,17 +4,20 @@ import at.fhv.team05.ClientRun;
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.CustomerRentalDTO;
 import at.fhv.team05.dtos.RentalDTO;
+import at.fhv.team05.presentation.Presenter;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import jfxtras.scene.layout.HBox;
 
 import java.net.URL;
@@ -22,7 +25,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class CustomerDetailPresenter {
+public class CustomerDetailPresenter extends Presenter {
 
     @FXML
     private TableView<RentalDTO> tableViewCurrent;
@@ -109,6 +112,35 @@ public class CustomerDetailPresenter {
         ObservableList<RentalDTO> resultDataHistory = FXCollections.observableArrayList();
         resultDataHistory.addAll(customerRentalDTO.getHistory());
         tableViewHistory.setItems(resultDataHistory);
+
+        tableViewCurrent.setRowFactory((Callback<TableView<RentalDTO>, TableRow<RentalDTO>>) tableView -> {
+            final TableRow<RentalDTO> row = new TableRow<>();
+            final ContextMenu contextMenu = new ContextMenu();
+            final MenuItem extendRental = new MenuItem("Extend Rental");
+            final MenuItem returnRental = new MenuItem("Return Rental");
+            extendRental.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    infoAlert("test");
+                }
+            });
+            contextMenu.getItems().add(extendRental);
+            contextMenu.getItems().add(returnRental);
+
+            returnRental.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    //TODO Rückgabe (dagro)
+                }
+            });
+
+            row.contextMenuProperty().bind(
+                    Bindings.when(row.emptyProperty())
+                            .then((ContextMenu)null)
+                            .otherwise(contextMenu)
+            );
+            return row ;
+        });
 
     }
 
