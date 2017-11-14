@@ -104,7 +104,7 @@ public class CustomerDetailPresenter extends Presenter {
         tblColPickUpDateCurrent.setCellValueFactory(new PropertyValueFactory<>("pickupDate"));
         tblColPickupDateHistory.setCellValueFactory(new PropertyValueFactory<>("pickupDate"));
         tblColDeadline.setCellValueFactory(new PropertyValueFactory<>("deadline"));
-        tblColExtensions.setCellValueFactory(new PropertyValueFactory<>("extendCount"));
+        tblColExtensions.setCellValueFactory(new PropertyValueFactory<>("extendCounter"));
         tblColReturnDate.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
         tblColTitleCurrent.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getCopy().getMediaType()));
         tblColTitleHistory.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getCopy().getMediaType()));
@@ -124,7 +124,14 @@ public class CustomerDetailPresenter extends Presenter {
                 @Override
                 public void handle(ActionEvent event) {
                     try {
-                        ClientRun.controller.extendRentedMedium(tableView.getSelectionModel().getSelectedItem());
+                        boolean isDone=ClientRun.controller.extendRentedMedium(tableView.getSelectionModel().getSelectedItem());
+                        if(isDone){
+                            infoAlert("Medium successfully extended ");
+                        }
+                        else{
+                            errorAlert("There was a problem");
+                        }
+
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
