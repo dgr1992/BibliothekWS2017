@@ -17,7 +17,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-public class RentalPresenter extends Presenter implements Initializable {
+public class RentalPresenter extends Presenter {
     CopyDTO copy;
 
     @FXML
@@ -111,15 +111,13 @@ public class RentalPresenter extends Presenter implements Initializable {
         }
 
     }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    public void initialize() {
         txtFieldCopyNumber.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 txtFieldCopyNumber.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
+
 
     }
 }

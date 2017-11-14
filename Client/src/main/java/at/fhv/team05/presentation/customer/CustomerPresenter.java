@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,6 +23,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CustomerPresenter extends Presenter{
+
+
+    @FXML
+    private Label lblViewTitle;
     @FXML
     private TextField txtFieldCustomerNumber;
 
@@ -111,5 +116,9 @@ public class CustomerPresenter extends Presenter{
         presenter.setCustomerTable(tblViewCustomer);
         presenter.setMedium(medium);
         buttonContainer.getChildren().setAll(reserveButtonView.getView());
+    }
+
+    public void setViewTitle(String title) {
+        lblViewTitle.setText(title);
     }
 }
