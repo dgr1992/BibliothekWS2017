@@ -3,7 +3,7 @@ package at.fhv.team05.dtos;
 import at.fhv.team05.ObjectInterfaces.IRental;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class RentalDTO implements Serializable {
     private int _id;
@@ -104,34 +104,40 @@ public class RentalDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         RentalDTO rentalDTO = (RentalDTO) o;
 
-        if (_id != rentalDTO._id) return false;
-        if (_extendCounter != rentalDTO._extendCounter) return false;
-        if (_copy != null ? !_copy.equals(rentalDTO._copy) : rentalDTO._copy != null) return false;
-        if (_customer != null ? !_customer.equals(rentalDTO._customer)
-                : rentalDTO._customer != null) {
+        if (_id != rentalDTO._id) {
             return false;
         }
-        if (_pickupDate != null ? !_pickupDate.equals(rentalDTO._pickupDate)
-                : rentalDTO._pickupDate != null) {
+        if (_extendCounter != rentalDTO._extendCounter) {
             return false;
         }
-        if (_returnDate != null ? !_returnDate.equals(rentalDTO._returnDate)
-                : rentalDTO._returnDate != null) {
+//        if (_copy != null ? !_copy.equals(rentalDTO._copy) : rentalDTO._copy != null) {
+//            return false;
+//        }
+        if (_customer != null ? !_customer.equals(rentalDTO._customer) : rentalDTO._customer != null) {
             return false;
         }
-        return _deadline != null ? _deadline.equals(rentalDTO._deadline)
-                : rentalDTO._deadline == null;
+        if (_pickupDate != null ? !_pickupDate.equals(rentalDTO._pickupDate) : rentalDTO._pickupDate != null) {
+            return false;
+        }
+        if (_returnDate != null ? !_returnDate.equals(rentalDTO._returnDate) : rentalDTO._returnDate != null) {
+            return false;
+        }
+        return _deadline != null ? _deadline.equals(rentalDTO._deadline) : rentalDTO._deadline == null;
     }
 
     @Override
     public int hashCode() {
         int result = _id;
-        //result = 31 * result + (_copy != null ? _copy.hashCode() : 0);
+//        result = 31 * result + (_copy != null ? _copy.hashCode() : 0);
         result = 31 * result + (_customer != null ? _customer.hashCode() : 0);
         result = 31 * result + (_pickupDate != null ? _pickupDate.hashCode() : 0);
         result = 31 * result + (_returnDate != null ? _returnDate.hashCode() : 0);

@@ -84,8 +84,15 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
+    public boolean extendRentedMedium(RentalDTO rentalDTO) throws RemoteException {
+        return _controllerFacade.extendRentedMedium(rentalDTO);
+    }
+
+    @Override
     public boolean authenticateUser(String uname, String pw) throws RemoteException {
         return _controllerFacade.authenticateUser(uname, pw);
     }
+
+
 
 }

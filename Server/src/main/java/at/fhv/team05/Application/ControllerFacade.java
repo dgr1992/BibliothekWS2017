@@ -119,6 +119,11 @@ public class ControllerFacade implements IRMIApplicationController {
         return _rentalController.getRentalsFor(customerDTO);
     }
 
+    @Override
+    public boolean extendRentedMedium(RentalDTO rentalDTO) throws RemoteException {
+        return _rentalController.extendRentedMedium(rentalDTO);
+    }
+
     public boolean existsReservationForMedium(int mediumID, String mediumTyp) {
         return _reservationController.existsReservationForMedium(mediumID, mediumTyp);
     }

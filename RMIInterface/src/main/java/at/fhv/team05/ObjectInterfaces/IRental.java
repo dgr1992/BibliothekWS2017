@@ -1,7 +1,5 @@
 package at.fhv.team05.ObjectInterfaces;
 
-import java.sql.Date;
-
 public interface IRental {
 
     int getId();
@@ -10,11 +8,11 @@ public interface IRental {
 
     ICustomer getCustomer();
 
-    Date getPickupDate();
+    java.util.Date getPickupDate();
 
-    Date getReturnDate();
+    java.util.Date getReturnDate();
 
-    Date getDeadline();
+    java.util.Date getDeadline();
 
     int getExtendCounter();
 
