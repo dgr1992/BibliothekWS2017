@@ -1,12 +1,16 @@
 package at.fhv.team05.presentation.mainView;
 
-import at.fhv.team05.dtos.*;
+import at.fhv.team05.dtos.CopyDTO;
+import at.fhv.team05.dtos.CustomerDTO;
+import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.customer.CustomerPresenter;
 import at.fhv.team05.presentation.customer.CustomerView;
 import at.fhv.team05.presentation.customer.buttons.CustomerButtonType;
 import at.fhv.team05.presentation.detailView.DetailPresenter;
 import at.fhv.team05.presentation.detailView.DetailView;
+import at.fhv.team05.presentation.login.LoginPresenter;
+import at.fhv.team05.presentation.login.LoginView;
 import at.fhv.team05.presentation.navigation.LoginNavigationPresenter;
 import at.fhv.team05.presentation.navigation.LoginNavigationView;
 import at.fhv.team05.presentation.navigation.NavigationPresenter;
@@ -33,6 +37,7 @@ public class MainViewPresenter extends Presenter implements Initializable {
     protected StackPane contentContainer;
 
 
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         navigationBarContainer.setStyle("-fx-background-color: #d4daf6");
         changeNavigationBarToLoggedOut();
@@ -122,6 +127,7 @@ public class MainViewPresenter extends Presenter implements Initializable {
     public void openLoginView() {
         LoginView loginView = new LoginView();
         LoginPresenter presenter = (LoginPresenter) loginView.getPresenter();
+        presenter.setParent(this);
         contentContainer.getChildren().setAll(loginView.getView());
     }
 

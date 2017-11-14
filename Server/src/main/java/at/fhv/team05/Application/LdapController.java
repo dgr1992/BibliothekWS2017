@@ -1,6 +1,7 @@
 package at.fhv.team05.Application;
 
-import javax.naming.*;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import java.util.Hashtable;
@@ -18,15 +19,16 @@ public class LdapController {
         return mInstance;
     }
 
-    public boolean authenticateUser(String uname, String pw){
+    public boolean authenticateUser(String uname, String pw) {
 
-        Hashtable env = new Hashtable();
+
+        Hashtable<String, String> env = new Hashtable<>();
 
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
         env.put(Context.PROVIDER_URL, "ldaps://openldap.fhv.at:636/o=fhv.at");
-        env.put(Context.SECURITY_AUTHENTICATION, "SSL");
-        env.put(Context.SECURITY_PRINCIPAL, "uid=" + uname + ",ou=people,o=fhv.at");
-        env.put(Context.SECURITY_CREDENTIALS, pw);
+        env.put(Context.SECURITY_AUTHENTICATION, "simple");
+        env.put(Context.SECURITY_PRINCIPAL, "uid=" + (uname.equals("") ? " " : uname) + ",ou=people,o=fhv.at");
+        env.put(Context.SECURITY_CREDENTIALS, (pw.equals("") ? " " : pw));
 
         try {
             DirContext ctx = new InitialDirContext(env);
