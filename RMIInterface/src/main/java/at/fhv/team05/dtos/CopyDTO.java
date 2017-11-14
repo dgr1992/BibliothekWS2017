@@ -88,7 +88,8 @@ public class CopyDTO implements Serializable {
                 : copyDTO._mediaType != null) {
             return false;
         }
-        return _rental != null ? _rental.equals(copyDTO._rental) : copyDTO._rental == null;
+//        return _rental != null ? _rental.equals(copyDTO._rental) : copyDTO._rental == null;
+        return true;
     }
 
     @Override
@@ -97,7 +98,7 @@ public class CopyDTO implements Serializable {
         result = 31 * result + _id;
         result = 31 * result + (_mediaType != null ? _mediaType.hashCode() : 0);
         result = 31 * result + _mediumId;
-        result = 31 * result + (_rental != null ? _rental.hashCode() : 0);
+//        result = 31 * result + (_rental != null ? _rental.hashCode() : 0);
         return result;
     }
 

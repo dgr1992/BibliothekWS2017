@@ -136,18 +136,19 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
 
         return customersRentals;
     }
-    public boolean extendRentedMedium(RentalDTO rentalDTO){
-            Rental rental = getDomain(rentalDTO);
-            if (rental.getExtendCounter()<2){
-                Calendar calendar=null;
-                calendar.setTime(rental.getDeadline());
-                calendar.add(Calendar.DATE, 14);
-                rental.setDeadline(new Date(calendar.getTimeInMillis()));
-                rental.setExtendCounter(rental.getExtendCounter()+1);
-                _repository.save(rental);
-                return true;
-            }
-       return false;
+
+    public boolean extendRentedMedium(RentalDTO rentalDTO) {
+        Rental rental = getDomain(rentalDTO);
+        if (rental.getExtendCounter() < 2) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(rental.getDeadline());
+            calendar.add(Calendar.DATE, 14);
+            rental.setDeadline(new Date(calendar.getTimeInMillis()));
+            rental.setExtendCounter(rental.getExtendCounter() + 1);
+            _repository.save(rental);
+            return true;
+        }
+        return false;
     }
 
 
