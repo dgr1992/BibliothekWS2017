@@ -13,6 +13,8 @@ public interface IRMIApplicationController extends Remote {
 
     LinkedList<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException;
 
+    boolean authenticateUser(String uname, String pw) throws RemoteException;
+
     boolean rentMedium(RentalDTO rental) throws RemoteException;
 
     List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException;
@@ -32,8 +34,6 @@ public interface IRMIApplicationController extends Remote {
     boolean checkAvailabilityOfMedium(IMediumDTO mediumDTO) throws RemoteException;
 
     void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException;
-
-    boolean authenticateUser(String uname, String pw) throws RemoteException;
 
     CustomerRentalDTO getRentalsFor(CustomerDTO customerDTO) throws RemoteException;
 }

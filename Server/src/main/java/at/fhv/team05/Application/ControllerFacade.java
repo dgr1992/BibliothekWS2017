@@ -54,23 +54,8 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public boolean rentMedium(RentalDTO rental) {
-        return _rentalController.rentCopy(rental);
-    }
-
-    @Override
     public List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException {
         return _customerController.searchFor(customer);
-    }
-
-    @Override
-    public CopyDTO searchCopyByCopyNumber(int copyNumber) throws RemoteException {
-        return _copyController.searchCopyByCopyNumber(copyNumber);
-    }
-
-    @Override
-    public CustomerDTO extendSubscription(CustomerDTO customer) throws RemoteException {
-        return _customerController.extendSubscription(customer);
     }
 
     @Override
@@ -83,23 +68,34 @@ public class ControllerFacade implements IRMIApplicationController {
         return _dvdController.searchById(mediumId);
     }
 
-    public Address getDomainAddress(AddressDTO adressDTO) {
-        return _addressController.getDomain(adressDTO);
-    }
-
-    public Copy getDomainCopy(CopyDTO copyDTO) {
-        return _copyController.getDomain(copyDTO);
-    }
-
-    public Customer getDomainCustomer(CustomerDTO customerDTO) {
-        return _customerController.getDomain(customerDTO);
-    }
-
-
     @Override
     public List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
         return _copyController.getCopiesByMediumID(mediumDTO);
     }
+
+    @Override
+    public CopyDTO searchCopyByCopyNumber(int copyNumber) throws RemoteException {
+        return _copyController.searchCopyByCopyNumber(copyNumber);
+    }
+
+    @Override
+    public boolean rentMedium(RentalDTO rental) {
+        boolean bool = _rentalController.rentCopy(rental);
+        if (bool) {
+            _rentalController.fillMap();
+        }
+        return bool;
+    }
+
+    @Override
+    public CustomerDTO extendSubscription(CustomerDTO customer) throws RemoteException {
+        CustomerDTO tmpCustomer = _customerController.extendSubscription(customer);
+        if (tmpCustomer != null) {
+            _customerController.fillMap();
+        }
+        return tmpCustomer;
+    }
+
 
     @Override
     public boolean checkAvailabilityOfMedium(IMediumDTO mediumDTO) throws RemoteException {
@@ -109,6 +105,7 @@ public class ControllerFacade implements IRMIApplicationController {
     @Override
     public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
         _reservationController.reserveMedium(mediumDTO, customerDTO);
+        _reservationController.fillMap();
     }
 
     @Override
@@ -129,4 +126,17 @@ public class ControllerFacade implements IRMIApplicationController {
     public ReturnCopyResult returnCopy(CopyDTO copyDTO) {
         return _copyController.returnCopy(copyDTO);
     }
+
+    public Address getDomainAddress(AddressDTO adressDTO) {
+        return _addressController.getDomain(adressDTO);
+    }
+
+    public Copy getDomainCopy(CopyDTO copyDTO) {
+        return _copyController.getDomain(copyDTO);
+    }
+
+    public Customer getDomainCustomer(CustomerDTO customerDTO) {
+        return _customerController.getDomain(customerDTO);
+    }
+
 }
