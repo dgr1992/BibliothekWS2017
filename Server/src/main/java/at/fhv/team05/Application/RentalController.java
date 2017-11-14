@@ -122,9 +122,8 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
 
         for (RentalDTO rental : _mapDomainToDto.values()) {
             //If the copy was rent by the customer check if it is currently rented or a old rental
-            //TODO rental.getCopy.getRental must be fixed
             if (rental.getCustomer().equals(customerDTO)) {
-                if (rental.getCopy().getCopyStatus().equals("rented")) {
+                if(rental.getCopy().getRental() != null && rental.getCopy().getRental().equals(rental)){
                     //If it is the same the copy is currently rented
                     customersRentals.addToCurrent(rental);
                 } else {
