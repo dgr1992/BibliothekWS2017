@@ -11,4 +11,9 @@ public class LoginNavigationPresenter extends Presenter{
         parent.openLoginView();
     }
 
+    @FXML
+    void onSearchButtonPressed(ActionEvent event) {
+        parent.openSearchView();
+    }
+
 }

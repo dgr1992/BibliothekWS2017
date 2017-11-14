@@ -58,7 +58,6 @@ public class Dvd extends Medium implements IDvd, IDomainObject {
     }
 
     @Override
-    @Basic
     @Column(name = "releaseDate", nullable = false)
     public Date getReleaseDate() {
         return releaseDate;

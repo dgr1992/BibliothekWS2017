@@ -24,6 +24,8 @@
                      </VBox.margin>
                   </ImageView>
                   <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
+                  <JFXButton onAction="#onSearchButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Search" />
+                  <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                   <JFXButton fx:id="btnLogin" onAction="#onLoginButtonPressed" prefHeight="45.0" prefWidth="250.0" text="Login" VBox.vgrow="ALWAYS" />
                   <Line endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                </children>
