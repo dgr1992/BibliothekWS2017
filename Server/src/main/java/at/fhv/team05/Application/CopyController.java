@@ -55,6 +55,7 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
             return ReturnCopyResult.NotLent;
         }
         copy.setRentalId(null);
+        copy.setCopyStatus("available");
         _repository.save(copy);
 
         //Check if a reservation exists
