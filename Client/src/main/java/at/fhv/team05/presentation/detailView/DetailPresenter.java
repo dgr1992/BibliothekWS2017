@@ -1,29 +1,23 @@
 package at.fhv.team05.presentation.detailView;
 
 import at.fhv.team05.ClientRun;
-import at.fhv.team05.dtos.CategoryDTO;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.detailView.buttons.ReserveButtonPresenter;
 import at.fhv.team05.presentation.detailView.buttons.ReserveButtonView;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.SimpleStyleableObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Callback;
 
 import java.rmi.RemoteException;
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -79,7 +73,7 @@ public class DetailPresenter extends Presenter {
         labelB.setText("Publisher: ");
         label2.setText((String) attributeMap.get("publisher"));
         labelC.setText("Release Date: ");
-        Timestamp releaseDate = (Timestamp) attributeMap.get("releaseDate");
+        Date releaseDate = (Date) attributeMap.get("releaseDate");
         label3.setText(releaseDate.toString());
         if ("book".equalsIgnoreCase(medium.getType())) {
             labelA.setText("Author: ");

@@ -11,11 +11,17 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.customer.CustomerPresenter">
    <children>
-      <VBox layoutX="228.0" layoutY="37.0" prefHeight="700.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="228.0" layoutY="37.0" prefHeight="700.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
+            <Label fx:id="lblViewTitle" text="View Title">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
             <GridPane>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="120.0" />

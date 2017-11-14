@@ -5,7 +5,6 @@ import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.presentation.Presenter;
-import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

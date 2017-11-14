@@ -30,7 +30,7 @@ import javafx.scene.layout.StackPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainViewPresenter extends Presenter implements Initializable {
+public class MainViewPresenter extends Presenter {
 
     @FXML
     protected StackPane navigationBarContainer;
@@ -39,8 +39,7 @@ public class MainViewPresenter extends Presenter implements Initializable {
     protected StackPane contentContainer;
 
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         navigationBarContainer.setStyle("-fx-background-color: #d4daf6");
         changeNavigationBarToLoggedOut();
         openSearchView();
@@ -83,11 +82,14 @@ public class MainViewPresenter extends Presenter implements Initializable {
         switch (buttonType) {
             case OK:
                 presenter.initOkButton(copy);
+                presenter.setViewTitle("Select Customer");
                 break;
             case RESERVATION:
                 presenter.initReservationButton(medium);
+                presenter.setViewTitle("Select Customer");
                 break;
             case NONE:
+                presenter.setViewTitle("Customer Overview");
                 presenter.setDetailView(true);
                 break;
             default:
@@ -139,7 +141,6 @@ public class MainViewPresenter extends Presenter implements Initializable {
         presenter.setParent(this);
         contentContainer.getChildren().setAll(loginView.getView());
     }
-
 
 
 }
