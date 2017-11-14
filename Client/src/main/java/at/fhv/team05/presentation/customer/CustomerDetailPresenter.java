@@ -1,6 +1,8 @@
 package at.fhv.team05.presentation.customer;
 
 import at.fhv.team05.ClientRun;
+import at.fhv.team05.Enum.ReturnCopyResult;
+import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.CustomerRentalDTO;
 import at.fhv.team05.dtos.RentalDTO;
@@ -87,7 +89,7 @@ public class CustomerDetailPresenter extends Presenter {
         lblLastName.setText(customer.getLastName());
         lblStreet.setText(customer.getAddress().getStreet() + " " + customer.getAddress().getStreetNumber());
         lblZipCity.setText(customer.getAddress().getZip() + " / " + customer.getAddress().getCity());
-        lblAboUntil.setText(customer.getPaymentDate().toString());
+        lblAboUntil.setText((customer.getPaymentDate() == null ? "" : customer.getPaymentDate().toString()));
         try {
             fillTable(ClientRun.controller.getRentalsFor(customer));
         } catch (RemoteException e) {
@@ -131,6 +133,24 @@ public class CustomerDetailPresenter extends Presenter {
                 @Override
                 public void handle(ActionEvent event) {
                     //TODO Rückgabe (dagro)
+                    try{
+                        CopyDTO copyToReturn = tableViewCurrent.getSelectionModel().getSelectedItem().getCopy();
+                        ReturnCopyResult result = ClientRun.controller.returnCopy(copyToReturn);
+                        switch(result){
+                            case NotLent:
+                                infoAlert("The given copy is not lent.");
+                                break;
+                            case Successful:
+                                infoAlert("Return process successful");
+                                break;
+                            case ReservationExists:
+                                infoAlert("Return process successful. There is a reservation for this media.");
+                                break;
+                        }
+                        fillTable(ClientRun.controller.getRentalsFor(customer));
+                    } catch (RemoteException remEx){
+                        infoAlert("Return process failed");
+                    }
                 }
             });
 

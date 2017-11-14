@@ -5,6 +5,8 @@ import at.fhv.team05.domain.Copy;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.IMediumDTO;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,9 +56,17 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         if(copy.getRental() == null){
             return ReturnCopyResult.NotLent;
         }
+
+        //Set the return Date
+        Calendar currenttime = Calendar.getInstance();
+        Date currentDate = new Date((currenttime.getTime()).getTime());
+        copy.getRental().setReturnDate(currentDate);
+
         copy.setRentalId(null);
         copy.setCopyStatus("available");
         _repository.save(copy);
+        //Also force a update of the rental repository
+        RentalController.getInstance().fillMap();
 
         //Check if a reservation exists
         boolean reservationExists = _controllerFacade.existsReservationForMedium(copy.getMediumId(), copy.getMediaType());
