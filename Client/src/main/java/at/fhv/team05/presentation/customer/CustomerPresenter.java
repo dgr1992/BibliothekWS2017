@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -55,6 +56,8 @@ public class CustomerPresenter extends Presenter{
     @FXML
     private AnchorPane buttonContainer;
 
+    private boolean detailView;
+
 
     public void initOkButton(CopyDTO copy) {
         OkButtonView okButtonView = new OkButtonView();
@@ -81,6 +84,7 @@ public class CustomerPresenter extends Presenter{
     private void initResultTableCustomer(List<CustomerDTO> customers) {
         ObservableList<CustomerDTO> resultData = FXCollections.observableArrayList();
         resultData.addAll(customers);
+
         tblColCustomerNumber.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         tblColFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         tblColLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -88,7 +92,17 @@ public class CustomerPresenter extends Presenter{
         tblColPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         tblColDateOfBirth.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
         tblViewCustomer.setItems(resultData);
-
+        tblViewCustomer.setRowFactory(tv -> {
+            TableRow<CustomerDTO> row = new TableRow<>();
+            row.setOnMouseClicked(e -> {
+                if (e.getClickCount() == 2 && (!row.isEmpty())) {
+                    if (detailView && tblViewCustomer.getSelectionModel().getSelectedItem()!=null) {
+                         parent.openCustomerDetailView(tblViewCustomer.getSelectionModel().getSelectedItem());
+                    }
+                }
+            });
+            return row;
+        });
     }
 
     public int getCustomerNumber() {
@@ -111,5 +125,9 @@ public class CustomerPresenter extends Presenter{
         presenter.setCustomerTable(tblViewCustomer);
         presenter.setMedium(medium);
         buttonContainer.getChildren().setAll(reserveButtonView.getView());
+    }
+
+    public void setDetailView(boolean detailView){
+        this.detailView=detailView;
     }
 }

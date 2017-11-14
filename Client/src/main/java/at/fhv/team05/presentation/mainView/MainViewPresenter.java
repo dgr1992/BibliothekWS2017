@@ -4,6 +4,8 @@ import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.presentation.Presenter;
+import at.fhv.team05.presentation.customer.CustomerDetailPresenter;
+import at.fhv.team05.presentation.customer.CustomerDetailView;
 import at.fhv.team05.presentation.customer.CustomerPresenter;
 import at.fhv.team05.presentation.customer.CustomerView;
 import at.fhv.team05.presentation.customer.buttons.CustomerButtonType;
@@ -86,12 +88,19 @@ public class MainViewPresenter extends Presenter implements Initializable {
                 presenter.initReservationButton(medium);
                 break;
             case NONE:
-                //do nothing
+                presenter.setDetailView(true);
                 break;
             default:
-                // do nothing
+                presenter.setDetailView(true);
         }
         contentContainer.getChildren().setAll(customerView.getView());
+    }
+    public void openCustomerDetailView(CustomerDTO customer) {
+        CustomerDetailView customerDetailView = new CustomerDetailView();
+        CustomerDetailPresenter presenter = (CustomerDetailPresenter) customerDetailView.getPresenter();
+        presenter.setCustomer(customer);
+        presenter.setCustomerDetails();
+        contentContainer.getChildren().setAll(customerDetailView.getView());
     }
 
     public void openRentalOverview(CustomerDTO customer, CopyDTO copy) {
@@ -130,6 +139,7 @@ public class MainViewPresenter extends Presenter implements Initializable {
         presenter.setParent(this);
         contentContainer.getChildren().setAll(loginView.getView());
     }
+
 
 
 }
