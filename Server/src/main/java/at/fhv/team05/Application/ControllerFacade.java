@@ -106,12 +106,12 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public CustomerRentalDTO getRentalsFor(CustomerDTO customerDTO) throws RemoteException {
+    public ResultDTO<CustomerRentalDTO> getRentalsFor(CustomerDTO customerDTO) throws RemoteException {
         return _rentalController.getRentalsFor(customerDTO);
     }
 
     @Override
-    public boolean extendRentedMedium(RentalDTO rentalDTO) throws RemoteException {
+    public ResultDTO<Boolean> extendRentedMedium(RentalDTO rentalDTO) throws RemoteException {
         return _rentalController.extendRentedMedium(rentalDTO);
     }
 

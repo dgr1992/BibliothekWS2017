@@ -118,13 +118,13 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         return false;
     }
 
-    public CustomerRentalDTO getRentalsFor(CustomerDTO customerDTO) {
+    public ResultDTO<CustomerRentalDTO> getRentalsFor(CustomerDTO customerDTO) {
         CustomerRentalDTO customersRentals = new CustomerRentalDTO();
 
         for (RentalDTO rental : _mapDomainToDto.values()) {
             //If the copy was rent by the customer check if it is currently rented or a old rental
             if (rental.getCustomer().equals(customerDTO)) {
-                if(rental.getCopy().getRental() != null && rental.getCopy().getRental().equals(rental)){
+                if (rental.getCopy().getRental() != null && rental.getCopy().getRental().equals(rental)) {
                     //If it is the same the copy is currently rented
                     customersRentals.addToCurrent(rental);
                 } else {
@@ -134,10 +134,10 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             }
         }
 
-        return customersRentals;
+        return new ResultDTO<>(customersRentals, null);
     }
 
-    public boolean extendRentedMedium(RentalDTO rentalDTO) {
+    public ResultDTO<Boolean> extendRentedMedium(RentalDTO rentalDTO) {
         Rental rental = getDomain(rentalDTO);
         if (rental!=null && rental.getExtendCounter() < 2) {
             Calendar calendar = Calendar.getInstance();
@@ -146,9 +146,9 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             rental.setDeadline((new Date(calendar.getTimeInMillis())));
             rental.setExtendCounter(rental.getExtendCounter() + 1);
             save(rental);
-            return true;
+            return new ResultDTO<>(true, null);
         }
-        return false;
+        return new ResultDTO<>(false, new Exception("Medium was already extended 2 times."));
     }
 
 

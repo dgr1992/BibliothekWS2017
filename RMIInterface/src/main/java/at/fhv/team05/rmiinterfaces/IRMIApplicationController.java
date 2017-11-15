@@ -36,7 +36,7 @@ public interface IRMIApplicationController extends Remote {
 
     void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException;
 
-    CustomerRentalDTO getRentalsFor(CustomerDTO customerDTO) throws RemoteException;
+    ResultDTO<CustomerRentalDTO> getRentalsFor(CustomerDTO customerDTO) throws RemoteException;
 
-    boolean extendRentedMedium(RentalDTO rentalDTO) throws RemoteException;
+    ResultDTO<Boolean> extendRentedMedium(RentalDTO rentalDTO) throws RemoteException;
 }

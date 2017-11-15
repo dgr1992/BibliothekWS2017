@@ -79,12 +79,12 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public CustomerRentalDTO getRentalsFor(CustomerDTO customerDTO) throws RemoteException {
+    public ResultDTO<CustomerRentalDTO> getRentalsFor(CustomerDTO customerDTO) throws RemoteException {
         return _controllerFacade.getRentalsFor(customerDTO);
     }
 
     @Override
-    public boolean extendRentedMedium(RentalDTO rentalDTO) throws RemoteException {
+    public ResultDTO<Boolean> extendRentedMedium(RentalDTO rentalDTO) throws RemoteException {
         return _controllerFacade.extendRentedMedium(rentalDTO);
     }
 
