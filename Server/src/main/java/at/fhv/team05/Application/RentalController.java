@@ -80,8 +80,10 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             //set copy status to rented
             copy.setCopyStatus("rented");
 
+            save(rental);
             //Save copy --> rental will be saved automatically
-            RepositoryFactory.getRepositoryInstance(Copy.class).save(copy);
+            CopyController.getInstance().save(copy);
+
             return result;
         } catch (Exception ex) {
             return new ResultDTO<>(false, ex);
