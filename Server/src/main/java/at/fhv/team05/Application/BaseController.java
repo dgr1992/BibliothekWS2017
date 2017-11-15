@@ -1,5 +1,6 @@
 package at.fhv.team05.Application;
 
+import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.IDomainObject;
 import at.fhv.team05.persistence.Repository;
 import at.fhv.team05.persistence.RepositoryFactory;
@@ -45,14 +46,17 @@ public abstract class BaseController<DomainObject extends IDomainObject, DomainD
         return null;
     }
 
-    public LinkedList<DomainDTO> searchFor(DomainDTO dto) {
-        LinkedList<DomainDTO> result = new LinkedList<>();
+    public ResultListDTO<DomainDTO> searchFor(DomainDTO dto) {
+        ResultListDTO<DomainDTO> list = new ResultListDTO<>();
+        LinkedList<DomainDTO> dtos = new LinkedList<>();
         for (DomainObject obj : _mapDomainToDto.keySet()) {
             if (compareInput(obj, dto)) {
-                result.add(_mapDomainToDto.get(obj));
+                dtos.add(_mapDomainToDto.get(obj));
             }
         }
-        return result;
+        list.setListDTO(dtos);
+        list.setException(null);
+        return list;
     }
 
     public DomainDTO getDTO(DomainObject obj) {
