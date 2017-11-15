@@ -44,7 +44,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public CustomerDTO extendSubscription(CustomerDTO customer) throws RemoteException {
+    public ResultDTO<CustomerDTO> extendSubscription(CustomerDTO customer) throws RemoteException {
         return _controllerFacade.extendSubscription(customer);
     }
 
@@ -89,7 +89,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public boolean authenticateUser(String uname, String pw) throws RemoteException {
+    public ResultDTO<Boolean> authenticateUser(String uname, String pw) throws RemoteException {
         return _controllerFacade.authenticateUser(uname, pw);
     }
 

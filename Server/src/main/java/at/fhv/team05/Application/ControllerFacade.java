@@ -85,7 +85,7 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public CustomerDTO extendSubscription(CustomerDTO customer) throws RemoteException {
+    public ResultDTO<CustomerDTO> extendSubscription(CustomerDTO customer) throws RemoteException {
         return _customerController.extendSubscription(customer);
     }
 
@@ -101,7 +101,7 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public boolean authenticateUser(String uname, String pw) throws RemoteException {
+    public ResultDTO<Boolean> authenticateUser(String uname, String pw) throws RemoteException {
         return _ldapController.authenticateUser(uname, pw);
     }
 

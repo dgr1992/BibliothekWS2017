@@ -1,5 +1,6 @@
 package at.fhv.team05.Application;
 
+import at.fhv.team05.ResultDTO;
 import at.fhv.team05.domain.UserAccount;
 import at.fhv.team05.dtos.UserAccountDTO;
 
@@ -28,7 +29,7 @@ public class LdapController extends BaseController<UserAccount, UserAccountDTO> 
         return mInstance;
     }
 
-    public boolean authenticateUser(String uname, String pw) {
+    public ResultDTO<Boolean> authenticateUser(String uname, String pw) {
 
         if (mailAuthentication(uname)) {
 
@@ -45,19 +46,18 @@ public class LdapController extends BaseController<UserAccount, UserAccountDTO> 
 
             try {
                 DirContext ctx = new InitialDirContext(env);
-                return true;
+                return new ResultDTO<>(true, null);
             } catch (NamingException e) {
                 e.printStackTrace();
-                return false;
+                return new ResultDTO<>(false, e);
             }
-
         } else {
-            return false;
+            return new ResultDTO<>(false, new Exception("Email address not found."));
         }
 
     }
 
-    public boolean mailAuthentication(String mname) {
+    private boolean mailAuthentication(String mname) {
         for (UserAccount acc : _mapDomainToDto.keySet()) {
             if (acc.getEmail().equalsIgnoreCase(mname)) {
                 return true;

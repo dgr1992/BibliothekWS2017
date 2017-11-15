@@ -1,6 +1,7 @@
 package at.fhv.team05.Application;
 
 
+import at.fhv.team05.ResultDTO;
 import at.fhv.team05.Utility.StringUtilities;
 import at.fhv.team05.domain.Customer;
 import at.fhv.team05.dtos.CustomerDTO;
@@ -38,7 +39,7 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
         return new CustomerDTO(customer);
     }
 
-    public CustomerDTO extendSubscription(CustomerDTO customerDTO) {
+    public ResultDTO<CustomerDTO> extendSubscription(CustomerDTO customerDTO) {
 
         Date paymentDate = customerDTO.getPaymentDate();
         Date today = new Date(Calendar.getInstance().getTimeInMillis());
@@ -68,6 +69,6 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
         CustomerDTO newCustomer = new CustomerDTO(customer);
         save(customer);
 
-        return newCustomer;
+        return new ResultDTO<>(newCustomer, null);
     }
 }
