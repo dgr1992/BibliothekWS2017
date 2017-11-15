@@ -9,11 +9,10 @@ import at.fhv.team05.domain.Address;
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.domain.Customer;
 import at.fhv.team05.dtos.*;
-import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
 import java.rmi.RemoteException;
 
-public class ControllerFacade implements IRMIApplicationController {
+public class ControllerFacade {
     private static ControllerFacade mInstance;
     private BookController _bookController;
     private DvdController _dvdController;
@@ -42,73 +41,72 @@ public class ControllerFacade implements IRMIApplicationController {
         return mInstance;
     }
 
-    @Override
+
     public ResultListDTO<BookDTO> searchForBook(BookDTO book) throws RemoteException {
         return _bookController.searchFor(book);
     }
 
-    @Override
+
     public ResultListDTO<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException {
         return _dvdController.searchFor(dvd);
     }
 
-    @Override
+
     public ResultListDTO<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException {
         return _customerController.searchFor(customer);
     }
 
-    @Override
+
     public ResultDTO<BookDTO> searchBookById(int mediumId) throws RemoteException {
         return _bookController.searchById(mediumId);
     }
 
-    @Override
+
     public ResultDTO<DvdDTO> searchDvdById(int mediumId) throws RemoteException {
         return _dvdController.searchById(mediumId);
     }
 
-    @Override
+
     public ResultListDTO<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
         return _copyController.getCopiesByMediumID(mediumDTO);
     }
 
-    @Override
+
     public ResultDTO<CopyDTO> searchCopyByCopyNumber(int copyNumber) throws RemoteException {
         return _copyController.searchCopyByCopyNumber(copyNumber);
     }
 
-    @Override
+
     public ResultDTO<Boolean> rentMedium(RentalDTO rental) {
         return _rentalController.rentCopy(rental);
     }
 
-    @Override
+
     public ResultDTO<CustomerDTO> extendSubscription(CustomerDTO customer) throws RemoteException {
         return _customerController.extendSubscription(customer);
     }
 
 
-    @Override
     public boolean checkAvailabilityOfMedium(IMediumDTO mediumDTO) throws RemoteException {
         return _reservationController.checkAvailability(mediumDTO);
     }
 
-    @Override
+
     public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
         _reservationController.reserveMedium(mediumDTO, customerDTO);
     }
 
-    @Override
-    public ResultDTO<Boolean> authenticateUser(String uname, String pw) throws RemoteException {
-        return _ldapController.authenticateUser(uname, pw);
+
+    public ResultDTO<Boolean> authenticateUser(String uname, String pw, String key) throws RemoteException {
+        return _ldapController.authenticateUser(uname, pw, key);
     }
 
-    @Override
+
     public ResultDTO<CustomerRentalDTO> getRentalsFor(CustomerDTO customerDTO) throws RemoteException {
         return _rentalController.getRentalsFor(customerDTO);
     }
 
-    @Override
+
     public ResultDTO<Boolean> extendRentedMedium(RentalDTO rentalDTO) throws RemoteException {
         return _rentalController.extendRentedMedium(rentalDTO);
     }
@@ -117,7 +115,6 @@ public class ControllerFacade implements IRMIApplicationController {
         return _reservationController.existsReservationForMedium(mediumID, mediumTyp);
     }
 
-    @Override
     public ResultDTO<Boolean> returnCopy(CopyDTO copyDTO) {
         return _copyController.returnCopy(copyDTO);
     }
