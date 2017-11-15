@@ -1,6 +1,7 @@
 package at.fhv.team05.presentation.login;
 
 import at.fhv.team05.ClientRun;
+import at.fhv.team05.ResultDTO;
 import at.fhv.team05.presentation.Presenter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,11 +36,12 @@ public class LoginPresenter extends Presenter implements Initializable {
 
     public void loginUser() {
         try {
-            if (ClientRun.controller.authenticateUser(getUsr(), getPw())) {
+            ResultDTO<Boolean> resultBoolean = ClientRun.controller.authenticateUser(getUsr(), getPw());
+            if (resultBoolean.getDto()) {
                 parent.changeNavigationBarToLoggedIn();
                 parent.openSearchView();
             } else {
-                infoAlert("Sorry, we could not log you in with those credentials!");
+                errorAlert(resultBoolean.getException().getMessage());
                 username.clear();
                 password.clear();
             }

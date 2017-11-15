@@ -77,12 +77,17 @@ public class RentalOverviewPresenter extends Presenter {
     @FXML
     void onExtendAboButtonPressed(ActionEvent event) {
         try {
-            CustomerDTO customerDTO = ClientRun.controller.extendSubscription(customer);
-            Calendar c = Calendar.getInstance();
-            c.setTime(customerDTO.getPaymentDate());
-            c.add(Calendar.YEAR, 1);
-            lblAboValidUntil.setText(new Date(c.getTimeInMillis()).toString());
-            infoAlert("Subscription successfully extended!");
+            ResultDTO<CustomerDTO> resultCustomer = ClientRun.controller.extendSubscription(customer);
+            if (resultCustomer.getException() == null) {
+                CustomerDTO customer = resultCustomer.getDto();
+                Calendar c = Calendar.getInstance();
+                c.setTime(customer.getPaymentDate());
+                c.add(Calendar.YEAR, 1);
+                lblAboValidUntil.setText(new Date(c.getTimeInMillis()).toString());
+                infoAlert("Subscription successfully extended!");
+            } else {
+                errorAlert(resultCustomer.getException().getMessage());
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         }
