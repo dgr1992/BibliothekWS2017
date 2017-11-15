@@ -49,7 +49,7 @@ public class LdapController extends BaseController<UserAccount, UserAccountDTO> 
                 return new ResultDTO<>(true, null);
             } catch (NamingException e) {
                 e.printStackTrace();
-                return new ResultDTO<>(false, e);
+                return new ResultDTO<>(false, new Exception(e.getMessage()));
             }
         } else {
             return new ResultDTO<>(false, new Exception("Email address not found."));
