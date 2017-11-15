@@ -27,7 +27,7 @@ public class ReservationController extends BaseController<Reservation, Reservati
 
     public boolean checkAvailability(IMediumDTO mediumDTO) {
         List<CopyDTO> list = new LinkedList<>();
-        _controllerFacade.getCopiesByMedium(mediumDTO).stream().filter(item -> item.getRental() == null).forEach(list::add);
+        _controllerFacade.getCopiesByMedium(mediumDTO).getListDTO().stream().filter(item -> item.getRental() == null).forEach(list::add);
         return !list.isEmpty();
     }
 

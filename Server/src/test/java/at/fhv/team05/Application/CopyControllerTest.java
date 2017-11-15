@@ -30,7 +30,7 @@ public class CopyControllerTest {
         Book book = rep.getById(1);
 
         IMediumDTO medium = bookController.getDTO(book);
-        List<CopyDTO> list = copyController.getCopiesByMediumID(medium);
+        List<CopyDTO> list = copyController.getCopiesByMediumID(medium).getListDTO();
 
         assertThat(list, hasSize(5));
     }
