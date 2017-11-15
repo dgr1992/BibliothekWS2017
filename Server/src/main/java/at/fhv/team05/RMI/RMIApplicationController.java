@@ -9,7 +9,6 @@ import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.LinkedList;
 import java.util.List;
 
 public class RMIApplicationController extends UnicastRemoteObject implements IRMIApplicationController {
@@ -40,7 +39,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public CopyDTO searchCopyByCopyNumber(int copyNumber) throws RemoteException {
+    public ResultDTO<CopyDTO> searchCopyByCopyNumber(int copyNumber) throws RemoteException {
         return _controllerFacade.searchCopyByCopyNumber(copyNumber);
     }
 

@@ -1,6 +1,7 @@
 package at.fhv.team05.Application;
 
 import at.fhv.team05.Enum.ReturnCopyResult;
+import at.fhv.team05.ResultDTO;
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.IMediumDTO;
@@ -41,11 +42,11 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         return new CopyDTO(copy);
     }
 
-    public CopyDTO searchCopyByCopyNumber(int copyNumber) {
+    public ResultDTO<CopyDTO> searchCopyByCopyNumber(int copyNumber) {
 
         for (Copy copy : _mapDomainToDto.keySet()) {
             if (copy.getCopyNumber() == copyNumber) {
-                return _mapDomainToDto.get(copy);
+                return new ResultDTO<>(_mapDomainToDto.get(copy), null);
             }
         }
         return null;

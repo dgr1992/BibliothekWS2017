@@ -7,7 +7,6 @@ import at.fhv.team05.dtos.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.LinkedList;
 import java.util.List;
 
 public interface IRMIApplicationController extends Remote {
@@ -21,7 +20,7 @@ public interface IRMIApplicationController extends Remote {
 
     ResultListDTO<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException;
 
-    CopyDTO searchCopyByCopyNumber(int copyNumber) throws RemoteException;
+    ResultDTO<CopyDTO> searchCopyByCopyNumber(int copyNumber) throws RemoteException;
 
     CustomerDTO extendSubscription(CustomerDTO customer) throws RemoteException;
 

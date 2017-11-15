@@ -13,7 +13,6 @@ import at.fhv.team05.dtos.*;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
 import java.rmi.RemoteException;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ControllerFacade implements IRMIApplicationController {
@@ -76,7 +75,7 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public CopyDTO searchCopyByCopyNumber(int copyNumber) throws RemoteException {
+    public ResultDTO<CopyDTO> searchCopyByCopyNumber(int copyNumber) throws RemoteException {
         return _copyController.searchCopyByCopyNumber(copyNumber);
     }
 
