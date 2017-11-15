@@ -39,7 +39,7 @@ public class ReservationController extends BaseController<Reservation, Reservati
         reservedObject.setMediaType(mediumDTO.getType());
         reservedObject.setReservationDate(new Date(Calendar.getInstance().getTimeInMillis()));
 
-        _repository.save(reservedObject);
+        save(reservedObject);
     }
 
     public boolean existsReservationForMedium(int mediumID, String mediumTyp) {

@@ -63,6 +63,16 @@ public abstract class BaseController<DomainObject extends IDomainObject, DomainD
         return _mapDtoToDomain.get(dto);
     }
 
+    public void save(DomainObject obj) {
+        _repository.save(obj);
+        fillMap();
+    }
+
+//    public void delete(DomainObject obj) {
+//        _repository.delete(obj);
+//        fillMap();
+//    }
+
     protected abstract DomainDTO createDTO(DomainObject object);
 
     protected abstract boolean compareInput(DomainObject object, DomainDTO dto);

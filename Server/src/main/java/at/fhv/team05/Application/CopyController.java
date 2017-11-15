@@ -51,9 +51,9 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         return null;
     }
 
-    public ReturnCopyResult returnCopy(CopyDTO copyDTO){
+    public ReturnCopyResult returnCopy(CopyDTO copyDTO) {
         Copy copy = _controllerFacade.getDomainCopy(copyDTO);
-        if(copy.getRental() == null){
+        if (copy.getRental() == null) {
             return ReturnCopyResult.NotLent;
         }
 
@@ -64,13 +64,11 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
 
         copy.setRentalId(null);
         copy.setCopyStatus("available");
-        _repository.save(copy);
-        //Also force a update of the rental repository
-        RentalController.getInstance().fillMap();
+        save(copy);
 
         //Check if a reservation exists
         boolean reservationExists = _controllerFacade.existsReservationForMedium(copy.getMediumId(), copy.getMediaType());
-        if(reservationExists){
+        if (reservationExists) {
             return ReturnCopyResult.ReservationExists;
         } else {
             return ReturnCopyResult.Successful;

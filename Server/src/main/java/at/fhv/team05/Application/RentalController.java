@@ -145,7 +145,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             calendar.add(Calendar.DATE, 14);
             rental.setDeadline(new Date(calendar.getTimeInMillis()));
             rental.setExtendCounter(rental.getExtendCounter() + 1);
-            _repository.save(rental);
+            save(rental);
             return true;
         }
         return false;

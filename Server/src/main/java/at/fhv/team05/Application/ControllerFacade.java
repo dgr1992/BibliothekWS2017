@@ -81,20 +81,12 @@ public class ControllerFacade implements IRMIApplicationController {
 
     @Override
     public ResultDTO<Boolean> rentMedium(RentalDTO rental) {
-        ResultDTO<Boolean> tmpDTO = _rentalController.rentCopy(rental);
-        if (tmpDTO.getDto()) {
-            _rentalController.fillMap();
-        }
-        return tmpDTO;
+        return _rentalController.rentCopy(rental);
     }
 
     @Override
     public CustomerDTO extendSubscription(CustomerDTO customer) throws RemoteException {
-        CustomerDTO tmpCustomer = _customerController.extendSubscription(customer);
-        if (tmpCustomer != null) {
-            _customerController.fillMap();
-        }
-        return tmpCustomer;
+        return _customerController.extendSubscription(customer);
     }
 
 
@@ -106,7 +98,6 @@ public class ControllerFacade implements IRMIApplicationController {
     @Override
     public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
         _reservationController.reserveMedium(mediumDTO, customerDTO);
-        _reservationController.fillMap();
     }
 
     @Override

@@ -27,7 +27,7 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
 
     @Override
     protected boolean compareInput(Customer customer, CustomerDTO customerDTO) {
-        return  (customer.getCustomerId()==customerDTO.getCustomerId() || customerDTO.getCustomerId()==-1)
+        return (customer.getCustomerId() == customerDTO.getCustomerId() || customerDTO.getCustomerId() == -1)
                 && StringUtilities.containsIgnoreCase(customer.getFirstName(), customerDTO.getFirstName())
                 && StringUtilities.containsIgnoreCase(customer.getLastName(), customerDTO.getLastName());
 
@@ -66,7 +66,7 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
             customer.setPaymentDate(newPaymentDate);
         }
         CustomerDTO newCustomer = new CustomerDTO(customer);
-        _repository.save(customer);
+        save(customer);
 
         return newCustomer;
     }
