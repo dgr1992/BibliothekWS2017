@@ -10,8 +10,8 @@ import at.fhv.team05.dtos.CustomerRentalDTO;
 import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.persistence.RepositoryFactory;
 
+import java.sql.Date;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 
 public class RentalController extends BaseController<Rental, RentalDTO> {
@@ -139,11 +139,11 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
 
     public boolean extendRentedMedium(RentalDTO rentalDTO) {
         Rental rental = getDomain(rentalDTO);
-        if (rental.getExtendCounter() < 2) {
+        if (rental!=null && rental.getExtendCounter() < 2) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(rental.getDeadline());
             calendar.add(Calendar.DATE, 14);
-            rental.setDeadline(new Date(calendar.getTimeInMillis()));
+            rental.setDeadline((new Date(calendar.getTimeInMillis())));
             rental.setExtendCounter(rental.getExtendCounter() + 1);
             save(rental);
             return true;

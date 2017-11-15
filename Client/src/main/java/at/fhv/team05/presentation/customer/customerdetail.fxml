@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -21,8 +22,9 @@
                   <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.0" minWidth="10.0" prefWidth="153.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="829.0" minWidth="10.0" prefWidth="400.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="705.0" minWidth="10.0" prefWidth="242.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="829.0" minWidth="10.0" prefWidth="257.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="705.0" minWidth="10.0" prefWidth="106.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="705.0" minWidth="10.0" prefWidth="300.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -51,6 +53,24 @@
                         <Label fx:id="lblStreet" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label fx:id="lblZipCity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label fx:id="lblAboUntil" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Birthday" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label text="Email" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label text="Phonenumber" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblBirthday" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label fx:id="lblMail" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Label fx:id="lblPhone" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>

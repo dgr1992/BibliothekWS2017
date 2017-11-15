@@ -80,16 +80,28 @@ public class CustomerDetailPresenter extends Presenter {
     @FXML
     private TableColumn<RentalDTO, Date> tblColReturnDate;
 
+    @FXML
+    private Label lblBirthday;
+    @FXML
+    private Label lblMail;
+    @FXML
+    private Label lblPhone;
+
+
     CustomerDTO customer;
 
 
-    public void setCustomerDetails(){
+    public void setCustomerDetails() {
         lblCustomerNr.setText(Integer.toString(customer.getCustomerId()));
         lblFirstName.setText(customer.getFirstName());
         lblLastName.setText(customer.getLastName());
         lblStreet.setText(customer.getAddress().getStreet() + " " + customer.getAddress().getStreetNumber());
         lblZipCity.setText(customer.getAddress().getZip() + " / " + customer.getAddress().getCity());
         lblAboUntil.setText((customer.getPaymentDate() == null ? "" : customer.getPaymentDate().toString()));
+        lblBirthday.setText(customer.getDateOfBirth().toString());
+        lblMail.setText(customer.getEmail());
+        lblPhone.setText(customer.getPhoneNumber());
+
         try {
             fillTable(ClientRun.controller.getRentalsFor(customer));
         } catch (RemoteException e) {
@@ -98,8 +110,8 @@ public class CustomerDetailPresenter extends Presenter {
 
     }
 
-    public void fillTable(CustomerRentalDTO customerRentalDTO){
-        tblColCopyNrCurrent.setCellValueFactory(param -> new SimpleStringProperty (Integer.toString(param.getValue().getCopy().getCopyNumber())));
+    public void fillTable(CustomerRentalDTO customerRentalDTO) {
+        tblColCopyNrCurrent.setCellValueFactory(param -> new SimpleStringProperty(Integer.toString(param.getValue().getCopy().getCopyNumber())));
         tblColCopyNrHistory.setCellValueFactory(param -> new SimpleStringProperty(Integer.toString(param.getValue().getCopy().getCopyNumber())));
         tblColPickUpDateCurrent.setCellValueFactory(new PropertyValueFactory<>("pickupDate"));
         tblColPickupDateHistory.setCellValueFactory(new PropertyValueFactory<>("pickupDate"));
@@ -124,11 +136,11 @@ public class CustomerDetailPresenter extends Presenter {
                 @Override
                 public void handle(ActionEvent event) {
                     try {
-                        boolean isDone=ClientRun.controller.extendRentedMedium(tableView.getSelectionModel().getSelectedItem());
-                        if(isDone){
+                        boolean isDone = ClientRun.controller.extendRentedMedium(tableView.getSelectionModel().getSelectedItem());
+                        if (isDone) {
                             infoAlert("Medium successfully extended ");
-                        }
-                        else{
+                            fillTable(ClientRun.controller.getRentalsFor(customer));
+                        } else {
                             errorAlert("There was a problem");
                         }
 
@@ -144,10 +156,10 @@ public class CustomerDetailPresenter extends Presenter {
                 @Override
                 public void handle(ActionEvent event) {
                     //TODO Rückgabe (dagro)
-                    try{
+                    try {
                         CopyDTO copyToReturn = tableViewCurrent.getSelectionModel().getSelectedItem().getCopy();
                         ReturnCopyResult result = ClientRun.controller.returnCopy(copyToReturn);
-                        switch(result){
+                        switch (result) {
                             case NotLent:
                                 infoAlert("The given copy is not lent.");
                                 break;
@@ -159,7 +171,7 @@ public class CustomerDetailPresenter extends Presenter {
                                 break;
                         }
                         fillTable(ClientRun.controller.getRentalsFor(customer));
-                    } catch (RemoteException remEx){
+                    } catch (RemoteException remEx) {
                         infoAlert("Return process failed");
                     }
                 }
@@ -167,10 +179,10 @@ public class CustomerDetailPresenter extends Presenter {
 
             row.contextMenuProperty().bind(
                     Bindings.when(row.emptyProperty())
-                            .then((ContextMenu)null)
+                            .then((ContextMenu) null)
                             .otherwise(contextMenu)
             );
-            return row ;
+            return row;
         });
 
     }
