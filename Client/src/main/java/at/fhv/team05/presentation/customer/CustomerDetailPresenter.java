@@ -167,11 +167,12 @@ public class CustomerDetailPresenter extends Presenter {
                     //TODO Rückgabe (dagro)
                     try {
                         CopyDTO copyToReturn = tableViewCurrent.getSelectionModel().getSelectedItem().getCopy();
-                        ResultDTO<CustomerRentalDTO> resultCustomerRental = ClientRun.controller.getRentalsFor(customer);
-                        if (resultCustomerRental.getException() == null) {
-                            fillTable(resultCustomerRental.getDto());
+                        ResultDTO<Boolean> resultCustomerRental = ClientRun.controller.returnCopy(copyToReturn);
+                        fillTable(ClientRun.controller.getRentalsFor(customer).getDto());
+                        if(resultCustomerRental.getDto()){
+                            infoAlert("Return process successful");
                         } else {
-                            errorAlert(resultCustomerRental.getException().getMessage());
+                            infoAlert(resultCustomerRental.getException().getMessage());
                         }
                     } catch (RemoteException remEx) {
                         infoAlert("Return process failed");

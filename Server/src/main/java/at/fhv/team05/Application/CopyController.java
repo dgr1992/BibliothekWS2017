@@ -66,6 +66,8 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         copy.setRentalId(null);
         copy.setCopyStatus("available");
         save(copy);
+        //Also force a update of the rental repository. Save of copy does not update the rentals
+        RentalController.getInstance().fillMap();
 
         //Check if a reservation exists
         boolean reservationExists = _controllerFacade.existsReservationForMedium(copy.getMediumId(), copy.getMediaType());
