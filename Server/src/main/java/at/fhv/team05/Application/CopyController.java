@@ -55,7 +55,7 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
     public ResultDTO<Boolean> returnCopy(CopyDTO copyDTO) {
         Copy copy = _controllerFacade.getDomainCopy(copyDTO);
         if (copy.getRental() == null) {
-            return new ResultDTO<>(false, new Exception("Copy was not lent."));
+            return new ResultDTO<>(false, new Exception("The given copy is not lent."));
         }
 
         //Set the return Date
@@ -70,9 +70,9 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         //Check if a reservation exists
         boolean reservationExists = _controllerFacade.existsReservationForMedium(copy.getMediumId(), copy.getMediaType());
         if (reservationExists) {
-            return new ResultDTO<>(false, new Exception("Reservation already exists."));
+            return new ResultDTO<>(true, new Exception("Return process successful. There is a reservation for this media."));
         } else {
-            return new ResultDTO<>(true, new Exception("Sucessfully reservated"));
+            return new ResultDTO<>(true, new Exception("Return process successful."));
         }
     }
 
