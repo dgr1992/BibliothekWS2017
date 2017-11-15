@@ -1,6 +1,8 @@
 package at.fhv.team05.presentation.detailView;
 
 import at.fhv.team05.ClientRun;
+import at.fhv.team05.ResultDTO;
+import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.presentation.Presenter;
@@ -93,7 +95,12 @@ public class DetailPresenter extends Presenter {
             label4.setText((String) attributeMap.get("articleId"));
         }
         try {
-            initTable(ClientRun.controller.getCopiesByMedium(medium));
+            ResultListDTO<CopyDTO> resultCopies = ClientRun.controller.getCopiesByMedium(medium);
+            if (resultCopies.getException() == null) {
+                initTable(resultCopies.getListDTO());
+            } else {
+                errorAlert(resultCopies.getException().getMessage());
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         }
