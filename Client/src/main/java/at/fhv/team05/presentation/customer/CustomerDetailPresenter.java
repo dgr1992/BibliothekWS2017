@@ -1,7 +1,6 @@
 package at.fhv.team05.presentation.customer;
 
 import at.fhv.team05.ClientRun;
-import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.ResultDTO;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
@@ -9,24 +8,15 @@ import at.fhv.team05.dtos.CustomerRentalDTO;
 import at.fhv.team05.dtos.RentalDTO;
 import at.fhv.team05.presentation.Presenter;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
-import jfxtras.scene.layout.HBox;
 
-import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 public class CustomerDetailPresenter extends Presenter {
 
@@ -136,22 +126,25 @@ public class CustomerDetailPresenter extends Presenter {
         resultDataHistory.addAll(customerRentalDTO.getHistory());
         tableViewHistory.setItems(resultDataHistory);
 
-        tableViewCurrent.setRowFactory((Callback<TableView<RentalDTO>, TableRow<RentalDTO>>) tableView -> {
+        tableViewCurrent.setRowFactory(tableView -> {
             final TableRow<RentalDTO> row = new TableRow<>();
             final ContextMenu contextMenu = new ContextMenu();
             final MenuItem extendRental = new MenuItem("Extend Rental");
             final MenuItem returnRental = new MenuItem("Return Rental");
+            contextMenu.getItems().add(extendRental);
+            contextMenu.getItems().add(returnRental);
+
             extendRental.setOnAction(event -> {
                 try {
                     ResultDTO<Boolean> resultBoolean = ClientRun.controller.extendRentedMedium(tableView.getSelectionModel().getSelectedItem());
                     boolean isDone = resultBoolean.getDto();
                     if (isDone) {
                         infoAlert("Rental duration successfully extended ");
-                        ResultDTO<CustomerRentalDTO> resultCustomer = ClientRun.controller.getRentalsFor(customer);
-                        if (resultCustomer.getException() == null) {
-                            fillTable(resultCustomer.getDto());
+                        ResultDTO<CustomerRentalDTO> resultCustomerRental = ClientRun.controller.getRentalsFor(customer);
+                        if (resultCustomerRental.getException() == null) {
+                            fillTable(resultCustomerRental.getDto());
                         } else {
-                            errorAlert(resultCustomer.getException().getMessage());
+                            errorAlert(resultCustomerRental.getException().getMessage());
                         }
                     } else {
                         errorAlert(resultBoolean.getException().getMessage());
@@ -161,25 +154,19 @@ public class CustomerDetailPresenter extends Presenter {
                     e.printStackTrace();
                 }
             });
-            contextMenu.getItems().add(extendRental);
-            contextMenu.getItems().add(returnRental);
 
-            returnRental.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    //TODO Rückgabe (dagro)
-                    try {
-                        CopyDTO copyToReturn = tableViewCurrent.getSelectionModel().getSelectedItem().getCopy();
-                        ResultDTO<Boolean> resultCustomerRental = ClientRun.controller.returnCopy(copyToReturn);
+            returnRental.setOnAction(event -> {
+                try {
+                    CopyDTO copyToReturn = tableViewCurrent.getSelectionModel().getSelectedItem().getCopy();
+                    ResultDTO<Boolean> resultCustomerRental = ClientRun.controller.returnCopy(copyToReturn);
+                    if (resultCustomerRental.getDto()) {
                         fillTable(ClientRun.controller.getRentalsFor(customer).getDto());
-                        if(resultCustomerRental.getDto()){
-                            infoAlert("Return process successful");
-                        } else {
-                            infoAlert(resultCustomerRental.getException().getMessage());
-                        }
-                    } catch (RemoteException remEx) {
-                        infoAlert("Return process failed");
+                        infoAlert("Return process successful");
+                    } else {
+                        infoAlert(resultCustomerRental.getException().getMessage());
                     }
+                } catch (RemoteException remEx) {
+                    infoAlert("Return process failed");
                 }
             });
 

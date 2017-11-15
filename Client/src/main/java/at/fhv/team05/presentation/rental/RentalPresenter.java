@@ -72,48 +72,52 @@ public class RentalPresenter extends Presenter {
 
     @FXML
     void onSearchButtonPressed(ActionEvent event) {
-        int copyNumber = Integer.valueOf(txtFieldCopyNumber.getText());
-        try {
-            ResultDTO<CopyDTO> resultCopy = ClientRun.controller.searchCopyByCopyNumber(copyNumber);
-            if (resultCopy != null) {
-                copy = resultCopy.getDto();
-                if (resultCopy.getException() == null) {
-                    if ("book".equalsIgnoreCase(copy.getMediaType())) {
-                        BookDTO book = ClientRun.controller.searchBookById(copy.getMediumId()).getDto();
-                        lblTitle.setText(book.getTitle());
-                        labelA.setText("Author: ");
-                        label1.setText(book.getAuthor());
-                        labelB.setText("Publisher: ");
-                        label2.setText(book.getPublisher());
-                        labelC.setText("Release Date: ");
-                        label3.setText(book.getReleaseDate().toString());
-                        labelD.setText("ISBN: ");
-                        label4.setText(book.getIsbn());
-                        labelE.setText("Copy Number: ");
-                        label5.setText(String.valueOf(copy.getCopyNumber()));
+        if (!txtFieldCopyNumber.getText().isEmpty()) {
+            int copyNumber = Integer.valueOf(txtFieldCopyNumber.getText());
+            try {
+                ResultDTO<CopyDTO> resultCopy = ClientRun.controller.searchCopyByCopyNumber(copyNumber);
+                if (resultCopy != null) {
+                    copy = resultCopy.getDto();
+                    if (resultCopy.getException() == null) {
+                        if ("book".equalsIgnoreCase(copy.getMediaType())) {
+                            BookDTO book = ClientRun.controller.searchBookById(copy.getMediumId()).getDto();
+                            lblTitle.setText(book.getTitle());
+                            labelA.setText("Author: ");
+                            label1.setText(book.getAuthor());
+                            labelB.setText("Publisher: ");
+                            label2.setText(book.getPublisher());
+                            labelC.setText("Release Date: ");
+                            label3.setText(book.getReleaseDate().toString());
+                            labelD.setText("ISBN: ");
+                            label4.setText(book.getIsbn());
+                            labelE.setText("Copy Number: ");
+                            label5.setText(String.valueOf(copy.getCopyNumber()));
 
-                    } else if ("dvd".equalsIgnoreCase(copy.getMediaType())) {
-                        DvdDTO dvd = ClientRun.controller.searchDvdById(copy.getMediumId()).getDto();
-                        lblTitle.setText(dvd.getTitle());
-                        labelA.setText("Director: ");
-                        label1.setText(dvd.getDirector());
-                        labelB.setText("Publisher: ");
-                        label2.setText(dvd.getPublisher());
-                        labelC.setText("Release Date: ");
-                        label3.setText(dvd.getReleaseDate().toString());
-                        labelD.setText("ASIN: ");
-                        label4.setText(dvd.getAsin());
-                        labelE.setText("Copy Number: ");
-                        label5.setText(String.valueOf(copy.getCopyNumber()));
+                        } else if ("dvd".equalsIgnoreCase(copy.getMediaType())) {
+                            DvdDTO dvd = ClientRun.controller.searchDvdById(copy.getMediumId()).getDto();
+                            lblTitle.setText(dvd.getTitle());
+                            labelA.setText("Director: ");
+                            label1.setText(dvd.getDirector());
+                            labelB.setText("Publisher: ");
+                            label2.setText(dvd.getPublisher());
+                            labelC.setText("Release Date: ");
+                            label3.setText(dvd.getReleaseDate().toString());
+                            labelD.setText("ASIN: ");
+                            label4.setText(dvd.getAsin());
+                            labelE.setText("Copy Number: ");
+                            label5.setText(String.valueOf(copy.getCopyNumber()));
+                        }
+                    } else {
+                        errorAlert(resultCopy.getException().getMessage());
                     }
                 } else {
-                    errorAlert(resultCopy.getException().getMessage());
+                    errorAlert("Could not find specified copy.");
                 }
-            } else {
-                errorAlert("Could not find specified copy.");
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        } else {
+            infoAlert("Please type in a copy number.");
         }
 
     }
