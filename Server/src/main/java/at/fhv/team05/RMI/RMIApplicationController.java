@@ -1,6 +1,7 @@
 package at.fhv.team05.RMI;
 
 import at.fhv.team05.Application.ControllerFacade;
+import at.fhv.team05.Application.LdapController;
 import at.fhv.team05.ResultDTO;
 import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.dtos.*;
@@ -11,9 +12,12 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class RMIApplicationController extends UnicastRemoteObject implements IRMIApplicationController {
     private ControllerFacade _controllerFacade;
+    private final String _key;
+    private static final int KEY_LENGTH = 32;
 
     public RMIApplicationController() throws RemoteException {
         _controllerFacade = ControllerFacade.getInstance();
+        _key = LdapController.getRandomHexString(KEY_LENGTH);
     }
 
     @Override
@@ -88,8 +92,11 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
 
     @Override
     public ResultDTO<Boolean> authenticateUser(String uname, String pw) throws RemoteException {
-        return _controllerFacade.authenticateUser(uname, pw);
+        return _controllerFacade.authenticateUser(uname, pw, _key);
     }
 
-
+    @Override
+    public String getKey() {
+        return _key;
+    }
 }
