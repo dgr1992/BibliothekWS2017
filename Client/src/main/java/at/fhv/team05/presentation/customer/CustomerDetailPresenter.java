@@ -31,6 +31,9 @@ import java.util.ResourceBundle;
 public class CustomerDetailPresenter extends Presenter {
 
     @FXML
+    private TitledPane titledPaneCustomer;
+
+    @FXML
     private TableView<RentalDTO> tableViewCurrent;
 
     @FXML
@@ -194,4 +197,7 @@ public class CustomerDetailPresenter extends Presenter {
         this.customer = customer;
     }
 
+    public void initialize() {
+        titledPaneCustomer.setCollapsible(false);
+    }
 }
