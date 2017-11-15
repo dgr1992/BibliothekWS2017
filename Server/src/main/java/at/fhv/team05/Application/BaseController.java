@@ -1,5 +1,6 @@
 package at.fhv.team05.Application;
 
+import at.fhv.team05.ResultDTO;
 import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.IDomainObject;
 import at.fhv.team05.persistence.Repository;
@@ -37,10 +38,10 @@ public abstract class BaseController<DomainObject extends IDomainObject, DomainD
         }
     }
 
-    public DomainDTO searchById(int id) {
+    public ResultDTO<DomainDTO> searchById(int id) {
         for (DomainObject obj : _mapDomainToDto.keySet()) {
             if (obj.getId() == id) {
-                return _mapDomainToDto.get(obj);
+                return new ResultDTO<>(_mapDomainToDto.get(obj), null);
             }
         }
         return null;

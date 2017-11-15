@@ -50,12 +50,12 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public BookDTO searchBookById(int mediumId) throws RemoteException {
+    public ResultDTO<BookDTO> searchBookById(int mediumId) throws RemoteException {
         return _controllerFacade.searchBookById(mediumId);
     }
 
     @Override
-    public DvdDTO searchDvdById(int mediumId) throws RemoteException {
+    public ResultDTO<DvdDTO> searchDvdById(int mediumId) throws RemoteException {
         return _controllerFacade.searchDvdById(mediumId);
     }
 
@@ -93,7 +93,6 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     public boolean authenticateUser(String uname, String pw) throws RemoteException {
         return _controllerFacade.authenticateUser(uname, pw);
     }
-
 
 
 }

@@ -6,17 +6,13 @@ import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.customer.buttons.CustomerButtonType;
-import at.fhv.team05.presentation.mainView.MainViewPresenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 
-import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ResourceBundle;
 
 public class RentalPresenter extends Presenter {
     private CopyDTO copy;
@@ -65,11 +61,12 @@ public class RentalPresenter extends Presenter {
         if (copy != null) {
             if (copy.getRental() == null) {
                 parent.openCustomerView(copy, null, CustomerButtonType.OK);
-            }else {
+            } else {
                 infoAlert("This Medium is already rented");
             }
-        } else
+        } else {
             infoAlert("Please enter a Medium");
+        }
     }
 
     @FXML
@@ -79,7 +76,7 @@ public class RentalPresenter extends Presenter {
             copy = ClientRun.controller.searchCopyByCopyNumber(copyNumber);
             if (copy != null) {
                 if ("book".equalsIgnoreCase(copy.getMediaType())) {
-                    BookDTO book = ClientRun.controller.searchBookById(copy.getMediumId());
+                    BookDTO book = ClientRun.controller.searchBookById(copy.getMediumId()).getDto();
                     lblTitle.setText(book.getTitle());
                     labelA.setText("Author: ");
                     label1.setText(book.getAuthor());
@@ -93,7 +90,7 @@ public class RentalPresenter extends Presenter {
                     label5.setText(String.valueOf(copy.getCopyNumber()));
 
                 } else if ("dvd".equalsIgnoreCase(copy.getMediaType())) {
-                    DvdDTO dvd = ClientRun.controller.searchDvdById(copy.getMediumId());
+                    DvdDTO dvd = ClientRun.controller.searchDvdById(copy.getMediumId()).getDto();
                     lblTitle.setText(dvd.getTitle());
                     labelA.setText("Director: ");
                     label1.setText(dvd.getDirector());
@@ -105,7 +102,6 @@ public class RentalPresenter extends Presenter {
                     label4.setText(dvd.getAsin());
                     labelE.setText("Copy Number: ");
                     label5.setText(String.valueOf(copy.getCopyNumber()));
-
                 }
             } else {
                 infoAlert("Could not find specified copy.");
@@ -115,6 +111,7 @@ public class RentalPresenter extends Presenter {
         }
 
     }
+
     public void initialize() {
         titledPaneMediumInfo.setCollapsible(false);
         txtFieldCopyNumber.textProperty().addListener((observable, oldValue, newValue) -> {

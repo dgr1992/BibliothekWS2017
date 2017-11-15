@@ -90,23 +90,23 @@ public class RentalOverviewPresenter extends Presenter {
 
     public void initView() {
         titledPaneOverview.setCollapsible(false);
-        IMediumDTO medium = null;
+        ResultDTO<IMediumDTO> medium = new ResultDTO<>();
         if ("book".equalsIgnoreCase(copy.getMediaType())) {
             try {
-                medium = ClientRun.controller.searchBookById(copy.getMediumId());
+                medium.setDto(ClientRun.controller.searchBookById(copy.getMediumId()).getDto());
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
         } else if ("dvd".equalsIgnoreCase(copy.getMediaType())) {
             try {
-                medium = ClientRun.controller.searchDvdById(copy.getMediumId());
+                medium.setDto(ClientRun.controller.searchDvdById(copy.getMediumId()).getDto());
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
         }
         if (medium != null) {
             lblMediumNumber.setText(Integer.toString(copy.getCopyNumber()));
-            lblTitle.setText(medium.getTitle());
+            lblTitle.setText(medium.getDto().getTitle());
             lblCustomerName.setText(customer.getFirstName() + " " + customer.getLastName());
             lblStreet.setText(customer.getAddress().getStreet() + " " + customer.getAddress().getStreetNumber());
             lblZipCity.setText(customer.getAddress().getZip() + " / " + customer.getAddress().getCity());

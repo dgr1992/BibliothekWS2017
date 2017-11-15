@@ -61,12 +61,12 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public BookDTO searchBookById(int mediumId) throws RemoteException {
+    public ResultDTO<BookDTO> searchBookById(int mediumId) throws RemoteException {
         return _bookController.searchById(mediumId);
     }
 
     @Override
-    public DvdDTO searchDvdById(int mediumId) throws RemoteException {
+    public ResultDTO<DvdDTO> searchDvdById(int mediumId) throws RemoteException {
         return _dvdController.searchById(mediumId);
     }
 

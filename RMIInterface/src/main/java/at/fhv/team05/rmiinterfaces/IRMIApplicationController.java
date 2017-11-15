@@ -25,9 +25,9 @@ public interface IRMIApplicationController extends Remote {
 
     CustomerDTO extendSubscription(CustomerDTO customer) throws RemoteException;
 
-    BookDTO searchBookById(int mediumId) throws RemoteException;
+    ResultDTO<BookDTO> searchBookById(int mediumId) throws RemoteException;
 
-    DvdDTO searchDvdById(int mediumId) throws RemoteException;
+    ResultDTO<DvdDTO> searchDvdById(int mediumId) throws RemoteException;
 
     ReturnCopyResult returnCopy(CopyDTO copyDTO) throws RemoteException;
 
