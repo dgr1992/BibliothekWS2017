@@ -24,6 +24,7 @@ public class ReserveButtonPresenter extends Presenter {
                 return;
             }
             infoAlert("Medium successfully reserved!");
+            parent.openReservationView();
 
         } catch (RemoteException e) {
             e.printStackTrace();

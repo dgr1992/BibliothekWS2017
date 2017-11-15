@@ -129,6 +129,7 @@ public class CustomerPresenter extends Presenter{
         ReserveButtonPresenter presenter = (ReserveButtonPresenter)  reserveButtonView.getPresenter();
         presenter.setCustomerTable(tblViewCustomer);
         presenter.setMedium(medium);
+        presenter.setParent(parent);
         buttonContainer.getChildren().setAll(reserveButtonView.getView());
     }
 
