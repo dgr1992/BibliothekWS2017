@@ -1,13 +1,11 @@
 package at.fhv.team05.rmiinterfaces;
 
-import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.ResultDTO;
 import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.dtos.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
 
 public interface IRMIApplicationController extends Remote {
     ResultListDTO<BookDTO> searchForBook(BookDTO book) throws RemoteException;
@@ -28,9 +26,9 @@ public interface IRMIApplicationController extends Remote {
 
     ResultDTO<DvdDTO> searchDvdById(int mediumId) throws RemoteException;
 
-    ReturnCopyResult returnCopy(CopyDTO copyDTO) throws RemoteException;
+    ResultDTO<Boolean> returnCopy(CopyDTO copyDTO) throws RemoteException;
 
-    List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) throws RemoteException;
+    ResultListDTO<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) throws RemoteException;
 
     boolean checkAvailabilityOfMedium(IMediumDTO mediumDTO) throws RemoteException;
 

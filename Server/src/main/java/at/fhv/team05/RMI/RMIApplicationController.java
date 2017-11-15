@@ -1,7 +1,6 @@
 package at.fhv.team05.RMI;
 
 import at.fhv.team05.Application.ControllerFacade;
-import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.ResultDTO;
 import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.dtos.*;
@@ -9,7 +8,6 @@ import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
 
 public class RMIApplicationController extends UnicastRemoteObject implements IRMIApplicationController {
     private ControllerFacade _controllerFacade;
@@ -59,12 +57,12 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public ReturnCopyResult returnCopy(CopyDTO copyDTO) throws RemoteException {
+    public ResultDTO<Boolean> returnCopy(CopyDTO copyDTO) throws RemoteException {
         return _controllerFacade.returnCopy(copyDTO);
     }
 
     @Override
-    public List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
+    public ResultListDTO<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
         return _controllerFacade.getCopiesByMedium(mediumDTO);
     }
 

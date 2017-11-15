@@ -1,7 +1,7 @@
 package at.fhv.team05.Application;
 
-import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.ResultDTO;
+import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.IMediumDTO;
@@ -52,10 +52,10 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         return null;
     }
 
-    public ReturnCopyResult returnCopy(CopyDTO copyDTO) {
+    public ResultDTO<Boolean> returnCopy(CopyDTO copyDTO) {
         Copy copy = _controllerFacade.getDomainCopy(copyDTO);
         if (copy.getRental() == null) {
-            return ReturnCopyResult.NotLent;
+            return new ResultDTO<>(false, new Exception("Copy was not lent."));
         }
 
         //Set the return Date
@@ -70,17 +70,17 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         //Check if a reservation exists
         boolean reservationExists = _controllerFacade.existsReservationForMedium(copy.getMediumId(), copy.getMediaType());
         if (reservationExists) {
-            return ReturnCopyResult.ReservationExists;
+            return new ResultDTO<>(false, new Exception("Reservation already exists."));
         } else {
-            return ReturnCopyResult.Successful;
+            return new ResultDTO<>(true, new Exception("Sucessfully reservated"));
         }
     }
 
-    protected List<CopyDTO> getCopiesByMediumID(IMediumDTO mediumDTO) {
+    protected ResultListDTO<CopyDTO> getCopiesByMediumID(IMediumDTO mediumDTO) {
         List<CopyDTO> list = new LinkedList<>();
         _mapDomainToDto.keySet().stream().
                 filter(i -> i.getMediumId() == mediumDTO.getId() && i.getMediaType().equalsIgnoreCase(mediumDTO.getType())).
                 forEach(i -> list.add(_mapDomainToDto.get(i)));
-        return list;
+        return new ResultListDTO<>(list, null);
     }
 }

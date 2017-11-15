@@ -3,7 +3,6 @@ package at.fhv.team05.Application;
 
 import at.fhv.team05.Application.medium.BookController;
 import at.fhv.team05.Application.medium.DvdController;
-import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.ResultDTO;
 import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.Address;
@@ -13,7 +12,6 @@ import at.fhv.team05.dtos.*;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
 import java.rmi.RemoteException;
-import java.util.List;
 
 public class ControllerFacade implements IRMIApplicationController {
     private static ControllerFacade mInstance;
@@ -70,7 +68,7 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public List<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
+    public ResultListDTO<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
         return _copyController.getCopiesByMediumID(mediumDTO);
     }
 
@@ -120,7 +118,7 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public ReturnCopyResult returnCopy(CopyDTO copyDTO) {
+    public ResultDTO<Boolean> returnCopy(CopyDTO copyDTO) {
         return _copyController.returnCopy(copyDTO);
     }
 
