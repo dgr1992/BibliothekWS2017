@@ -3,6 +3,7 @@ package at.fhv.team05.RMI;
 import at.fhv.team05.Application.ControllerFacade;
 import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.ResultDTO;
+import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.dtos.*;
 import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 
@@ -19,12 +20,12 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public LinkedList<BookDTO> searchForBook(BookDTO book) throws RemoteException {
+    public ResultListDTO<BookDTO> searchForBook(BookDTO book) throws RemoteException {
         return _controllerFacade.searchForBook(book);
     }
 
     @Override
-    public LinkedList<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException {
+    public ResultListDTO<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException {
         return _controllerFacade.searchForDvd(dvd);
     }
 
@@ -34,7 +35,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException {
+    public ResultListDTO<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException {
         return _controllerFacade.searchForCustomer(customer);
     }
 

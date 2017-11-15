@@ -1,6 +1,7 @@
 package at.fhv.team05.presentation.customer;
 
 import at.fhv.team05.ClientRun;
+import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.dtos.*;
 import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.customer.buttons.OkButtonPresenter;
@@ -78,12 +79,18 @@ public class CustomerPresenter extends Presenter{
         List<CustomerDTO> customers = new LinkedList<>();
         CustomerDTO customer = new CustomerDTO(getCustomerNumber(), getFirstName(), getLastName());
         try {
-            customers.addAll(ClientRun.controller.searchForCustomer(customer));
+            ResultListDTO<CustomerDTO> resultCustomers = ClientRun.controller.searchForCustomer(customer);
+            if (resultCustomers.getException() == null) {
+                customers.addAll(resultCustomers.getListDTO());
+                initResultTableCustomer(customers);
+            } else {
+                errorAlert(resultCustomers.getException().getMessage());
+            }
 
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        initResultTableCustomer(customers);
+
     }
 
     private void initResultTableCustomer(List<CustomerDTO> customers) {

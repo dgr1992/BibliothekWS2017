@@ -5,6 +5,7 @@ import at.fhv.team05.Application.medium.BookController;
 import at.fhv.team05.Application.medium.DvdController;
 import at.fhv.team05.Enum.ReturnCopyResult;
 import at.fhv.team05.ResultDTO;
+import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.Address;
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.domain.Customer;
@@ -45,17 +46,17 @@ public class ControllerFacade implements IRMIApplicationController {
     }
 
     @Override
-    public LinkedList<BookDTO> searchForBook(BookDTO book) throws RemoteException {
+    public ResultListDTO<BookDTO> searchForBook(BookDTO book) throws RemoteException {
         return _bookController.searchFor(book);
     }
 
     @Override
-    public LinkedList<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException {
+    public ResultListDTO<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException {
         return _dvdController.searchFor(dvd);
     }
 
     @Override
-    public List<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException {
+    public ResultListDTO<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException {
         return _customerController.searchFor(customer);
     }
 

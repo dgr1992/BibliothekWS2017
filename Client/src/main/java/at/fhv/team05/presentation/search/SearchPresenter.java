@@ -1,6 +1,7 @@
 package at.fhv.team05.presentation.search;
 
 import at.fhv.team05.ClientRun;
+import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.dtos.BookDTO;
 import at.fhv.team05.dtos.DvdDTO;
 import at.fhv.team05.dtos.IMediumDTO;
@@ -81,11 +82,17 @@ public class SearchPresenter extends Presenter{
         List<BookDTO> books = new LinkedList<>();
         try {
             BookDTO book = new BookDTO(getBookTitle(), getAuthor(), getIsbn(), "Book");
-            books.addAll(ClientRun.controller.searchForBook(book));
+            ResultListDTO<BookDTO> resultBooks = ClientRun.controller.searchForBook(book);
+            if (resultBooks.getException() == null) {
+                books.addAll(resultBooks.getListDTO());
+                resultTableBook(books);
+            } else {
+                errorAlert(resultBooks.getException().getMessage());
+            }
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        resultTableBook(books);
 
 
     }
@@ -95,11 +102,17 @@ public class SearchPresenter extends Presenter{
         List<DvdDTO> dvds = new LinkedList<>();
         try {
             DvdDTO dvd = new DvdDTO(getDvdTitle(), getDirector(), getAsin(), "Dvd");
-            dvds.addAll(ClientRun.controller.searchForDvd(dvd));
+            ResultListDTO<DvdDTO> resultDvd = ClientRun.controller.searchForDvd(dvd);
+            if (resultDvd.getException() == null) {
+                dvds.addAll(resultDvd.getListDTO());
+                resultTableDvd(dvds);
+            } else {
+                errorAlert(resultDvd.getException().getMessage());
+            }
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        resultTableDvd(dvds);
     }
 
     //Book
