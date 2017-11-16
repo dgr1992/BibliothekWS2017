@@ -20,14 +20,16 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'kill -9 $(ps aux | grep -F BibliothekWS2017Server | grep -v -F 'grep' | awk '{ print $2 }')'
-                sh 'nohup java -jar ./Server/target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar &'
+                //sh 'kill -9 $(ps aux | grep -F BibliothekWS2017Server | grep -v -F 'grep' | awk '{ print $2 }')'
+                //sh 'nohup java -jar ./Server/target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar &'
+                sh 'chmod +x ./Server/target/start.sh'
+                sh './Server/target/start.sh'
             }
         }
     }
     post {
         always {
-            archive 'Server/target/*.jar, Server/target/hibernate.cfg.xml, Server/target/log4j.properties'
+            archive 'Server/target/*.jar, Server/target/hibernate.cfg.xml, Server/target/log4j.properties, Server/target/start.sh'
             archive 'Client/target/*.jar'
         }
     }
