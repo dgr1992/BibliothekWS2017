@@ -20,8 +20,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-
-                sh 'java -jar ./Server/target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar'
+                sh 'ps aux | grep -F BibliothekWS2017Server | grep -v -F 'grep' | awk '{ print $2 }' | xargs kill -9 || true'
+                sh 'nohub java -jar ./Server/target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar &'
             }
         }
     }
