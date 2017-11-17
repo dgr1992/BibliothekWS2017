@@ -1,5 +1,6 @@
 package at.fhv.team05.Application;
 
+import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.Reservation;
 import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
@@ -7,6 +8,7 @@ import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.dtos.ReservationDTO;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,6 +51,14 @@ public class ReservationController extends BaseController<Reservation, Reservati
             }
         }
         return false;
+    }
+
+    public ResultListDTO<ReservationDTO> getReservationsByMedium(IMediumDTO medium) {
+        List<ReservationDTO> reservations = new LinkedList<>();
+        _mapDomainToDto.keySet().stream().
+                filter(i -> i.getMediumId() == medium.getId() && i.getMediaType().equalsIgnoreCase(medium.getType())).
+                forEach(i -> reservations.add(_mapDomainToDto.get(i)));
+        return new ResultListDTO<>(reservations, null);
     }
 
     @Override

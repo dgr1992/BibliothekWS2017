@@ -21,6 +21,8 @@ import at.fhv.team05.presentation.rental.RentalOverviewPresenter;
 import at.fhv.team05.presentation.rental.RentalOverviewView;
 import at.fhv.team05.presentation.rental.RentalPresenter;
 import at.fhv.team05.presentation.rental.RentalView;
+import at.fhv.team05.presentation.reservation.ReservationPresenter;
+import at.fhv.team05.presentation.reservation.ReservationView;
 import at.fhv.team05.presentation.search.SearchPresenter;
 import at.fhv.team05.presentation.search.SearchView;
 import javafx.fxml.FXML;
@@ -114,12 +116,17 @@ public class MainViewPresenter extends Presenter {
         contentContainer.getChildren().setAll(rentalOverview.getView());
     }
 
-    public void openReservationView() {
+    public void openReservationView(boolean isOverview) {
         SearchView searchView = new SearchView();
         SearchPresenter presenter = (SearchPresenter) searchView.getPresenter();
-        presenter.setLblViewTitle("Reserve Medium");
         presenter.setParent(this);
-        presenter.doubleClickReservation();
+        if (isOverview) {
+            presenter.setDoubleClickReservationOverview();
+            presenter.setLblViewTitle("Reservation Overview");
+        } else {
+            presenter.doubleClickReservation();
+            presenter.setLblViewTitle("Reserve Medium");
+        }
         contentContainer.getChildren().setAll(searchView.getView());
     }
 
@@ -133,6 +140,16 @@ public class MainViewPresenter extends Presenter {
         }
         presenter.initView();
         contentContainer.getChildren().setAll(detailView.getView());
+    }
+
+    public void openReservationOverview(IMediumDTO medium) {
+        ReservationView reservationView = new ReservationView();
+        ReservationPresenter presenter = (ReservationPresenter) reservationView.getPresenter();
+        presenter.setParent(this);
+        presenter.setMedium(medium);
+        presenter.initView();
+        contentContainer.getChildren().setAll(reservationView.getView());
+
     }
 
     public void openLoginView() {

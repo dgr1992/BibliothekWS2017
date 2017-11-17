@@ -174,6 +174,11 @@ public class SearchPresenter extends Presenter{
         setDoubleClickDefault(tableViewDvdSearch);
     }
 
+    public void setDoubleClickReservationOverview() {
+        setDoubleClickReservationOverview(tableViewBookSearch);
+        setDoubleClickReservationOverview(tableViewDvdSearch);
+    }
+
     private void setDoubleClickReservation(TableView table) {
         table.setOnMousePressed(event -> {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
@@ -186,6 +191,14 @@ public class SearchPresenter extends Presenter{
         table.setOnMousePressed(event -> {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 parent.openDetailView((IMediumDTO) table.getSelectionModel().getSelectedItem(), false);
+            }
+        });
+    }
+
+    private void setDoubleClickReservationOverview(TableView table) {
+        table.setOnMousePressed(event -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                parent.openReservationOverview((IMediumDTO) table.getSelectionModel().getSelectedItem());
             }
         });
     }

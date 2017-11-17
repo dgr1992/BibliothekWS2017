@@ -38,5 +38,7 @@ public interface IRMIApplicationController extends Remote {
 
     ResultDTO<Boolean> extendRentedMedium(RentalDTO rentalDTO) throws RemoteException;
 
+    ResultListDTO<ReservationDTO> getReservationsByMedium(IMediumDTO medium) throws RemoteException;
+
     String getKey() throws RemoteException;
 }

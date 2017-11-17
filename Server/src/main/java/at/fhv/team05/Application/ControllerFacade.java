@@ -111,6 +111,10 @@ public class ControllerFacade {
         return _rentalController.extendRentedMedium(rentalDTO);
     }
 
+    public ResultListDTO<ReservationDTO> getReservationsByMedium(IMediumDTO medium) throws RemoteException {
+        return _reservationController.getReservationsByMedium(medium);
+    }
+
     public boolean existsReservationForMedium(int mediumID, String mediumTyp) {
         return _reservationController.existsReservationForMedium(mediumID, mediumTyp);
     }

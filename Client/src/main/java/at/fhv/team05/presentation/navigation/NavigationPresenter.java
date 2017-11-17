@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 
-public class NavigationPresenter extends Presenter{
+public class NavigationPresenter extends Presenter {
 
 
     @FXML
@@ -26,12 +26,17 @@ public class NavigationPresenter extends Presenter{
 
     @FXML
     void onReserveMediumButtonPressed(ActionEvent event) {
-        parent.openReservationView();
+        parent.openReservationView(false);
     }
 
     @FXML
     void onLogoutButtonPressed(ActionEvent event) {
         parent.changeNavigationBarToLoggedOut();
         parent.openSearchView();
+    }
+
+    @FXML
+    void onReservationOverviewButtonPressed(ActionEvent event) {
+        parent.openReservationView(true);
     }
 }

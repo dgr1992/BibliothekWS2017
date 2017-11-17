@@ -91,6 +91,11 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
+    public ResultListDTO<ReservationDTO> getReservationsByMedium(IMediumDTO medium) throws RemoteException {
+        return _controllerFacade.getReservationsByMedium(medium);
+    }
+
+    @Override
     public ResultDTO<Boolean> authenticateUser(UserAccountDTO accountDTO) throws RemoteException {
         return _controllerFacade.authenticateUser(accountDTO, _key);
     }
