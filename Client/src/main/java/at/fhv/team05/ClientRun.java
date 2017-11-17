@@ -5,6 +5,7 @@ import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 import at.fhv.team05.rmiinterfaces.IRMIFactory;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.net.MalformedURLException;
@@ -27,11 +28,18 @@ public class ClientRun extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        MainView appView = new MainView();
+        //If the connection to the server failed then show popup message
+        if(controller == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Server not running or wrong connection details.");
+            alert.show();
+        } else {
+            MainView appView = new MainView();
 
-        Scene scene = new Scene(appView.getView());
-        stage.setTitle("Library");
-        stage.setScene(scene);
-        stage.show();
+            Scene scene = new Scene(appView.getView());
+            stage.setTitle("Library");
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 }
