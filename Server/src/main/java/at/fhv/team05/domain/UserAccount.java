@@ -1,19 +1,26 @@
 package at.fhv.team05.domain;
 
+import at.fhv.team05.ObjectInterfaces.IUserAccount;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "UserAccount")
-public class UserAccount implements IDomainObject {
+public class UserAccount implements IDomainObject, IUserAccount {
     private int id;
     private String username;
     private String email;
     private Set<UserRole> roles;
+    /**
+     * organizational unit
+     */
+    private String ou;
 
-    @Override
+
     @Id
     @Column(name = "id", nullable = false)
+    @Override
     public int getId() {
         return id;
     }
@@ -22,6 +29,7 @@ public class UserAccount implements IDomainObject {
         this.id = id;
     }
 
+    @Override
     @Basic
     @Column(name = "username", nullable = false, length = 50)
     public String getUsername() {
@@ -32,8 +40,9 @@ public class UserAccount implements IDomainObject {
         this.username = username;
     }
 
+    @Override
     @Basic
-    @Column(name = "email", nullable = true, length = 50)
+    @Column(name = "email", length = 50)
     public String getEmail() {
         return email;
     }
@@ -52,6 +61,16 @@ public class UserAccount implements IDomainObject {
         this.roles = roles;
     }
 
+    @Basic
+    @Column(name = "organizationalUnit", nullable = false, length = 50)
+    public String getOu() {
+        return ou;
+    }
+
+    public void setOu(String ou) {
+        this.ou = ou;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -63,24 +82,24 @@ public class UserAccount implements IDomainObject {
 
         UserAccount that = (UserAccount) o;
 
-        if (id != that.id) {
-            return false;
-        }
         if (username != null ? !username.equals(that.username) : that.username != null) {
             return false;
         }
-        if (email != null ? !email.equals(that.email) : that.email != null) {
+        if (email != null ? !email.equalsIgnoreCase(that.email) : that.email != null) {
             return false;
         }
-
-        return true;
+        if (roles != null ? !roles.equals(that.roles) : that.roles != null) {
+            return false;
+        }
+        return ou != null ? ou.equals(that.ou) : that.ou == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
+        int result = username != null ? username.hashCode() : 0;
         result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (roles != null ? roles.hashCode() : 0);
+        result = 31 * result + (ou != null ? ou.hashCode() : 0);
         return result;
     }
 }

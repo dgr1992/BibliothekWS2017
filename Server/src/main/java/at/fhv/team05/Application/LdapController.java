@@ -26,37 +26,34 @@ public class LdapController extends BaseController<UserAccount, UserAccountDTO> 
         super(userAccountClass);
     }
 
-    private LdapController() {
-        super(UserAccount.class);
-    }
-
     public static LdapController getInstance() {
         if (mInstance == null) {
-            mInstance = new LdapController();
+            mInstance = new LdapController(UserAccount.class);
         }
         return mInstance;
     }
 
-    public ResultDTO<Boolean> authenticateUser(String uname, String pw, String key) {
-
+    public ResultDTO<Boolean> authenticateUser(UserAccountDTO accountDTO, String key) {
+        UserAccount account = _mapDtoToDomain.get(accountDTO);
+        String pw = "";
         try {
-            pw = decryptCredentials(key, pw);
+            pw = decryptCredentials(key, accountDTO.getPassword());
         } catch (NoSuchPaddingException | NoSuchAlgorithmException | BadPaddingException | InvalidKeyException | IllegalBlockSizeException e) {
             e.printStackTrace();
         }
 
-        if (mailAuthentication(uname)) {
+        if (account != null) {
 
-            String[] splitUserName = uname.split("@");
+            String[] splitUserName = account.getUsername().split("@");
             String userName = splitUserName[0];
 
             Hashtable<String, String> env = new Hashtable<>();
 
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-            env.put(Context.PROVIDER_URL, "ldaps://openldap.fhv.at:636/o=fhv.at");
+            env.put(Context.PROVIDER_URL, "ldaps://openldap.fhv.at:636");
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
-            env.put(Context.SECURITY_PRINCIPAL, "uid=" + (uname.equals("") ? " " : userName) + ",ou=people,o=fhv.at");
-            env.put(Context.SECURITY_CREDENTIALS, (pw.equals("") ? " " : pw));
+            env.put(Context.SECURITY_PRINCIPAL, "uid=" + userName + ",ou=" + account.getOu() + ",o=fhv.at");
+            env.put(Context.SECURITY_CREDENTIALS, pw);
 
             try {
                 DirContext ctx = new InitialDirContext(env);
@@ -68,38 +65,16 @@ public class LdapController extends BaseController<UserAccount, UserAccountDTO> 
         } else {
             return new ResultDTO<>(false, new Exception("Email address not found."));
         }
-
-    }
-
-    private boolean mailAuthentication(String mname) {
-        for (UserAccount acc : _mapDomainToDto.keySet()) {
-            if (acc.getEmail().equalsIgnoreCase(mname)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
     protected UserAccountDTO createDTO(UserAccount object) {
-        return null;
+        return new UserAccountDTO(object);
     }
 
     @Override
     protected boolean compareInput(UserAccount object, UserAccountDTO userAccountDTO) {
         return false;
-    }
-
-    private String byteArrayToHexString(byte[] b) {
-        StringBuffer sb = new StringBuffer(b.length * 2);
-        for (int i = 0; i < b.length; i++) {
-            int v = b[i] & 0xff;
-            if (v < 16) {
-                sb.append('0');
-            }
-            sb.append(Integer.toHexString(v));
-        }
-        return sb.toString().toUpperCase();
     }
 
     private byte[] hexStringToByteArray(String s) {
@@ -127,7 +102,6 @@ public class LdapController extends BaseController<UserAccount, UserAccountDTO> 
         while (sb.length() < numchars) {
             sb.append(Integer.toHexString(r.nextInt()));
         }
-
         return sb.toString().substring(0, numchars);
     }
 }

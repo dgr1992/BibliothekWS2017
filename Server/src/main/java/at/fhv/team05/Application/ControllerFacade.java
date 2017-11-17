@@ -97,8 +97,8 @@ public class ControllerFacade {
     }
 
 
-    public ResultDTO<Boolean> authenticateUser(String uname, String pw, String key) throws RemoteException {
-        return _ldapController.authenticateUser(uname, pw, key);
+    public ResultDTO<Boolean> authenticateUser(UserAccountDTO accountDTO, String key) throws RemoteException {
+        return _ldapController.authenticateUser(accountDTO, key);
     }
 
 
