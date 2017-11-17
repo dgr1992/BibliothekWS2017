@@ -78,6 +78,9 @@
                         <TableColumn fx:id="tblColPhoneNumber" prefWidth="167.0" text="Phone Number" />
                         <TableColumn fx:id="tblColDateOfBirth" prefWidth="183.0" text="Date Of Birth" />
                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                </children>
             </AnchorPane>
