@@ -28,7 +28,6 @@ public class LoginPresenter extends Presenter implements Initializable {
     public AnchorPane loginAnchorPane;
     @FXML
     private TextField username;
-
     @FXML
     private PasswordField password;
 
@@ -55,7 +54,7 @@ public class LoginPresenter extends Presenter implements Initializable {
             UserAccountDTO accountDTO = new UserAccountDTO();
             accountDTO.setEmail(getUsr());
             accountDTO.setPassword(cryptedPassword);
-            
+
             ResultDTO<Boolean> resultBoolean = ClientRun.controller.authenticateUser(accountDTO);
             if (resultBoolean.getDto()) {
                 parent.changeNavigationBarToLoggedIn();
@@ -89,7 +88,7 @@ public class LoginPresenter extends Presenter implements Initializable {
     }
 
     private String byteArrayToHexString(byte[] b) {
-        StringBuffer sb = new StringBuffer(b.length * 2);
+        StringBuilder sb = new StringBuilder(b.length * 2);
         for (int i = 0; i < b.length; i++) {
             int v = b[i] & 0xff;
             if (v < 16) {
