@@ -2,6 +2,7 @@ package at.fhv.team05.presentation.login;
 
 import at.fhv.team05.ClientRun;
 import at.fhv.team05.ResultDTO;
+import at.fhv.team05.dtos.UserAccountDTO;
 import at.fhv.team05.presentation.Presenter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -51,8 +52,11 @@ public class LoginPresenter extends Presenter implements Initializable {
             } catch (NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidKeyException | InvalidAlgorithmParameterException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-
-            ResultDTO<Boolean> resultBoolean = ClientRun.controller.authenticateUser(getUsr(), cryptedPassword);
+            UserAccountDTO accountDTO = new UserAccountDTO();
+            accountDTO.setEmail(getUsr());
+            accountDTO.setPassword(cryptedPassword);
+            
+            ResultDTO<Boolean> resultBoolean = ClientRun.controller.authenticateUser(accountDTO);
             if (resultBoolean.getDto()) {
                 parent.changeNavigationBarToLoggedIn();
                 parent.openSearchView();

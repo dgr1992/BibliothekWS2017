@@ -12,7 +12,7 @@ public interface IRMIApplicationController extends Remote {
 
     ResultListDTO<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException;
 
-    ResultDTO<Boolean> authenticateUser(String uname, String pw) throws RemoteException;
+    ResultDTO<Boolean> authenticateUser(UserAccountDTO accountDTO) throws RemoteException;
 
     ResultDTO<Boolean> rentMedium(RentalDTO rental) throws RemoteException;
 
