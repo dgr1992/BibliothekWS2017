@@ -2,6 +2,7 @@ package at.fhv.team05.RMI;
 
 import at.fhv.team05.Application.ControllerFacade;
 import at.fhv.team05.Application.LdapController;
+import at.fhv.team05.Enum.MediaLoanPeriod;
 import at.fhv.team05.ResultDTO;
 import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.dtos.*;
@@ -31,7 +32,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public ResultDTO<Boolean> rentMedium(RentalDTO rental) {
+    public ResultDTO<Boolean> rentMedium(RentalDTO rental) throws RemoteException {
         return _controllerFacade.rentMedium(rental);
     }
 
@@ -66,7 +67,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public ResultListDTO<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) {
+    public ResultListDTO<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) throws RemoteException {
         return _controllerFacade.getCopiesByMedium(mediumDTO);
     }
 
@@ -101,7 +102,28 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public String getKey() {
+    public String getKey() throws RemoteException {
         return _key;
     }
+
+    @Override
+    public ResultDTO<ConfigurationDataDTO> getLoanPeriodFor(MediaLoanPeriod mediaLoanPeriod) throws RemoteException {
+        ResultDTO<ConfigurationDataDTO> result;
+
+        switch (mediaLoanPeriod){
+            case DVD:
+                result = _controllerFacade.getConfigDTOFor("DVDLoanPeriod");
+                break;
+            case Book:
+                result = _controllerFacade.getConfigDTOFor("BookLoanPeriod");
+                break;
+            default:
+                result = new ResultDTO<>(null, new Exception("No loan period for " + mediaLoanPeriod));
+                break;
+        }
+
+        return  result;
+    }
+
+
 }

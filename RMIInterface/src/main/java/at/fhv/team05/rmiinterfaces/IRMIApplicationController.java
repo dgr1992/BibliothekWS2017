@@ -1,5 +1,6 @@
 package at.fhv.team05.rmiinterfaces;
 
+import at.fhv.team05.Enum.MediaLoanPeriod;
 import at.fhv.team05.ResultDTO;
 import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.dtos.*;
@@ -41,4 +42,6 @@ public interface IRMIApplicationController extends Remote {
     ResultListDTO<ReservationDTO> getReservationsByMedium(IMediumDTO medium) throws RemoteException;
 
     String getKey() throws RemoteException;
+
+    ResultDTO<ConfigurationDataDTO> getLoanPeriodFor(MediaLoanPeriod mediaLoanPeriod) throws RemoteException;
 }

@@ -143,7 +143,8 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         Rental rental = getDomain(rentalDTO);
         if (rental!=null && rental.getExtendCounter() < 2) {
             Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DATE, 14);
+            int loanPeriodExtension = Integer.parseInt(_controllerFacade.getConfigFor("LoanPeriodExtension").getValue());
+            calendar.add(Calendar.DATE, loanPeriodExtension);
             rental.setDeadline((new Date(calendar.getTimeInMillis())));
             rental.setExtendCounter(rental.getExtendCounter() + 1);
             save(rental);

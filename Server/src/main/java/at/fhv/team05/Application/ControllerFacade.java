@@ -3,6 +3,7 @@ package at.fhv.team05.Application;
 
 import at.fhv.team05.Application.medium.BookController;
 import at.fhv.team05.Application.medium.DvdController;
+import at.fhv.team05.ObjectInterfaces.IConfigurationData;
 import at.fhv.team05.ResultDTO;
 import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.Address;
@@ -22,6 +23,7 @@ public class ControllerFacade {
     private RentalController _rentalController;
     private ReservationController _reservationController;
     private LdapController _ldapController;
+    private ConfigurationDataController _configurationDataController;
 
     private ControllerFacade() {
         _bookController = BookController.getInstance();
@@ -32,6 +34,7 @@ public class ControllerFacade {
         _rentalController = RentalController.getInstance();
         _reservationController = ReservationController.getInstance();
         _ldapController = LdapController.getInstance();
+        _configurationDataController = ConfigurationDataController.getInstance();
     }
 
     public static ControllerFacade getInstance() {
@@ -42,27 +45,27 @@ public class ControllerFacade {
     }
 
 
-    public ResultListDTO<BookDTO> searchForBook(BookDTO book) throws RemoteException {
+    public ResultListDTO<BookDTO> searchForBook(BookDTO book) {
         return _bookController.searchFor(book);
     }
 
 
-    public ResultListDTO<DvdDTO> searchForDvd(DvdDTO dvd) throws RemoteException {
+    public ResultListDTO<DvdDTO> searchForDvd(DvdDTO dvd) {
         return _dvdController.searchFor(dvd);
     }
 
 
-    public ResultListDTO<CustomerDTO> searchForCustomer(CustomerDTO customer) throws RemoteException {
+    public ResultListDTO<CustomerDTO> searchForCustomer(CustomerDTO customer) {
         return _customerController.searchFor(customer);
     }
 
 
-    public ResultDTO<BookDTO> searchBookById(int mediumId) throws RemoteException {
+    public ResultDTO<BookDTO> searchBookById(int mediumId) {
         return _bookController.searchById(mediumId);
     }
 
 
-    public ResultDTO<DvdDTO> searchDvdById(int mediumId) throws RemoteException {
+    public ResultDTO<DvdDTO> searchDvdById(int mediumId) {
         return _dvdController.searchById(mediumId);
     }
 
@@ -72,7 +75,7 @@ public class ControllerFacade {
     }
 
 
-    public ResultDTO<CopyDTO> searchCopyByCopyNumber(int copyNumber) throws RemoteException {
+    public ResultDTO<CopyDTO> searchCopyByCopyNumber(int copyNumber) {
         return _copyController.searchCopyByCopyNumber(copyNumber);
     }
 
@@ -82,36 +85,36 @@ public class ControllerFacade {
     }
 
 
-    public ResultDTO<CustomerDTO> extendSubscription(CustomerDTO customer) throws RemoteException {
+    public ResultDTO<CustomerDTO> extendSubscription(CustomerDTO customer) {
         return _customerController.extendSubscription(customer);
     }
 
 
-    public boolean checkAvailabilityOfMedium(IMediumDTO mediumDTO) throws RemoteException {
+    public boolean checkAvailabilityOfMedium(IMediumDTO mediumDTO) {
         return _reservationController.checkAvailability(mediumDTO);
     }
 
 
-    public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
+    public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) {
         _reservationController.reserveMedium(mediumDTO, customerDTO);
     }
 
 
-    public ResultDTO<Boolean> authenticateUser(UserAccountDTO accountDTO, String key) throws RemoteException {
+    public ResultDTO<Boolean> authenticateUser(UserAccountDTO accountDTO, String key) {
         return _ldapController.authenticateUser(accountDTO, key);
     }
 
 
-    public ResultDTO<CustomerRentalDTO> getRentalsFor(CustomerDTO customerDTO) throws RemoteException {
+    public ResultDTO<CustomerRentalDTO> getRentalsFor(CustomerDTO customerDTO) {
         return _rentalController.getRentalsFor(customerDTO);
     }
 
 
-    public ResultDTO<Boolean> extendRentedMedium(RentalDTO rentalDTO) throws RemoteException {
+    public ResultDTO<Boolean> extendRentedMedium(RentalDTO rentalDTO) {
         return _rentalController.extendRentedMedium(rentalDTO);
     }
 
-    public ResultListDTO<ReservationDTO> getReservationsByMedium(IMediumDTO medium) throws RemoteException {
+    public ResultListDTO<ReservationDTO> getReservationsByMedium(IMediumDTO medium)  {
         return _reservationController.getReservationsByMedium(medium);
     }
 
@@ -123,8 +126,8 @@ public class ControllerFacade {
         return _copyController.returnCopy(copyDTO);
     }
 
-    public Address getDomainAddress(AddressDTO adressDTO) {
-        return _addressController.getDomain(adressDTO);
+    public Address getDomainAddress(AddressDTO addressDTO) {
+        return _addressController.getDomain(addressDTO);
     }
 
     public Copy getDomainCopy(CopyDTO copyDTO) {
@@ -135,4 +138,11 @@ public class ControllerFacade {
         return _customerController.getDomain(customerDTO);
     }
 
+    public IConfigurationData getConfigFor(String name){
+        return _configurationDataController.getConfigFor(name);
+    }
+
+    public ResultDTO<ConfigurationDataDTO> getConfigDTOFor(String name){
+        return _configurationDataController.getConfigDTOFor(name);
+    }
 }
