@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                scripts{
+                script{
                     withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
                         sh 'kill $(ps aux | grep -F BibliothekWS2017Server | grep -v -F 'grep' | awk '{ print $2 }') || true'
                         sh 'nohup java -jar ./Server/target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar &'
