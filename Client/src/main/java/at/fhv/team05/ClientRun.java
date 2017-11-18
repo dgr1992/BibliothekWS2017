@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -18,7 +21,8 @@ public class ClientRun extends Application {
 
     public static void main(String[] args) {
         try {
-            IRMIFactory rmiControllerFactory = (IRMIFactory) Naming.lookup("rmi://localhost/IRMIFactory");
+            String backendIpAddress = readIpAddressFromConfig();
+            IRMIFactory rmiControllerFactory = (IRMIFactory) Naming.lookup("rmi://" + backendIpAddress + "/IRMIFactory");
             controller = rmiControllerFactory.createController();
         } catch (RemoteException | NotBoundException | MalformedURLException e) {
             e.printStackTrace();
@@ -41,5 +45,38 @@ public class ClientRun extends Application {
             stage.setScene(scene);
             stage.show();
         }
+    }
+
+    private static String readIpAddressFromConfig(){
+        String ipAddress = null;
+
+        BufferedReader br = null;
+        FileReader fr = null;
+        try {
+            br = new BufferedReader(new FileReader(System.getProperty("user.dir")+ "/Config/client.config"));
+            String sCurrentLine;
+
+            //Search for the ip-Address config section
+            while ((sCurrentLine = br.readLine()) != null) {
+                if(!sCurrentLine.trim().startsWith("#") && sCurrentLine.contains("ip-Address")){
+                    ipAddress = sCurrentLine.split("=")[1];
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+                if (fr != null) {
+                    fr.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return ipAddress;
     }
 }
