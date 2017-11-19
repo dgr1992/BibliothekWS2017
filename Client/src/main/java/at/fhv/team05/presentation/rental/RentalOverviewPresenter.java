@@ -1,11 +1,9 @@
 package at.fhv.team05.presentation.rental;
 
 import at.fhv.team05.ClientRun;
+import at.fhv.team05.Enum.MediaLoanPeriod;
 import at.fhv.team05.ResultDTO;
-import at.fhv.team05.dtos.CopyDTO;
-import at.fhv.team05.dtos.CustomerDTO;
-import at.fhv.team05.dtos.IMediumDTO;
-import at.fhv.team05.dtos.RentalDTO;
+import at.fhv.team05.dtos.*;
 import at.fhv.team05.presentation.Presenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 
 import java.rmi.RemoteException;
+import java.text.ParseException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class RentalOverviewPresenter extends Presenter {
@@ -54,20 +54,27 @@ public class RentalOverviewPresenter extends Presenter {
     @FXML
     void onConfirmButtonPressed(ActionEvent event) {
         try {
-            Date today = new Date(Calendar.getInstance().getTime().getTime());
-            Calendar calendar = Calendar.getInstance();
+            Date today = new Date(Calendar.getInstance().getTimeInMillis());
+            ResultDTO<ConfigurationDataDTO> loadPeriodResult;
             if ("book".equalsIgnoreCase(copy.getMediaType())) {
-                calendar.add(Calendar.MONTH, 1);
+                loadPeriodResult = ClientRun.controller.getLoanPeriodFor(MediaLoanPeriod.Book);
             } else {
-                calendar.add(Calendar.DATE, 14);
+                loadPeriodResult = ClientRun.controller.getLoanPeriodFor(MediaLoanPeriod.DVD);
             }
-            Date deadline = new Date(calendar.getTimeInMillis());
-            RentalDTO rental = new RentalDTO(copy, customer, today, deadline);
-            ResultDTO<Boolean> resultDTO = ClientRun.controller.rentMedium(rental);
-            if (resultDTO.getDto()) {
-                infoAlert("Medium successfully rented!");
+            if (loadPeriodResult.getException() == null) {
+                Integer loanPeriod = Integer.valueOf(loadPeriodResult.getDto().getValue());
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DATE, loanPeriod);
+                Date deadline = new Date(calendar.getTimeInMillis());
+                RentalDTO rental = new RentalDTO(copy, customer, today, deadline);
+                ResultDTO<Boolean> resultDTO = ClientRun.controller.rentMedium(rental);
+                if (resultDTO.getDto()) {
+                    infoAlert("Medium successfully rented!");
+                } else {
+                    errorAlert("ERROR! " + resultDTO.getException().getMessage());
+                }
             } else {
-                errorAlert("ERROR! " + resultDTO.getException().getMessage());
+                errorAlert(loadPeriodResult.getException().getMessage());
             }
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -109,12 +116,12 @@ public class RentalOverviewPresenter extends Presenter {
                 e.printStackTrace();
             }
         }
-        if (medium != null) {
+        if (medium.getDto() != null) {
             lblMediumNumber.setText(Integer.toString(copy.getCopyNumber()));
             lblTitle.setText(medium.getDto().getTitle());
             lblCustomerName.setText(customer.getFirstName() + " " + customer.getLastName());
             lblStreet.setText(customer.getAddress().getStreet() + " " + customer.getAddress().getStreetNumber());
-            lblZipCity.setText(customer.getAddress().getZip() + " / " + customer.getAddress().getCity());
+            lblZipCity.setText(customer.getAddress().getZip() + " " + customer.getAddress().getCity());
             lblCustomerNumber.setText(Integer.toString(customer.getCustomerId()));
             Date today = new Date(Calendar.getInstance().getTimeInMillis());
             Date paymentDate = customer.getPaymentDate();

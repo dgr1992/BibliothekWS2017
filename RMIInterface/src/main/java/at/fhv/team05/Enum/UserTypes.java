@@ -1,4 +1,4 @@
-package at.fhv.team05;
+package at.fhv.team05.Enum;
 
 public enum UserTypes {
     admin,
