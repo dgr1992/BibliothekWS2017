@@ -1,15 +1,18 @@
 package at.fhv.team05.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "UserRole")
 public class UserRole implements IDomainObject {
     private int id;
     private String role;
+    private Set<Right> rights;
 
     @Override
     @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -27,6 +30,19 @@ public class UserRole implements IDomainObject {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "roleToRight",
+            joinColumns = @JoinColumn(name = "roleId"),
+            inverseJoinColumns = @JoinColumn(name = "rightId"))
+    public Set<Right> getRights() {
+        return rights;
+    }
+
+    public void setRights(Set<Right> rights) {
+        this.rights = rights;
     }
 
     @Override

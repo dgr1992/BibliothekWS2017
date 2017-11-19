@@ -38,6 +38,7 @@
         <mapping class="at.fhv.team05.domain.UserAccount"/>
         <mapping class="at.fhv.team05.domain.UserRole"/>
         <mapping class="at.fhv.team05.domain.ConfigurationData"/>
+        <mapping class="at.fhv.team05.domain.Right"/>
 
     </session-factory>
 </hibernate-configuration>
