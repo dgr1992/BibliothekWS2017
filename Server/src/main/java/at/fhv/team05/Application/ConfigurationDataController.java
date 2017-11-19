@@ -48,7 +48,7 @@ public class ConfigurationDataController extends BaseController<ConfigurationDat
 
     public ResultDTO<ConfigurationDataDTO> getConfigDTOFor(String name){
         for (ConfigurationData configurationData : _mapDomainToDto.keySet()) {
-            if(configurationData.getName() == name){
+            if(configurationData.getName().compareTo(name) == 0){
                 return new ResultDTO<>(_mapDomainToDto.get(configurationData),null);
             }
         }
