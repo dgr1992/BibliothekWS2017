@@ -122,11 +122,11 @@ public class ControllerFacade {
     }
 
 
-    public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) {
+    public ResultDTO<Boolean> reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) {
         if (_reservationController == null) {
             _reservationController = ReservationController.getInstance();
         }
-        _reservationController.reserveMedium(mediumDTO, customerDTO);
+        return _reservationController.reserveMedium(mediumDTO, customerDTO);
     }
 
 

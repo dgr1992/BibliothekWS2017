@@ -128,15 +128,14 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
-//TODO client auf ResultDTO umbauen
-        //        try {
-//            checkPermission(_controllerFacade.getRight("reserveMedium"));
-        _controllerFacade.reserveMedium(mediumDTO, customerDTO);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResultDTO<>(null, e);
-//        }
+    public ResultDTO<Boolean> reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) throws RemoteException {
+        try {
+            checkPermission(_controllerFacade.getRight("reserveMedium"));
+            return _controllerFacade.reserveMedium(mediumDTO, customerDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultDTO<>(false, e);
+        }
     }
 
     @Override

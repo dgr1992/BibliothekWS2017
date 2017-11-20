@@ -1,6 +1,7 @@
 package at.fhv.team05.presentation.customer.buttons;
 
 import at.fhv.team05.ClientRun;
+import at.fhv.team05.ResultDTO;
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.presentation.Presenter;
@@ -18,7 +19,10 @@ public class ReserveButtonPresenter extends Presenter {
         CustomerDTO customer = (CustomerDTO) customerTable.getSelectionModel().getSelectedItem();
         try {
             if (customer != null) {
-                ClientRun.controller.reserveMedium(medium, customer);
+                ResultDTO<Boolean> resultDto = ClientRun.controller.reserveMedium(medium, customer);
+                if (resultDto.getException() != null) {
+                    errorAlert(resultDto.getException().getMessage());
+                }
             } else {
                 infoAlert("Please select a customer.");
                 return;

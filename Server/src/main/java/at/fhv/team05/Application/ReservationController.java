@@ -1,5 +1,6 @@
 package at.fhv.team05.Application;
 
+import at.fhv.team05.ResultDTO;
 import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.Reservation;
 import at.fhv.team05.dtos.CopyDTO;
@@ -8,7 +9,6 @@ import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.dtos.ReservationDTO;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,15 +33,19 @@ public class ReservationController extends BaseController<Reservation, Reservati
         return !list.isEmpty();
     }
 
-    public void reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) {
+    public ResultDTO<Boolean> reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) {
         Reservation reservedObject = new Reservation();
 
         reservedObject.setMediumId(mediumDTO.getId());
         reservedObject.setCustomer(_controllerFacade.getDomainCustomer(customerDTO));
         reservedObject.setMediaType(mediumDTO.getType());
         reservedObject.setReservationDate(new Date(Calendar.getInstance().getTimeInMillis()));
-
-        save(reservedObject);
+        try {
+            save(reservedObject);
+            return new ResultDTO<>(true, null);
+        } catch (Exception e) {
+            return new ResultDTO<>(false, null);
+        }
     }
 
     public boolean existsReservationForMedium(int mediumID, String mediumTyp) {
