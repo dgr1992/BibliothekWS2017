@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.customer.CustomerDetailPresenter">
+   <children>
+      <VBox layoutX="115.0" layoutY="39.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <Label text="Details">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TitledPane fx:id="titledPaneCustomer" text="Customer">
+               <content>
+                  <AnchorPane prefHeight="300.0" prefWidth="800.0">
+                     <children>
+                        <GridPane layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.0" minWidth="10.0" prefWidth="153.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="829.0" minWidth="10.0" prefWidth="257.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="705.0" minWidth="10.0" prefWidth="106.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="705.0" minWidth="10.0" prefWidth="300.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Customer Number" />
+                              <Label text="First Name" GridPane.rowIndex="1" />
+                              <Label text="Last Name" GridPane.rowIndex="2" />
+                              <Label text="Street" GridPane.rowIndex="3" />
+                              <Label text="ZIP/City" GridPane.rowIndex="4" />
+                              <Label text="Abo Until" GridPane.rowIndex="5" />
+                              <Label fx:id="lblCustomerNr" GridPane.columnIndex="1" />
+                              <Label fx:id="lblFirstName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="lblLastName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="lblStreet" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="lblZipCity" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="lblAboUntil" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label text="Birthday" GridPane.columnIndex="2">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Email" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Phonenumber" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="lblBirthday" GridPane.columnIndex="3" />
+                              <Label fx:id="lblMail" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <Label fx:id="lblPhone" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+            <AnchorPane prefHeight="388.0" prefWidth="1200.0">
+               <children>
+                  <TabPane prefHeight="196.0" prefWidth="370.0" stylesheets="@../search/tabPane.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                    <tabs>
+                      <Tab text="Currently Rented">
+                           <content>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="tableViewCurrent" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                      <columns>
+                                        <TableColumn fx:id="tblColCopyNrCurrent" prefWidth="236.0" text="Copy Number" />
+                                        <TableColumn fx:id="tblColTitleCurrent" prefWidth="275.0" text="Title" />
+                                          <TableColumn fx:id="tblColPickUpDateCurrent" prefWidth="308.0" text="Pickup Date" />
+                                          <TableColumn fx:id="tblColDeadline" prefWidth="167.0" text="Deadline" />
+                                          <TableColumn fx:id="tblColExtensions" prefWidth="161.0" text="Extensions" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                      <Tab text="History">
+                           <content>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="tableViewHistory" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                       <columns>
+                                          <TableColumn fx:id="tblColCopyNrHistory" prefWidth="236.0" text="Copy Number" />
+                                          <TableColumn fx:id="tblColTitleHistory" prefWidth="316.0" text="Title" />
+                                          <TableColumn fx:id="tblColPickupDateHistory" prefWidth="278.0" text="Pickup Date" />
+                                          <TableColumn fx:id="tblColReturnDate" prefWidth="167.0" text="Return Date" />
+                                       </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -20,14 +20,20 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'echo "No docker, no cry ;)"'
+                script{
+                    withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+                        sh 'chmod +x ./Server/target/kill.sh'
+                        sh './Server/target/kill.sh'
+                        sh 'nohup java -jar ./Server/target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar &'
+                    }
+                }
             }
         }
     }
     post {
         always {
-            archive 'Server/target/*.jar'
-            archive 'Client/target/*.jar'
+            archive 'Server/target/*.jar, Server/target/hibernate.cfg.xml, Server/target/log4j.properties, Server/target/kill.sh'
+            archive 'Client/target/*.jar, Client/target/Config/'
         }
     }
 }
