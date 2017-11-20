@@ -27,9 +27,6 @@ public class ControllerFacade {
     private HashMap<String, Right> _rights;
 
     private ControllerFacade() {
-        //wird vorerst nicht benötigt
-        //_configurationDataController = ConfigurationDataController.getInstance();
-
         _rights = new HashMap<>();
         RepositoryFactory.getRepositoryInstance(Right.class).list().forEach(right -> _rights.put(right.getName(), right));
     }
@@ -195,10 +192,16 @@ public class ControllerFacade {
     }
 
     public IConfigurationData getConfigFor(String name) {
+        if(_configurationDataController == null){
+            _configurationDataController = ConfigurationDataController.getInstance();
+        }
         return _configurationDataController.getConfigFor(name);
     }
 
     public ResultDTO<ConfigurationDataDTO> getConfigDTOFor(String name) {
+        if(_configurationDataController == null){
+            _configurationDataController = ConfigurationDataController.getInstance();
+        }
         return _configurationDataController.getConfigDTOFor(name);
     }
 
