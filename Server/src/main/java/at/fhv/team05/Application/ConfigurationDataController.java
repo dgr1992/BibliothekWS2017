@@ -35,6 +35,11 @@ public class ConfigurationDataController extends BaseController<ConfigurationDat
         return nameMatch && typMatch && valueMatch;
     }
 
+    /**
+     * earches for a configuration value by the config name
+     * @param name
+     * @return
+     */
     public IConfigurationData getConfigFor(String name){
         IConfigurationData configData = null;
         for (ConfigurationData configurationData : _mapDomainToDto.keySet()) {
@@ -46,6 +51,11 @@ public class ConfigurationDataController extends BaseController<ConfigurationDat
         return configData;
     }
 
+    /**
+     * Searches for a configuration value by the config name
+     * @param name
+     * @return
+     */
     public ResultDTO<ConfigurationDataDTO> getConfigDTOFor(String name){
         for (ConfigurationData configurationData : _mapDomainToDto.keySet()) {
             if(configurationData.getName().compareTo(name) == 0){

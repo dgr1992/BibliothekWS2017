@@ -42,6 +42,11 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         return new CopyDTO(copy);
     }
 
+    /**
+     * Searches for a copy by copy number
+     * @param copyNumber
+     * @return
+     */
     public ResultDTO<CopyDTO> searchCopyByCopyNumber(int copyNumber) {
 
         for (Copy copy : _mapDomainToDto.keySet()) {
@@ -52,6 +57,11 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         return null;
     }
 
+    /***
+     * Resets a copy as available. Reverences to a rental will be removed.
+     * @param copyDTO
+     * @return
+     */
     public ResultDTO<Boolean> returnCopy(CopyDTO copyDTO) {
         Copy copy = _controllerFacade.getDomainCopy(copyDTO);
         if (copy.getRental() == null) {
@@ -78,6 +88,11 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         }
     }
 
+    /**
+     * Searches for all copies for the given medium
+     * @param mediumDTO
+     * @return
+     */
     protected ResultListDTO<CopyDTO> getCopiesByMediumID(IMediumDTO mediumDTO) {
         List<CopyDTO> list = new LinkedList<>();
         _mapDomainToDto.keySet().stream().
