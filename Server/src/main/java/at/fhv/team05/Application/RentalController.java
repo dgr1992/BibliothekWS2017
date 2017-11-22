@@ -28,6 +28,13 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         return _instance;
     }
 
+    /**
+     * Allocates a copy to a customer as rented. Before renting it will be checked if the
+     * copy is allready rented, if the customer needs to pay the fee or if the customer needs to extend the
+     * subscription.
+     * @param copieToRent
+     * @return ResultDTO: if exception is null the boolean value decides if rent was successful
+     */
     public ResultDTO<Boolean> rentCopy(RentalDTO copieToRent) {
         try {
             //the ResultDTO
@@ -86,7 +93,8 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
 
             return result;
         } catch (Exception ex) {
-            return new ResultDTO<>(false, ex);
+            _log.error(ex);
+            return new ResultDTO<Boolean>(false, new Exception("Something went wrong. Contact the administrator."));
         }
     }
 
@@ -103,8 +111,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             rentCopy(rentalDTO);
         }
     }
-
-
+    
     public LinkedList<CopyDTO> copiesRentedBy(CustomerDTO customerDTO) {
 
         return null;
@@ -115,11 +122,27 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         return new RentalDTO(object);
     }
 
+    /**
+     * Compare if the object and dto are the same
+     * @param object
+     * @param rentalDTO
+     * @return
+     */
     @Override
     protected boolean compareInput(Rental object, RentalDTO rentalDTO) {
-        return false;
+        boolean mediumMatch = object.getCopy().getMediumId() == rentalDTO.getCopy().getMediumId();
+        boolean copyMatch = object.getCopy().getCopyNumber() == rentalDTO.getCopy().getCopyNumber();
+        boolean customerMatch = object.getCustomer().getCustomerId() == rentalDTO.getCustomer().getCustomerId();
+        boolean rentIDMatch = object.getId() == rentalDTO.getId();
+
+        return mediumMatch && copyMatch && customerMatch && rentIDMatch;
     }
 
+    /**
+     * Searches for all rentals belonging to the given customer
+     * @param customerDTO
+     * @return Returns rentals allocated to the given customer as rented
+     */
     public ResultDTO<CustomerRentalDTO> getRentalsFor(CustomerDTO customerDTO) {
         CustomerRentalDTO customersRentals = new CustomerRentalDTO();
 
@@ -139,6 +162,11 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         return new ResultDTO<>(customersRentals, null);
     }
 
+    /**
+     * Extends the rent period of a rental. Maximum extend of the rental is two times
+     * @param rentalDTO
+     * @return Returns true if extend was successful. Returns exception message when medium already was extended two times.
+     */
     public ResultDTO<Boolean> extendRentedMedium(RentalDTO rentalDTO) {
         Rental rental = getDomain(rentalDTO);
         if (rental!=null && rental.getExtendCounter() < 2) {
@@ -150,7 +178,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             save(rental);
             return new ResultDTO<>(true, null);
         }
-        return new ResultDTO<>(false, new Exception("Medium was already extended 2 times."));
+        return new ResultDTO<>(false, new Exception("Medium was already extended two times."));
     }
 
 

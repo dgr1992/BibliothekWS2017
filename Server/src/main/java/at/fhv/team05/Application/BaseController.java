@@ -18,7 +18,7 @@ public abstract class BaseController<DomainObject extends IDomainObject, DomainD
     protected HashMap<DomainDTO, DomainObject> _mapDtoToDomain;
     protected static Class currentClass = new Object() {
     }.getClass().getEnclosingClass();
-    protected static final Logger log = LogManager.getLogger(currentClass);
+    protected static final Logger _log = LogManager.getLogger(currentClass);
 
     public BaseController(Class<DomainObject> domainObjectClass) {
         _repository = RepositoryFactory.getRepositoryInstance(domainObjectClass);
