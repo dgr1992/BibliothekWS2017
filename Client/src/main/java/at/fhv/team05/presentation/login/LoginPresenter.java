@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
 import javax.crypto.BadPaddingException;
@@ -34,12 +33,7 @@ public class LoginPresenter extends Presenter implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loginAnchorPane.setOnKeyPressed(event -> {
-            if (event.isControlDown() && event.getCode() == KeyCode.S) {
-                parent.changeNavigationBarToLoggedIn();
-                parent.openSearchView();
-            }
-        });
+
     }
 
     public void loginUser() {
