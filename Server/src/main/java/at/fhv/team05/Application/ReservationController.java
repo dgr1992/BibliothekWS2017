@@ -27,6 +27,11 @@ public class ReservationController extends BaseController<Reservation, Reservati
         return _instance;
     }
 
+    /**
+     * Get all copies that are available and not in status "rented", "present" or "reserved"
+     * @param mediumDTO
+     * @return
+     */
     public boolean checkAvailability(IMediumDTO mediumDTO) {
         List<CopyDTO> list = new LinkedList<>();
         //Only add the copies that have status "available" --> available when the rental object is null
