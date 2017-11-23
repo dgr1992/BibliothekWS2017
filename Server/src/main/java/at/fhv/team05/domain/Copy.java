@@ -98,7 +98,7 @@ public class Copy implements ICopy, IDomainObject, Serializable {
         return _rental;
     }
 
-    public void setRentalId(Rental rental) {
+    public void setRental(Rental rental) {
         _rental = rental;
     }
 
