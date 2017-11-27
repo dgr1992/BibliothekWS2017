@@ -71,6 +71,14 @@ public class ReservationController extends BaseController<Reservation, Reservati
         return new ResultListDTO<>(reservations, null);
     }
 
+    public ResultListDTO<ReservationDTO> getReservationsByIdAndMediumType(int id, String type) {
+        List<ReservationDTO> reservations = new LinkedList<>();
+        _mapDomainToDto.keySet().stream().
+                filter(i -> i.getMediumId() == id && i.getMediaType().equalsIgnoreCase(type)).
+                forEach(i -> reservations.add(_mapDomainToDto.get(i)));
+        return new ResultListDTO<>(reservations, null);
+    }
+
     @Override
     protected ReservationDTO createDTO(Reservation object) {
         return new ReservationDTO(object);

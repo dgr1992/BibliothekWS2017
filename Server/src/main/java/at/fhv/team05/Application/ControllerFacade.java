@@ -156,6 +156,13 @@ public class ControllerFacade {
         return _reservationController.getReservationsByMedium(medium);
     }
 
+    public ResultListDTO<ReservationDTO> getReservationsByIdAndMediumType(int id, String mediumType) {
+        if (_reservationController == null) {
+            _reservationController = ReservationController.getInstance();
+        }
+        return _reservationController.getReservationsByIdAndMediumType(id, mediumType);
+    }
+
     public boolean existsReservationForMedium(int mediumID, String mediumTyp) {
         if (_reservationController == null) {
             _reservationController = ReservationController.getInstance();
