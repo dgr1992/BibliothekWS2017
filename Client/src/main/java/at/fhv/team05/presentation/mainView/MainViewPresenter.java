@@ -13,6 +13,8 @@ import at.fhv.team05.presentation.detailView.DetailPresenter;
 import at.fhv.team05.presentation.detailView.DetailView;
 import at.fhv.team05.presentation.login.LoginPresenter;
 import at.fhv.team05.presentation.login.LoginView;
+import at.fhv.team05.presentation.message.CreateMessagePresenter;
+import at.fhv.team05.presentation.message.CreateMessageView;
 import at.fhv.team05.presentation.navigation.LoginNavigationPresenter;
 import at.fhv.team05.presentation.navigation.LoginNavigationView;
 import at.fhv.team05.presentation.navigation.NavigationPresenter;
@@ -159,5 +161,11 @@ public class MainViewPresenter extends Presenter {
         contentContainer.getChildren().setAll(loginView.getView());
     }
 
+    public void openCreateMessageView() {
+        CreateMessageView messageView = new CreateMessageView();
+        CreateMessagePresenter presenter = (CreateMessagePresenter) messageView.getPresenter();
+        presenter.setParent(this);
+        contentContainer.getChildren().setAll(messageView.getView());
+    }
 
 }
