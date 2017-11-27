@@ -8,7 +8,6 @@ import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.CustomerRentalDTO;
 import at.fhv.team05.dtos.RentalDTO;
-import at.fhv.team05.persistence.RepositoryFactory;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -82,7 +81,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             rental.setCopy(copy);
 
             //Add the rental to the copy
-            copy.setRentalId(rental);
+            copy.setRental(rental);
 
             //set copy status to rented
             copy.setCopyStatus("rented");
@@ -169,7 +168,17 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
      */
     public ResultDTO<Boolean> extendRentedMedium(RentalDTO rentalDTO) {
         Rental rental = getDomain(rentalDTO);
-        if (rental!=null && rental.getExtendCounter() < 2) {
+
+        if(rental == null){
+            return new ResultDTO<>(false, new Exception("Rental not found."));
+        }
+
+        //Check if there is a reservation for this medium
+        if(_controllerFacade.existsReservationForMedium(rental.getCopy().getMediumId(),rental.getCopy().getMediaType())){
+            return new ResultDTO<>(false, new Exception("Extending not possible, medium is reserved."));
+        }
+
+        if (rental.getExtendCounter() < 2) {
             Calendar calendar = Calendar.getInstance();
             int loanPeriodExtension = Integer.parseInt(_controllerFacade.getConfigFor("LoanPeriodExtension").getValue());
             calendar.add(Calendar.DATE, loanPeriodExtension);
@@ -177,8 +186,9 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             rental.setExtendCounter(rental.getExtendCounter() + 1);
             save(rental);
             return new ResultDTO<>(true, null);
+        } else {
+            return new ResultDTO<>(false, new Exception("Medium was already extended two times."));
         }
-        return new ResultDTO<>(false, new Exception("Medium was already extended two times."));
     }
 
 

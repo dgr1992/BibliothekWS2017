@@ -73,14 +73,22 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         Date currentDate = new Date((currenttime.getTime()).getTime());
         copy.getRental().setReturnDate(currentDate);
 
-        copy.setRentalId(null);
-        copy.setCopyStatus("available");
+        //Remove the rental
+        copy.setRental(null);
+
+        //Check if a reservation exists
+        boolean reservationExists = _controllerFacade.existsReservationForMedium(copy.getMediumId(), copy.getMediaType());
+        if(reservationExists){
+            copy.setCopyStatus("reserved");
+        } else {
+            copy.setCopyStatus("available");
+        }
+
         save(copy);
         //Also force a update of the rental repository. Save of copy does not update the rentals
         RentalController.getInstance().fillMap();
 
-        //Check if a reservation exists
-        boolean reservationExists = _controllerFacade.existsReservationForMedium(copy.getMediumId(), copy.getMediaType());
+        //Notify user if the medium has a open reservation
         if (reservationExists) {
             return new ResultDTO<>(true, new Exception("Return process successful. There is a reservation for this media."));
         } else {

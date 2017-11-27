@@ -1,6 +1,6 @@
 package at.fhv.team05.domain.medium;
 
-import at.fhv.team05.ObjectInterfaces.IBook;
+import at.fhv.team05.ObjectInterfaces.*;
 import at.fhv.team05.domain.IDomainObject;
 import at.fhv.team05.persistence.Repository;
 import at.fhv.team05.persistence.RepositoryFactory;
