@@ -38,9 +38,16 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         try {
             //the ResultDTO
             ResultDTO<Boolean> result = new ResultDTO<>(true, null);
+
             //Get the original copy object
             CopyDTO copyDTO = copieToRent.getCopy();
             Copy copy = _controllerFacade.getDomainCopy(copyDTO);
+
+            //Check if there is a reservation for the medium
+            if(_controllerFacade.existsReservationForMedium(copy.getMediumId(),copy.getMediaType())){
+                //Check if the person selected is the person who is waiting longest
+                _controllerFacade.getReservationsByMedium(copieToRent.getCopy())
+            }
 
             if (copy.getRental() != null) {
                 result.setDto(false);
