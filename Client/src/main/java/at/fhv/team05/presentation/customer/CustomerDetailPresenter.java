@@ -161,7 +161,7 @@ public class CustomerDetailPresenter extends Presenter {
                     ResultDTO<Boolean> resultCustomerRental = ClientRun.controller.returnCopy(copyToReturn);
                     if (resultCustomerRental.getDto()) {
                         fillTable(ClientRun.controller.getRentalsFor(customer).getDto());
-                        infoAlert("Return process successful");
+                        infoAlert(resultCustomerRental.getException().getMessage());
                     } else {
                         infoAlert(resultCustomerRental.getException().getMessage());
                     }

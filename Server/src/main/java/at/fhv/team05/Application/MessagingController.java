@@ -3,14 +3,12 @@ package at.fhv.team05.Application;
 import at.fhv.team05.Application.medium.BookController;
 import at.fhv.team05.Application.medium.DvdController;
 import at.fhv.team05.ObjectInterfaces.ICustomer;
+import at.fhv.team05.ResultDTO;
 import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.domain.Rental;
 import at.fhv.team05.domain.medium.Medium;
-import at.fhv.team05.dtos.CopyDTO;
-import at.fhv.team05.dtos.CustomerDTO;
-import at.fhv.team05.dtos.IMediumDTO;
-import at.fhv.team05.dtos.ReservationDTO;
+import at.fhv.team05.dtos.*;
 import at.fhv.team05.messaging.Consumer;
 import at.fhv.team05.messaging.Producer;
 
@@ -41,10 +39,12 @@ public class MessagingController {
             IMediumDTO medium;
             if ("book".equalsIgnoreCase(copyDTO.getMediaType())) {
                 BookController bookController = BookController.getInstance();
-                medium = (IMediumDTO) bookController.searchById(copyDTO.getMediumId());
+                ResultDTO<BookDTO> resultDTO = bookController.searchById(copyDTO.getMediumId());
+                medium = resultDTO.getDto();
             } else {
                 DvdController dvdController = DvdController.getInstance();
-                medium = (IMediumDTO) dvdController.searchById(copyDTO.getMediumId());
+                ResultDTO<DvdDTO> resultDTO = dvdController.searchById(copyDTO.getMediumId());
+                medium = resultDTO.getDto();
             }
             ReservationController reservationController = ReservationController.getInstance();
             ResultListDTO<ReservationDTO> reservationResult = reservationController.getReservationsByMedium(medium);

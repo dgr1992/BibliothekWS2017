@@ -15,7 +15,6 @@ public class ServerRun {
             RMIFactory rmiFactory = new RMIFactory();
             //ActiveMQ Connection
             ActiveMQCon activeMQCon = ActiveMQCon.getInstance();
-            
             Naming.bind("rmi://localhost/IRMIFactory", rmiFactory);
             DatabaseConnection.init();
         } catch (Exception ex) {
