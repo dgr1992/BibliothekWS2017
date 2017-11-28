@@ -89,4 +89,13 @@ public class MessagingController {
             e.printStackTrace();
         }
     }
+
+    public ResultDTO<Boolean> sendMessage(String messageText) {
+        try {
+            _producer.sendMessage(messageText);
+            return new ResultDTO<>(true, new Exception("Message successfully sent."));
+        } catch (JMSException e) {
+            return new ResultDTO<>(false, new Exception("Message could not be sent."));
+        }
+    }
 }
