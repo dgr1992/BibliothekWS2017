@@ -183,6 +183,11 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
+    public void logoutUser() throws RemoteException {
+        _account = null;
+    }
+
+    @Override
     public String getKey() throws RemoteException {
         return _key;
     }
