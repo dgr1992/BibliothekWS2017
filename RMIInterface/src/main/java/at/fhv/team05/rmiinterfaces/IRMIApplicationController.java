@@ -41,6 +41,8 @@ public interface IRMIApplicationController extends Remote {
 
     ResultListDTO<ReservationDTO> getReservationsByMedium(IMediumDTO medium) throws RemoteException;
 
+    void logoutUser() throws RemoteException;
+
     String getKey() throws RemoteException;
 
     ResultDTO<ConfigurationDataDTO> getLoanPeriodFor(MediaLoanPeriod mediaLoanPeriod) throws RemoteException;

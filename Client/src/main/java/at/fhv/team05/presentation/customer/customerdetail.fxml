@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.customer.CustomerDetailPresenter">
+<AnchorPane prefHeight="800.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhv.team05.presentation.customer.CustomerDetailPresenter">
    <children>
       <VBox layoutX="115.0" layoutY="39.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
@@ -93,7 +93,7 @@
                                     <TableView fx:id="tableViewCurrent" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                       <columns>
                                         <TableColumn fx:id="tblColCopyNrCurrent" prefWidth="236.0" text="Copy Number" />
-                                        <TableColumn fx:id="tblColTitleCurrent" prefWidth="275.0" text="Title" />
+                                        <TableColumn fx:id="tblColTitleCurrent" prefWidth="275.0" text="Medium Type" />
                                           <TableColumn fx:id="tblColPickUpDateCurrent" prefWidth="308.0" text="Pickup Date" />
                                           <TableColumn fx:id="tblColDeadline" prefWidth="167.0" text="Deadline" />
                                           <TableColumn fx:id="tblColExtensions" prefWidth="161.0" text="Extensions" />

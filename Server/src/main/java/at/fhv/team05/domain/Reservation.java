@@ -40,7 +40,7 @@ public class Reservation implements IDomainObject, IReservation {
     }
 
     @Override
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "customerId", nullable = false)
     public Customer getCustomer() {
         return customer;

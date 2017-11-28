@@ -3,7 +3,7 @@ package at.fhv.team05.domain;
 import at.fhv.team05.ObjectInterfaces.ICopy;
 import at.fhv.team05.ObjectInterfaces.ICustomer;
 import at.fhv.team05.ObjectInterfaces.IRental;
-import at.fhv.team05.persistence.DBFacade;
+import at.fhv.team05.persistence.RepositoryFactory;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -157,9 +157,7 @@ public class Rental implements IRental, IDomainObject {
     }
 
     public static void main(String[] args) {
-        DBFacade dbFacade = DBFacade.getInstance();
-
-        List<Rental> rentals = dbFacade.getAllRental();
+        List<Rental> rentals = RepositoryFactory.getRepositoryInstance(Rental.class).list();
 
         System.out.println(rentals);
     }

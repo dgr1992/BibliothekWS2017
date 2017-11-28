@@ -1,6 +1,7 @@
 package at.fhv.team05.Application;
 
 import at.fhv.team05.ResultDTO;
+import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.domain.Customer;
 import at.fhv.team05.domain.Rental;
@@ -8,6 +9,7 @@ import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.CustomerRentalDTO;
 import at.fhv.team05.dtos.RentalDTO;
+import at.fhv.team05.dtos.ReservationDTO;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -38,9 +40,41 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         try {
             //the ResultDTO
             ResultDTO<Boolean> result = new ResultDTO<>(true, null);
+
             //Get the original copy object
             CopyDTO copyDTO = copieToRent.getCopy();
             Copy copy = _controllerFacade.getDomainCopy(copyDTO);
+
+            //Check if the copy is a present object
+            if(copy.getCopyStatus().compareToIgnoreCase("present") == 0){
+                result.setDto(false);
+                result.setException(new Exception("Present copies cannot be rented"));
+                return result;
+            }
+
+            //Check if there is a reservation for the medium
+            if(_controllerFacade.existsReservationForMedium(copy.getMediumId(),copy.getMediaType())){
+                //Check if the person selected is the person who is waiting longest
+                ResultListDTO<ReservationDTO> resultList = _controllerFacade.getReservationsByIdAndMediumType(copieToRent.getCopy().getMediumId(),copieToRent.getCopy().getMediaType());
+
+                //Get the oldest reservation
+                ReservationDTO longestWaitReservation = null;
+                for (ReservationDTO reservation: resultList.getListDTO()) {
+                    if(longestWaitReservation == null || longestWaitReservation.getReservationDate().after(reservation.getReservationDate())){
+                        longestWaitReservation = reservation;
+                    }
+                }
+
+                //If current customer is the customer from the reservation everything is ok otherwise exception
+                if(longestWaitReservation.getCustomer().getCustomerId() != copieToRent.getCustomer().getCustomerId()){
+                    result.setDto(false);
+                    result.setException(new Exception("Medium is reserved for customer " + longestWaitReservation.getCustomer().getCustomerId() + " " + longestWaitReservation.getCustomer().getFirstName() + " " + longestWaitReservation.getCustomer().getLastName()));
+                    return result;
+                }
+
+                //Remove reservation
+                _controllerFacade.removeReservation(longestWaitReservation);
+            }
 
             if (copy.getRental() != null) {
                 result.setDto(false);

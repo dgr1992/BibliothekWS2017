@@ -13,6 +13,13 @@ import at.fhv.team05.rmiinterfaces.IRMIApplicationController;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * This Class is the only UnicastRemoteObject which is needed for the RMI.
+ * The RMIController holds an instance of the controllerFacade, each Methode gets forwarded to the facade.
+ * Before the forwarding the rights of the user are checked, if the user has the needed permissions.
+ * <p>
+ * This Class also holds client specific attributes like the account or the key for the encryption.
+ */
 public class RMIApplicationController extends UnicastRemoteObject implements IRMIApplicationController {
     private ControllerFacade _controllerFacade;
     private final String _key;
@@ -113,13 +120,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
 
     @Override
     public ResultListDTO<CopyDTO> getCopiesByMedium(IMediumDTO mediumDTO) throws RemoteException {
-        try {
-            checkPermission(_controllerFacade.getRight("searchCopy"));
-            return _controllerFacade.getCopiesByMedium(mediumDTO);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResultListDTO<>(null, e);
-        }
+        return _controllerFacade.getCopiesByMedium(mediumDTO);
     }
 
     @Override
@@ -182,6 +183,11 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
+    public void logoutUser() throws RemoteException {
+        _account = null;
+    }
+
+    @Override
     public String getKey() throws RemoteException {
         return _key;
     }
@@ -204,6 +210,12 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
         return result;
     }
 
+    /**
+     * This method checks if the user has the needed rights to perform the action.
+     *
+     * @param right
+     * @throws Exception
+     */
     private void checkPermission(Right right) throws Exception {
         if (_account != null && _account.getRoles() != null && (_account.getRoles().stream().filter(role -> role.getRights().contains(right)).count() > 0)) {
             return;

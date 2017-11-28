@@ -1,7 +1,7 @@
 package at.fhv.team05.domain;
 
 import at.fhv.team05.ObjectInterfaces.ICopy;
-import at.fhv.team05.persistence.DBFacade;
+import at.fhv.team05.persistence.RepositoryFactory;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -76,6 +76,7 @@ public class Copy implements ICopy, IDomainObject, Serializable {
     }
 
 
+    @Override
     public Category getCategory() {
         return _category;
     }
@@ -84,6 +85,7 @@ public class Copy implements ICopy, IDomainObject, Serializable {
         _category = category;
     }
 
+    @Override
     public String getCopyStatus() {
         return _copyStatus;
     }
@@ -139,9 +141,7 @@ public class Copy implements ICopy, IDomainObject, Serializable {
     }
 
     public static void main(String[] args) {
-        DBFacade dbFacade = DBFacade.getInstance();
-
-        List<Copy> copies = dbFacade.getAllCopies();
+        List<Copy> copies = RepositoryFactory.getRepositoryInstance(Copy.class).list();
 
         System.out.println(copies);
     }
