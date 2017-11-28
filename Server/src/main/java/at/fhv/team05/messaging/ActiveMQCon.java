@@ -1,5 +1,6 @@
 package at.fhv.team05.messaging;
 
+import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.Connection;
@@ -7,13 +8,13 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Session;
 
-public class ActiveMQConnection {
-    private static ActiveMQConnection mInstance;
+public class ActiveMQCon {
+    private static ActiveMQCon mInstance;
     private Destination destination;
     private Session session;
     private Connection connection;
 
-    private ActiveMQConnection(String brokerURL, String queueName) {
+    private ActiveMQCon(String brokerURL, String queueName) {
         try {
             //create the connection factory
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerURL);
@@ -33,9 +34,9 @@ public class ActiveMQConnection {
 
     }
 
-    public static ActiveMQConnection getInstance() {
+    public static ActiveMQCon getInstance() {
         if (mInstance == null) {
-            mInstance = new ActiveMQConnection("vm://localhost", "MessageQueue");
+            mInstance = new ActiveMQCon(ActiveMQConnection.DEFAULT_BROKER_URL, "MessageQueue");
         }
         return mInstance;
     }

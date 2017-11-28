@@ -1,48 +1,38 @@
 package at.fhv.team05.messaging;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-
 import javax.jms.*;
 
 public class Consumer {
-    public void consume() {
-        try {
 
-            // Create a ConnectionFactory
-            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
+    private static Consumer mInstance;
+    private final ActiveMQCon _activeMQCon;
 
-            // Create a Connection
-            Connection connection = connectionFactory.createConnection();
-            connection.start();
+    private Consumer() {
+        _activeMQCon = ActiveMQCon.getInstance();
+    }
 
-            connection.setExceptionListener(this);
-
-            // Create a Session
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-
-            // Create the destination (Topic or Queue)
-            Destination destination = session.createQueue("TEST.FOO");
-
-            // Create a MessageConsumer from the Session to the Topic or Queue
-            MessageConsumer consumer = session.createConsumer(destination);
-
-            // Wait for a message
-            Message message = consumer.receive(1000);
-
-            if (message instanceof TextMessage) {
-                TextMessage textMessage = (TextMessage) message;
-                String text = textMessage.getText();
-                System.out.println("Received: " + text);
-            } else {
-                System.out.println("Received: " + message);
-            }
-
-            consumer.close();
-            session.close();
-            connection.close();
-        } catch (Exception e) {
-            System.out.println("Caught: " + e);
-            e.printStackTrace();
+    public static Consumer getInstance() {
+        if (mInstance == null) {
+            mInstance = new Consumer();
         }
+        return mInstance;
+    }
+
+    public String receiveMessage() throws JMSException {
+        Session session = _activeMQCon.getSession();
+        Destination destination = _activeMQCon.getDestination();
+        MessageConsumer consumer = session.createConsumer(destination);
+
+        // Wait for a message
+        Message message = consumer.receive(5000);
+        String messageText = "";
+        if (message instanceof TextMessage) {
+            TextMessage textMessage = (TextMessage) message;
+            messageText = textMessage.getText();
+        } else {
+            messageText = message.toString();
+        }
+        System.out.println("Received: " + messageText);
+        return messageText;
     }
 }

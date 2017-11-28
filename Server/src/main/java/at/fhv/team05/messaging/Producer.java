@@ -1,44 +1,36 @@
 package at.fhv.team05.messaging;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-
 import javax.jms.*;
 
 public class Producer {
-    public void produce() {
-        try {
-            // Create a ConnectionFactory
-            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
 
-            // Create a Connection
-            Connection connection = connectionFactory.createConnection();
-            connection.start();
+    private static Producer mInstance;
+    private final ActiveMQCon _activeMQCon;
 
-            // Create a Session
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+    private Producer() {
+        _activeMQCon = ActiveMQCon.getInstance();
+    }
 
-            // Create the destination (Topic or Queue)
-            Destination destination = session.createQueue("TEST.FOO");
-
-            // Create a MessageProducer from the Session to the Topic or Queue
-            MessageProducer producer = session.createProducer(destination);
-            producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-
-            // Create a messages
-            String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + hashCode();
-            TextMessage message = session.createTextMessage(text);
-
-            // Tell the producer to send the message
-            System.out.println("Sent message: " + message.hashCode() + " : " + Thread.currentThread().getName());
-            producer.send(message);
-
-            // Clean up
-            session.close();
-            connection.close();
-        } catch (
-                Exception e) {
-            System.out.println("Caught: " + e);
-            e.printStackTrace();
+    public static Producer getInstance() {
+        if (mInstance == null) {
+            mInstance = new Producer();
         }
+        return mInstance;
+    }
+
+    public void sendMessage(String text) throws JMSException {
+        Session session = _activeMQCon.getSession();
+        Destination destination = _activeMQCon.getDestination();
+
+        // Create a MessageProducer from the Session to the Topic or Queue
+        MessageProducer producer = session.createProducer(destination);
+        producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+
+        // Create a messages
+        TextMessage message = session.createTextMessage(text);
+
+        // Tell the producer to send the message
+        System.out.println("Sent message: " + message.getText());
+        producer.send(message);
     }
 }
