@@ -88,8 +88,10 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
         //Also force a update of the rental repository. Save of copy does not update the rentals
         RentalController.getInstance().fillMap();
 
-        //Notify user if the medium has a open reservation
+        //Notify user if the medium has an open reservation
         if (reservationExists) {
+            MessagingController messagingController = MessagingController.getInstance();
+            messagingController.createReturnedCopyMessage(copyDTO);
             return new ResultDTO<>(true, new Exception("Return process successful. There is a reservation for this media."));
         } else {
             return new ResultDTO<>(true, new Exception("Return process successful."));
