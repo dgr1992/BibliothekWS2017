@@ -45,6 +45,13 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             CopyDTO copyDTO = copieToRent.getCopy();
             Copy copy = _controllerFacade.getDomainCopy(copyDTO);
 
+            //Check if the copy is a present object
+            if(copy.getCopyStatus().compareToIgnoreCase("present") == 0){
+                result.setDto(false);
+                result.setException(new Exception("Present copies cannot be rented"));
+                return result;
+            }
+
             //Check if there is a reservation for the medium
             if(_controllerFacade.existsReservationForMedium(copy.getMediumId(),copy.getMediaType())){
                 //Check if the person selected is the person who is waiting longest
