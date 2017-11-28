@@ -57,9 +57,13 @@ public class RentalPresenter extends Presenter {
     @FXML
     private TextField txtFieldCopyNumber;
 
+    /**
+     * Method for opening the customer view after choosing the copy which should be rented.
+     */
     @FXML
-    void onNextButtonPressed(ActionEvent event) {
+    void onOKButtonPressed(ActionEvent event) {
         if (copy != null) {
+            //Check if copy is already rented or not.
             if (copy.getRental() == null) {
                 parent.openCustomerView(copy, null, CustomerButtonType.OK);
             } else {
@@ -70,15 +74,26 @@ public class RentalPresenter extends Presenter {
         }
     }
 
+    /**
+     * Searched the copy with the copy number which is typed in the text field.
+     */
     @FXML
     void onSearchButtonPressed(ActionEvent event) {
         if (!txtFieldCopyNumber.getText().isEmpty()) {
             int copyNumber = Integer.valueOf(txtFieldCopyNumber.getText());
             try {
+
+                //Searches the copy for the given copy number.
                 ResultDTO<CopyDTO> resultCopy = ClientRun.controller.searchCopyByCopyNumber(copyNumber);
+
+                //Checks if the copy with this copy number exists.
                 if (resultCopy != null) {
                     copy = resultCopy.getDto();
+
+                    //Checks if the copy was successfully loaded.
                     if (resultCopy.getException() == null) {
+
+                        //Display information for book-copy
                         if ("book".equalsIgnoreCase(copy.getMediaType())) {
                             BookDTO book = ClientRun.controller.searchBookById(copy.getMediumId()).getDto();
                             lblTitle.setText(book.getTitle());
@@ -93,6 +108,7 @@ public class RentalPresenter extends Presenter {
                             labelE.setText("Copy Number: ");
                             label5.setText(String.valueOf(copy.getCopyNumber()));
 
+                            // Display information for dvd-copy
                         } else if ("dvd".equalsIgnoreCase(copy.getMediaType())) {
                             DvdDTO dvd = ClientRun.controller.searchDvdById(copy.getMediumId()).getDto();
                             lblTitle.setText(dvd.getTitle());
@@ -124,6 +140,7 @@ public class RentalPresenter extends Presenter {
 
     public void initialize() {
         titledPaneMediumInfo.setCollapsible(false);
+        //Regular Expression for restricting input to numbers.
         txtFieldCopyNumber.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 txtFieldCopyNumber.setText(newValue.replaceAll("[^\\d]", ""));

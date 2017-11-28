@@ -74,6 +74,9 @@ public class DetailPresenter extends Presenter {
     private AnchorPane buttonContainer;
 
 
+    /**
+    * Method for displaying the detailed information of a medium and copies.
+     */
     public void initView() {
         titledPaneMedium.setCollapsible(false);
         Map<String, Object> attributeMap = medium.getAttributeMap();
@@ -94,6 +97,8 @@ public class DetailPresenter extends Presenter {
             labelD.setText("ASIN: ");
             label4.setText((String) attributeMap.get("articleId"));
         }
+
+        //Display copies of given medium.
         try {
             ResultListDTO<CopyDTO> resultCopies = ClientRun.controller.getCopiesByMedium(medium);
             if (resultCopies.getException() == null) {
@@ -106,6 +111,9 @@ public class DetailPresenter extends Presenter {
         }
     }
 
+    /**
+    * Shows the reservation button in the detail view to reserve the given medium.
+     */
     public void initReserveButton() {
         ReserveButtonView reserveButtonView = new ReserveButtonView();
         ReserveButtonPresenter presenter = (ReserveButtonPresenter) reserveButtonView.getPresenter();
@@ -114,9 +122,13 @@ public class DetailPresenter extends Presenter {
         buttonContainer.getChildren().setAll(reserveButtonView.getView());
     }
 
-    private void initTable(List<CopyDTO> mediums) {
+    /**
+    * Displays the detailed information for each copy of a medium in a table.
+     * @param copies All copies that should be displayed in the table.
+    */
+    private void initTable(List<CopyDTO> copies) {
         ObservableList<CopyDTO> resultData = FXCollections.observableArrayList();
-        resultData.addAll(mediums);
+        resultData.addAll(copies);
         tblColCopyNumber.setCellValueFactory(new PropertyValueFactory<>("copyNumber"));
         tblColAvailability.setCellValueFactory(new PropertyValueFactory<>("copyStatus"));
         tblColLocation.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getCategory().toString()));
