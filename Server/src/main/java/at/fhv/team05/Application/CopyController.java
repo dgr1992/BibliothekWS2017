@@ -90,8 +90,8 @@ public class CopyController extends BaseController<Copy, CopyDTO> {
 
         //Notify user if the medium has an open reservation
         if (reservationExists) {
-            MessagingController messagingController = MessagingController.getInstance();
-            messagingController.createReturnedCopyMessage(copyDTO);
+//            MessagingController messagingController = MessagingController.getInstance();
+//            messagingController.createReturnedCopyMessage(copyDTO);
             return new ResultDTO<>(true, new Exception("Return process successful. There is a reservation for this media."));
         } else {
             return new ResultDTO<>(true, new Exception("Return process successful."));

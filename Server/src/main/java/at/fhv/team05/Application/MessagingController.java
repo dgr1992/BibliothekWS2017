@@ -2,11 +2,16 @@ package at.fhv.team05.Application;
 
 import at.fhv.team05.Application.medium.BookController;
 import at.fhv.team05.Application.medium.DvdController;
+import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.dtos.CopyDTO;
+import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.IMediumDTO;
+import at.fhv.team05.dtos.ReservationDTO;
 import at.fhv.team05.messaging.Producer;
 
 import javax.jms.JMSException;
+import java.util.Date;
+import java.util.List;
 
 public class MessagingController {
     private static MessagingController _theInstance;
@@ -33,8 +38,22 @@ public class MessagingController {
                 DvdController dvdController = DvdController.getInstance();
                 medium = (IMediumDTO) dvdController.searchById(copyDTO.getMediumId());
             }
+            ReservationController reservationController = ReservationController.getInstance();
+            ResultListDTO<ReservationDTO> reservationResult = reservationController.getReservationsByMedium(medium);
+            List<ReservationDTO> reservations = reservationResult.getListDTO();
+            Date reservationDate = reservations.get(0).getReservationDate();
+            int index = 0;
+            for (int i = 1; i < reservations.size(); i++) {
+                Date tmpDate = reservations.get(i).getReservationDate();
+                if (tmpDate.before(reservationDate)) {
+                    reservationDate = tmpDate;
+                    index = i;
+                }
+            }
+            CustomerDTO customer = reservations.get(index).getCustomer();
 
-            producer.sendMessage("The returned copy " + medium.getTitle() + " (" + medium.getType() + ") " + "has been returned.");
+            producer.sendMessage("The returned copy " + medium.getTitle() + " (" + medium.getType() + ") " + "has been returned " +
+                    "and is reserved by " + customer.getFirstName() + " " + customer.getLastName() + " (Customer Number: " + customer.getCustomerId() + ")");
         } catch (JMSException e) {
             e.printStackTrace();
         }
