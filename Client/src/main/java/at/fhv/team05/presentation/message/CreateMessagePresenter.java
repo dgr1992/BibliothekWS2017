@@ -18,8 +18,8 @@ public class CreateMessagePresenter extends Presenter {
     @FXML
     private TextArea messageInputTextArea;
 
+    @FXML
     private void sendMessage() {
-
         String messageText = messageInputTextArea.getText();
         if (messageText != null) {
             try {
