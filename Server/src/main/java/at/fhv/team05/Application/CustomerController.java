@@ -44,6 +44,11 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
         return new CustomerDTO(customer);
     }
 
+    /**
+     * Method for extending the subscription for given customer
+     * @param customerDTO Customer for whom the subscription should be extended.
+     * @return ResultDTO with CustomerDTO with new payment date.
+     */
     public ResultDTO<CustomerDTO> extendSubscription(CustomerDTO customerDTO) {
 
         Date paymentDate = customerDTO.getPaymentDate();
@@ -51,6 +56,7 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
         Customer customer = getDomain(customerDTO);
         Date validUntil = null;
 
+        //Calculate new payment date if customer has already payed.
         if (paymentDate != null) {
             Calendar c = Calendar.getInstance();
             c.setTime(paymentDate);
@@ -58,16 +64,23 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
             validUntil = new Date(c.getTimeInMillis());
         }
 
+        //Set today as payment date if customer has never payed until now.
         if (paymentDate == null) {
             customer.setPaymentDate(today);
+
+        //Set new payment date if customer has already payed but subscription has expired.
         } else if (validUntil.before(today)) {
             customer.setPaymentDate(today);
+
+        //Set new payment date if customer has already payed but subscription has not expired yet.
         } else {
+            //Calculate how many days it would take until the subscription expires.
             long daysToAdd = ChronoUnit.DAYS.between(LocalDate.parse(today.toString()), LocalDate.parse(validUntil.toString()));
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(paymentDate);
-            calendar.add(Calendar.DATE, Math.toIntExact(daysToAdd));
 
+            //New payment date is the payment date + the days left until the subscription would expire.
+            calendar.add(Calendar.DATE, Math.toIntExact(daysToAdd));
             Date newPaymentDate = new Date(calendar.getTimeInMillis());
             customer.setPaymentDate(newPaymentDate);
         }
