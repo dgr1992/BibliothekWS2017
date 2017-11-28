@@ -5,10 +5,12 @@ import at.fhv.team05.ResultDTO;
 import at.fhv.team05.domain.ConfigurationData;
 import at.fhv.team05.dtos.ConfigurationDataDTO;
 
+import java.util.Objects;
+
 /**
  * Created by Daniel on 18.11.2017.
  */
-public class ConfigurationDataController extends BaseController<ConfigurationData,ConfigurationDataDTO>{
+public class ConfigurationDataController extends BaseController<ConfigurationData, ConfigurationDataDTO> {
     private static ConfigurationDataController _theInstance;
 
     private ConfigurationDataController() {
@@ -24,26 +26,27 @@ public class ConfigurationDataController extends BaseController<ConfigurationDat
 
     @Override
     protected ConfigurationDataDTO createDTO(ConfigurationData object) {
-        return new ConfigurationDataDTO(object.getName(),object.getType(),object.getValue());
+        return new ConfigurationDataDTO(object.getName(), object.getType(), object.getValue());
     }
 
     @Override
     protected boolean compareInput(ConfigurationData object, ConfigurationDataDTO configurationDataDTO) {
-        boolean nameMatch = object.getName() != null && configurationDataDTO.getName() != null  && object.getName() == configurationDataDTO.getName();
-        boolean typMatch = object.getType() != null && configurationDataDTO.getType() != null && object.getType() == configurationDataDTO.getName();
-        boolean valueMatch = object.getValue() != null && configurationDataDTO.getValue() != null && object.getValue() == configurationDataDTO.getValue();
+        boolean nameMatch = object.getName() != null && configurationDataDTO.getName() != null && Objects.equals(object.getName(), configurationDataDTO.getName());
+        boolean typMatch = object.getType() != null && configurationDataDTO.getType() != null && Objects.equals(object.getType(), configurationDataDTO.getName());
+        boolean valueMatch = object.getValue() != null && configurationDataDTO.getValue() != null && Objects.equals(object.getValue(), configurationDataDTO.getValue());
         return nameMatch && typMatch && valueMatch;
     }
 
     /**
-     * earches for a configuration value by the config name
+     * Searches for a configuration value by the config name
+     *
      * @param name
      * @return
      */
-    public IConfigurationData getConfigFor(String name){
+    public IConfigurationData getConfigFor(String name) {
         IConfigurationData configData = null;
         for (ConfigurationData configurationData : _mapDomainToDto.keySet()) {
-            if(configurationData.getName().compareTo(name) == 0){
+            if (configurationData.getName().compareTo(name) == 0) {
                 configData = configurationData;
                 break;
             }
@@ -53,13 +56,14 @@ public class ConfigurationDataController extends BaseController<ConfigurationDat
 
     /**
      * Searches for a configuration value by the config name
+     *
      * @param name
      * @return
      */
-    public ResultDTO<ConfigurationDataDTO> getConfigDTOFor(String name){
+    public ResultDTO<ConfigurationDataDTO> getConfigDTOFor(String name) {
         for (ConfigurationData configurationData : _mapDomainToDto.keySet()) {
-            if(configurationData.getName().compareTo(name) == 0){
-                return new ResultDTO<>(_mapDomainToDto.get(configurationData),null);
+            if (configurationData.getName().compareTo(name) == 0) {
+                return new ResultDTO<>(_mapDomainToDto.get(configurationData), null);
             }
         }
         return null;

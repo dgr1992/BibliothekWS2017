@@ -24,8 +24,17 @@ public class ControllerFacade {
     private LdapController _ldapController;
     private ConfigurationDataController _configurationDataController;
 
+    /**
+     * This HashMap holds all the rights from the repository.
+     * Each right is mapped with the corresponding stringname.
+     */
     private HashMap<String, Right> _rights;
 
+    /**
+     * This class is a facade for all other controllers.
+     * It holds an instance of the specific controllers and forwards the methods to them.
+     * The controllers are "lazy" the facade gets the instance only when it is needed.
+     */
     private ControllerFacade() {
         _rights = new HashMap<>();
         RepositoryFactory.getRepositoryInstance(Right.class).list().forEach(right -> _rights.put(right.getName(), right));
@@ -192,14 +201,14 @@ public class ControllerFacade {
     }
 
     public IConfigurationData getConfigFor(String name) {
-        if(_configurationDataController == null){
+        if (_configurationDataController == null) {
             _configurationDataController = ConfigurationDataController.getInstance();
         }
         return _configurationDataController.getConfigFor(name);
     }
 
     public ResultDTO<ConfigurationDataDTO> getConfigDTOFor(String name) {
-        if(_configurationDataController == null){
+        if (_configurationDataController == null) {
             _configurationDataController = ConfigurationDataController.getInstance();
         }
         return _configurationDataController.getConfigDTOFor(name);

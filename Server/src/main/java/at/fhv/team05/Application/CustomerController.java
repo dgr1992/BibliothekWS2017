@@ -26,6 +26,11 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
         return _theInstance;
     }
 
+    /**
+     * @param customer
+     * @param customerDTO
+     * @return true if the customer names or ids match
+     */
     @Override
     protected boolean compareInput(Customer customer, CustomerDTO customerDTO) {
         return (customer.getCustomerId() == customerDTO.getCustomerId() || customerDTO.getCustomerId() == -1)
@@ -55,7 +60,7 @@ public class CustomerController extends BaseController<Customer, CustomerDTO> {
 
         if (paymentDate == null) {
             customer.setPaymentDate(today);
-        } else if (validUntil != null && validUntil.before(today)) {
+        } else if (validUntil.before(today)) {
             customer.setPaymentDate(today);
         } else {
             long daysToAdd = ChronoUnit.DAYS.between(LocalDate.parse(today.toString()), LocalDate.parse(validUntil.toString()));
