@@ -229,16 +229,23 @@ public class ControllerFacade {
         return _ldapController.getDomain(accountDTO);
     }
 
-    public void removeReservation(Reservation reservation){
+    public void removeReservation(Reservation reservation) {
         _reservationController.remove(reservation);
     }
 
-    public void removeReservation(ReservationDTO reservationDTO){
+    public void removeReservation(ReservationDTO reservationDTO) {
         _reservationController.remove(reservationDTO);
     }
 
     public Right getRight(String rightName) {
         return _rights.get(rightName);
+    }
+
+    public void checkRentals() {
+        if (_rentalController == null) {
+            _rentalController = RentalController.getInstance();
+        }
+        _rentalController.checkRentals();
     }
 
     public ResultDTO<Boolean> sendMessage(String messageText) {

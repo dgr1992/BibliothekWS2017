@@ -41,6 +41,10 @@ public class ActiveMQCon {
         return mInstance;
     }
 
+    public static ActiveMQCon createConnection(String brokerUrl, String queueName) {
+        return mInstance = new ActiveMQCon(brokerUrl, queueName);
+    }
+
     public Destination getDestination() {
         return destination;
     }

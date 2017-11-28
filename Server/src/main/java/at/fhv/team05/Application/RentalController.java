@@ -5,11 +5,7 @@ import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.Copy;
 import at.fhv.team05.domain.Customer;
 import at.fhv.team05.domain.Rental;
-import at.fhv.team05.dtos.CopyDTO;
-import at.fhv.team05.dtos.CustomerDTO;
-import at.fhv.team05.dtos.CustomerRentalDTO;
-import at.fhv.team05.dtos.RentalDTO;
-import at.fhv.team05.dtos.ReservationDTO;
+import at.fhv.team05.dtos.*;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -33,6 +29,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
      * Allocates a copy to a customer as rented. Before renting it will be checked if the
      * copy is allready rented, if the customer needs to pay the fee or if the customer needs to extend the
      * subscription.
+     *
      * @param copieToRent
      * @return ResultDTO: if exception is null the boolean value decides if rent was successful
      */
@@ -46,27 +43,27 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             Copy copy = _controllerFacade.getDomainCopy(copyDTO);
 
             //Check if the copy is a present object
-            if(copy.getCopyStatus().compareToIgnoreCase("present") == 0){
+            if (copy.getCopyStatus().compareToIgnoreCase("present") == 0) {
                 result.setDto(false);
                 result.setException(new Exception("Present copies cannot be rented"));
                 return result;
             }
 
             //Check if there is a reservation for the medium
-            if(_controllerFacade.existsReservationForMedium(copy.getMediumId(),copy.getMediaType())){
+            if (_controllerFacade.existsReservationForMedium(copy.getMediumId(), copy.getMediaType())) {
                 //Check if the person selected is the person who is waiting longest
-                ResultListDTO<ReservationDTO> resultList = _controllerFacade.getReservationsByIdAndMediumType(copieToRent.getCopy().getMediumId(),copieToRent.getCopy().getMediaType());
+                ResultListDTO<ReservationDTO> resultList = _controllerFacade.getReservationsByIdAndMediumType(copieToRent.getCopy().getMediumId(), copieToRent.getCopy().getMediaType());
 
                 //Get the oldest reservation
                 ReservationDTO longestWaitReservation = null;
-                for (ReservationDTO reservation: resultList.getListDTO()) {
-                    if(longestWaitReservation == null || longestWaitReservation.getReservationDate().after(reservation.getReservationDate())){
+                for (ReservationDTO reservation : resultList.getListDTO()) {
+                    if (longestWaitReservation == null || longestWaitReservation.getReservationDate().after(reservation.getReservationDate())) {
                         longestWaitReservation = reservation;
                     }
                 }
 
                 //If current customer is the customer from the reservation everything is ok otherwise exception
-                if(longestWaitReservation.getCustomer().getCustomerId() != copieToRent.getCustomer().getCustomerId()){
+                if (longestWaitReservation.getCustomer().getCustomerId() != copieToRent.getCustomer().getCustomerId()) {
                     result.setDto(false);
                     result.setException(new Exception("Medium is reserved for customer " + longestWaitReservation.getCustomer().getCustomerId() + " " + longestWaitReservation.getCustomer().getFirstName() + " " + longestWaitReservation.getCustomer().getLastName()));
                     return result;
@@ -127,7 +124,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             return result;
         } catch (Exception ex) {
             _log.error(ex);
-            return new ResultDTO<Boolean>(false, new Exception("Something went wrong. Contact the administrator."));
+            return new ResultDTO<>(false, new Exception("Something went wrong. Contact the administrator."));
         }
     }
 
@@ -144,7 +141,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
             rentCopy(rentalDTO);
         }
     }
-    
+
     public LinkedList<CopyDTO> copiesRentedBy(CustomerDTO customerDTO) {
 
         return null;
@@ -157,6 +154,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
 
     /**
      * Compare if the object and dto are the same
+     *
      * @param object
      * @param rentalDTO
      * @return
@@ -173,6 +171,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
 
     /**
      * Searches for all rentals belonging to the given customer
+     *
      * @param customerDTO
      * @return Returns rentals allocated to the given customer as rented
      */
@@ -197,18 +196,19 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
 
     /**
      * Extends the rent period of a rental. Maximum extend of the rental is two times
+     *
      * @param rentalDTO
      * @return Returns true if extend was successful. Returns exception message when medium already was extended two times.
      */
     public ResultDTO<Boolean> extendRentedMedium(RentalDTO rentalDTO) {
         Rental rental = getDomain(rentalDTO);
 
-        if(rental == null){
+        if (rental == null) {
             return new ResultDTO<>(false, new Exception("Rental not found."));
         }
 
         //Check if there is a reservation for this medium
-        if(_controllerFacade.existsReservationForMedium(rental.getCopy().getMediumId(),rental.getCopy().getMediaType())){
+        if (_controllerFacade.existsReservationForMedium(rental.getCopy().getMediumId(), rental.getCopy().getMediaType())) {
             return new ResultDTO<>(false, new Exception("Extending not possible, medium is reserved."));
         }
 
@@ -223,6 +223,12 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
         } else {
             return new ResultDTO<>(false, new Exception("Medium was already extended two times."));
         }
+    }
+
+    public void checkRentals() {
+        getAll().stream().filter(rental -> rental.getReturnDate() == null && rental.getDeadline().
+                before(new Date(System.currentTimeMillis()))).forEach(rental -> MessagingController.getInstance().
+                createRequestForPaymentMessage(rental));
     }
 
 

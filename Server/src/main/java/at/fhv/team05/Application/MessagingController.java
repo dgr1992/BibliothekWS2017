@@ -68,22 +68,20 @@ public class MessagingController {
         }
     }
 
-    public void createRequestForPaymentMessage(CopyDTO copyDTO) {
+    public void createRequestForPaymentMessage(Rental rental) {
         try {
-            CopyController copyController = CopyController.getInstance();
-            Copy copy = copyController.getDomain(copyDTO);
-            Rental rental = copy.getRental();
+            Copy copy = (Copy) rental.getCopy();
             ICustomer customer = rental.getCustomer();
             Medium medium;
-            if ("book".equalsIgnoreCase(copyDTO.getMediaType())) {
+            if ("book".equalsIgnoreCase(copy.getMediaType())) {
                 BookController bookController = BookController.getInstance();
-                medium = bookController.getDomain(bookController.searchById(copyDTO.getMediumId()).getDto());
+                medium = bookController.getDomain(bookController.searchById(copy.getMediumId()).getDto());
             } else {
                 DvdController dvdController = DvdController.getInstance();
-                medium = dvdController.getDomain(dvdController.searchById(copyDTO.getMediumId()).getDto());
+                medium = dvdController.getDomain(dvdController.searchById(copy.getMediumId()).getDto());
             }
             _producer.sendMessage(customer.getFirstName() + " " + customer.getLastName() + "(Customer Numer: " +
-                    customer.getCustomerId() + ")" + " has not returned his copy of" + medium.getTitle() +
+                    customer.getCustomerId() + ")" + " has not returned his copy of " + medium.getTitle() +
                     "(" + medium.getType() + ").\nThe rental expired on " + rental.getDeadline());
         } catch (JMSException e) {
             e.printStackTrace();
