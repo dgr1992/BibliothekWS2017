@@ -61,7 +61,7 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
                 //If current customer is the customer from the reservation everything is ok otherwise exception
                 if(longestWaitReservation.getCustomer().getCustomerId() != copieToRent.getCustomer().getCustomerId()){
                     result.setDto(false);
-                    result.setException(new Exception("Medium is reserved for customer " + longestWaitReservation.getCustomer().getCustomerId()));
+                    result.setException(new Exception("Medium is reserved for customer " + longestWaitReservation.getCustomer().getCustomerId() + " " + longestWaitReservation.getCustomer().getFirstName() + " " + longestWaitReservation.getCustomer().getLastName()));
                     return result;
                 }
 
