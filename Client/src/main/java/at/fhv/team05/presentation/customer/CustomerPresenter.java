@@ -2,7 +2,9 @@ package at.fhv.team05.presentation.customer;
 
 import at.fhv.team05.ClientRun;
 import at.fhv.team05.ResultListDTO;
-import at.fhv.team05.dtos.*;
+import at.fhv.team05.dtos.CopyDTO;
+import at.fhv.team05.dtos.CustomerDTO;
+import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.presentation.Presenter;
 import at.fhv.team05.presentation.customer.buttons.OkButtonPresenter;
 import at.fhv.team05.presentation.customer.buttons.OkButtonView;
@@ -12,11 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
@@ -24,7 +22,7 @@ import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CustomerPresenter extends Presenter{
+public class CustomerPresenter extends Presenter {
 
 
     @FXML
@@ -64,7 +62,10 @@ public class CustomerPresenter extends Presenter{
 
     private boolean detailView;
 
-
+    /**
+    *  Method to show OK button in customer view.
+    *  Used for choosing the customer for a rental.
+    */
     public void initOkButton(CopyDTO copy) {
         OkButtonView okButtonView = new OkButtonView();
         OkButtonPresenter presenter = (OkButtonPresenter) okButtonView.getPresenter();
@@ -74,6 +75,22 @@ public class CustomerPresenter extends Presenter{
         buttonContainer.getChildren().setAll(okButtonView.getView());
     }
 
+    /**
+    * Method to show the reservation button in the customer view.
+    * Used for choosing a customer for a reservation.
+    */
+    public void initReservationButton(IMediumDTO medium) {
+        ReserveButtonView reserveButtonView = new ReserveButtonView();
+        ReserveButtonPresenter presenter = (ReserveButtonPresenter) reserveButtonView.getPresenter();
+        presenter.setCustomerTable(tblViewCustomer);
+        presenter.setMedium(medium);
+        presenter.setParent(parent);
+        buttonContainer.getChildren().setAll(reserveButtonView.getView());
+    }
+
+    /**
+    * Searches a customer with the given inputs from the text fields in the customer view.
+    */
     @FXML
     public void onSearchButtonPressed(ActionEvent event) {
         List<CustomerDTO> customers = new LinkedList<>();
@@ -93,6 +110,9 @@ public class CustomerPresenter extends Presenter{
 
     }
 
+    /**
+    * Method for showing the results of searching a customer in the table.
+     */
     private void initResultTableCustomer(List<CustomerDTO> customers) {
         ObservableList<CustomerDTO> resultData = FXCollections.observableArrayList();
         resultData.addAll(customers);
@@ -108,8 +128,8 @@ public class CustomerPresenter extends Presenter{
             TableRow<CustomerDTO> row = new TableRow<>();
             row.setOnMouseClicked(e -> {
                 if (e.getClickCount() == 2 && (!row.isEmpty())) {
-                    if (detailView && tblViewCustomer.getSelectionModel().getSelectedItem()!=null) {
-                         parent.openCustomerDetailView(tblViewCustomer.getSelectionModel().getSelectedItem());
+                    if (detailView && tblViewCustomer.getSelectionModel().getSelectedItem() != null) {
+                        parent.openCustomerDetailView(tblViewCustomer.getSelectionModel().getSelectedItem());
                     }
                 }
             });
@@ -123,25 +143,18 @@ public class CustomerPresenter extends Presenter{
         }
         return Integer.valueOf(txtFieldCustomerNumber.getText());
     }
+
     public String getFirstName() {
         return txtFieldFirstName.getText();
     }
-    public String getLastName(){
+
+    public String getLastName() {
         return txtFieldLastName.getText();
     }
 
 
-    public void initReservationButton(IMediumDTO medium) {
-        ReserveButtonView reserveButtonView = new ReserveButtonView();
-        ReserveButtonPresenter presenter = (ReserveButtonPresenter)  reserveButtonView.getPresenter();
-        presenter.setCustomerTable(tblViewCustomer);
-        presenter.setMedium(medium);
-        presenter.setParent(parent);
-        buttonContainer.getChildren().setAll(reserveButtonView.getView());
-    }
-
-    public void setDetailView(boolean detailView){
-        this.detailView=detailView;
+    public void setDetailView(boolean detailView) {
+        this.detailView = detailView;
     }
 
     public void setViewTitle(String title) {
@@ -149,6 +162,7 @@ public class CustomerPresenter extends Presenter{
     }
 
     public void initialize() {
+        //Regular Expression: only numbers are allowed in the text field for customer number
         txtFieldCustomerNumber.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 txtFieldCustomerNumber.setText(newValue.replaceAll("[^\\d]", ""));

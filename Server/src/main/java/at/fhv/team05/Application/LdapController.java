@@ -3,6 +3,7 @@ package at.fhv.team05.Application;
 import at.fhv.team05.ResultDTO;
 import at.fhv.team05.domain.UserAccount;
 import at.fhv.team05.dtos.UserAccountDTO;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -34,35 +35,42 @@ public class LdapController extends BaseController<UserAccount, UserAccountDTO> 
     }
 
     public ResultDTO<Boolean> authenticateUser(UserAccountDTO accountDTO, String key) {
+        //get the domain-object
         UserAccount account = _mapDtoToDomain.get(accountDTO);
         String pw = "";
         try {
+            //decrypt the password
             pw = decryptCredentials(key, accountDTO.getPassword());
         } catch (NoSuchPaddingException | NoSuchAlgorithmException | BadPaddingException | InvalidKeyException | IllegalBlockSizeException e) {
             e.printStackTrace();
         }
 
         if (account != null) {
+            //Masteraccount which skips the ldap server
+            if (account.getUsername().equalsIgnoreCase("admin") && pw.equalsIgnoreCase("admin")) {
+                return new ResultDTO<>(true, null);
+            }
 
-            String[] splitUserName = account.getUsername().split("@");
-            String userName = splitUserName[0];
-
+            //HashTable for the Ldap-Authentification
             Hashtable<String, String> env = new Hashtable<>();
-
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
             env.put(Context.PROVIDER_URL, "ldaps://openldap.fhv.at:636");
+            //Authenticationtype = simple (plaintext) but we encrypt the password anyway
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
-            env.put(Context.SECURITY_PRINCIPAL, "uid=" + userName + ",ou=" + account.getOu() + ",o=fhv.at");
+            env.put(Context.SECURITY_PRINCIPAL, "uid=" + account.getUsername() + ",ou=" + account.getOu() + ",o=fhv.at");
             env.put(Context.SECURITY_CREDENTIALS, pw);
 
             try {
+                //Connects to the Ldap-Server
                 DirContext ctx = new InitialDirContext(env);
                 return new ResultDTO<>(true, null);
             } catch (NamingException e) {
+                //if the connection was not successful, a exception gets thrown
                 e.printStackTrace();
                 return new ResultDTO<>(false, new Exception(e.getMessage()));
             }
         } else {
+            //if the emailaddress is not found in our database
             return new ResultDTO<>(false, new Exception("Email address not found."));
         }
     }
@@ -72,9 +80,37 @@ public class LdapController extends BaseController<UserAccount, UserAccountDTO> 
         return new UserAccountDTO(object);
     }
 
+    /**
+     * This method is not implemented yet
+     *
+     * @param object         domain-object
+     * @param userAccountDTO
+     * @return
+     */
     @Override
     protected boolean compareInput(UserAccount object, UserAccountDTO userAccountDTO) {
-        return false;
+        throw new NotImplementedException();
+    }
+
+    /**
+     * Decrypts the password, the tempkey is used for decryption and encryption
+     *
+     * @param tempkey  Key used for the encryption/decryption
+     * @param password String which gets decrypted
+     * @return decrypted String
+     * @throws NoSuchPaddingException
+     * @throws NoSuchAlgorithmException
+     * @throws BadPaddingException
+     * @throws IllegalBlockSizeException
+     * @throws InvalidKeyException
+     */
+    public String decryptCredentials(String tempkey, String password) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException {
+        byte[] bytekey = hexStringToByteArray(tempkey);
+        SecretKeySpec sks = new SecretKeySpec(bytekey, "AES");
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, sks);
+        byte[] decrypted = cipher.doFinal(hexStringToByteArray(password));
+        return new String(decrypted);
     }
 
     private byte[] hexStringToByteArray(String s) {
@@ -87,15 +123,12 @@ public class LdapController extends BaseController<UserAccount, UserAccountDTO> 
         return b;
     }
 
-    public String decryptCredentials(String tempkey, String password) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, InvalidKeyException {
-        byte[] bytekey = hexStringToByteArray(tempkey);
-        SecretKeySpec sks = new SecretKeySpec(bytekey, "AES");
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, sks);
-        byte[] decrypted = cipher.doFinal(hexStringToByteArray(password));
-        return new String(decrypted);
-    }
-
+    /**
+     * generates a random hex string
+     *
+     * @param numchars length of characters
+     * @return
+     */
     public static String getRandomHexString(int numchars) {
         Random r = new Random();
         StringBuffer sb = new StringBuffer();
