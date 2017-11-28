@@ -7,6 +7,7 @@ import at.fhv.team05.dtos.CopyDTO;
 import at.fhv.team05.dtos.CustomerDTO;
 import at.fhv.team05.dtos.IMediumDTO;
 import at.fhv.team05.dtos.ReservationDTO;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -29,6 +30,7 @@ public class ReservationController extends BaseController<Reservation, Reservati
 
     /**
      * Get all copies that are available and not in status "rented", "present" or "reserved"
+     *
      * @param mediumDTO
      * @return
      */
@@ -39,14 +41,22 @@ public class ReservationController extends BaseController<Reservation, Reservati
         return !list.isEmpty();
     }
 
+    /**
+     * Creates a Reservation-object and saves it in the repository
+     *
+     * @param mediumDTO
+     * @param customerDTO
+     * @return
+     */
     public ResultDTO<Boolean> reserveMedium(IMediumDTO mediumDTO, CustomerDTO customerDTO) {
+        //create the reservation-object and set the data from the dto
         Reservation reservedObject = new Reservation();
-
         reservedObject.setMediumId(mediumDTO.getId());
         reservedObject.setCustomer(_controllerFacade.getDomainCustomer(customerDTO));
         reservedObject.setMediaType(mediumDTO.getType());
         reservedObject.setReservationDate(new Date(Calendar.getInstance().getTimeInMillis()));
         try {
+            //save the object
             save(reservedObject);
             return new ResultDTO<>(true, null);
         } catch (Exception e) {
@@ -54,6 +64,13 @@ public class ReservationController extends BaseController<Reservation, Reservati
         }
     }
 
+    /**
+     * checks if a reservation exists for the specific medium
+     *
+     * @param mediumID
+     * @param mediumTyp
+     * @return
+     */
     public boolean existsReservationForMedium(int mediumID, String mediumTyp) {
         for (Reservation reservation : _mapDomainToDto.keySet()) {
             if (reservation.getMediumId() == mediumID && reservation.getMediaType().contentEquals(mediumTyp)) {
@@ -63,6 +80,12 @@ public class ReservationController extends BaseController<Reservation, Reservati
         return false;
     }
 
+    /**
+     * This method searches for all reservations of a specific medium.
+     *
+     * @param medium
+     * @return a List with all reservations for a specific medium
+     */
     public ResultListDTO<ReservationDTO> getReservationsByMedium(IMediumDTO medium) {
         List<ReservationDTO> reservations = new LinkedList<>();
         _mapDomainToDto.keySet().stream().
@@ -71,13 +94,40 @@ public class ReservationController extends BaseController<Reservation, Reservati
         return new ResultListDTO<>(reservations, null);
     }
 
+    public ResultListDTO<ReservationDTO> getReservationsByIdAndMediumType(int id, String type) {
+        List<ReservationDTO> reservations = new LinkedList<>();
+        _mapDomainToDto.keySet().stream().
+                filter(i -> i.getMediumId() == id && i.getMediaType().equalsIgnoreCase(type)).
+                forEach(i -> reservations.add(_mapDomainToDto.get(i)));
+        return new ResultListDTO<>(reservations, null);
+    }
+
+    public void remove(Reservation reservation){
+        ReservationDTO reservationDTO = _mapDomainToDto.remove(reservation);
+        _mapDtoToDomain.remove(reservationDTO);
+        _repository.deleteById(reservation.getId());
+    }
+
+    public void remove(ReservationDTO reservationDTO){
+        Reservation reservation = _mapDtoToDomain.remove(reservationDTO);
+        _mapDomainToDto.remove(reservation);
+        _repository.deleteById(reservation.getId());
+    }
+
     @Override
     protected ReservationDTO createDTO(Reservation object) {
         return new ReservationDTO(object);
     }
 
+    /**
+     * This method is not implemented yet
+     *
+     * @param object         domain-object
+     * @param reservationDTO
+     * @return
+     */
     @Override
     protected boolean compareInput(Reservation object, ReservationDTO reservationDTO) {
-        return false;
+        throw new NotImplementedException();
     }
 }

@@ -24,8 +24,17 @@ public class ControllerFacade {
     private LdapController _ldapController;
     private ConfigurationDataController _configurationDataController;
 
+    /**
+     * This HashMap holds all the rights from the repository.
+     * Each right is mapped with the corresponding stringname.
+     */
     private HashMap<String, Right> _rights;
 
+    /**
+     * This class is a facade for all other controllers.
+     * It holds an instance of the specific controllers and forwards the methods to them.
+     * The controllers are "lazy" the facade gets the instance only when it is needed.
+     */
     private ControllerFacade() {
         _rights = new HashMap<>();
         RepositoryFactory.getRepositoryInstance(Right.class).list().forEach(right -> _rights.put(right.getName(), right));
@@ -156,6 +165,13 @@ public class ControllerFacade {
         return _reservationController.getReservationsByMedium(medium);
     }
 
+    public ResultListDTO<ReservationDTO> getReservationsByIdAndMediumType(int id, String mediumType) {
+        if (_reservationController == null) {
+            _reservationController = ReservationController.getInstance();
+        }
+        return _reservationController.getReservationsByIdAndMediumType(id, mediumType);
+    }
+
     public boolean existsReservationForMedium(int mediumID, String mediumTyp) {
         if (_reservationController == null) {
             _reservationController = ReservationController.getInstance();
@@ -192,14 +208,14 @@ public class ControllerFacade {
     }
 
     public IConfigurationData getConfigFor(String name) {
-        if(_configurationDataController == null){
+        if (_configurationDataController == null) {
             _configurationDataController = ConfigurationDataController.getInstance();
         }
         return _configurationDataController.getConfigFor(name);
     }
 
     public ResultDTO<ConfigurationDataDTO> getConfigDTOFor(String name) {
-        if(_configurationDataController == null){
+        if (_configurationDataController == null) {
             _configurationDataController = ConfigurationDataController.getInstance();
         }
         return _configurationDataController.getConfigDTOFor(name);
@@ -210,6 +226,14 @@ public class ControllerFacade {
             _ldapController = LdapController.getInstance();
         }
         return _ldapController.getDomain(accountDTO);
+    }
+
+    public void removeReservation(Reservation reservation){
+        _reservationController.remove(reservation);
+    }
+
+    public void removeReservation(ReservationDTO reservationDTO){
+        _reservationController.remove(reservationDTO);
     }
 
     public Right getRight(String rightName) {

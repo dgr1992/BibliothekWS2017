@@ -2,7 +2,7 @@ package at.fhv.team05.domain;
 
 
 import at.fhv.team05.ObjectInterfaces.ICategory;
-import at.fhv.team05.persistence.DBFacade;
+import at.fhv.team05.persistence.RepositoryFactory;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -65,8 +65,7 @@ public class Category implements IDomainObject, ICategory, Serializable {
     }
 
     public static void main(String[] args) {
-        DBFacade dbFacade = DBFacade.getInstance();
-        List<Category> categories = dbFacade.getAllCategories();
+        List<Category> categories = RepositoryFactory.getRepositoryInstance(Category.class).list();
 
         for (Category category : categories) {
             System.out.println(category);

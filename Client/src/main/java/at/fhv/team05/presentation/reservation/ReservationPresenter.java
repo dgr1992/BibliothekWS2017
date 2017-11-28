@@ -44,10 +44,16 @@ public class ReservationPresenter extends Presenter{
         this.medium = medium;
     }
 
+    /**
+     * Initialized the view
+     */
     public void initView() {
         lblTitle.setText(medium.getTitle());
         try {
+            //Loads all reservations for given medium
             ResultListDTO<ReservationDTO> resultReservation = ClientRun.controller.getReservationsByMedium(medium);
+
+            //Checks if reservations were successfully loaded.
             if (resultReservation.getException() == null) {
                 fillTable(resultReservation.getListDTO());
             } else {
@@ -58,14 +64,23 @@ public class ReservationPresenter extends Presenter{
         }
     }
 
+    /**
+     * Fills the table with the Reservation information.
+     * @param listDTO Reservations for given medium.
+     */
     private void fillTable(List<ReservationDTO> listDTO) {
         ObservableList<ReservationDTO> resultData = FXCollections.observableArrayList();
         resultData.addAll(listDTO);
         tblColCustomerNumber.setCellValueFactory(param -> new SimpleStringProperty(String.valueOf(param.getValue().getCustomer().getCustomerId())));
         tblColCostumerName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getCustomer().getFirstName() + " " + data.getValue().getCustomer().getLastName()));
         tblColReservationDate.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
+
+        //Choose ascending for sort-type
         tblColReservationDate.setSortType(TableColumn.SortType.ASCENDING);
+
         tblViewReservations.setItems(resultData);
+
+        //Orders table by reservation date.
         tblViewReservations.getSortOrder().add(tblColReservationDate);
     }
 }

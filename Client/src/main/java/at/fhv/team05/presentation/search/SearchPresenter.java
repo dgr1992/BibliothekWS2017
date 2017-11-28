@@ -76,7 +76,9 @@ public class SearchPresenter extends Presenter{
     @FXML
     private TableColumn<DvdDTO, Date> tblColReleaseDate;
 
-
+    /**
+     * Method for searching books in the "Book" Tab.
+     */
     @FXML
     public void onSearchBtnPressedBook(ActionEvent event) {
         List<BookDTO> books = new LinkedList<>();
@@ -97,6 +99,9 @@ public class SearchPresenter extends Presenter{
 
     }
 
+    /**
+     * Method for searching dvds in the "DVD" tab.
+     */
     @FXML
     public void onSearchBtnPressedDvd(ActionEvent event) {
         List<DvdDTO> dvds = new LinkedList<>();
@@ -115,7 +120,7 @@ public class SearchPresenter extends Presenter{
         }
     }
 
-    //Book
+    //get information from text fields for book
     private String getAuthor() {
         return txtFiledAuthor.getText();
     }
@@ -129,7 +134,7 @@ public class SearchPresenter extends Presenter{
     }
 
 
-    //DVD
+    //get information from text fields for dvd
     private String getDvdTitle() {
         return txtFieldTitleDvd.getText();
     }
@@ -163,17 +168,25 @@ public class SearchPresenter extends Presenter{
         tableViewDvdSearch.setItems(resultData);
     }
 
-
+    /**
+     * Sets double click for reserving a medium.
+     */
     public void doubleClickReservation() {
         setDoubleClickReservation(tableViewBookSearch);
         setDoubleClickReservation(tableViewDvdSearch);
     }
 
+    /**
+     * Sets default double click.
+     */
     public void doubleClickDefault() {
         setDoubleClickDefault(tableViewBookSearch);
         setDoubleClickDefault(tableViewDvdSearch);
     }
 
+    /**
+     * Sets double click for reservation overview.
+     */
     public void setDoubleClickReservationOverview() {
         setDoubleClickReservationOverview(tableViewBookSearch);
         setDoubleClickReservationOverview(tableViewDvdSearch);
