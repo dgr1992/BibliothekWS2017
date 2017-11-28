@@ -47,6 +47,9 @@ public class MainViewPresenter extends Presenter {
         openSearchView();
     }
 
+    /**
+    * Changes to the full navigation bar with every action possible for the logged in user.
+     */
     public void changeNavigationBarToLoggedIn() {
         NavigationView navigationView = new NavigationView();
         NavigationPresenter presenter = (NavigationPresenter) navigationView.getPresenter();
@@ -54,6 +57,10 @@ public class MainViewPresenter extends Presenter {
         navigationBarContainer.getChildren().setAll(navigationView.getView());
     }
 
+    /**
+    * Changes to the navigation bar which is visible for logged out users or user without an account.
+    * "Search" and "Login" menu items are available here.
+     */
     public void changeNavigationBarToLoggedOut() {
         LoginNavigationView navigationView = new LoginNavigationView();
         LoginNavigationPresenter presenter = (LoginNavigationPresenter) navigationView.getPresenter();
@@ -61,6 +68,9 @@ public class MainViewPresenter extends Presenter {
         navigationBarContainer.getChildren().setAll(navigationView.getView());
     }
 
+    /**
+    * Opens the search view.
+    */
     public void openSearchView() {
         SearchView searchView = new SearchView();
         SearchPresenter presenter = (SearchPresenter) searchView.getPresenter();
@@ -70,6 +80,9 @@ public class MainViewPresenter extends Presenter {
         contentContainer.getChildren().setAll(searchView.getView());
     }
 
+    /**
+    * Opens the rental view.
+     */
     public void openRentalView() {
         RentalView rentalView = new RentalView();
         RentalPresenter presenter = (RentalPresenter) rentalView.getPresenter();
@@ -77,6 +90,12 @@ public class MainViewPresenter extends Presenter {
         contentContainer.getChildren().setAll(rentalView.getView());
     }
 
+    /**
+    * Opens the customer view.
+    * @param buttonType Enum for choosing which button type should be displayed: OK, RESERVATION, NONE
+     * @param copy Only needed for rental --> if the OK button should be displayed.
+     * @param medium Only needed for reservation --> if the RESERVATION button should be displayed.
+     */
     public void openCustomerView(CopyDTO copy, IMediumDTO medium, CustomerButtonType buttonType) {
         CustomerView customerView = new CustomerView();
         CustomerPresenter presenter = (CustomerPresenter) customerView.getPresenter();
@@ -99,6 +118,12 @@ public class MainViewPresenter extends Presenter {
         }
         contentContainer.getChildren().setAll(customerView.getView());
     }
+
+    /**
+     * Opens the customer detail view.
+     * Displays personal information and all rented copies.
+     * @param customer The customer for whom the detailed information should be displayed.
+     */
     public void openCustomerDetailView(CustomerDTO customer) {
         CustomerDetailView customerDetailView = new CustomerDetailView();
         CustomerDetailPresenter presenter = (CustomerDetailPresenter) customerDetailView.getPresenter();
@@ -107,6 +132,12 @@ public class MainViewPresenter extends Presenter {
         contentContainer.getChildren().setAll(customerDetailView.getView());
     }
 
+    /**
+     * Opens rental overview.
+     * Displays information about the rental and allows to confirm the rental.
+     * @param customer The customer which wants to rent the copy.
+     * @param copy The copy which is rented.
+     */
     public void openRentalOverview(CustomerDTO customer, CopyDTO copy) {
         RentalOverviewView rentalOverview = new RentalOverviewView();
         RentalOverviewPresenter presenter = (RentalOverviewPresenter) rentalOverview.getPresenter();
@@ -116,6 +147,10 @@ public class MainViewPresenter extends Presenter {
         contentContainer.getChildren().setAll(rentalOverview.getView());
     }
 
+    /**
+    * Opens the reservation view.
+     * @param isOverview Choose if the search is for reserving a medium or to view all reservations of a chosen medium.
+     */
     public void openReservationView(boolean isOverview) {
         SearchView searchView = new SearchView();
         SearchPresenter presenter = (SearchPresenter) searchView.getPresenter();
@@ -130,6 +165,11 @@ public class MainViewPresenter extends Presenter {
         contentContainer.getChildren().setAll(searchView.getView());
     }
 
+    /**
+     * Opens the detail view of a medium.
+     * @param medium The chosen medium
+     * @param reserveButtonEnabled If the reservation button should be enabled or not
+     */
     public void openDetailView(IMediumDTO medium, boolean reserveButtonEnabled) {
         DetailView detailView = new DetailView();
         DetailPresenter presenter = (DetailPresenter) detailView.getPresenter();
@@ -142,6 +182,10 @@ public class MainViewPresenter extends Presenter {
         contentContainer.getChildren().setAll(detailView.getView());
     }
 
+    /**
+     * Opens the reservation overview.
+     * @param medium The medium for which the reservations should be displayed.
+     */
     public void openReservationOverview(IMediumDTO medium) {
         ReservationView reservationView = new ReservationView();
         ReservationPresenter presenter = (ReservationPresenter) reservationView.getPresenter();
@@ -152,6 +196,9 @@ public class MainViewPresenter extends Presenter {
 
     }
 
+    /**
+     * Opens the login view.
+     */
     public void openLoginView() {
         LoginView loginView = new LoginView();
         LoginPresenter presenter = (LoginPresenter) loginView.getPresenter();
