@@ -29,6 +29,7 @@ public class CreateMessagePresenter extends Presenter {
                 } else {
                     errorAlert(result.getException().getMessage());
                 }
+                messageInputTextArea.clear();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

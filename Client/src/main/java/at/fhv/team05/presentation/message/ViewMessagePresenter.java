@@ -14,6 +14,7 @@ public class ViewMessagePresenter extends Presenter{
     private TextArea textOutputField;
 
     public void receiveMessage() {
+        textOutputField.clear();
         try {
             ResultDTO<String> text = ClientRun.controller.receiveMessage();
             textOutputField.setText(text.getDto());
