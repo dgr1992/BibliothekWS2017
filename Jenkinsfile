@@ -22,9 +22,9 @@ pipeline {
             steps {
                 script{
                     withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
-                        //sh 'chmod +x ./Server/target/kill.sh'
-                        //sh './Server/target/kill.sh'
-                        //sh 'nohup java -jar ./Server/target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar &'
+                        sh 'chmod +x ./Server/target/kill.sh'
+                        sh './Server/target/kill.sh'
+                        sh 'nohup java -jar ./Server/target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar &'
                     }
                 }
             }
