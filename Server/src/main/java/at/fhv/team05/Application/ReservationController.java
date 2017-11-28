@@ -79,6 +79,18 @@ public class ReservationController extends BaseController<Reservation, Reservati
         return new ResultListDTO<>(reservations, null);
     }
 
+    public void remove(Reservation reservation){
+        ReservationDTO reservationDTO = _mapDomainToDto.remove(reservation);
+        _mapDtoToDomain.remove(reservationDTO);
+        _repository.deleteById(reservation.getId());
+    }
+
+    public void remove(ReservationDTO reservationDTO){
+        Reservation reservation = _mapDtoToDomain.remove(reservationDTO);
+        _mapDomainToDto.remove(reservation);
+        _repository.deleteById(reservation.getId());
+    }
+
     @Override
     protected ReservationDTO createDTO(Reservation object) {
         return new ReservationDTO(object);

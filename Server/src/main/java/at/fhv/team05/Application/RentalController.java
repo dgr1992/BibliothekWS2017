@@ -62,7 +62,11 @@ public class RentalController extends BaseController<Rental, RentalDTO> {
                 if(longestWaitReservation.getCustomer().getCustomerId() != copieToRent.getCustomer().getCustomerId()){
                     result.setDto(false);
                     result.setException(new Exception("Medium is reserved for customer " + longestWaitReservation.getCustomer().getCustomerId()));
+                    return result;
                 }
+
+                //Remove reservation
+                _controllerFacade.removeReservation(longestWaitReservation);
             }
 
             if (copy.getRental() != null) {

@@ -219,6 +219,14 @@ public class ControllerFacade {
         return _ldapController.getDomain(accountDTO);
     }
 
+    public void removeReservation(Reservation reservation){
+        _reservationController.remove(reservation);
+    }
+
+    public void removeReservation(ReservationDTO reservationDTO){
+        _reservationController.remove(reservationDTO);
+    }
+
     public Right getRight(String rightName) {
         return _rights.get(rightName);
     }
