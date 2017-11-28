@@ -47,16 +47,22 @@ public class NavigationPresenter extends Presenter {
     private Line line6;
 
     @FXML
-    private JFXButton createMessageButton;
+    private JFXButton viewMessageButton;
 
     @FXML
     private Line line7;
 
     @FXML
-    private JFXButton logoutButton;
+    private JFXButton createMessageButton;
 
     @FXML
     private Line line8;
+
+    @FXML
+    private JFXButton logoutButton;
+
+    @FXML
+    private Line line9;
 
     @FXML
     void onLoadCustomerOverviewButtonPressed(ActionEvent event) {
@@ -96,4 +102,7 @@ public class NavigationPresenter extends Presenter {
 
     @FXML
     void onCreateMessageButtonPressed(ActionEvent event) { parent.openCreateMessageView();}
+
+    @FXML
+    void onViewMessageButtonPressed(ActionEvent event) { parent.openViewMessageView();}
 }

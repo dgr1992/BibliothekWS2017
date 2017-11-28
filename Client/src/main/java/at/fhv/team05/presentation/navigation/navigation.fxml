@@ -34,10 +34,12 @@
                   <Line fx:id="line5" endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                   <JFXButton fx:id="reservationOverviewButton" onAction="#onReservationOverviewButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Reservation Overview" />
                   <Line fx:id="line6" endX="149.0" startX="-100.0" stroke="#c5c5c5" />
-                  <JFXButton fx:id="createMessageButton" onAction="#onCreateMessageButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Create Message" />
+                  <JFXButton fx:id="viewMessageButton" onAction="#onViewMessageButtonPressed" prefHeight="40.0" prefWidth="250.0" text="View Message" />
                   <Line fx:id="line7" endX="149.0" startX="-100.0" stroke="#c5c5c5" />
-                  <JFXButton fx:id="logoutButton" onAction="#onLogoutButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Logout" />
+                  <JFXButton fx:id="createMessageButton" onAction="#onCreateMessageButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Create Message" />
                   <Line fx:id="line8" endX="149.0" startX="-100.0" stroke="#c5c5c5" />
+                  <JFXButton fx:id="logoutButton" onAction="#onLogoutButtonPressed" prefHeight="40.0" prefWidth="250.0" text="Logout" />
+                  <Line fx:id="line9" endX="149.0" startX="-100.0" stroke="#c5c5c5" />
                </children>
             </VBox>
          </children>

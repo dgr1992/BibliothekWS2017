@@ -23,6 +23,7 @@ public class ControllerFacade {
     private ReservationController _reservationController;
     private LdapController _ldapController;
     private ConfigurationDataController _configurationDataController;
+    private MessagingController _messagingController;
 
     /**
      * This HashMap holds all the rights from the repository.
@@ -238,5 +239,19 @@ public class ControllerFacade {
 
     public Right getRight(String rightName) {
         return _rights.get(rightName);
+    }
+
+    public ResultDTO<Boolean> sendMessage(String messageText) {
+        if (_messagingController == null) {
+            _messagingController = MessagingController.getInstance();
+        }
+        return _messagingController.sendMessage(messageText);
+    }
+
+    public ResultDTO<String> receiveMessage() {
+        if (_messagingController == null) {
+            _messagingController = MessagingController.getInstance();
+        }
+        return _messagingController.receiveMessage();
     }
 }
