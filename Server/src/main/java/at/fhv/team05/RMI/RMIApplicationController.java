@@ -215,6 +215,11 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
        return _controllerFacade.sendMessage(messageText);
     }
 
+    @Override
+    public ResultDTO<String> receiveMessage() throws RemoteException {
+        return _controllerFacade.receiveMessage();
+    }
+
     /**
      * This method checks if the user has the needed rights to perform the action.
      *

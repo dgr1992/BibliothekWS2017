@@ -98,4 +98,12 @@ public class MessagingController {
             return new ResultDTO<>(false, new Exception("Message could not be sent."));
         }
     }
+
+    public ResultDTO<String> receiveMessage() {
+        try {
+            return new ResultDTO<>(_consumer.receiveMessage(), new Exception("Message successfully loaded"));
+        } catch (JMSException e) {
+            return new ResultDTO<>("No message available", new Exception("Could not load message"));
+        }
+    }
 }
