@@ -5,7 +5,7 @@ import at.fhv.team05.ObjectInterfaces.IMessage;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "messages")
+@Table(name = "Message")
 public class Message implements IDomainObject, IMessage {
     private int id;
     private String message;
