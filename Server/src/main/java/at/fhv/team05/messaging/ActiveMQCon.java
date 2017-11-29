@@ -2,10 +2,10 @@ package at.fhv.team05.messaging;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.broker.BrokerService;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
-import javax.jms.JMSException;
 import javax.jms.Session;
 
 public class ActiveMQCon {
@@ -16,6 +16,9 @@ public class ActiveMQCon {
 
     private ActiveMQCon(String brokerURL, String queueName) {
         try {
+            startBroker(brokerURL);
+
+
             //create the connection factory
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerURL);
 
@@ -28,10 +31,18 @@ public class ActiveMQCon {
 
             //create the queue
             destination = session.createQueue(queueName);
-        } catch (JMSException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void startBroker(String brokerURL) throws Exception {
+        BrokerService broker = new BrokerService();
+        // configure the broker
+        broker.setBrokerName("BibliothekWS2017");
+        broker.addConnector(brokerURL);
+        broker.start();
     }
 
     public static ActiveMQCon getInstance() {

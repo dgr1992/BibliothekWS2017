@@ -24,7 +24,7 @@ public class Consumer {
         MessageConsumer consumer = session.createConsumer(destination);
 
         // Wait for a message
-        Message message = consumer.receive(5000);
+        Message message = consumer.receive(1000);
         String messageText;
         if (message != null) {
             if (message instanceof TextMessage) {
