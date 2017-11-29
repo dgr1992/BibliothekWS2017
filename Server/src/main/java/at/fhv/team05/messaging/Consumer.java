@@ -24,14 +24,15 @@ public class Consumer {
         MessageConsumer consumer = session.createConsumer(destination);
 
         // Wait for a message
-        Message message = consumer.receive();
-        String messageText = "";
+        Message message = consumer.receive(5000);
+        String messageText;
         if (message instanceof TextMessage) {
             TextMessage textMessage = (TextMessage) message;
             messageText = textMessage.getText();
         } else {
             messageText = message.toString();
         }
+        consumer.close();
         System.out.println("Received: " + messageText);
         return messageText;
     }

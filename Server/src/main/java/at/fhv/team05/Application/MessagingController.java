@@ -83,7 +83,7 @@ public class MessagingController extends BaseController<Message, MessageDTO>{
                 DvdController dvdController = DvdController.getInstance();
                 medium = dvdController.getDomain(dvdController.searchById(copy.getMediumId()).getDto());
             }
-            _producer.sendMessage(customer.getFirstName() + " " + customer.getLastName() + "(Customer Numer: " +
+            _producer.sendMessage(customer.getFirstName() + " " + customer.getLastName() + "(Customer Number: " +
                     customer.getCustomerId() + ")" + " has not returned his copy of " + medium.getTitle() +
                     "(" + medium.getType() + ").\nThe rental expired on " + rental.getDeadline());
         } catch (JMSException e) {
@@ -105,7 +105,7 @@ public class MessagingController extends BaseController<Message, MessageDTO>{
             String messageText = _consumer.receiveMessage();
             Message message = new Message();
             message.setMessage(messageText);
-//            save(message);
+            //save(message);
             return new ResultDTO<>(createDTO(message), new Exception("Message successfully loaded"));
         } catch (JMSException e) {
             return new ResultDTO<>(new MessageDTO("No message found."), new Exception("Could not load message"));
@@ -121,4 +121,5 @@ public class MessagingController extends BaseController<Message, MessageDTO>{
     protected boolean compareInput(Message object, MessageDTO messageDTO) {
         throw new NotImplementedException();
     }
+
 }
