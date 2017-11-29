@@ -6,12 +6,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "messages")
-public class Message implements IDomainObject, IMessage{
+public class Message implements IDomainObject, IMessage {
     private int id;
     private String message;
 
     @Override
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -21,6 +22,7 @@ public class Message implements IDomainObject, IMessage{
         this.id = id;
     }
 
+    @Override
     @Basic
     @Column(name = "message", nullable = false, length = 5000)
     public String getMessage() {
@@ -33,7 +35,7 @@ public class Message implements IDomainObject, IMessage{
 
 
     @Override
-    public boolean equals(Object o)  {
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }

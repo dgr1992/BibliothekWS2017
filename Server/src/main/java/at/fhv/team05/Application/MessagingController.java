@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class MessagingController extends BaseController<Message, MessageDTO>{
+public class MessagingController extends BaseController<Message, MessageDTO> {
     private static MessagingController _theInstance;
     private final Producer _producer;
     private final Consumer _consumer;
@@ -105,7 +105,7 @@ public class MessagingController extends BaseController<Message, MessageDTO>{
             String messageText = _consumer.receiveMessage();
             Message message = new Message();
             message.setMessage(messageText);
-            //save(message);
+            save(message);
             return new ResultDTO<>(createDTO(message), new Exception("Message successfully loaded"));
         } catch (Exception e) {
             return new ResultDTO<>(new MessageDTO("ERROR"), e);
