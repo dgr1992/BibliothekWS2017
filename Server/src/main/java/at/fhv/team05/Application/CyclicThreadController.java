@@ -72,7 +72,7 @@ public class CyclicThreadController {
                     ZonedDateTime now = ZonedDateTime.now(z);
                     LocalDate tomorrow = now.toLocalDate().plusDays(1);
                     ZonedDateTime tomorrowStart = tomorrow.atStartOfDay(z);
-                    tomorrowStart = now.plusMinutes(1);
+//                    tomorrowStart = now.plusMinutes(1);
                     long timeUntilMidnight = Duration.between(now, tomorrowStart).toMillis();
 
 
