@@ -39,6 +39,7 @@
         <mapping class="at.fhv.team05.domain.UserRole"/>
         <mapping class="at.fhv.team05.domain.ConfigurationData"/>
         <mapping class="at.fhv.team05.domain.Right"/>
+        <mapping class="at.fhv.team05.domain.Message"/>
 
     </session-factory>
 </hibernate-configuration>

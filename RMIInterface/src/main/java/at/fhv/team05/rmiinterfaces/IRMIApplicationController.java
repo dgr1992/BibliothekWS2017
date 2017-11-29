@@ -49,5 +49,5 @@ public interface IRMIApplicationController extends Remote {
 
     ResultDTO<Boolean> sendMessage(String messageText) throws RemoteException;
 
-    ResultDTO<String> receiveMessage() throws RemoteException;
+    ResultDTO<MessageDTO> receiveMessage() throws RemoteException;
 }

@@ -6,23 +6,26 @@ import at.fhv.team05.ObjectInterfaces.ICustomer;
 import at.fhv.team05.ResultDTO;
 import at.fhv.team05.ResultListDTO;
 import at.fhv.team05.domain.Copy;
+import at.fhv.team05.domain.Message;
 import at.fhv.team05.domain.Rental;
 import at.fhv.team05.domain.medium.Medium;
 import at.fhv.team05.dtos.*;
 import at.fhv.team05.messaging.Consumer;
 import at.fhv.team05.messaging.Producer;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.jms.JMSException;
 import java.util.Date;
 import java.util.List;
 
 
-public class MessagingController {
+public class MessagingController extends BaseController<Message, MessageDTO>{
     private static MessagingController _theInstance;
     private final Producer _producer;
     private final Consumer _consumer;
 
     private MessagingController() {
+        super(Message.class);
         _producer = Producer.getInstance();
         _consumer = Consumer.getInstance();
     }
@@ -97,11 +100,25 @@ public class MessagingController {
         }
     }
 
-    public ResultDTO<String> receiveMessage() {
+    public ResultDTO<MessageDTO> receiveMessage() {
         try {
-            return new ResultDTO<>(_consumer.receiveMessage(), new Exception("Message successfully loaded"));
+            String messageText = _consumer.receiveMessage();
+            Message message = new Message();
+            message.setMessage(messageText);
+            save(message);
+            return new ResultDTO<>(createDTO(message), new Exception("Message successfully loaded"));
         } catch (JMSException e) {
-            return new ResultDTO<>("No message available", new Exception("Could not load message"));
+            return new ResultDTO<>(new MessageDTO("No message found."), new Exception("Could not load message"));
         }
+    }
+
+    @Override
+    protected MessageDTO createDTO(Message object) {
+        return new MessageDTO(object);
+    }
+
+    @Override
+    protected boolean compareInput(Message object, MessageDTO messageDTO) {
+        throw new NotImplementedException();
     }
 }

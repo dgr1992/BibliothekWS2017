@@ -216,7 +216,7 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
     }
 
     @Override
-    public ResultDTO<String> receiveMessage() throws RemoteException {
+    public ResultDTO<MessageDTO> receiveMessage() throws RemoteException {
         return _controllerFacade.receiveMessage();
     }
 

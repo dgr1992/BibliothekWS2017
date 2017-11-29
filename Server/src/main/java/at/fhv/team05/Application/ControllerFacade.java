@@ -255,7 +255,7 @@ public class ControllerFacade {
         return _messagingController.sendMessage(messageText);
     }
 
-    public ResultDTO<String> receiveMessage() {
+    public ResultDTO<MessageDTO> receiveMessage() {
         if (_messagingController == null) {
             _messagingController = MessagingController.getInstance();
         }
