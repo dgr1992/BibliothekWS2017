@@ -18,7 +18,11 @@ public class ViewMessagePresenter extends Presenter{
         textOutputField.clear();
         try {
             ResultDTO<MessageDTO> text = ClientRun.controller.receiveMessage();
-            textOutputField.setText(text.getDto().getMessage());
+            if (!text.getDto().getMessage().equalsIgnoreCase("ERROR")) {
+                textOutputField.setText(text.getDto().getMessage());
+            } else {
+                infoAlert(text.getException().getMessage());
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         }

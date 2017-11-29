@@ -107,8 +107,8 @@ public class MessagingController extends BaseController<Message, MessageDTO>{
             message.setMessage(messageText);
             //save(message);
             return new ResultDTO<>(createDTO(message), new Exception("Message successfully loaded"));
-        } catch (JMSException e) {
-            return new ResultDTO<>(new MessageDTO("No message found."), new Exception("Could not load message"));
+        } catch (Exception e) {
+            return new ResultDTO<>(new MessageDTO("ERROR"), e);
         }
     }
 
