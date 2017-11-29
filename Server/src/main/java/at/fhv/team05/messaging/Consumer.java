@@ -6,9 +6,17 @@ public class Consumer {
 
     private static Consumer mInstance;
     private final ActiveMQCon _activeMQCon;
+    private MessageConsumer _consumer;
 
     private Consumer() {
         _activeMQCon = ActiveMQCon.getInstance();
+        Session session = _activeMQCon.getSession();
+        Destination destination = _activeMQCon.getDestination();
+        try {
+            _consumer = session.createConsumer(destination);
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Consumer getInstance() {
@@ -19,24 +27,17 @@ public class Consumer {
     }
 
     public String receiveMessage() throws Exception {
-        Session session = _activeMQCon.getSession();
-        Destination destination = _activeMQCon.getDestination();
-        MessageConsumer consumer = session.createConsumer(destination);
+        _activeMQCon.getConnection().start();
 
         // Wait for a message
-        Message message = consumer.receive(1000);
+        Message message = _consumer.receive(1000);
         String messageText;
         if (message != null) {
-            if (message instanceof TextMessage) {
-                TextMessage textMessage = (TextMessage) message;
-                messageText = textMessage.getText();
-            } else {
-                messageText = message.toString();
-            }
+            TextMessage textMessage = (TextMessage) message;
+            messageText = textMessage.getText();
         } else {
             throw new Exception("No messages available.");
         }
-        consumer.close();
         System.out.println("Received: " + messageText);
         return messageText;
     }
