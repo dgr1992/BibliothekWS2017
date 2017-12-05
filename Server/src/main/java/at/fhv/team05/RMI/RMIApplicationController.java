@@ -212,11 +212,13 @@ public class RMIApplicationController extends UnicastRemoteObject implements IRM
 
     @Override
     public ResultDTO<Boolean> sendMessage(String messageText) throws RemoteException {
+        //TODO rechte abfragen
        return _controllerFacade.sendMessage(messageText);
     }
 
     @Override
     public ResultDTO<MessageDTO> receiveMessage() throws RemoteException {
+        //TODO rechte abfragen
         return _controllerFacade.receiveMessage();
     }
 

@@ -1,13 +1,18 @@
 package at.fhv.team05.Utility;
+
+import at.fhv.team05.domain.medium.Book;
+import at.fhv.team05.dtos.BookDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.sql.Date;
 
 public class JSONUtils {
 
     /**
      * Converts an Object into a Json string
+     *
      * @param obj the Object that needs to be converted
      * @return JSON String
      */
@@ -24,7 +29,8 @@ public class JSONUtils {
     /**
      * Converts a JSON String into an Object.
      * The resulting object needs a default constructor
-     * @param json The JSON-String that should be converted into an Object.
+     *
+     * @param json  The JSON-String that should be converted into an Object.
      * @param clazz The object-class
      * @return The converted object
      */
@@ -38,5 +44,21 @@ public class JSONUtils {
         }
 
         return obj;
+    }
+
+    public static void main(String[] args) {
+        Book book = new Book();
+        book.setID(1);
+        book.setAuthor("danül");
+        book.setIsbn("isbnblabla");
+        book.setReleaseDate(new Date(System.currentTimeMillis()));
+        book.setPublisher("Publisher");
+        book.setTitle("Titään");
+
+        BookDTO dto = new BookDTO(book);
+
+        String str = objectToJSON(dto);
+
+        System.out.println(str);
     }
 }

@@ -1,13 +1,14 @@
 package at.fhv.team05.dtos;
 
-import at.fhv.team05.ObjectInterfaces.ICategory;
 import at.fhv.team05.ObjectInterfaces.IDvd;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@JsonIgnoreProperties(value = {"attributeMap"})
 public class DvdDTO implements IMediumDTO, Serializable {
 
     private int id;
@@ -20,7 +21,8 @@ public class DvdDTO implements IMediumDTO, Serializable {
     private Map<String, Object> attributeMap;
 
 
-    public DvdDTO(){}
+    public DvdDTO() {
+    }
 
     public DvdDTO(IDvd dvd) {
 
