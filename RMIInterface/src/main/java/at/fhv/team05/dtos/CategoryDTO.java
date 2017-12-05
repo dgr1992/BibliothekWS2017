@@ -11,6 +11,8 @@ public class CategoryDTO implements Serializable{
     private String categoryName;
     private String room;
 
+    public CategoryDTO() {}
+
     public CategoryDTO(ICategory category) {
 
         id = category.getId();

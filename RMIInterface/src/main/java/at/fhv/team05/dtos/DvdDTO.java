@@ -20,6 +20,8 @@ public class DvdDTO implements IMediumDTO, Serializable {
     private Map<String, Object> attributeMap;
 
 
+    public DvdDTO(){}
+
     public DvdDTO(IDvd dvd) {
 
         id = dvd.getId();

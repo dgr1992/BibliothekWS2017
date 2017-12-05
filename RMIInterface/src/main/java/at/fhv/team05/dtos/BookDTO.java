@@ -1,7 +1,6 @@
 package at.fhv.team05.dtos;
 
 import at.fhv.team05.ObjectInterfaces.IBook;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,6 +16,10 @@ public class BookDTO implements IMediumDTO, Serializable {
     private String publisher;
     private String author;
     private Map<String, Object> attributeMap;
+
+    public BookDTO(){
+
+    }
 
     public BookDTO(IBook book) {
 
@@ -81,4 +84,5 @@ public class BookDTO implements IMediumDTO, Serializable {
     public String getAuthor() {
         return author;
     }
+
 }

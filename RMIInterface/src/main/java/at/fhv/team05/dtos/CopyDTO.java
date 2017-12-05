@@ -17,6 +17,8 @@ public class CopyDTO implements Serializable {
     private CategoryDTO _category;
     private String _copyStatus;
 
+    public CopyDTO() {}
+
     public CopyDTO(ICopy copy) {
         _copyNumber = copy.getCopyNumber();
         _id = copy.getId();
