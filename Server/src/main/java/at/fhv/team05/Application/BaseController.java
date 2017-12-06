@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Set;
 
 public abstract class BaseController<DomainObject extends IDomainObject, DomainDTO> {
     /**
@@ -116,6 +117,12 @@ public abstract class BaseController<DomainObject extends IDomainObject, DomainD
         fillMap();
     }
 
+    /**
+     * @return all domain-objects in a set.
+     */
+    public Set<DomainObject> getAll() {
+        return _mapDomainToDto.keySet();
+    }
 //    public void delete(DomainObject obj) {
 //        _repository.delete(obj);
 //        fillMap();

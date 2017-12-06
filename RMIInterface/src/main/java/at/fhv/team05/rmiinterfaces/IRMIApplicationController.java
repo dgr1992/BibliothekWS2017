@@ -46,4 +46,8 @@ public interface IRMIApplicationController extends Remote {
     String getKey() throws RemoteException;
 
     ResultDTO<ConfigurationDataDTO> getLoanPeriodFor(MediaLoanPeriod mediaLoanPeriod) throws RemoteException;
+
+    ResultDTO<Boolean> sendMessage(String messageText) throws RemoteException;
+
+    ResultDTO<MessageDTO> receiveMessage() throws RemoteException;
 }

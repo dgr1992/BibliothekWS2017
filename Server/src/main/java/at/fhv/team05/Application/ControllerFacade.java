@@ -23,6 +23,7 @@ public class ControllerFacade {
     private ReservationController _reservationController;
     private LdapController _ldapController;
     private ConfigurationDataController _configurationDataController;
+    private MessagingController _messagingController;
 
     /**
      * This HashMap holds all the rights from the repository.
@@ -228,15 +229,36 @@ public class ControllerFacade {
         return _ldapController.getDomain(accountDTO);
     }
 
-    public void removeReservation(Reservation reservation){
+    public void removeReservation(Reservation reservation) {
         _reservationController.remove(reservation);
     }
 
-    public void removeReservation(ReservationDTO reservationDTO){
+    public void removeReservation(ReservationDTO reservationDTO) {
         _reservationController.remove(reservationDTO);
     }
 
     public Right getRight(String rightName) {
         return _rights.get(rightName);
+    }
+
+    public void checkRentals() {
+        if (_rentalController == null) {
+            _rentalController = RentalController.getInstance();
+        }
+        _rentalController.checkRentals();
+    }
+
+    public ResultDTO<Boolean> sendMessage(String messageText) {
+        if (_messagingController == null) {
+            _messagingController = MessagingController.getInstance();
+        }
+        return _messagingController.sendMessage(messageText);
+    }
+
+    public ResultDTO<MessageDTO> receiveMessage() {
+        if (_messagingController == null) {
+            _messagingController = MessagingController.getInstance();
+        }
+        return _messagingController.receiveMessage();
     }
 }
