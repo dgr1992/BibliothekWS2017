@@ -125,7 +125,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>at.fhv.team05.ServerRun</mainClass>
+                            <mainClat.fhv.team05.server.ServerRunrRun</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -146,7 +146,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>at.fhv.team05.ServerRun</mainClass>
+                            <mainClass>at.fhv.team05.server.ServerRun</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

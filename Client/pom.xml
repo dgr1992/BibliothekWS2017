@@ -79,7 +79,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>at.fhv.team05.ClientRun</mainClass>
+                            <mainClass>at.fhv.team05.client.ClientRun</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
