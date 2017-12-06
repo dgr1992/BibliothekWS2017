@@ -72,11 +72,10 @@ public class CyclicThreadController {
                     ZonedDateTime now = ZonedDateTime.now(z);
                     LocalDate tomorrow = now.toLocalDate().plusDays(1);
                     ZonedDateTime tomorrowStart = tomorrow.atStartOfDay(z);
-                    tomorrowStart = now.plusMinutes(1);
+
                     long timeUntilMidnight = Duration.between(now, tomorrowStart).toMillis();
 
-
-                    System.out.println("Sleeping for: " + timeUntilMidnight + " ms.");
+                    System.out.println("Sleeping for: " + timeUntilMidnight + " ms.(" + timeUntilMidnight / 1000 / 60 + " min)");
                     //Thread sleeps until next midnight
                     sleep(timeUntilMidnight);
                 } catch (InterruptedException e) {
