@@ -24,18 +24,15 @@ import at.fhv.team05.server.Application.LdapController;
 import at.fhv.team05.server.domain.Right;
 import at.fhv.team05.server.domain.UserAccount;
 
-/**
- * Created by daniel on 06.12.17.
- */
-@Stateful(name="EJBApplicationController")
+@Stateful(name = "ApplicationControllerEJB")
 public class EJBApplicationController implements IEJBApplicationController {
     private ControllerFacade _controllerFacade;
     private final String _key;
     private UserAccount _account = null;
     private static final int KEY_LENGTH = 32;
 
-    public EJBApplicationController() throws RemoteException {
-        _controllerFacade = ControllerFacade.getInstance();
+    public EJBApplicationController(){
+        //_controllerFacade = ControllerFacade.getInstance();
         _key = LdapController.getRandomHexString(KEY_LENGTH);
     }
 

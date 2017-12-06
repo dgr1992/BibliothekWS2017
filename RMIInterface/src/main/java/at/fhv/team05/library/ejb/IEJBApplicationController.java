@@ -1,7 +1,6 @@
 package at.fhv.team05.library.ejb;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
 import javax.ejb.Remote;
 
@@ -20,9 +19,6 @@ import at.fhv.team05.library.dtos.RentalDTO;
 import at.fhv.team05.library.dtos.ReservationDTO;
 import at.fhv.team05.library.dtos.UserAccountDTO;
 
-/**
- * Created by daniel on 06.12.17.
- */
 @Remote
 public interface IEJBApplicationController extends Serializable {
     ResultListDTO<BookDTO> searchForBook(BookDTO book);

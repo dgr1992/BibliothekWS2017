@@ -12,17 +12,17 @@ import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+//import java.net.MalformedURLException;
+//import java.rmi.Naming;
+//import java.rmi.NotBoundException;
+//import java.rmi.RemoteException;
 
 import javax.ejb.EJB;
 
 public class ClientRun extends Application {
     //public static IRMIApplicationController controller;
 
-    @EJB(name="EJBApplicationController")
+    @EJB(name = "ApplicationControllerEJB")
     public static IEJBApplicationController controller;
 
     public static void main(String[] args) {

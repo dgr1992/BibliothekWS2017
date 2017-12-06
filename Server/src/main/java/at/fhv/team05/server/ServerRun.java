@@ -12,18 +12,18 @@ public class ServerRun {
     public static void main(String[] args) {
         try {
             //ActiveMQ Connection
-            ActiveMQCon.createConnection("tcp://localhost:61616", "MessageQueue");
+            //ActiveMQCon.createConnection("tcp://localhost:61616", "MessageQueue");
 
             //Create registry for RMI
-//            LocateRegistry.createRegistry(1099);
-            CyclicThreadController.getInstance().createRequestForPaymentThread();
+            //LocateRegistry.createRegistry(1099);
+            //CyclicThreadController.getInstance().createRequestForPaymentThread();
 
             //RMI binding
-            RMIFactory rmiFactory = new RMIFactory();
-            Naming.bind("rmi://localhost/IRMIFactory", rmiFactory);
+            //RMIFactory rmiFactory = new RMIFactory();
+            //Naming.bind("rmi://localhost/IRMIFactory", rmiFactory);
 
             //DatabaseConnection
-            DatabaseConnection.init();
+            //DatabaseConnection.init();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
