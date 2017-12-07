@@ -32,7 +32,7 @@ public class EJBApplicationController implements IEJBApplicationController {
     private static final int KEY_LENGTH = 32;
 
     public EJBApplicationController(){
-        //_controllerFacade = ControllerFacade.getInstance();
+        _controllerFacade = ControllerFacade.getInstance();
         _key = LdapController.getRandomHexString(KEY_LENGTH);
     }
 
