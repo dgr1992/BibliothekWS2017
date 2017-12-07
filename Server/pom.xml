@@ -72,6 +72,12 @@
             <artifactId>activemq-all</artifactId>
             <version>5.15.2</version>
         </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
         <!--&lt;!&ndash; https://mvnrepository.com/artifact/io.hawt/hawtio-embedded &ndash;&gt;-->
         <!--<dependency>-->
         <!--<groupId>io.hawt</groupId>-->
