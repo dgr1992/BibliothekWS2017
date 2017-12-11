@@ -22,7 +22,7 @@ import javax.ejb.EJB;
 public class ClientRun extends Application {
     //public static IRMIApplicationController controller;
 
-    @EJB(name = "ApplicationControllerEJB")
+    @EJB(name = "EJBApplicationController")
     public static IEJBApplicationController controller;
 
     public static void main(String[] args) {

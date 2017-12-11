@@ -24,7 +24,7 @@ import at.fhv.team05.server.Application.LdapController;
 import at.fhv.team05.server.domain.Right;
 import at.fhv.team05.server.domain.UserAccount;
 
-@Stateful(name = "ApplicationControllerEJB")
+@Stateful(name = "EJBApplicationController")
 public class EJBApplicationController implements IEJBApplicationController {
     private ControllerFacade _controllerFacade;
     private final String _key;
