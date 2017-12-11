@@ -5,18 +5,21 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { DetailviewComponent } from './detailview/detailview.component';
+import { SearchComponent } from './search/search.component';
+import {SearchService} from "./search.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    DetailviewComponent
+    DetailviewComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
