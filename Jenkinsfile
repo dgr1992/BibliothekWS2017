@@ -26,6 +26,8 @@ pipeline {
                         //sh './Server/target/kill.sh'
                         //sh 'nohup java -jar ./Server/target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar &'
                     }
+                    sh 'chmod +x ./Server/target/deploy_EE.sh'
+                    sh './Server/target/deploy_EE.sh'
                 }
             }
         }
