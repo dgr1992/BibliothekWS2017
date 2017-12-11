@@ -26,8 +26,11 @@ pipeline {
                         //sh './Server/target/kill.sh'
                         //sh 'nohup java -jar ./Server/target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar &'
                     }
-                    sh 'chmod +x ./Server/target/deploy_EE.sh'
-                    sh './Server/target/deploy_EE.sh'
+                    //sh 'chmod +x ./Server/target/deploy_EE.sh'
+                    //sh './Server/target/deploy_EE.sh'
+                    sh '/opt/glassfish5/glassfish/bin/asadmin --user admin --passwordfile /opt/glassfish5/glassfish/bin/password.txt undeploy BibliothekWS2017Server || true'
+                    sh 'mv ./Server/target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar ./Server/target/BibliothekWS2017Server.jar'
+                    sh '/opt/glassfish5/glassfish/bin/asadmin --user admin --passwordfile /opt/glassfish5/glassfish/bin/password.txt deploy ./Server/target/BibliothekWS2017Server.jar'
                 }
             }
         }
