@@ -21,7 +21,9 @@ public class DvdDTO implements IMediumDTO, Serializable {
     private String director;
     private Map<String, Object> attributeMap;
 
-
+    /**
+     * Default constructor for converting JSON into an Object
+     */
     public DvdDTO() {
     }
 

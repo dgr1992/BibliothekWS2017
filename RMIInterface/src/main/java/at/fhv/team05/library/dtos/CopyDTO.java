@@ -17,6 +17,9 @@ public class CopyDTO implements Serializable {
     private CategoryDTO _category;
     private String _copyStatus;
 
+    /**
+     * Default constructor for converting JSON into an Object
+     */
     public CopyDTO() {}
 
     public CopyDTO(ICopy copy) {
