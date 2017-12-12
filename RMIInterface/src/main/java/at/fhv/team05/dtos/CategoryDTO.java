@@ -11,6 +11,9 @@ public class CategoryDTO implements Serializable{
     private String categoryName;
     private String room;
 
+    /**
+     * Default constructor for converting JSON into an Object
+     */
     public CategoryDTO() {}
 
     public CategoryDTO(ICategory category) {

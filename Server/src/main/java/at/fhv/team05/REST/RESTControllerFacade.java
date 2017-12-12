@@ -1,6 +1,11 @@
 package at.fhv.team05.REST;
 
 
+import at.fhv.team05.Application.ControllerFacade;
+import at.fhv.team05.ResultListDTO;
+import at.fhv.team05.Utility.JSONUtils;
+import at.fhv.team05.dtos.DvdDTO;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -15,10 +20,10 @@ import java.util.Set;
 @Path("/")
 public class RESTControllerFacade extends Application implements IRESTControllerFacade {
 
-//    private final ControllerFacade _controllerFacade;
+    private final ControllerFacade _controllerFacade;
 
     public RESTControllerFacade() {
-//        _controllerFacade = ControllerFacade.getInstance();
+        _controllerFacade = ControllerFacade.getInstance();
     }
 
     @Override
@@ -55,8 +60,10 @@ public class RESTControllerFacade extends Application implements IRESTController
     @Produces("application/json")
     @Path("/searchDvds")
     @Override
-    public String searchForDvd(String dvd) {
-        return "searchDvd";
+    public String searchForDvd(String jsonDvd) {
+        DvdDTO dvd = (DvdDTO) JSONUtils.JSONToObject(jsonDvd, DvdDTO.class);
+        ResultListDTO<DvdDTO> resultDvd = _controllerFacade.searchForDvd(dvd);
+        return JSONUtils.objectToJSON(resultDvd);
     }
 
     @GET

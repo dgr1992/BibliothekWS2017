@@ -20,9 +20,10 @@ public class BookDTO implements IMediumDTO, Serializable {
     private String author;
     private Map<String, Object> attributeMap;
 
-    public BookDTO(){
-
-    }
+    /**
+     * Default constructor for converting JSON into an Object
+     */
+    public BookDTO(){ }
 
     public BookDTO(IBook book) {
 
