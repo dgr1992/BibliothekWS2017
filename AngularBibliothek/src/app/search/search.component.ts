@@ -35,18 +35,16 @@ export class SearchComponent implements OnInit {
       .subscribe(books => this.books = books);
   }
 
-  search(): void {
-    // INSERT THE GET BOOKS STUFF --> Data is in formBook, if nothing is entered it sends empty strings
-    this.searchService.getBooksByInput(this.formBook);
+  searchBooks() {
+   this.searchService.getBooksByInput(this.formBook);
+  }
+
+  searchDvds() {
+    this.searchService.getDvdsByInput(this.formDvd);
   }
 
   searchOption: Array<IOption> = [
     {label: 'Books', value: 'books'},
     {label: 'Dvds', value: 'dvds'}
   ];
-
-  onSelectedMedium(option: IOption) {
-    this.selectedMedium = option.value;
-  }
-
 }

@@ -4,6 +4,7 @@ import {BOOKS} from './mock-books';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Dvd} from "./dvd";
 
 @Injectable()
 export class SearchService {
@@ -24,6 +25,10 @@ export class SearchService {
 
   getBooksByInput(formBook: Book): Observable<Book[]> {
     return this.http.get<Book[]>(this.baseUrl + "/searchBooks", formBook);
+  }
+
+  getDvdsByInput(formDvd: Dvd): Observable<Dvd[]> {
+    return this.http.get<Dvd[]>(this.baseUrl + "/searchDvds", formDvd);
   }
 
 

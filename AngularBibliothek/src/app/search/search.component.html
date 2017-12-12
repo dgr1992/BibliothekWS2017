@@ -10,7 +10,7 @@
     <input style="height: 20px; width: 300px;" type="text" class="txt" name="title" placeholder="Title" [(ngModel)]="formBook.title"><br><br>
     <input style="height: 20px; width: 300px;" type="text" class="txt" name="author" placeholder="Author" [(ngModel)]="formBook.author"><br><br>
     <input style="height: 20px; width: 300px;" type="text" class="txt" name="isbn" placeholder="ISBN" [(ngModel)]="formBook.isbn"><br><br>
-    <input style="height: 50px; width: 300px;" type="submit" class="btn" value="Search" (click)="search()">
+    <input style="height: 50px; width: 300px;" type="submit" class="btn" value="Search" (click)="searchBooks()">
   </form>
 </div>
 </div>
@@ -21,7 +21,7 @@
       <input style="height: 20px; width: 300px;" type="text" class="txt" name="title" placeholder="Title" [(ngModel)]="formDvd.title"><br><br>
       <input style="height: 20px; width: 300px;" type="text" class="txt" name="director" placeholder="Director" [(ngModel)]="formDvd.director"><br><br>
       <input style="height: 20px; width: 300px;" type="text" class="txt" name="asin" placeholder="ASIN" [(ngModel)]="formDvd.asin"><br><br>
-      <input style="height: 50px; width: 300px;" type="submit" class="btn" value="Search" (click)="search()">
+      <input style="height: 50px; width: 300px;" type="submit" class="btn" value="Search" (click)="searchDvds()">
     </form>
   </div>
 </div>
@@ -38,3 +38,17 @@
 <br><br>
 
 <app-book-detail [book]="selectedBook"></app-book-detail>
+
+
+<table style="width: 300px;">
+  <tr>
+    <th>Title</th>
+    <th>Author</th>
+    <th>ISBN</th>
+  </tr>
+  <tr>
+    <td>hihi</td>
+    <td>trying</td>
+    <td>todo</td>
+  </tr>
+</table>
