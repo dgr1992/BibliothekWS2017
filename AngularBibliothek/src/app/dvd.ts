@@ -1,9 +1,8 @@
-export class Book {
+export class Dvd {
   id: string;
   title: string;
-  isbn: string;
+  asin: string;
   releaseDate: string;
   publisher: string;
-  author: string;
-
+  director: string;
 }

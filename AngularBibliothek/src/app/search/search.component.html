@@ -1,5 +1,34 @@
+<h2>This is where you search</h2>
 
-<h2>Listing Mock Data Here</h2>
+<div>
+  <ng-select style="width: 250px;" [options]="searchOption" placeholder="Select the Medium Type" [(ngModel)]="selectedMedium"></ng-select>
+</div><br>
+
+<div *ngIf="selectedMedium.match('books')">
+<div>
+  <form>
+    <input style="height: 20px; width: 300px;" type="text" class="txt" name="title" placeholder="Title" [(ngModel)]="formBook.title"><br><br>
+    <input style="height: 20px; width: 300px;" type="text" class="txt" name="author" placeholder="Author" [(ngModel)]="formBook.author"><br><br>
+    <input style="height: 20px; width: 300px;" type="text" class="txt" name="isbn" placeholder="ISBN" [(ngModel)]="formBook.isbn"><br><br>
+    <input style="height: 50px; width: 300px;" type="submit" class="btn" value="Search" (click)="search()">
+  </form>
+</div>
+</div>
+
+<div *ngIf="selectedMedium.match('dvds')">
+  <div>
+    <form>
+      <input style="height: 20px; width: 300px;" type="text" class="txt" name="title" placeholder="Title" [(ngModel)]="formDvd.title"><br><br>
+      <input style="height: 20px; width: 300px;" type="text" class="txt" name="director" placeholder="Director" [(ngModel)]="formDvd.director"><br><br>
+      <input style="height: 20px; width: 300px;" type="text" class="txt" name="asin" placeholder="ASIN" [(ngModel)]="formDvd.asin"><br><br>
+      <input style="height: 50px; width: 300px;" type="submit" class="btn" value="Search" (click)="search()">
+    </form>
+  </div>
+</div>
+
+<br>
+<h2>Listing DB-Data Here - eventually</h2>
+
 <ul class="books">
   <li *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)">
     <span class="badge">{{book.title}}</span> {{book.isbn}} {{book.author}}
