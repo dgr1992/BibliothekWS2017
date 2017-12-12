@@ -24,7 +24,7 @@ public class CreateMessagePresenter extends Presenter {
         if (messageText != null) {
             try {
                 ResultDTO<Boolean> result = ClientRun.controller.sendMessage(messageText);
-                if (result.getDto()) {
+                if (result.getDto() != null) {
                     infoAlert(result.getException().getMessage());
                 } else {
                     errorAlert(result.getException().getMessage());

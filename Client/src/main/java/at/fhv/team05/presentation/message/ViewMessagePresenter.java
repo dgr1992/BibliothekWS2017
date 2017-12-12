@@ -9,7 +9,7 @@ import javafx.scene.control.TextArea;
 
 import java.rmi.RemoteException;
 
-public class ViewMessagePresenter extends Presenter{
+public class ViewMessagePresenter extends Presenter {
 
     @FXML
     private TextArea textOutputField;
@@ -18,7 +18,7 @@ public class ViewMessagePresenter extends Presenter{
         textOutputField.clear();
         try {
             ResultDTO<MessageDTO> text = ClientRun.controller.receiveMessage();
-            if (!text.getDto().getMessage().equalsIgnoreCase("ERROR")) {
+            if (text.getDto() != null && !text.getDto().getMessage().equalsIgnoreCase("ERROR")) {
                 textOutputField.setText(text.getDto().getMessage());
             } else {
                 infoAlert(text.getException().getMessage());
