@@ -17,11 +17,14 @@ public class ViewMessagePresenter extends Presenter {
     public void receiveMessage() {
         textOutputField.clear();
         try {
-            ResultDTO<MessageDTO> text = ClientRun.controller.receiveMessage();
-            if (text.getDto() != null && !text.getDto().getMessage().equalsIgnoreCase("ERROR")) {
-                textOutputField.setText(text.getDto().getMessage());
+            ResultDTO<MessageDTO> resultMessage = ClientRun.controller.receiveMessage();
+            MessageDTO message = resultMessage.getDto();
+            if (message != null && !message.getMessage().equalsIgnoreCase("NOMESSAGE")) {
+                textOutputField.setText(message.getMessage());
+            } else if (message != null && message.getMessage().equalsIgnoreCase("NOMESSAGE")){
+                infoAlert(resultMessage.getException().getMessage());
             } else {
-                infoAlert(text.getException().getMessage());
+                errorAlert(resultMessage.getException().getMessage());
             }
         } catch (RemoteException e) {
             e.printStackTrace();

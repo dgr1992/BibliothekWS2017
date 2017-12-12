@@ -108,7 +108,7 @@ public class MessagingController extends BaseController<Message, MessageDTO> {
             save(message);
             return new ResultDTO<>(createDTO(message), new Exception("Message successfully loaded"));
         } catch (Exception e) {
-            return new ResultDTO<>(new MessageDTO("ERROR"), e);
+            return new ResultDTO<>(new MessageDTO("NOMESSAGE"), e);
         }
     }
 
