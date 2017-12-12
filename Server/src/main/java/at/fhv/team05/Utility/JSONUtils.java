@@ -1,7 +1,7 @@
 package at.fhv.team05.Utility;
 
-import at.fhv.team05.domain.medium.Book;
-import at.fhv.team05.dtos.BookDTO;
+import at.fhv.team05.library.dtos.BookDTO;
+import at.fhv.team05.server.domain.medium.Book;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

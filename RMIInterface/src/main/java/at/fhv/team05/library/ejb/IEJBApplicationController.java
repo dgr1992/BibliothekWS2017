@@ -2,7 +2,6 @@ package at.fhv.team05.library.ejb;
 
 import java.io.Serializable;
 
-import javax.ejb.Remote;
 
 import at.fhv.team05.library.Enum.MediaLoanPeriod;
 import at.fhv.team05.library.ResultDTO;
@@ -18,6 +17,8 @@ import at.fhv.team05.library.dtos.MessageDTO;
 import at.fhv.team05.library.dtos.RentalDTO;
 import at.fhv.team05.library.dtos.ReservationDTO;
 import at.fhv.team05.library.dtos.UserAccountDTO;
+
+import javax.ejb.Remote;
 
 @Remote
 public interface IEJBApplicationController extends Serializable {

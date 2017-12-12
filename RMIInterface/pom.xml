@@ -8,6 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <artifactId>RMIInterface</artifactId>
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -15,10 +16,6 @@
             <version>6.0</version>
             <scope>provided</scope>
         </dependency>
-    </dependencies>
-
-    <artifactId>RMIInterface</artifactId>
-    <dependencies>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>

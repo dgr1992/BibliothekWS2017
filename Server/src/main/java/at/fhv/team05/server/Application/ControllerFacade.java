@@ -1,6 +1,7 @@
 package at.fhv.team05.server.Application;
 
 
+import at.fhv.team05.Utility.JSONUtils;
 import at.fhv.team05.server.Application.medium.BookController;
 import at.fhv.team05.server.Application.medium.DvdController;
 import at.fhv.team05.library.ObjectInterfaces.IConfigurationData;
@@ -10,7 +11,9 @@ import at.fhv.team05.server.domain.*;
 import at.fhv.team05.library.dtos.*;
 import at.fhv.team05.server.persistence.RepositoryFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ControllerFacade {
     private static ControllerFacade mInstance;
@@ -260,5 +263,15 @@ public class ControllerFacade {
             _messagingController = MessagingController.getInstance();
         }
         return _messagingController.receiveMessage();
+    }
+
+    public String getAllBooksJSON() {
+        if (_bookController == null) {
+            _bookController = BookController.getInstance();
+        }
+        List<BookDTO> bookDTOS = new ArrayList<>();
+        _bookController.getAll().forEach(book -> bookDTOS.add(new BookDTO(book)));
+
+        return JSONUtils.objectToJSON(bookDTOS);
     }
 }

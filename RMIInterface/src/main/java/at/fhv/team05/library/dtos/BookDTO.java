@@ -1,6 +1,5 @@
 package at.fhv.team05.library.dtos;
 
-import at.fhv.team05.ObjectInterfaces.IBook;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import at.fhv.team05.library.ObjectInterfaces.IBook;
 
