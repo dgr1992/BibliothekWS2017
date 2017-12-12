@@ -1,20 +1,24 @@
-import {Injectable, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Book} from './book';
+import {BOOKS} from './mock-books';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
-export class SearchService implements OnInit {
+export class SearchService {
 
   results: string[];
   private baseUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    // Make the HTTP request:
-    this.http.get(this.baseUrl + '/searchBooks').subscribe(data => {
-      // Read the result field from the JSON response.
-      this.results = data['results'];
-    });
+  getBooks(): Observable<Book[]> {
+    return of(BOOKS);
   }
+
+  // getBooks (): Observable<String[]> {
+  //   return this.http.get<String[]>(this.baseUrl + "searchBooks");
+  // }
+
 
 }

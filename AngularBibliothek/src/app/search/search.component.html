@@ -1,3 +1,11 @@
-<p>
-  search works!
-</p>
+
+<h2>Listing Mock Data Here</h2>
+<ul class="books">
+  <li *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)">
+    <span class="badge">{{book.title}}</span> {{book.isbn}} {{book.author}}
+  </li>
+</ul>
+
+<br><br>
+
+<app-book-detail [book]="selectedBook"></app-book-detail>
