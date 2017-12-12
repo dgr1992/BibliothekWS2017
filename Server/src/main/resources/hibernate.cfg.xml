@@ -25,21 +25,21 @@
         <property name="hibernate.c3p0.idle_test_period">1000</property>
         <property name="hibernate.c3p0.validate">true</property>
 
-        <mapping class="at.fhv.team05.domain.Category"/>
-        <mapping class="at.fhv.team05.domain.medium.Book"/>
-        <mapping class="at.fhv.team05.domain.Address"/>
-        <mapping class="at.fhv.team05.domain.BankAccountInformation"/>
-        <mapping class="at.fhv.team05.domain.Copy"/>
-        <mapping class="at.fhv.team05.domain.Customer"/>
-        <mapping class="at.fhv.team05.domain.medium.Dvd"/>
-        <mapping class="at.fhv.team05.domain.RemoteLibrary"/>
-        <mapping class="at.fhv.team05.domain.Rental"/>
-        <mapping class="at.fhv.team05.domain.Reservation"/>
-        <mapping class="at.fhv.team05.domain.UserAccount"/>
-        <mapping class="at.fhv.team05.domain.UserRole"/>
-        <mapping class="at.fhv.team05.domain.ConfigurationData"/>
-        <mapping class="at.fhv.team05.domain.Right"/>
-        <mapping class="at.fhv.team05.domain.Message"/>
+        <mapping class="at.fhv.team05.server.domain.Category"/>
+        <mapping class="at.fhv.team05.server.domain.medium.Book"/>
+        <mapping class="at.fhv.team05.server.domain.Address"/>
+        <mapping class="at.fhv.team05.server.domain.BankAccountInformation"/>
+        <mapping class="at.fhv.team05.server.domain.Copy"/>
+        <mapping class="at.fhv.team05.server.domain.Customer"/>
+        <mapping class="at.fhv.team05.server.domain.medium.Dvd"/>
+        <mapping class="at.fhv.team05.server.domain.RemoteLibrary"/>
+        <mapping class="at.fhv.team05.server.domain.Rental"/>
+        <mapping class="at.fhv.team05.server.domain.Reservation"/>
+        <mapping class="at.fhv.team05.server.domain.UserAccount"/>
+        <mapping class="at.fhv.team05.server.domain.UserRole"/>
+        <mapping class="at.fhv.team05.server.domain.ConfigurationData"/>
+        <mapping class="at.fhv.team05.server.domain.Right"/>
+        <mapping class="at.fhv.team05.server.domain.Message"/>
 
     </session-factory>
 </hibernate-configuration>

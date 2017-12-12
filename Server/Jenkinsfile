@@ -17,10 +17,16 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'echo "nothing to do"'
-                sh 'ps aux | grep -F BibliothekWS2017Server | grep -v -F 'grep' | awk '{ print $2 }' | xargs kill -9 || true'
-                sh 'nohup java -jar ./target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar &'
-                sh 'true'
+                //Deploy application to glassfish
+                sh '/opt/glassfish5/glassfish/bin/asadmin --user admin --passwordfile /opt/glassfish5/glassfish/bin/password.txt undeploy BibliothekWS2017Server || true'
+                sh './target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar ./target/BibliothekWS2017Server.jar'
+                sh '/opt/glassfish5/glassfish/bin/asadmin --user admin --passwordfile /opt/glassfish5/glassfish/bin/password.txt deploy ./target/BibliothekWS2017Server.jar || true'
+
+                //Lines below kills the old jar and starts the new one
+                //sh 'echo "nothing to do"'
+                //sh 'ps aux | grep -F BibliothekWS2017Server | grep -v -F 'grep' | awk '{ print $2 }' | xargs kill -9 || true'
+                //sh 'nohup java -jar ./target/BibliothekWS2017Server-1.0-SNAPSHOT-jar-with-dependencies.jar &'
+                //sh 'true'
             }
         }
     }

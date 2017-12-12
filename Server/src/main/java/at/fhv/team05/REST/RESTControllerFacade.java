@@ -1,6 +1,11 @@
 package at.fhv.team05.REST;
 
 
+import at.fhv.team05.Utility.JSONUtils;
+import at.fhv.team05.library.ResultListDTO;
+import at.fhv.team05.library.dtos.DvdDTO;
+import at.fhv.team05.server.Application.ControllerFacade;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -13,12 +18,12 @@ import java.util.Set;
 // The Java class will be hosted at the URI path "/helloworld"
 @ApplicationPath("/")
 @Path("/")
-public class RESTControllerFacade extends Application implements IRESTControllerFacade {
+public class RESTControllerFacade extends Application {
 
-//    private final ControllerFacade _controllerFacade;
+    private final ControllerFacade _controllerFacade;
 
     public RESTControllerFacade() {
-//        _controllerFacade = ControllerFacade.getInstance();
+        _controllerFacade = ControllerFacade.getInstance();
     }
 
     @Override
@@ -41,7 +46,6 @@ public class RESTControllerFacade extends Application implements IRESTController
     @GET
     @Produces("application/json")
     @Path("/searchBooks")
-    @Override
     public String searchForBook(String jsonBook) {
         JsonReader reader = Json.createReader(new StringReader(jsonBook));
         JsonObject book = reader.readObject();
@@ -54,16 +58,23 @@ public class RESTControllerFacade extends Application implements IRESTController
     @GET
     @Produces("application/json")
     @Path("/searchDvds")
-    @Override
-    public String searchForDvd(String dvd) {
-        return "searchDvd";
+    public String searchForDvd(String jsonDvd) {
+        DvdDTO dvd = (DvdDTO) JSONUtils.JSONToObject(jsonDvd, DvdDTO.class);
+        ResultListDTO<DvdDTO> resultDvd = _controllerFacade.searchForDvd(dvd);
+        return JSONUtils.objectToJSON(resultDvd);
     }
 
     @GET
     @Produces("application/json")
     @Path("/getCopiesByMedium")
-    @Override
     public String getCopiesByMedium(String mediumDTO) {
         return null;
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/getAllBooks")
+    public String getAllBooks() {
+        return _controllerFacade.getAllBooksJSON();
     }
 }
