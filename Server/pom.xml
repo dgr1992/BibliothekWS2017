@@ -54,7 +54,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
-            <version>5.2.9.Final</version>
+            <version>5.2.12.Final</version>
         </dependency>
         <!-- log4j -->
         <dependency>
@@ -71,6 +71,12 @@
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-all</artifactId>
             <version>5.15.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -141,7 +147,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>at.fhv.team05.ServerRun</mainClass>
+                            <mainClat.fhv.team05.server.ServerRunrRun</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -162,7 +168,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>at.fhv.team05.ServerRun</mainClass>
+                            <mainClass>at.fhv.team05.server.ServerRun</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
