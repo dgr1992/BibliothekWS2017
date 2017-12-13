@@ -4,6 +4,7 @@ package at.fhv.team05.REST;
 import at.fhv.team05.Utility.JSONUtils;
 import at.fhv.team05.library.ResultListDTO;
 import at.fhv.team05.library.dtos.BookDTO;
+import at.fhv.team05.library.dtos.BookDTO;
 import at.fhv.team05.library.dtos.CopyDTO;
 import at.fhv.team05.library.dtos.DvdDTO;
 import at.fhv.team05.library.dtos.IMediumDTO;
@@ -48,11 +49,11 @@ public class RESTControllerFacade extends Application {
         return "Hello World";
     }
 
-    @GET
+    @POST
     @Produces("application/json")
     @Path("/searchBooks")
     public String searchForBook(String jsonBook) {
-        BookDTO book = (BookDTO) JSONUtils.JSONToObject(jsonBook, DvdDTO.class);
+        BookDTO book = (BookDTO) JSONUtils.JSONToObject(jsonBook, BookDTO.class);
         ResultListDTO<BookDTO> resultBook = _controllerFacade.searchForBook(book);
         return JSONUtils.objectToJSON(resultBook.getListDTO());
     }

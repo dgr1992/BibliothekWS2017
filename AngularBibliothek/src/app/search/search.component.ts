@@ -14,6 +14,7 @@ export class SearchComponent implements OnInit {
 
   formBook: Book = {title: '', author: '', isbn: '', releaseDate: '', publisher: '', id: ''};
   formDvd: Dvd = {title: '', director: '', asin: '', releaseDate: '', publisher: '', id: ''};
+  testBook: Book = {title: 'book', author: 'book', isbn: 'book', releaseDate: 'book', publisher: 'book', id: 'book'};
 
   books: Book[];
 

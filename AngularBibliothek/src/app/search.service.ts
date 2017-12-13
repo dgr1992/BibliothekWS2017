@@ -4,14 +4,14 @@ import {BOOKS} from './mock-books';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Dvd} from "./dvd";
+import {Dvd} from './dvd';
 
 @Injectable()
 export class SearchService {
 
   results: string[];
-  // private baseUrl = 'http://10.0.51.95:9000/BibliothekWS2017Server';
   private baseUrl = 'http://localhost:8080';
+  // private baseUrl = 'http://10.0.51.95:9000/BibliothekWS2017Server';
 
   constructor(private http: HttpClient) {
   }
@@ -25,11 +25,13 @@ export class SearchService {
   // }
 
   getBooksByInput(formBook: Book): Observable<Book[]> {
-    return this.http.get<Book[]>(this.baseUrl + "/searchBooks", formBook);
+    const req = this.http.post<Book[]>(this.baseUrl + '/searchBooks', formBook);
+    req.subscribe();
+    return req;
   }
 
   getDvdsByInput(formDvd: Dvd): Observable<Dvd[]> {
-    return this.http.get<Dvd[]>(this.baseUrl + "/searchDvds", formDvd);
+    return this.http.get<Dvd[]>(this.baseUrl + '/searchDvds', formDvd);
   }
 
 
