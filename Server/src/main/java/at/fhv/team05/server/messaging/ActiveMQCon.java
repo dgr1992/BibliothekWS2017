@@ -40,7 +40,7 @@ public class ActiveMQCon {
     private void startBroker(String brokerURL) throws Exception {
         BrokerService broker = new BrokerService();
         // configure the broker
-        broker.setBrokerName("BibliothekWS2017");
+        broker.setBrokerName("localhost");
         broker.addConnector(brokerURL);
         broker.start();
     }
