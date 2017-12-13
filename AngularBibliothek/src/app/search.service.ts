@@ -10,7 +10,7 @@ import {Dvd} from "./dvd";
 export class SearchService {
 
   results: string[];
-  private baseUrl = 'http://localhost:8080/BibliothekWS2017Server_Web_exploded';
+  private baseUrl = 'http://10.0.51.95:9000/BibliothekWS2017Server';
 
   constructor(private http: HttpClient) {
   }
@@ -19,9 +19,9 @@ export class SearchService {
   //   return of(BOOKS);
   // }
 
-  getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.baseUrl + '/searchDvds');
-  }
+  // getBooks(): Observable<Book[]> {
+  //   return this.http.get<Book[]>(this.baseUrl + '/searchDvds');
+  // }
 
   getBooksByInput(formBook: Book): Observable<Book[]> {
     return this.http.get<Book[]>(this.baseUrl + "/searchBooks", formBook);

@@ -47,8 +47,8 @@
     <th>ISBN</th>
   </tr>
   <tr>
-    <td>hihi</td>
-    <td>trying</td>
-    <td>todo</td>
+    <td *ngFor="let book of books">{{book.title}}</td>
+    <td *ngFor="let book of books">{{book.author}}</td>
+    <td *ngFor="let book of books">{{book.isbn}}</td>
   </tr>
 </table>
