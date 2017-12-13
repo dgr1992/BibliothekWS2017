@@ -37,7 +37,7 @@ pipeline {
     }
     post {
         always {
-            archive 'Server/target/*.jar, Server/target/hibernate.cfg.xml, Server/target/log4j.properties, Server/target/kill.sh'
+            archive 'Server/target/*.jar, Server/target/hibernate.cfg.xml, Server/target/log4j.properties, Server/target/kill.sh, Server/target/*.war'
             archive 'Client/target/*.jar, Client/target/Config/'
         }
     }
