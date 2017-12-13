@@ -112,6 +112,13 @@
             <version>3.0.2</version>
             <optional>true</optional>
         </dependency>
+        <!-- Dom4j -->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+            <optional>true</optional>
+        </dependency>
         <!--&lt;!&ndash; https://mvnrepository.com/artifact/io.hawt/hawtio-embedded &ndash;&gt;-->
         <!--<dependency>-->
         <!--<groupId>io.hawt</groupId>-->
@@ -140,7 +147,7 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeArtifactIds>hamcrest-library, hibernate-core, mysql-connector-java, hibernate-c3p0, log4j-api,log4j-core, activemq-all, javaee-api, javax.json-api, jackson-databind</includeArtifactIds>
+                            <includeArtifactIds>hamcrest-library, hibernate-core, mysql-connector-java, hibernate-c3p0, log4j-api,log4j-core, activemq-all, javaee-api, javax.json-api, jackson-databind, dom4j</includeArtifactIds>
                             <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                             <overWriteReleases>false</overWriteReleases>
                         </configuration>
