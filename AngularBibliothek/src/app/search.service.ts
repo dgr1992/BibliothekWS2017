@@ -10,7 +10,8 @@ import {Dvd} from "./dvd";
 export class SearchService {
 
   results: string[];
-  private baseUrl = 'http://10.0.51.95:9000/BibliothekWS2017Server';
+  // private baseUrl = 'http://10.0.51.95:9000/BibliothekWS2017Server';
+  private baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {
   }

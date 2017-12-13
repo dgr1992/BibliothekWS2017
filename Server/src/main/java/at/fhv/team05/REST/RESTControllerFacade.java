@@ -3,8 +3,13 @@ package at.fhv.team05.REST;
 
 import at.fhv.team05.Utility.JSONUtils;
 import at.fhv.team05.library.ResultListDTO;
+import at.fhv.team05.library.dtos.BookDTO;
+import at.fhv.team05.library.dtos.CopyDTO;
 import at.fhv.team05.library.dtos.DvdDTO;
+import at.fhv.team05.library.dtos.IMediumDTO;
 import at.fhv.team05.server.Application.ControllerFacade;
+import at.fhv.team05.server.domain.Copy;
+import at.fhv.team05.server.domain.medium.Book;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -47,12 +52,9 @@ public class RESTControllerFacade extends Application {
     @Produces("application/json")
     @Path("/searchBooks")
     public String searchForBook(String jsonBook) {
-        JsonReader reader = Json.createReader(new StringReader(jsonBook));
-        JsonObject book = reader.readObject();
-        reader.close();
-
-
-        return "searchBook";
+        BookDTO book = (BookDTO) JSONUtils.JSONToObject(jsonBook, DvdDTO.class);
+        ResultListDTO<BookDTO> resultBook = _controllerFacade.searchForBook(book);
+        return JSONUtils.objectToJSON(resultBook.getListDTO());
     }
 
     @GET
@@ -61,14 +63,16 @@ public class RESTControllerFacade extends Application {
     public String searchForDvd(String jsonDvd) {
         DvdDTO dvd = (DvdDTO) JSONUtils.JSONToObject(jsonDvd, DvdDTO.class);
         ResultListDTO<DvdDTO> resultDvd = _controllerFacade.searchForDvd(dvd);
-        return JSONUtils.objectToJSON(resultDvd);
+        return JSONUtils.objectToJSON(resultDvd.getListDTO());
     }
 
     @GET
     @Produces("application/json")
     @Path("/getCopiesByMedium")
     public String getCopiesByMedium(String mediumDTO) {
-        return null;
+        IMediumDTO medium = (IMediumDTO) JSONUtils.JSONToObject(mediumDTO, IMediumDTO.class);
+        ResultListDTO<CopyDTO> resultCopies = _controllerFacade.getCopiesByMedium(medium);
+        return JSONUtils.objectToJSON(resultCopies.getListDTO());
     }
 
     @GET
