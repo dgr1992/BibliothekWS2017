@@ -3,6 +3,7 @@ import { Book } from '../book';
 import {SearchService} from "../search.service";
 import {IOption} from "ng-select";
 import {Dvd} from "../dvd";
+import {Copy} from "../copy";
 
 @Component({
   selector: 'app-search',
@@ -16,8 +17,10 @@ export class SearchComponent implements OnInit {
 
   books: Book[];
   dvds: Dvd[];
+  copies: Copy[];
 
   selectedBook: Book;
+  selectedDvd: Dvd;
   selectedMedium: String = '';
 
   constructor(private searchService: SearchService) { }
@@ -25,14 +28,13 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSelect(book: Book): void {
+  onSelectBook(book: Book) {
     this.selectedBook = book;
+    this.searchService.getBookCopy(this.selectedBook).subscribe(copies => this.copies = copies);
   }
-
-  // getBooks(): void {
-  //   this.searchService.getBooks()
-  //     .subscribe(books => this.books = books);
-  // }
+  onSelectDvd(dvd: Dvd) {
+    this.selectedDvd = dvd;
+  }
 
   searchBooks() {
     this.searchService.getBooksByInput(this.formBook).subscribe(books => this.books = books);

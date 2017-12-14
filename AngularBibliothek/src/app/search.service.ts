@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Dvd} from './dvd';
+import {Copy} from "./copy";
 
 @Injectable()
 export class SearchService {
@@ -16,14 +17,6 @@ export class SearchService {
   constructor(private http: HttpClient) {
   }
 
-  // getBooks(): Observable<Book[]> {
-  //   return of(BOOKS);
-  // }
-
-  // getBooks(): Observable<Book[]> {
-  //   return this.http.get<Book[]>(this.baseUrl + '/searchDvds');
-  // }
-
   getBooksByInput(formBook: Book): Observable<Book[]> {
     const req = this.http.post<Book[]>(this.baseUrl + '/searchBooks', formBook);
     req.subscribe();
@@ -32,6 +25,12 @@ export class SearchService {
 
   getDvdsByInput(formDvd: Dvd): Observable<Dvd[]> {
     const req = this.http.post<Dvd[]>(this.baseUrl + '/searchDvds', formDvd);
+    req.subscribe();
+    return req;
+  }
+
+  getBookCopy(book: Book): Observable<Copy[]> {
+    const req = this.http.post<Copy[]>(this.baseUrl + '/getCopiesByMedium', book);
     req.subscribe();
     return req;
   }

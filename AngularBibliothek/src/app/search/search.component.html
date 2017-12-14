@@ -53,7 +53,7 @@
       <th>Author</th>
       <th>ISBN</th>
     </tr>
-    <tr *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)">
+    <tr *ngFor="let book of books"  [class.selected]="book === selectedBook" (click)="onSelectBook(book)">
       <td>{{book.title}}</td>
       <td>{{book.author}}</td>
       <td>{{book.isbn}}</td>
@@ -68,7 +68,7 @@
       <th>Director</th>
       <th>ASIN</th>
     </tr>
-    <tr *ngFor="let dvd of dvds">
+    <tr *ngFor="let dvd of dvds" [class.selected]="dvd === selectedDvd" (click)="onSelectDvd(dvd)">
       <td>{{dvd.title}}</td>
       <td>{{dvd.director}}</td>
       <td>{{dvd.asin}}</td>
