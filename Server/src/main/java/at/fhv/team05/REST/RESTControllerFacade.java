@@ -58,7 +58,7 @@ public class RESTControllerFacade extends Application {
         return JSONUtils.objectToJSON(resultBook.getListDTO());
     }
 
-    @GET
+    @POST
     @Produces("application/json")
     @Path("/searchDvds")
     public String searchForDvd(String jsonDvd) {
@@ -67,7 +67,7 @@ public class RESTControllerFacade extends Application {
         return JSONUtils.objectToJSON(resultDvd.getListDTO());
     }
 
-    @GET
+    @POST
     @Produces("application/json")
     @Path("/getCopiesByMedium")
     public String getCopiesByMedium(String mediumDTO) {
