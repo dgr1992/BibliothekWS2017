@@ -9,6 +9,7 @@ import at.fhv.team05.library.ResultDTO;
 import at.fhv.team05.library.ResultListDTO;
 import at.fhv.team05.server.domain.*;
 import at.fhv.team05.library.dtos.*;
+import at.fhv.team05.server.persistence.DatabaseConnection;
 import at.fhv.team05.server.persistence.RepositoryFactory;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class ControllerFacade {
 
     public static ControllerFacade getInstance() {
         if (mInstance == null) {
+            DatabaseConnection.init();
             mInstance = new ControllerFacade();
         }
         return mInstance;

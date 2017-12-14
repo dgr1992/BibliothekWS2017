@@ -67,6 +67,7 @@ public abstract class Repository<TModel> implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
+        DatabaseConnection.getSession().close();
     }
 }

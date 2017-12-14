@@ -4,12 +4,10 @@ package at.fhv.team05.REST;
 import at.fhv.team05.Utility.JSONUtils;
 import at.fhv.team05.library.ResultListDTO;
 import at.fhv.team05.library.dtos.BookDTO;
-import at.fhv.team05.library.dtos.BookDTO;
 import at.fhv.team05.library.dtos.CopyDTO;
 import at.fhv.team05.library.dtos.DvdDTO;
 import at.fhv.team05.library.dtos.IMediumDTO;
 import at.fhv.team05.server.Application.ControllerFacade;
-import at.fhv.team05.server.domain.Copy;
 import at.fhv.team05.server.domain.medium.Book;
 
 import javax.json.Json;
@@ -21,7 +19,6 @@ import java.io.StringReader;
 import java.util.HashSet;
 import java.util.Set;
 
-// The Java class will be hosted at the URI path "/helloworld"
 @ApplicationPath("/")
 @Path("/")
 public class RESTControllerFacade extends Application {
@@ -39,9 +36,7 @@ public class RESTControllerFacade extends Application {
         return h;
     }
 
-    // The Java method will process HTTP GET requests
     @GET
-    // The Java method will produce content identified by the MIME Media type "text/plain"
     @Produces("text/plain")
     @Path("/helloWorld")
     public String getClichedMessage() {
@@ -71,8 +66,11 @@ public class RESTControllerFacade extends Application {
     @Produces("application/json")
     @Path("/getCopiesByMedium")
     public String getCopiesByMedium(String mediumDTO) {
-        IMediumDTO medium = (IMediumDTO) JSONUtils.JSONToObject(mediumDTO, IMediumDTO.class);
-        ResultListDTO<CopyDTO> resultCopies = _controllerFacade.getCopiesByMedium(medium);
+        JsonReader reader = Json.createReader(new StringReader(mediumDTO));
+        JsonObject medium = reader.readObject();
+        Class clazz = (medium.getString("type").equalsIgnoreCase("book")? BookDTO.class:DvdDTO.class);
+        IMediumDTO iMedium = (IMediumDTO) JSONUtils.JSONToObject(mediumDTO, clazz);
+        ResultListDTO<CopyDTO> resultCopies = _controllerFacade.getCopiesByMedium(iMedium);
         return JSONUtils.objectToJSON(resultCopies.getListDTO());
     }
 
