@@ -31,7 +31,9 @@ export class SearchService {
   }
 
   getDvdsByInput(formDvd: Dvd): Observable<Dvd[]> {
-    return this.http.get<Dvd[]>(this.baseUrl + '/searchDvds', formDvd);
+    const req = this.http.post<Dvd[]>(this.baseUrl + '/searchDvds', formDvd);
+    req.subscribe();
+    return req;
   }
 
 

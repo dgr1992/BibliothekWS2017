@@ -3,7 +3,6 @@ import { Book } from '../book';
 import {SearchService} from "../search.service";
 import {IOption} from "ng-select";
 import {Dvd} from "../dvd";
-import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-search',
@@ -14,14 +13,11 @@ export class SearchComponent implements OnInit {
 
   formBook: Book = {title: '', author: '', isbn: '', releaseDate: '', publisher: '', id: ''};
   formDvd: Dvd = {title: '', director: '', asin: '', releaseDate: '', publisher: '', id: ''};
-  testBook: Book = {title: 'book', author: 'book', isbn: 'book', releaseDate: 'book', publisher: 'book', id: 'book'};
 
   books: Book[];
-
-  resultBooks: Observable<Book>[];
+  dvds: Dvd[];
 
   selectedBook: Book;
-
   selectedMedium: String = '';
 
   constructor(private searchService: SearchService) { }
@@ -43,7 +39,7 @@ export class SearchComponent implements OnInit {
   }
 
   searchDvds() {
-    this.searchService.getDvdsByInput(this.formDvd);
+    this.searchService.getDvdsByInput(this.formDvd).subscribe(dvds => this.dvds = dvds);
   }
 
   searchOption: Array<IOption> = [
