@@ -9,7 +9,7 @@ import {Copy} from "../copy";
 })
 export class BookDetailComponent implements OnInit {
 
-  @Input() book: Copy[];
+  @Input ('copiesData') copies: Copy[];
 
   constructor() { }
 

@@ -1,16 +1,16 @@
-<div *ngIf="book">
-    <table style="width: 800px">
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>ISBN</th>
-        <th></th>
-      </tr>
-      <tr *ngFor="let book of copies">
-        <td>{{book.copyNumber}}</td>
-        <td>{{book.copyStatus}}</td>
-        <td>{{book.category}}</td>
-        <td>{{book.mediumId}}</td>
-      </tr>
-    </table>
-</div>
+<br>
+<table style="width: 800px">
+  <tr>
+    <th>Number</th>
+    <th>Status</th>
+    <th>Category</th>
+    <th>ID</th>
+  </tr>
+  <tr>
+  <tr *ngFor="let copy of copies">
+    <td>{{copy.copyNumber}}</td>
+    <td>{{copy.copyStatus}}</td>
+    <td>{{copy.category}}</td>
+    <td>{{copy.mediumId}}</td>
+  </tr>
+</table>

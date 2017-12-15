@@ -76,6 +76,5 @@
   </table>
 </div>
 
-<div *ngIf="selectedBook">
-  <app-book-detail></app-book-detail>
-</div>
+<app-book-detail [copiesData]="copies"></app-book-detail>
+
