@@ -1,12 +1,11 @@
 package at.fhv.team05.library.dtos;
 
 import at.fhv.team05.library.ObjectInterfaces.ICopy;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 
-/**
- * Created by Daniel on 05.11.2017.
- */
+@JsonIgnoreProperties(value = {"rental"})
 public class CopyDTO implements Serializable {
 
     private int _copyNumber;

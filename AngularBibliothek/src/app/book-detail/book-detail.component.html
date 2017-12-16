@@ -10,7 +10,7 @@
   <tr *ngFor="let copy of copies">
     <td>{{copy.copyNumber}}</td>
     <td>{{copy.copyStatus}}</td>
-    <td>{{copy.category}}</td>
+    <td>{{copy.category.categoryIndex+" "+copy.category.room}}</td>
     <td>{{copy.mediumId}}</td>
   </tr>
 </table>
