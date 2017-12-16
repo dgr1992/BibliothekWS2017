@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 
-@JsonIgnoreProperties(value = {"rental"})
+
 public class CopyDTO implements Serializable {
 
     private int _copyNumber;

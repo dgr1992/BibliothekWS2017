@@ -1,10 +1,12 @@
 package at.fhv.team05.library.dtos;
 
 import at.fhv.team05.library.ObjectInterfaces.IRental;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.sql.Date;
 
+@JsonIgnoreProperties(value = {"copy"})
 public class RentalDTO implements Serializable {
     private int _id;
     private CopyDTO _copy;
