@@ -34,6 +34,7 @@ export class SearchComponent implements OnInit {
   }
   onSelectDvd(dvd: Dvd) {
     this.selectedDvd = dvd;
+    this.searchService.getDvdCopy(this.selectedDvd).subscribe(copies => this.copies = copies);
   }
 
   searchBooks() {

@@ -29,6 +29,8 @@ export class SearchService {
   getBookCopy(book: Book): Observable<Copy[]> {
     return this.http.post<Copy[]>(this.baseUrl + '/getCopiesByMedium', book);
   }
-
+  getDvdCopy(dvd: Dvd): Observable<Copy[]> {
+    return this.http.post<Copy[]>(this.baseUrl + '/getCopiesByMedium', dvd);
+  }
 
 }
