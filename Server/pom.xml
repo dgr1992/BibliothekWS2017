@@ -105,7 +105,7 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -122,7 +122,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -130,8 +130,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>BibliothekWS2017Server.war/WEB-INF/lib/</classpathPrefix>
+                            <addClasspath>false</addClasspath>
                         </manifest>
                     </archive>
                     <webResources>
