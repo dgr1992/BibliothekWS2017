@@ -84,11 +84,34 @@ public class RESTControllerFacade extends Application {
     @Produces("application/json")
     @Path("/rentMedium")
     public String rentMedium(String jsonObject) {
+        /*
         JsonReader reader = Json.createReader(new StringReader(jsonObject));
         JsonObject object = reader.readObject();
 
-        int customerNumber = object.getInt("customerNumber");
-        int copyNumber = object.getInt("copyNumber");
+        int customerNumber = Integer.getInteger(object.getString("customerNumber").replace('"',' ').trim());
+        int copyNumber = Integer.getInteger(object.getString("copyNumber").replace('"',' ').trim());
+        */
+
+        //#RealDirtyFix
+        String cleanedData = jsonObject.replace('{',' ').replace('}',' ').replace('"',' ').trim();
+        String[] data1 = cleanedData.split(",")[0].split(":");
+        String[] data2 = cleanedData.split(",")[1].split(":");
+
+        int customerNumber = 0;
+        int copyNumber = 0;
+        if(data1[0].contains("customerNumber")){
+            customerNumber = Integer.parseInt(data1[1].trim());
+        }
+        if(data1[0].contains("copyNumber")){
+            copyNumber = Integer.parseInt(data1[1].trim());
+        }
+        if(data2[0].contains("customerNumber")){
+            customerNumber = Integer.parseInt(data2[1].trim());
+        }
+        if(data2[0].contains("copyNumber")){
+            copyNumber = Integer.parseInt(data2[1].trim());
+        }
+
 
         CustomerDTO customerDTO = _controllerFacade.searchForCustomer(new CustomerDTO(customerNumber, "", "")).getListDTO().get(0);
         CopyDTO copyDTO = _controllerFacade.searchCopyByCopyNumber(copyNumber).getDto();
