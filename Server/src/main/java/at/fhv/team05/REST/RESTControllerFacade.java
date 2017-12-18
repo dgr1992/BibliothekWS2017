@@ -15,6 +15,8 @@ import javax.json.JsonReader;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import java.io.StringReader;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -81,11 +83,38 @@ public class RESTControllerFacade extends Application {
     @POST
     @Produces("application/json")
     @Path("/rentMedium")
-    public String rentMedium(String jsonRental) {
-        RentalDTO rentalDTO = (RentalDTO) JSONUtils.JSONToObject(jsonRental, RentalDTO.class);
-        ResultDTO<Boolean> result = _controllerFacade.rentMedium(rentalDTO);
-        return JSONUtils.objectToJSON(result);
+    public String rentMedium(String jsonObject) {
+        JsonReader reader = Json.createReader(new StringReader(jsonObject));
+        JsonObject object = reader.readObject();
 
+        int customerNumber = object.getInt("customerNumber");
+        int copyNumber = object.getInt("copyNumber");
+
+        CustomerDTO customerDTO = _controllerFacade.searchForCustomer(new CustomerDTO(customerNumber, "", "")).getListDTO().get(0);
+        CopyDTO copyDTO = _controllerFacade.searchCopyByCopyNumber(copyNumber).getDto();
+
+        RentalDTO rentalDTO = new RentalDTO();
+        rentalDTO.setCopy(copyDTO);
+        rentalDTO.setCustomer(customerDTO);
+        rentalDTO.setPickupDate(new Date(System.currentTimeMillis()));
+        rentalDTO.setReturnDate(null);
+        String loanPeriodName;
+        if (copyDTO.getMediaType().equalsIgnoreCase("book")) {
+            loanPeriodName = "BookLoanPeriod";
+        } else {
+            loanPeriodName = "DVDLoanPeriod";
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, Integer.parseInt(_controllerFacade.getConfigDTOFor(loanPeriodName).getDto().getValue()));
+
+        rentalDTO.setDeadline(new Date(cal.getTimeInMillis()));
+        rentalDTO.setExtendCounter(0);
+
+        ResultDTO<Boolean> result = _controllerFacade.rentMedium(rentalDTO);
+        String resultMSG = (result.getException() == null ? "SUCCESS" : result.getException().getMessage());
+        
+        return JSONUtils.objectToJSON(resultMSG);
     }
 
     @POST
@@ -94,16 +123,6 @@ public class RESTControllerFacade extends Application {
     public String searchCopyByCopyNumber(int copyNumber) {
         ResultDTO<CopyDTO> resultDTO = _controllerFacade.searchCopyByCopyNumber(copyNumber);
         return JSONUtils.objectToJSON(resultDTO);
-    }
-
-    @POST
-    @Produces("application/json")
-    @Path("/getCustomer")
-    public String getCustomerFromID(int customerID) {
-        CustomerDTO tmpCustomer = new CustomerDTO(customerID, "", "");
-        ResultListDTO<CustomerDTO> customerDTO = _controllerFacade.searchForCustomer(tmpCustomer);
-        
-        return JSONUtils.objectToJSON(customerDTO.getListDTO());
     }
 
     @POST
