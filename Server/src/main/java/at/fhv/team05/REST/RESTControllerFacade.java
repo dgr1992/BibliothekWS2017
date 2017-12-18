@@ -8,12 +8,15 @@ import at.fhv.team05.library.dtos.*;
 import at.fhv.team05.server.Application.ControllerFacade;
 import at.fhv.team05.server.Application.LdapController;
 import at.fhv.team05.server.domain.UserAccount;
+import org.apache.commons.codec.digest.HmacUtils;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.Context;
 import java.io.StringReader;
 import java.sql.Date;
 import java.util.Calendar;
@@ -45,10 +48,35 @@ public class RESTControllerFacade extends Application {
     @POST
     @Produces("application/json")
     @Path("/searchBooks")
-    public String searchForBook(String jsonBook) {
+    public String searchForBook(@Context HttpServletRequest request, String jsonBook) {
+
+        if (checkPermission(request)) {
+            return "Permission denied!";
+        }
+
         BookDTO book = (BookDTO) JSONUtils.JSONToObject(jsonBook, BookDTO.class);
         ResultListDTO<BookDTO> resultBook = _controllerFacade.searchForBook(book);
         return JSONUtils.objectToJSON(resultBook.getListDTO());
+    }
+
+    private boolean checkPermission(HttpServletRequest headers) {
+        // Header must contain these fields
+        // Authentication: username:[digest]
+        // Date: date
+        //digest = httpMethod+requestUri
+        StringBuilder sb = new StringBuilder();
+        sb.append(headers.getMethod()).append("+").append(headers.getRequestURI());
+
+        String[] authSplitted = headers.getHeader("Authentication").split(":");
+        String username = authSplitted[0];
+        String clientDigest = authSplitted[1];
+
+        //TODO secret in db? speichern
+        String secret = "testKey";
+
+        String serverDigest = HmacUtils.hmacSha1Hex(secret.getBytes(), sb.toString().getBytes());
+
+        return serverDigest.equals(clientDigest);
     }
 
     @POST
@@ -93,22 +121,22 @@ public class RESTControllerFacade extends Application {
         */
 
         //#RealDirtyFix
-        String cleanedData = jsonObject.replace('{',' ').replace('}',' ').replace('"',' ').trim();
+        String cleanedData = jsonObject.replace('{', ' ').replace('}', ' ').replace('"', ' ').trim();
         String[] data1 = cleanedData.split(",")[0].split(":");
         String[] data2 = cleanedData.split(",")[1].split(":");
 
         int customerNumber = 0;
         int copyNumber = 0;
-        if(data1[0].contains("customerNumber")){
+        if (data1[0].contains("customerNumber")) {
             customerNumber = Integer.parseInt(data1[1].trim());
         }
-        if(data1[0].contains("copyNumber")){
+        if (data1[0].contains("copyNumber")) {
             copyNumber = Integer.parseInt(data1[1].trim());
         }
-        if(data2[0].contains("customerNumber")){
+        if (data2[0].contains("customerNumber")) {
             customerNumber = Integer.parseInt(data2[1].trim());
         }
-        if(data2[0].contains("copyNumber")){
+        if (data2[0].contains("copyNumber")) {
             copyNumber = Integer.parseInt(data2[1].trim());
         }
 
