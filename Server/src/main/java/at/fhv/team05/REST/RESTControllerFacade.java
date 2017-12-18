@@ -113,16 +113,8 @@ public class RESTControllerFacade extends Application {
 
         ResultDTO<Boolean> result = _controllerFacade.rentMedium(rentalDTO);
         String resultMSG = (result.getException() == null ? "SUCCESS" : result.getException().getMessage());
-        
-        return JSONUtils.objectToJSON(resultMSG);
-    }
 
-    @POST
-    @Produces("application/json")
-    @Path("/searchCopyByCopyNumber")
-    public String searchCopyByCopyNumber(int copyNumber) {
-        ResultDTO<CopyDTO> resultDTO = _controllerFacade.searchCopyByCopyNumber(copyNumber);
-        return JSONUtils.objectToJSON(resultDTO);
+        return JSONUtils.objectToJSON(resultMSG);
     }
 
     @POST
@@ -136,20 +128,5 @@ public class RESTControllerFacade extends Application {
             _account = _controllerFacade.getDomainAccount(accountDTO);
         }
         return JSONUtils.objectToJSON(tmpDTO);
-    }
-
-    @POST
-    @Produces("application/json")
-    @Path("/getLoanPeriod")
-    public String getLoanPeriodFor(String mediaType) {
-        ResultDTO<ConfigurationDataDTO> result;
-        if (mediaType.equalsIgnoreCase("book")) {
-            result = _controllerFacade.getConfigDTOFor("BookLoanPeriod");
-        } else if ("dvd".equalsIgnoreCase(mediaType)) {
-            result = _controllerFacade.getConfigDTOFor("DVDLoanPeriod");
-        } else {
-            result = new ResultDTO<>(null, new Exception("No loan period for " + mediaType));
-        }
-        return JSONUtils.objectToJSON(result.getDto());
     }
 }
