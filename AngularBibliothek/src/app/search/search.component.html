@@ -1,6 +1,6 @@
 <div>
   <ng-select style="width: 250px;" [options]="searchOption" placeholder="Select the Medium Type"
-             [(ngModel)]="selectedMedium">
+             [(ngModel)]="selectedMedium" (selected)="deleteInput()">
   </ng-select>
 </div>
 <br>
@@ -14,7 +14,7 @@
              [(ngModel)]="formBook.author"><br><br>
       <input style="height: 20px; width: 300px;" type="text" class="txt" name="isbn" placeholder="ISBN"
              [(ngModel)]="formBook.isbn"><br><br>
-      <input style="height: 50px; width: 300px;" type="submit" class="btn" value="Search" (click)="searchBooks()">
+      <input style="height: 23px; width: 305px;" type="submit" class="btn" value="Search" (click)="searchBooks()">
     </form>
   </div>
 </div>
@@ -28,7 +28,7 @@
              [(ngModel)]="formDvd.director"><br><br>
       <input style="height: 20px; width: 300px;" type="text" class="txt" name="asin" placeholder="ASIN"
              [(ngModel)]="formDvd.asin"><br><br>
-      <input style="height: 50px; width: 300px;" type="submit" class="btn" value="Search" (click)="searchDvds()">
+      <input style="height: 23px; width: 305px;" type="submit" class="btn" value="Search" (click)="searchDvds()">
     </form>
   </div>
 </div>

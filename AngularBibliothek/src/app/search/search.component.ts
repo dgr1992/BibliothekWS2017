@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Book } from '../book';
+import {Component, OnInit} from '@angular/core';
+import {Book} from '../book';
 import {SearchService} from "../search.service";
 import {IOption} from "ng-select";
 import {Dvd} from "../dvd";
@@ -23,7 +23,8 @@ export class SearchComponent implements OnInit {
   selectedDvd: Dvd;
   selectedMedium: String = '';
 
-  constructor(private searchService: SearchService) { }
+  constructor(private searchService: SearchService) {
+  }
 
   ngOnInit() {
   }
@@ -32,17 +33,30 @@ export class SearchComponent implements OnInit {
     this.selectedBook = book;
     this.searchService.getBookCopy(this.selectedBook).subscribe(copies => this.copies = copies);
   }
+
   onSelectDvd(dvd: Dvd) {
     this.selectedDvd = dvd;
     this.searchService.getDvdCopy(this.selectedDvd).subscribe(copies => this.copies = copies);
   }
 
   searchBooks() {
+    this.deleteDetailInfo();
     this.searchService.getBooksByInput(this.formBook).subscribe(books => this.books = books);
   }
 
   searchDvds() {
+    this.deleteDetailInfo();
     this.searchService.getDvdsByInput(this.formDvd).subscribe(dvds => this.dvds = dvds);
+  }
+
+  deleteInput() {
+    delete this.copies;
+    delete this.books;
+    delete this.dvds;
+  }
+
+  deleteDetailInfo() {
+    delete this.copies;
   }
 
   searchOption: Array<IOption> = [
