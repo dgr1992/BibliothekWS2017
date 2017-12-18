@@ -5,10 +5,6 @@ import at.fhv.team05.Utility.JSONUtils;
 import at.fhv.team05.library.ResultDTO;
 import at.fhv.team05.library.ResultListDTO;
 import at.fhv.team05.library.dtos.*;
-import at.fhv.team05.library.dtos.BookDTO;
-import at.fhv.team05.library.dtos.CopyDTO;
-import at.fhv.team05.library.dtos.DvdDTO;
-import at.fhv.team05.library.dtos.IMediumDTO;
 import at.fhv.team05.server.Application.ControllerFacade;
 import at.fhv.team05.server.Application.LdapController;
 import at.fhv.team05.server.domain.UserAccount;
@@ -36,19 +32,12 @@ public class RESTControllerFacade extends Application {
         _key = LdapController.getRandomHexString(KEY_LENGTH);
     }
 
+    //in our case we don't necessarily need this method because we only have one REST-class
     @Override
     public Set<Class<?>> getClasses() {
         HashSet h = new HashSet<Class<?>>();
         h.add(RESTControllerFacade.class);
         return h;
-    }
-
-    @GET
-    @Produces("text/plain")
-    @Path("/helloWorld")
-    public String getClichedMessage() {
-        // Return some cliched textual content
-        return "Hello World";
     }
 
     @POST
@@ -95,7 +84,7 @@ public class RESTControllerFacade extends Application {
     public String rentMedium(String jsonRental) {
         RentalDTO rentalDTO = (RentalDTO) JSONUtils.JSONToObject(jsonRental, RentalDTO.class);
         ResultDTO<Boolean> result = _controllerFacade.rentMedium(rentalDTO);
-        return JSONUtils.objectToJSON(result.getDto());
+        return JSONUtils.objectToJSON(result);
 
     }
 
@@ -104,7 +93,7 @@ public class RESTControllerFacade extends Application {
     @Path("/searchCopyByCopyNumber")
     public String searchCopyByCopyNumber(int copyNumber) {
         ResultDTO<CopyDTO> resultDTO = _controllerFacade.searchCopyByCopyNumber(copyNumber);
-        return JSONUtils.objectToJSON(resultDTO.getDto());
+        return JSONUtils.objectToJSON(resultDTO);
     }
 
     @POST
@@ -117,17 +106,17 @@ public class RESTControllerFacade extends Application {
         if (tmpDTO.getDto()) {
             _account = _controllerFacade.getDomainAccount(accountDTO);
         }
-        return JSONUtils.objectToJSON(tmpDTO.getDto());
+        return JSONUtils.objectToJSON(tmpDTO);
     }
 
     @POST
     @Produces("application/json")
     @Path("/getLoanPeriod")
-    public String getLoanPeriodFor(String mediaType)  {
+    public String getLoanPeriodFor(String mediaType) {
         ResultDTO<ConfigurationDataDTO> result;
         if (mediaType.equalsIgnoreCase("book")) {
             result = _controllerFacade.getConfigDTOFor("BookLoanPeriod");
-        } else if ("dvd".equalsIgnoreCase(mediaType)){
+        } else if ("dvd".equalsIgnoreCase(mediaType)) {
             result = _controllerFacade.getConfigDTOFor("DVDLoanPeriod");
         } else {
             result = new ResultDTO<>(null, new Exception("No loan period for " + mediaType));
