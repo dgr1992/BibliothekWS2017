@@ -72,11 +72,11 @@ public class RESTControllerFacade extends Application {
     @POST
     @Produces("application/json")
     @Path("/getCopiesByMedium")
-    public String getCopiesByMedium(String mediumDTO) {
-        JsonReader reader = Json.createReader(new StringReader(mediumDTO));
+    public String getCopiesByMedium(String jsonMedium) {
+        JsonReader reader = Json.createReader(new StringReader(jsonMedium));
         JsonObject medium = reader.readObject();
         Class clazz = (medium.getString("type").equalsIgnoreCase("book")? BookDTO.class:DvdDTO.class);
-        IMediumDTO iMedium = (IMediumDTO) JSONUtils.JSONToObject(mediumDTO, clazz);
+        IMediumDTO iMedium = (IMediumDTO) JSONUtils.JSONToObject(jsonMedium, clazz);
         ResultListDTO<CopyDTO> resultCopies = _controllerFacade.getCopiesByMedium(iMedium);
         return JSONUtils.objectToJSON(resultCopies.getListDTO());
     }
@@ -118,5 +118,20 @@ public class RESTControllerFacade extends Application {
             _account = _controllerFacade.getDomainAccount(accountDTO);
         }
         return JSONUtils.objectToJSON(tmpDTO.getDto());
+    }
+
+    @POST
+    @Produces("application/json")
+    @Path("/getLoanPeriod")
+    public String getLoanPeriodFor(String mediaType)  {
+        ResultDTO<ConfigurationDataDTO> result;
+        if (mediaType.equalsIgnoreCase("book")) {
+            result = _controllerFacade.getConfigDTOFor("BookLoanPeriod");
+        } else if ("dvd".equalsIgnoreCase(mediaType)){
+            result = _controllerFacade.getConfigDTOFor("DVDLoanPeriod");
+        } else {
+            result = new ResultDTO<>(null, new Exception("No loan period for " + mediaType));
+        }
+        return JSONUtils.objectToJSON(result.getDto());
     }
 }
