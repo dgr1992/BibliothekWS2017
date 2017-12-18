@@ -64,7 +64,7 @@ public class RESTControllerFacade extends Application {
     public String getCopiesByMedium(String jsonMedium) {
         JsonReader reader = Json.createReader(new StringReader(jsonMedium));
         JsonObject medium = reader.readObject();
-        Class clazz = (medium.getString("type").equalsIgnoreCase("book")? BookDTO.class:DvdDTO.class);
+        Class clazz = (medium.getString("type").equalsIgnoreCase("book") ? BookDTO.class : DvdDTO.class);
         IMediumDTO iMedium = (IMediumDTO) JSONUtils.JSONToObject(jsonMedium, clazz);
         ResultListDTO<CopyDTO> resultCopies = _controllerFacade.getCopiesByMedium(iMedium);
         return JSONUtils.objectToJSON(resultCopies.getListDTO());
@@ -94,6 +94,16 @@ public class RESTControllerFacade extends Application {
     public String searchCopyByCopyNumber(int copyNumber) {
         ResultDTO<CopyDTO> resultDTO = _controllerFacade.searchCopyByCopyNumber(copyNumber);
         return JSONUtils.objectToJSON(resultDTO);
+    }
+
+    @POST
+    @Produces("application/json")
+    @Path("/getCustomer")
+    public String getCustomerFromID(int customerID) {
+        CustomerDTO tmpCustomer = new CustomerDTO(customerID, "", "");
+        ResultListDTO<CustomerDTO> customerDTO = _controllerFacade.searchForCustomer(tmpCustomer);
+        
+        return JSONUtils.objectToJSON(customerDTO.getListDTO());
     }
 
     @POST
