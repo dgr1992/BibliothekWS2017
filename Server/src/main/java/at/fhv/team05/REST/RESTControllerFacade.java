@@ -49,11 +49,6 @@ public class RESTControllerFacade extends Application {
     @Produces("application/json")
     @Path("/searchBooks")
     public String searchForBook(@Context HttpServletRequest request, String jsonBook) {
-
-        if (checkPermission(request)) {
-            return "Permission denied!";
-        }
-
         BookDTO book = (BookDTO) JSONUtils.JSONToObject(jsonBook, BookDTO.class);
         ResultListDTO<BookDTO> resultBook = _controllerFacade.searchForBook(book);
         return JSONUtils.objectToJSON(resultBook.getListDTO());
@@ -111,7 +106,10 @@ public class RESTControllerFacade extends Application {
     @POST
     @Produces("application/json")
     @Path("/rentMedium")
-    public String rentMedium(String jsonObject) {
+    public String rentMedium(@Context HttpServletRequest request, String jsonObject) {
+        if (checkPermission(request)) {
+            return "Permission denied!";
+        }
         /*
         JsonReader reader = Json.createReader(new StringReader(jsonObject));
         JsonObject object = reader.readObject();
@@ -140,7 +138,6 @@ public class RESTControllerFacade extends Application {
             copyNumber = Integer.parseInt(data2[1].trim());
         }
 
-
         CustomerDTO customerDTO = _controllerFacade.searchForCustomer(new CustomerDTO(customerNumber, "", "")).getListDTO().get(0);
         CopyDTO copyDTO = _controllerFacade.searchCopyByCopyNumber(copyNumber).getDto();
 
@@ -168,16 +165,13 @@ public class RESTControllerFacade extends Application {
         return JSONUtils.objectToJSON(resultMSG);
     }
 
-    @POST
+    @GET
     @Produces("application/json")
     @Path("/authenticateUser")
-    public String authenticateUser(String jsonAccount) {
-        UserAccountDTO accountDTO = (UserAccountDTO) JSONUtils.JSONToObject(jsonAccount, UserAccountDTO.class);
-        ResultDTO<Boolean> tmpDTO = _controllerFacade.authenticateUser(accountDTO, _key);
-        //getDTO gibt true, falls login erfolgreich war, ansonsten false
-        if (tmpDTO.getDto()) {
-            _account = _controllerFacade.getDomainAccount(accountDTO);
+    public String authenticateUser(@Context HttpServletRequest request) {
+        if (checkPermission(request)) {
+            return "false";
         }
-        return JSONUtils.objectToJSON(tmpDTO);
+        return "true";
     }
 }
