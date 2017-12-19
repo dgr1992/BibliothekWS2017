@@ -17,10 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+
 import java.io.StringReader;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @ApplicationPath("/")
@@ -62,17 +67,28 @@ public class RESTControllerFacade extends Application {
         StringBuilder sb = new StringBuilder();
         sb.append(headers.getMethod()).append("+").append(headers.getRequestURI());
 
-        String[] authSplitted = headers.getHeader("Authentication").split(":");
-        String username = authSplitted[0];
-        String clientDigest = authSplitted[1];
+        //Get the authorization header entry
+        Enumeration<String> authHeaders = headers.getHeaders(HttpHeaders.AUTHORIZATION);
 
-        //TODO secret in db? speichern
-        String secret = "testKey";
+        if(authHeaders.hasMoreElements()){
+            //Get the value of the authorization header
+            String auth = authHeaders.nextElement();
+
+            //Split the string into the needed parts
+            String[] authSplitted = auth.split(" ");
+            String authType = authSplitted[0]; // eg. hmac
+            String hashedUserAndPassword = authSplitted[1]; //Contains user:password
+
+            //TODO secret in db? speichern
+            String secret = "testKey";
 
 //        String serverDigest = HmacUtils.hmacSha1Hex(secret.getBytes(), sb.toString().getBytes());
-        String serverDigest = HmacUtils.hmacSha1Hex(secret.getBytes(), sb.toString().getBytes());
+            String serverDigest = HmacUtils.hmacSha1Hex(secret.getBytes(), sb.toString().getBytes());
 
-        return serverDigest.equals(clientDigest);
+            return serverDigest.equals(hashedUserAndPassword);
+        } else{
+            return false;
+        }
     }
 
     public static void main(String[] args) {
