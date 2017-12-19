@@ -10,6 +10,7 @@ import at.fhv.team05.server.Application.LdapController;
 import at.fhv.team05.server.domain.UserAccount;
 import org.apache.commons.codec.digest.HmacUtils;
 
+import javax.crypto.spec.SecretKeySpec;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -18,8 +19,10 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.crypto.Mac;
 
 import java.io.StringReader;
+import java.nio.charset.Charset;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -64,8 +67,8 @@ public class RESTControllerFacade extends Application {
         // Authentication: username:[digest]
         // Date: date
         //digest = httpMethod+requestUri
-        StringBuilder sb = new StringBuilder();
-        sb.append(headers.getMethod()).append("+").append(headers.getRequestURI());
+        //StringBuilder sb = new StringBuilder();
+        //sb.append(headers.getMethod()).append("+").append(headers.getRequestURI());
 
         //Get the authorization header entry
         Enumeration<String> authHeaders = headers.getHeaders(HttpHeaders.AUTHORIZATION);
@@ -88,9 +91,11 @@ public class RESTControllerFacade extends Application {
             if(user.equals("remotelibrary")){
                 //String serverDigest = HmacUtils.hmacSha1Hex(secret.getBytes(), sb.toString().getBytes());
                 String toHash = "remotelibrary:remote1234";
-                //TODO: exception at this point
-                String serverDigest = HmacUtils.hmacSha1(secret.getBytes(), toHash.getBytes()).toString();
 
+                String serverDigest = generateHashed(secret,toHash);
+                if(serverDigest == null){
+                    return false;
+                }
                 return serverDigest.equals(hashedUserAndPassword);
             }
             return false;
@@ -98,6 +103,28 @@ public class RESTControllerFacade extends Application {
             return false;
         }
     }
+
+    private String toHexString(byte[] bytes) {
+        StringBuilder sb = new StringBuilder(bytes.length * 2);
+        for (int i = 0; i < bytes.length; ++i) {
+            sb.append(String.format("%02x", bytes[i]));
+        }
+        return sb.toString();
+    }
+
+    private String generateHashed(String key, String digest){
+        Mac localMac;
+        try {
+            localMac = Mac.getInstance("HmacSHA1");
+            localMac.init(new SecretKeySpec(key.getBytes("UTF-8"), localMac.getAlgorithm()));
+            byte[] result = localMac.doFinal(digest.getBytes("UTF-8"));
+            String hexString = toHexString(result);
+            return hexString;
+        } catch (Exception ex){
+            return null;
+        }
+    }
+
 
     public static void main(String[] args) {
         System.out.println(HmacUtils.hmacSha256Hex("testKey".getBytes(), "test".getBytes()));
@@ -136,7 +163,7 @@ public class RESTControllerFacade extends Application {
     @Produces("application/json")
     @Path("/rentMedium")
     public String rentMedium(@Context HttpServletRequest request, String jsonObject) {
-        if (checkPermission(request)) {
+        if (!checkPermission(request)) {
             return "Permission denied!";
         }
         /*
@@ -199,8 +226,8 @@ public class RESTControllerFacade extends Application {
     @Path("/authenticateUser")
     public String authenticateUser(@Context HttpServletRequest request) {
         if (checkPermission(request)) {
-            return "false";
+            return "true";
         }
-        return "true";
+        return "false";
     }
 }
