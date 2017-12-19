@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Book} from './book';
-import {BOOKS} from './mock-books';
 import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Dvd} from './dvd';
 import {Copy} from './copy';
 
@@ -19,7 +17,19 @@ export class SearchService {
   }
 
   getBooksByInput(formBook: Book): Observable<Book[]> {
-    return this.http.post<Book[]>(this.baseUrl + '/searchBooks', formBook);
+    //
+    // sha256.hash('stringToDigest')
+    //
+    // const hasher = new sha256.Hash();
+    // // hasher.update(data1);
+    // // hasher.update(data2);
+    // const result = hasher.digest();
+
+    return this.http.post<Book[]>(this.baseUrl + '/searchBooks', formBook
+      /*, {
+      headers: new HttpHeaders().set('Authorization', 'daniel:' + hash)
+    }*/
+    );
   }
 
   getDvdsByInput(formDvd: Dvd): Observable<Dvd[]> {
@@ -29,6 +39,7 @@ export class SearchService {
   getBookCopy(book: Book): Observable<Copy[]> {
     return this.http.post<Copy[]>(this.baseUrl + '/getCopiesByMedium', book);
   }
+
   getDvdCopy(dvd: Dvd): Observable<Copy[]> {
     return this.http.post<Copy[]>(this.baseUrl + '/getCopiesByMedium', dvd);
   }

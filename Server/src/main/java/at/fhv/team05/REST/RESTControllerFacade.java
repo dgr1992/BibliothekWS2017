@@ -74,9 +74,14 @@ public class RESTControllerFacade extends Application {
         //TODO secret in db? speichern
         String secret = "testKey";
 
+//        String serverDigest = HmacUtils.hmacSha1Hex(secret.getBytes(), sb.toString().getBytes());
         String serverDigest = HmacUtils.hmacSha1Hex(secret.getBytes(), sb.toString().getBytes());
 
         return serverDigest.equals(clientDigest);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(HmacUtils.hmacSha256Hex("testKey".getBytes(), "test".getBytes()));
     }
 
     @POST
