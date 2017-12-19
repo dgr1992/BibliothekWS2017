@@ -77,15 +77,23 @@ public class RESTControllerFacade extends Application {
             //Split the string into the needed parts
             String[] authSplitted = auth.split(" ");
             String authType = authSplitted[0]; // eg. hmac
-            String hashedUserAndPassword = authSplitted[1]; //Contains user:password
+            String userAndHash = authSplitted[1]; //Contains user:user:password
+            String user = userAndHash.split(":")[0];//user
+            String hashedUserAndPassword = userAndHash.split(":")[1];//user:password
 
             //TODO secret in db? speichern
             String secret = "testKey";
 
-//        String serverDigest = HmacUtils.hmacSha1Hex(secret.getBytes(), sb.toString().getBytes());
-            String serverDigest = HmacUtils.hmacSha1Hex(secret.getBytes(), sb.toString().getBytes());
+            //Check for user remotelibrary with password remote1234
+            if(user.equals("remotelibrary")){
+                //String serverDigest = HmacUtils.hmacSha1Hex(secret.getBytes(), sb.toString().getBytes());
+                String toHash = "remotelibrary:remote1234";
+                //TODO: exception at this point
+                String serverDigest = HmacUtils.hmacSha1(secret.getBytes(), toHash.getBytes()).toString();
 
-            return serverDigest.equals(hashedUserAndPassword);
+                return serverDigest.equals(hashedUserAndPassword);
+            }
+            return false;
         } else{
             return false;
         }
