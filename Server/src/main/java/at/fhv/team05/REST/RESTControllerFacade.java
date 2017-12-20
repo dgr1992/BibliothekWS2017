@@ -8,6 +8,8 @@ import at.fhv.team05.library.dtos.*;
 import at.fhv.team05.server.Application.ControllerFacade;
 import at.fhv.team05.server.Application.LdapController;
 import at.fhv.team05.server.domain.UserAccount;
+import at.fhv.team05.server.persistence.DatabaseConnection;
+
 import org.apache.commons.codec.digest.HmacUtils;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -35,14 +37,13 @@ import java.util.Set;
 @Path("/")
 public class RESTControllerFacade extends Application {
 
-    private final ControllerFacade _controllerFacade;
-    private final String _key;
+    private ControllerFacade _controllerFacade;
+    private String _key;
     private UserAccount _account = null;
     private static final int KEY_LENGTH = 32;
 
-    public RESTControllerFacade() {
-        _controllerFacade = ControllerFacade.getInstance();
-        _key = LdapController.getRandomHexString(KEY_LENGTH);
+    public RESTControllerFacade(){
+
     }
 
     //in our case we don't necessarily need this method because we only have one REST-class
@@ -56,20 +57,18 @@ public class RESTControllerFacade extends Application {
     @POST
     @Produces("application/json")
     @Path("/searchBooks")
-    public String searchForBook(@Context HttpServletRequest request, String jsonBook) {
+    public String searchForBook(String jsonBook) {
+        init(); //Init all needed controllers and database
+
         BookDTO book = (BookDTO) JSONUtils.JSONToObject(jsonBook, BookDTO.class);
         ResultListDTO<BookDTO> resultBook = _controllerFacade.searchForBook(book);
-        return JSONUtils.objectToJSON(resultBook.getListDTO());
+        String json = JSONUtils.objectToJSON(resultBook.getListDTO());
+
+        close(); //Close everything opened in init
+        return json;
     }
 
     private boolean checkPermission(HttpServletRequest headers) {
-        // Header must contain these fields
-        // Authentication: username:[digest]
-        // Date: date
-        //digest = httpMethod+requestUri
-        //StringBuilder sb = new StringBuilder();
-        //sb.append(headers.getMethod()).append("+").append(headers.getRequestURI());
-
         //Get the authorization header entry
         Enumeration<String> authHeaders = headers.getHeaders(HttpHeaders.AUTHORIZATION);
 
@@ -134,28 +133,45 @@ public class RESTControllerFacade extends Application {
     @Produces("application/json")
     @Path("/searchDvds")
     public String searchForDvd(String jsonDvd) {
+        init(); //Init all needed controllers and database
+
         DvdDTO dvd = (DvdDTO) JSONUtils.JSONToObject(jsonDvd, DvdDTO.class);
         ResultListDTO<DvdDTO> resultDvd = _controllerFacade.searchForDvd(dvd);
-        return JSONUtils.objectToJSON(resultDvd.getListDTO());
+
+        String json = JSONUtils.objectToJSON(resultDvd.getListDTO());
+
+        close(); //Close everything opened in init
+        return json;
     }
 
     @POST
     @Produces("application/json")
     @Path("/getCopiesByMedium")
     public String getCopiesByMedium(String jsonMedium) {
+        init(); //Init all needed controllers and database
+
         JsonReader reader = Json.createReader(new StringReader(jsonMedium));
         JsonObject medium = reader.readObject();
         Class clazz = (medium.getString("type").equalsIgnoreCase("book") ? BookDTO.class : DvdDTO.class);
         IMediumDTO iMedium = (IMediumDTO) JSONUtils.JSONToObject(jsonMedium, clazz);
         ResultListDTO<CopyDTO> resultCopies = _controllerFacade.getCopiesByMedium(iMedium);
-        return JSONUtils.objectToJSON(resultCopies.getListDTO());
+
+        String json = JSONUtils.objectToJSON(resultCopies.getListDTO());
+
+        close(); //Close everything opened in init
+        return json;
     }
 
     @GET
     @Produces("application/json")
     @Path("/getAllBooks")
     public String getAllBooks() {
-        return _controllerFacade.getAllBooksJSON();
+        init(); //Init all needed controllers and database
+
+        String json = _controllerFacade.getAllBooksJSON();
+
+        close(); //Close everything opened in init
+        return json;
     }
 
 
@@ -163,18 +179,13 @@ public class RESTControllerFacade extends Application {
     @Produces("application/json")
     @Path("/rentMedium")
     public String rentMedium(@Context HttpServletRequest request, String jsonObject) {
+        init(); //Init all needed controllers and database
+
         if (!checkPermission(request)) {
             return "Permission denied!";
         }
-        /*
-        JsonReader reader = Json.createReader(new StringReader(jsonObject));
-        JsonObject object = reader.readObject();
 
-        int customerNumber = Integer.getInteger(object.getString("customerNumber").replace('"',' ').trim());
-        int copyNumber = Integer.getInteger(object.getString("copyNumber").replace('"',' ').trim());
-        */
-
-        //#RealDirtyFix
+        //Read the json string
         String cleanedData = jsonObject.replace('{', ' ').replace('}', ' ').replace('"', ' ').trim();
         String[] data1 = cleanedData.split(",")[0].split(":");
         String[] data2 = cleanedData.split(",")[1].split(":");
@@ -218,16 +229,35 @@ public class RESTControllerFacade extends Application {
         ResultDTO<Boolean> result = _controllerFacade.rentMedium(rentalDTO);
         String resultMSG = (result.getException() == null ? "SUCCESS" : result.getException().getMessage());
 
-        return JSONUtils.objectToJSON(resultMSG);
+        String json = JSONUtils.objectToJSON(resultMSG);
+
+        close(); //Close everything opened in init
+        return json;
     }
 
     @GET
     @Produces("application/json")
     @Path("/authenticateUser")
     public String authenticateUser(@Context HttpServletRequest request) {
+        init(); //Init all needed controllers and database
         if (checkPermission(request)) {
             return "true";
         }
+        close(); //Close everything opened in init
         return "false";
+    }
+
+    private void init(){
+        _controllerFacade = ControllerFacade.getInstance();
+        _key = LdapController.getRandomHexString(KEY_LENGTH);
+    }
+
+    private void close(){
+        try{
+            DatabaseConnection.close();
+        } catch (Exception ex){
+            System.out.println(ex);
+        }
+
     }
 }
