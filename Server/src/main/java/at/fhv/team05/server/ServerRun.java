@@ -12,7 +12,7 @@ public class ServerRun {
 
     public static void main(String[] args) {
         try {
-           //ActiveMQ Connection
+            //ActiveMQ Connection
             ActiveMQCon.createConnection("tcp://127.0.0.1:61616", "MessageQueue");
 
             //Create registry for RMI

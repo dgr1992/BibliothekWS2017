@@ -16,8 +16,7 @@ public class ActiveMQCon {
 
     private ActiveMQCon(String brokerURL, String queueName) {
         try {
-            //startBroker(brokerURL);
-
+            startBroker(brokerURL);
 
             //create the connection factory
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerURL);

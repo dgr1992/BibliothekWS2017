@@ -21,6 +21,7 @@ import at.fhv.team05.library.dtos.UserAccountDTO;
 import at.fhv.team05.library.ejb.IEJBApplicationController;
 import at.fhv.team05.server.Application.ControllerFacade;
 import at.fhv.team05.server.Application.LdapController;
+import at.fhv.team05.server.Server;
 import at.fhv.team05.server.domain.Right;
 import at.fhv.team05.server.domain.UserAccount;
 
@@ -32,7 +33,7 @@ public class EJBApplicationController implements IEJBApplicationController {
     private static final int KEY_LENGTH = 32;
 
     public EJBApplicationController(){
-        _controllerFacade = ControllerFacade.getInstance();
+        _controllerFacade = Server.getInstance().getControllerFacade();
         _key = LdapController.getRandomHexString(KEY_LENGTH);
     }
 
