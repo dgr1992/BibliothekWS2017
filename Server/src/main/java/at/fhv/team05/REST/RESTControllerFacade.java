@@ -6,12 +6,8 @@ import at.fhv.team05.library.ResultDTO;
 import at.fhv.team05.library.ResultListDTO;
 import at.fhv.team05.library.dtos.*;
 import at.fhv.team05.server.Application.ControllerFacade;
-import at.fhv.team05.server.Application.LdapController;
-import at.fhv.team05.server.domain.UserAccount;
-import at.fhv.team05.server.persistence.DatabaseConnection;
 
-import org.apache.commons.codec.digest.HmacUtils;
-
+import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -21,28 +17,20 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
-import javax.crypto.Mac;
-
 import java.io.StringReader;
-import java.nio.charset.Charset;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-@ApplicationPath("/")
+@ApplicationPath("REST")
 @Path("/")
 public class RESTControllerFacade extends Application {
 
     private ControllerFacade _controllerFacade;
-    private String _key;
-    private UserAccount _account = null;
-    private static final int KEY_LENGTH = 32;
 
-    public RESTControllerFacade(){
+    public RESTControllerFacade() {
 
     }
 
@@ -72,7 +60,7 @@ public class RESTControllerFacade extends Application {
         //Get the authorization header entry
         Enumeration<String> authHeaders = headers.getHeaders(HttpHeaders.AUTHORIZATION);
 
-        if(authHeaders.hasMoreElements()){
+        if (authHeaders.hasMoreElements()) {
             //Get the value of the authorization header
             String auth = authHeaders.nextElement();
 
@@ -87,18 +75,18 @@ public class RESTControllerFacade extends Application {
             String secret = "testKey";
 
             //Check for user remotelibrary with password remote1234
-            if(user.equals("remotelibrary")){
+            if (user.equals("remotelibrary")) {
                 //String serverDigest = HmacUtils.hmacSha1Hex(secret.getBytes(), sb.toString().getBytes());
                 String toHash = "remotelibrary:remote1234";
 
-                String serverDigest = generateHashed(secret,toHash);
-                if(serverDigest == null){
+                String serverDigest = generateHashed(secret, toHash);
+                if (serverDigest == null) {
                     return false;
                 }
                 return serverDigest.equals(hashedUserAndPassword);
             }
             return false;
-        } else{
+        } else {
             return false;
         }
     }
@@ -111,7 +99,7 @@ public class RESTControllerFacade extends Application {
         return sb.toString();
     }
 
-    private String generateHashed(String key, String digest){
+    private String generateHashed(String key, String digest) {
         Mac localMac;
         try {
             localMac = Mac.getInstance("HmacSHA1");
@@ -119,14 +107,9 @@ public class RESTControllerFacade extends Application {
             byte[] result = localMac.doFinal(digest.getBytes("UTF-8"));
             String hexString = toHexString(result);
             return hexString;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             return null;
         }
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println(HmacUtils.hmacSha256Hex("testKey".getBytes(), "test".getBytes()));
     }
 
     @POST
@@ -247,17 +230,17 @@ public class RESTControllerFacade extends Application {
         return "false";
     }
 
-    private void init(){
+    private void init() {
+//        DatabaseConnection.init();
         _controllerFacade = ControllerFacade.getInstance();
-        _key = LdapController.getRandomHexString(KEY_LENGTH);
     }
 
-    private void close(){
-        try{
-            DatabaseConnection.close();
-        } catch (Exception ex){
-            System.out.println(ex);
-        }
+    private void close() {
+//        try {
+//            DatabaseConnection.close();
+//        } catch (Exception ex) {
+//            System.out.println(ex);
+//        }
 
     }
 }

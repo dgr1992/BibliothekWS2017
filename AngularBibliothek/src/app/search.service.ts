@@ -9,7 +9,7 @@ import {Copy} from './copy';
 export class SearchService {
 
   results: string[];
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = 'http://localhost:8080/BibliothekWS2017Server/REST';
 
   // private baseUrl = 'http://10.0.51.95:9000/BibliothekWS2017Server';
 
@@ -17,18 +17,7 @@ export class SearchService {
   }
 
   getBooksByInput(formBook: Book): Observable<Book[]> {
-    //
-    // sha256.hash('stringToDigest')
-    //
-    // const hasher = new sha256.Hash();
-    // // hasher.update(data1);
-    // // hasher.update(data2);
-    // const result = hasher.digest();
-
     return this.http.post<Book[]>(this.baseUrl + '/searchBooks', formBook
-      /*, {
-      headers: new HttpHeaders().set('Authorization', 'daniel:' + hash)
-    }*/
     );
   }
 
