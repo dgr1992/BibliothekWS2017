@@ -9,9 +9,9 @@ import {Copy} from './copy';
 export class SearchService {
 
   results: string[];
-  private baseUrl = 'http://localhost:8080/BibliothekWS2017Server/REST';
+  // private baseUrl = 'http://localhost:8080/BibliothekWS2017Server/REST';
 
-  // private baseUrl = 'http://localhost:9000/BibliothekWS2017Server/REST';
+  private baseUrl = 'http://10.0.51.95:9000/BibliothekWS2017Server/REST';
 
   constructor(private http: HttpClient) {
   }
