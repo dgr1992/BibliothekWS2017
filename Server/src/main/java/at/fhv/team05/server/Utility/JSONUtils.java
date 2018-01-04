@@ -1,4 +1,4 @@
-package at.fhv.team05.Utility;
+package at.fhv.team05.server.Utility;
 
 import at.fhv.team05.library.dtos.BookDTO;
 import at.fhv.team05.server.domain.medium.Book;

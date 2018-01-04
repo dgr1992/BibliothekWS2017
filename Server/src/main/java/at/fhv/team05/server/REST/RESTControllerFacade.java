@@ -1,7 +1,7 @@
-package at.fhv.team05.REST;
+package at.fhv.team05.server.REST;
 
 
-import at.fhv.team05.Utility.JSONUtils;
+import at.fhv.team05.server.Utility.JSONUtils;
 import at.fhv.team05.library.ResultDTO;
 import at.fhv.team05.library.ResultListDTO;
 import at.fhv.team05.library.dtos.*;

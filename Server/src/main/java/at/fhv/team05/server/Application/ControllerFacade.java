@@ -1,7 +1,7 @@
 package at.fhv.team05.server.Application;
 
 
-import at.fhv.team05.Utility.JSONUtils;
+import at.fhv.team05.server.Utility.JSONUtils;
 import at.fhv.team05.server.Application.medium.BookController;
 import at.fhv.team05.server.Application.medium.DvdController;
 import at.fhv.team05.library.ObjectInterfaces.IConfigurationData;
