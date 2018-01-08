@@ -1,0 +1,14 @@
+<table style="width: 40%">
+  <tr>
+    <th>Number</th>
+    <th>Status</th>
+    <th>Category</th>
+  </tr>
+  <tr>
+  <tr *ngFor="let copy of copies">
+    <td>{{copy.copyNumber}}</td>
+    <td>{{copy.copyStatus}}</td>
+    <td>{{copy.category.categoryIndex+" "+copy.category.room}}</td>
+  </tr>
+</table>
+

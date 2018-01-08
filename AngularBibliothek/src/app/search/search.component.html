@@ -1,0 +1,74 @@
+<div>
+  <ng-select style="width: 250px;" [options]="searchOption" placeholder="Select the Medium Type"
+             [(ngModel)]="selectedMedium" (selected)="deleteInput()">
+  </ng-select>
+</div>
+<br>
+
+<div *ngIf="selectedMedium.match('books')">
+  <div>
+    <form>
+      <input style="height: 20px; width: 300px;" type="text" class="txt" name="title" placeholder="Title"
+             [(ngModel)]="formBook.title"><br><br>
+      <input style="height: 20px; width: 300px;" type="text" class="txt" name="author" placeholder="Author"
+             [(ngModel)]="formBook.author"><br><br>
+      <input style="height: 20px; width: 300px;" type="text" class="txt" name="isbn" placeholder="ISBN"
+             [(ngModel)]="formBook.isbn"><br><br>
+      <input style="height: 23px; width: 305px;" type="submit" class="btn" value="Search" (click)="searchBooks()">
+    </form>
+  </div>
+</div>
+
+<div *ngIf="selectedMedium.match('dvds')">
+  <div>
+    <form>
+      <input style="height: 20px; width: 300px;" type="text" class="txt" name="title" placeholder="Title"
+             [(ngModel)]="formDvd.title"><br><br>
+      <input style="height: 20px; width: 300px;" type="text" class="txt" name="director" placeholder="Director"
+             [(ngModel)]="formDvd.director"><br><br>
+      <input style="height: 20px; width: 300px;" type="text" class="txt" name="asin" placeholder="ASIN"
+             [(ngModel)]="formDvd.asin"><br><br>
+      <input style="height: 23px; width: 305px;" type="submit" class="btn" value="Search" (click)="searchDvds()">
+    </form>
+  </div>
+</div>
+
+<br>
+
+<div *ngIf="books || dvds">
+  <h2 style="margin-left: 10px">Search Results</h2>
+
+  <div *ngIf="selectedMedium.match('books')">
+    <table style="width: 50%">
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+      </tr>
+      <tr *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelectBook(book)">
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.isbn}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngIf="selectedMedium.match('dvds')">
+    <table style="width: 50%">
+      <tr>
+        <th>Title</th>
+        <th>Director</th>
+        <th>ASIN</th>
+      </tr>
+      <tr *ngFor="let dvd of dvds" [class.selected]="dvd === selectedDvd" (click)="onSelectDvd(dvd)">
+        <td>{{dvd.title}}</td>
+        <td>{{dvd.director}}</td>
+        <td>{{dvd.asin}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngIf="copies">
+    <app-book-detail [copiesData]="copies"></app-book-detail>
+  </div>
+</div>
