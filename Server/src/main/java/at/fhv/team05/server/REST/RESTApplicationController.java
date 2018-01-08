@@ -26,11 +26,11 @@ import java.util.Set;
 
 @ApplicationPath("REST")
 @Path("/")
-public class RESTControllerFacade extends Application {
+public class RESTApplicationController extends Application {
 
     private ControllerFacade _controllerFacade;
 
-    public RESTControllerFacade() {
+    public RESTApplicationController() {
 
     }
 
@@ -38,7 +38,7 @@ public class RESTControllerFacade extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         HashSet h = new HashSet<Class<?>>();
-        h.add(RESTControllerFacade.class);
+        h.add(RESTApplicationController.class);
         return h;
     }
 
